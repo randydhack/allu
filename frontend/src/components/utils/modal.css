@@ -1,0 +1,28 @@
+.modalWrapper {
+  position: absolute;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  position: relative;
+  z-index: 60;
+}
+
+.closeButtonWrapper {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.modalBackdrop {
+  position: absolute;
+  z-index: 50;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
