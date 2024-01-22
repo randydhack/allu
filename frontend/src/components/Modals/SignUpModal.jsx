@@ -1,13 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 
 // CSS / ICONS
-import './FormStyles.scss'
+import "./FormStyles.scss";
 import { RxCross1 } from "react-icons/rx";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LoginModal() {
   // Set the type to null when clicking the close icon and closes the modal
-  const { setType } = useContext(ModalContext);
+  const { setType,  toggleLogin} = useContext(ModalContext);
 
   return (
     <div className="signup-container">
@@ -17,7 +18,6 @@ function LoginModal() {
 
         {/* FORM FIELDS */}
         <div className="field_container">
-
           <div className="field">
             <label htmlFor="email" className="label">
               Email Address<span className="asterisk">*</span>
@@ -55,8 +55,8 @@ function LoginModal() {
           </div>
 
           <div className="field">
-            <label htmlFor="password" className="lavel">
-              Password<span className="asterisk">*</span>
+            <label htmlFor="password" className="label">
+              Create a password<span className="asterisk">*</span>
             </label>
             <input
               type="password"
@@ -69,17 +69,12 @@ function LoginModal() {
 
         {/* Remember Me Toggle Button */}
 
-
         {/* Login Button */}
         <div>
-          <button
-            className="signup-button"
-          >
-            Sign In
-          </button>
+          <button className="signup-button">Sign In</button>
         </div>
 
-        <div className="create-account-link ">Already have an account?</div>
+        <div className="login-link" onClick={() => toggleLogin()}>Already have an account?</div>
       </form>
     </div>
   );
