@@ -5,10 +5,13 @@
 // how to use: <div style={style.example}>Hello Hackathon!</div>
 
 export const style = {
-  example: {
+  container: {
     width: "100%",
     height: "100vh",
-    margin: "0px 10px",
   },
+  headers: {
+    fontSize: '18px',
+    fontWeight: '500'
+  }
 
 };
