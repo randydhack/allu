@@ -1,0 +1,29 @@
+// GLOBAL CSS FOR THE ENTIRE SETTINGS FOLDER
+
+// Allow the navigation and content to be side by side
+.setting__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+// For main contents
+.setting__contents {
+    padding: 10px 25px;
+}
+
+// Navigation / Content Header
+.setting__header {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0px;
+}
+
+.setting__divider {
+    border: 0.5px #DBDBDB solid;
+    margin: 0px;
+}
+
+.setting__header__mb {
+    margin-bottom: 30px;
+}

@@ -11,6 +11,11 @@ body, html {
   font-size: 14px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
 a, a:visited, a:hover, a:active {
   color: inherit;
   text-decoration: none;

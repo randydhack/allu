@@ -1,0 +1,13 @@
+.side-navigation {
+    height: 100dvh;
+}
+
+.side-navigation__contents {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.side-navigation__left__border {
+    border-left: 0.5px solid #DBDBDB;
+}

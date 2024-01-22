@@ -6,9 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 // Context
 import { ModalProvider } from "./context/modalContext";
 
-
 // CSS
-import "./index.css";
+import "./index.scss";
 // App
 import App from "./App";
 
