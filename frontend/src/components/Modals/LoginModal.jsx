@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import { ModalContext } from "../../../context/modalContext";
+import { ModalContext } from "../../context/modalContext";
 
 // CSS / ICONS
-import './LoginStyles.scss'
+import './FormStyles.scss'
 import { RxCross1 } from "react-icons/rx";
 
 function LoginModal() {
   // Set the type to null when clicking the close icon and closes the modal
-  const { setType } = useContext(ModalContext);
+  const { setType, toggleSignUp} = useContext(ModalContext);
 
   return (
-    <div className="container">
+    <div className="login-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
       <form onSubmit={""} className="form">
         <h2 className="header">Sign In</h2>
@@ -56,13 +56,12 @@ function LoginModal() {
         {/* Login Button */}
         <div>
           <button
-            className="button"
+            className="login-button"
           >
             Sign In
           </button>
         </div>
-
-        <div className="create-account-link ">Don't have an account?</div>
+        <div className="create-account-link" onClick={toggleSignUp}>Don't have an account?</div>
       </form>
     </div>
   );

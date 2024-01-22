@@ -1,7 +1,14 @@
-.container {
+.login-container {
   background: white;
   width: 30rem;
-  height: 25rem;
+  height: 26rem;
+  border-radius: 10px;
+}
+
+.signup-container {
+  background: white;
+  width: 30rem;
+  height: 34rem;
   border-radius: 10px;
 }
 
@@ -63,13 +70,38 @@
 .create-account-link {
   color: #005db5;
   cursor: pointer;
+  width: 100%;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.login-link {
+  color: #005db5;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
   &:hover {
     text-decoration: underline;
   }
 }
 
 
-.button {
+.signup-button {
+  width: 100%;
+  height: 40px;
+  border-radius: 50px;
+  border: 0.5px solid black;
+  background-color: #181818;
+  color: white;
+  cursor: pointer;
+  margin: 20px 0px;
+  &:hover {
+        background-color: #4a4a4a;
+  }
+}
+
+.login-button {
   width: 100%;
   height: 40px;
   border-radius: 50px;
@@ -83,6 +115,7 @@
   }
 }
 
+
 .close {
   position: absolute;
   right: 15px;
@@ -90,4 +123,16 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+}
+
+.password-input-field {
+  display: flex;
+  width: 100%;
+  gap: 2px;
+  flex-direction: column;
 }
