@@ -8,12 +8,14 @@ import { ModalContext } from "../../context/modalContext";
 
 function Home() {
 
-  const {toggleLogin} = useContext(ModalContext)
+  const {toggleLogin, toggleSignUp} = useContext(ModalContext)
 
 
   return <div style={style.example}>
     <div>
-      <button onClick={(e) => toggleLogin()}>opens up modal example</button>
+      <button onClick={(e) => toggleLogin()}>opens up login modal</button>
+      <button onClick={(e) => toggleSignUp()}>opens up sign up modal</button>
+
     </div>
   </div>;
 }
