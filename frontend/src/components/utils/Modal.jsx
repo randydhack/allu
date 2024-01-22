@@ -1,12 +1,11 @@
 import { useContext } from "react";
 
 import { ModalContext } from "../../context/modalContext";
-import LoginModal from "../Modals/LoginModal";
+import LoginModal from "../Modals/Login/LoginModal";
 import './modal.css'
 
 export default function Modal(props) {
     const { type, setType } = useContext(ModalContext);
-
 
     let content = null;
 
