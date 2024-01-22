@@ -8,7 +8,7 @@ import { ModalProvider } from "./context/modalContext";
 
 
 // CSS
-import "./index.css";
+import "./index.scss";
 // App
 import App from "./App";
 

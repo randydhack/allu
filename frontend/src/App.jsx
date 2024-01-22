@@ -7,6 +7,7 @@ import Modal from "./components/utils/Modal";
 
 // Components
 import Home from "./components/Home/HomePage";
+import AccountDetail from "./components/Settings/AccountDetails/AccountDetail";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(true);
@@ -19,6 +20,8 @@ function App() {
           <Modal />
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route path="/account-details" element={<AccountDetail />} /> {/* Path will be more specific, leave for now*/}
+
             <Route path="" element={""} />
           </Routes>
         </>
