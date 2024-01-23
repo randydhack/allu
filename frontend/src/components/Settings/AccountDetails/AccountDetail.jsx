@@ -14,9 +14,6 @@ function AccountDetail() {
   const [lastName, setLastName] = useState("");
 
   return (
-    <div className="container">
-      <div className="setting__container">
-        <SideNavigation />
         <div className="setting__contents setting__background">
           {/* HEADING */}
           <div className="setting__header__mb">
@@ -32,7 +29,7 @@ function AccountDetail() {
             </div>
 
             {/* Form for updating first name and last name */}
-            <form className="account-form" onSubmit={""}>
+            <form className="account-form" onSubmit={()=>''}>
               <div className="account-form__field">
                 <label htmlFor="first_name">First Name</label>
                 <input
@@ -58,11 +55,8 @@ function AccountDetail() {
               </div>
             </form>
 
-
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 
