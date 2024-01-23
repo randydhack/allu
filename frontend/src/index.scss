@@ -1,14 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body, html {
-  margin: 0;
+  margin: 0px;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0;
+  padding: 0px;
   font-size: 14px;
+  background-color: #F8F9FA;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 a, a:visited, a:hover, a:active {

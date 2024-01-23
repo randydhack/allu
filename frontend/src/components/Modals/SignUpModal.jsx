@@ -4,9 +4,8 @@ import { ModalContext } from "../../context/modalContext";
 // CSS / ICONS
 import "./FormStyles.scss";
 import { RxCross1 } from "react-icons/rx";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-function LoginModal() {
+function SignUpModal() {
   // Set the type to null when clicking the close icon and closes the modal
   const { setType,  toggleLogin} = useContext(ModalContext);
 
@@ -80,4 +79,4 @@ function LoginModal() {
   );
 }
 
-export default LoginModal;
+export default SignUpModal;
