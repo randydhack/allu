@@ -13,18 +13,18 @@ module.exports = {
    return queryInterface.bulkInsert(options, [
     {
       name: "T-Shirt",
-      colors: "red-green-blue",
+      colors: "pink-red-green-blue",
       size: "xxs-xs-s-m-l-xl-xxl",
 
     },
     {
       name: "Sweater",
-      colors: "red-yellow-orange-white-black",
+      colors: "blue-red-yellow-orange-white-black",
       size: "s-m-l-xl-xxl",
     },
     {
       name: "Longsleeve",
-      colors: "blue-black-white-gray",
+      colors: "red-blue-black-white-gray",
       size: "xs-s-m-l-xl",
     },
    ])
