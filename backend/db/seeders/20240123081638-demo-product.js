@@ -12,17 +12,20 @@ module.exports = {
     options.tableName = 'Products';
    return queryInterface.bulkInsert(options, [
     {
+      id: 1,
       name: "T-Shirt",
       colors: "pink-red-green-blue",
       size: "xxs-xs-s-m-l-xl-xxl",
 
     },
     {
+      id: 2,
       name: "Sweater",
       colors: "blue-red-yellow-orange-white-black",
       size: "s-m-l-xl-xxl",
     },
     {
+      id: 3,
       name: "Longsleeve",
       colors: "red-blue-black-white-gray",
       size: "xs-s-m-l-xl",
