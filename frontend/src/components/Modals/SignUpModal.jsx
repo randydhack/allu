@@ -4,7 +4,6 @@ import { ModalContext } from "../../context/modalContext";
 // CSS / ICONS
 import "./FormStyles.scss";
 import { RxCross1 } from "react-icons/rx";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LoginModal() {
   // Set the type to null when clicking the close icon and closes the modal

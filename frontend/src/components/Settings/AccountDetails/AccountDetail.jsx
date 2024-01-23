@@ -10,6 +10,9 @@ import "../Settings.scss";
 import SideNavigation from "../SideNavigation/SideNavigation";
 
 function AccountDetail() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   return (
     <div className="container">
       <div className="setting__container">
@@ -28,17 +31,34 @@ function AccountDetail() {
               <div className="font-light">johndoe@yahoo.com</div>
             </div>
 
-            <form className="account-form" onSubmit={''}>
+            {/* Form for updating first name and last name */}
+            <form className="account-form" onSubmit={""}>
               <div className="account-form__field">
                 <label htmlFor="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" className="account-form__input"/>
+                <input
+                  type="text"
+                  id="first_name"
+                  name="first_name"
+                  className="account-form__input"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </div>
 
               <div className="account-form__field">
                 <label htmlFor="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" className="account-form__input"/>
+                <input
+                  type="text"
+                  id="last_name"
+                  name="last_name"
+                  className="account-form__input"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
               </div>
             </form>
+
+
           </div>
         </div>
       </div>
