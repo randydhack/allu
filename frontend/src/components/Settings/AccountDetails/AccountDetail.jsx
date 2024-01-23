@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import "./AccountDetail.scss";
 import "../../utils/DefaultStyles.scss";
 import "../Settings.scss";
-import { increment, decrement, incrementByAmount } from "../../../store/counterSlice"
+import { increment, decrement, incrementByAmount, incrementAsync} from "../../../store/counterSlice"
 
 // Components
 import SideNavigation from "../SideNavigation/SideNavigation";
@@ -54,6 +54,7 @@ function AccountDetail() {
           <button onClick={() => dispatch(increment())}>Increment</button>
           <button onClick={() => dispatch(decrement())}>Decrement</button>
           <button onClick={() => dispatch(incrementByAmount(5))}>Increment by 5</button>
+          <button onClick={() => dispatch(incrementAsync(5))}>Increment Async by 5</button>
         </div>
       </div>
     </div>
