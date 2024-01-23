@@ -8,10 +8,10 @@ function SideNavigation() {
       <div className="setting__contents">
         <div className="setting__header setting__header__mb">Settings</div>
         <div className="side-navigation__contents">
-          <NavLink>Account Details</NavLink>
-          <NavLink>Order History</NavLink>
-          <NavLink>Change Email</NavLink>
-          <NavLink>Change Password</NavLink>
+          <NavLink className="side-navigation-links">Account Details</NavLink>
+          <NavLink className="side-navigation-links">Order History</NavLink>
+          <NavLink className="side-navigation-links">Change Email</NavLink>
+          <NavLink className="side-navigation-links">Change Password</NavLink>
           <div>LOGOUT</div>
         </div>
       </div>

@@ -1,7 +1,3 @@
-.account-detail-background {
-    background-color: #F8F8F8;
-}
-
 .account-form {
     display: flex;
     gap: 25px;
@@ -10,4 +6,18 @@
 .account-form__field {
     display: flex;
     flex-direction: column;
+}
+
+.account-form__content__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account-form__input {
+    height: 25px;
+    background-color: rgb(193, 193, 193);
+    border-style: none;
+    border: 1px rgb(81, 81, 81) solid;
+    border-radius: 2px;
 }
