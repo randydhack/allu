@@ -16,6 +16,7 @@ import ChangePassword from "./components/Settings/ChangePassword/ChangePassword"
 // CSS
 import "./components/utils/DefaultStyles.scss";
 import "./components/Settings/Settings.scss";
+import Navbar from "./components/Navigation/Navbar";
 
 // Settings Wrapper
 const SettingsWrapper = ({ children }) => (
@@ -36,6 +37,7 @@ function App() {
       {isLoaded && (
         <>
           <Modal />
+          <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/account-details" element={<SettingsWrapper><AccountDetail /></SettingsWrapper>} />
