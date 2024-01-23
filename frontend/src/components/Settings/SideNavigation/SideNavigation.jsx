@@ -1,5 +1,20 @@
+// Libaries
 import { NavLink } from "react-router-dom";
 
+// Icons
+import { HiOutlineMail } from "react-icons/hi";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { IoKeyOutline } from "react-icons/io5";
+import { TbTruckDelivery } from "react-icons/tb";
+import { IoLogOutOutline } from "react-icons/io5";
+
+
+
+
+
+
+
+// CSS
 import "./SideNavigation.scss";
 
 function SideNavigation() {
@@ -8,11 +23,11 @@ function SideNavigation() {
       <div className="setting__contents">
         <div className="setting__header setting__header__mb">Settings</div>
         <div className="side-navigation__contents">
-          <NavLink className="side-navigation-links">Account Details</NavLink>
-          <NavLink className="side-navigation-links">Order History</NavLink>
-          <NavLink className="side-navigation-links">Change Email</NavLink>
-          <NavLink className="side-navigation-links">Change Password</NavLink>
-          <div>LOGOUT</div>
+          <NavLink to='/account-details' className="side-navigation-links"><MdOutlineManageAccounts /> Account Details</NavLink>
+          <NavLink to='/order-history' className="side-navigation-links"><TbTruckDelivery /> Order History</NavLink>
+          <NavLink to='/change-email' className="side-navigation-links"><HiOutlineMail /> Change Email</NavLink>
+          <NavLink to='/change-password'className="side-navigation-links"><IoKeyOutline /> Change Password</NavLink>
+          <div className="side-navigation-links"><IoLogOutOutline/> Log out</div>
         </div>
       </div>
     </div>
