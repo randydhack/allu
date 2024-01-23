@@ -12,6 +12,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'Users'}
       },
       address: {
         type: Sequelize.STRING
@@ -19,6 +20,7 @@ module.exports = {
       productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'Products'}
       },
       colors: {
         type: Sequelize.STRING,
@@ -32,10 +34,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       design: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'Designs'}
       },
       user_design: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'UserDesigns'}
       },
       workforce_race: {
         type: Sequelize.BOOLEAN
