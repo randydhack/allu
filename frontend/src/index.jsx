@@ -1,6 +1,8 @@
 // Packages
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from 'react-redux';
+import { store } from './store/index';
 import { BrowserRouter } from "react-router-dom";
 
 // Context
@@ -22,9 +24,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // after the App component so that all the Modal content will be layered as
 // HTML elements on top of the all the other HTML elements:
 root.render(
+  <Provider store={store}>
     <ModalProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ModalProvider>
+    </Provider>
 );
