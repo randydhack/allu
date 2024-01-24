@@ -18,6 +18,7 @@ import "./components/utils/DefaultStyles.scss";
 import "./components/Settings/Settings.scss";
 import Navbar from "./components/Navigation/Navbar";
 import Footer from "./components/Footer/Footer";
+import OurDesigns from "./components/OurDesigns/OurDesigns";
 
 // Settings Wrapper
 const SettingsWrapper = ({ children }) => (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/order-history" element={<SettingsWrapper><OrderHistory /></SettingsWrapper>} />
             <Route path="/change-email" element={<SettingsWrapper><ChangeEmail /></SettingsWrapper>} />
             <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
+            <Route path="/our-designs" element={<OurDesigns/>}/>
           </Routes>
           <Footer/>
         </>
