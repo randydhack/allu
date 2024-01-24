@@ -21,21 +21,23 @@ function ChangeEmail() {
             confirmation
           </p>
         </div>
-        <div>
+        <div className="email_header">
           <p>Current Email</p>
         </div>
         <div>
           <p className="current_email">johndoe@gmail.com</p>
         </div>
-        <div className="confirmation_guide"></div>
-        <div className="change_email_guide">
-          <p>
-            Once you click the button below, a link will be sent to your email
-            inbox with instructions on how to change your email.
-          </p>
-        </div>
-        <div className="change_email_btn">
-          <button>send email change link</button>
+
+        <div className="confirmation_guide">
+          <div className="change_email_guide">
+            <p>
+              Once you click the button below, a link will be sent to your email
+              inbox with instructions on how to change your email.
+            </p>
+          </div>
+          <div className="change_email_btn">
+            <button>send email change link</button>
+          </div>
         </div>
       </div>
     </div>
