@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Cart.belongsTo(models.User, { foreignKey:'userId' })
+      Cart.belongsToMany(models.Batch, {through: "CartBatches"})
       // didn't understand the product to batches association in Order model
     }
   }

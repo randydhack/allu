@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Batch.hasOne(models.Product, { foreignKey:'productId' })
       Batch.hasOne(models.Design, { foreignKey:'designId' })
       Batch.hasOne(models.UserDesign, { foreignKey:'userDesignId' })
+      Batch.belongsToMany(models.Order, { through: "OrderProducts"})
+      Batch.belongsToMany(models.Cart, { through: "CartProducts"})
     }
   }
   Batch.init({
