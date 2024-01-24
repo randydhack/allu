@@ -2,47 +2,52 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Orders', {
+    await queryInterface.createTable('Batches', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      address: {
-        type: Sequelize.STRING
-      },
       productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'Products'}
       },
-      colors: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      xs: {
+        type: Sequelize.INTEGER,
       },
-      sizes: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      s: {
+        type: Sequelize.INTEGER,
       },
-      special_request: {
-        type: Sequelize.STRING
+      m: {
+        type: Sequelize.INTEGER,
       },
-      design: {
-        type: Sequelize.INTEGER
+      l: {
+        type: Sequelize.INTEGER,
       },
-      user_design: {
-        type: Sequelize.INTEGER
+      xl: {
+        type: Sequelize.INTEGER,
       },
-      workforce_race: {
-        type: Sequelize.BOOLEAN
+      xxl: {
+        type: Sequelize.INTEGER,
       },
-      processed: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+      xxxl: {
+        type: Sequelize.INTEGER,
+      },
+      xxxxl: {
+        type: Sequelize.INTEGER,
+      },
+      xxxxxl: {
+        type: Sequelize.INTEGER,
+      },
+      designId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Designs'}
+      },
+      userDesignId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'UserDesigns'}
       },
       createdAt: {
         allowNull: false,
@@ -57,6 +62,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('Batches');
   }
 };
