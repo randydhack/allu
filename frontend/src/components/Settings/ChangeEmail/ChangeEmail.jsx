@@ -36,7 +36,7 @@ function ChangeEmail() {
             </p>
           </div>
           <div className="change_email_btn">
-            <button>send email change link</button>
+            <button type="submit">send email change link</button>
           </div>
         </div>
       </div>

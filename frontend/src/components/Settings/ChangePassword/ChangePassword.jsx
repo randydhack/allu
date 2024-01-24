@@ -32,7 +32,17 @@ function ChangePassword() {
           />
           <p className="pw_guide">At least 8 characters long</p>
         </div>
-        <button type="submit">Update Password</button>
+        <div className="confirmation_guide">
+          <div className="change_email_guide">
+            <p>
+              Once you click the button below, a link will be sent to your email
+              inbox with instructions on how to change your email.
+            </p>
+          </div>
+          <div className="change_pw_btn">
+            <button type="submit">Update Password</button>
+          </div>
+        </div>
       </form>
     </div>
   );
