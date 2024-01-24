@@ -14,30 +14,30 @@ module.exports = {
         id: 1,
         userId: 2,
         address: "123 Fargo Street",
+        products: JSON.stringify([]),
+        special_request: "I am a little lost on designs, so I picked one from your selection.",
         quote: 1.50,
         workforce_race: false,
         processed: true,
-        special_request: "I am a little lost on designs, so I picked one from your selection."
       },
       {
         id: 2,
         userId: 3,
         address: "456 Jango Street",
+        products: JSON.stringify([]),
         quote: 400.50,
-        design: 5,
         workforce_race: false,
         processed: false,
-
       },
       {
         id: 3,
         userId: 4,
         address: "789 Ground Street",
+        products: JSON.stringify([]),
         quote: 505.50,
-        user_design: 3,
+        special_request: "Make this order snappy",
         workforce_race: true,
         processed: false,
-        special_request: "Make this order snappy"
       }
     ], {});
 

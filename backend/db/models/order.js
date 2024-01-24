@@ -2,9 +2,8 @@
 const {
   Model
 } = require('sequelize');
-const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
-  class Product extends Model {
+  class Order extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,43 +11,48 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.hasMany(models.ProductImage, { foreignKey:'productId' })
-      Product.hasOne(models.Batch, { foreignKey:'productId' })
+      Order.belongsTo(models.User, { foreignKey:'userId' })
+      // didn't understand the product to batches association in Cart model
     }
   }
-  Product.init({
-    name: {
+  Order.init({
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    address: {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    colors: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    size: {
+    products: {
       type: DataTypes.TEXT,
       allowNull: false,
       get() {
         // Parse the stored JSON string into an array
-        const value = this.getDataValue('size');
+        const value = this.getDataValue('products');
         return value ? JSON.parse(value) : [];
       },
       set(value) {
         // Store the array as a JSON string
-        this.setDataValue('size', JSON.stringify(value));
+        this.setDataValue('products', JSON.stringify(value));
       },
     },
-    description: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    price: {
+    special_request: DataTypes.STRING,
+    quote: {
       allowNull: false,
       type: DataTypes.FLOAT,
+    },
+    workforce_race: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+    },
+    processed: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
     }
   }, {
     sequelize,
-    modelName: 'Product',
+    modelName: 'Order',
   });
-  return Product;
+  return Order;
 };
