@@ -14,21 +14,26 @@ module.exports = {
     {
       id: 1,
       name: "T-Shirt",
-      colors: "pink-red-green-blue",
-      size: "xxs-xs-s-m-l-xl-xxl",
-
+      colors: JSON.stringify(["pink", "red", "green", "blue"]),
+      size: JSON.stringify(["small", "medium", "large", "x-large"]),
+      description: "Sizes larger than xl will vary in price.",
+      price: 9.99
     },
     {
       id: 2,
       name: "Sweater",
-      colors: "blue-red-yellow-orange-white-black",
-      size: "s-m-l-xl-xxl",
+      colors: JSON.stringify(["black", "orange", "pink", "red", "green", "blue"]),
+      size: JSON.stringify(["x-small", "small", "medium", "large"]),
+      description: "Sizes larger than xl will vary in price.",
+      price: 15.99
     },
     {
       id: 3,
       name: "Longsleeve",
-      colors: "red-blue-black-white-gray",
-      size: "xs-s-m-l-xl",
+      colors: JSON.stringify(["red", "blue", "black", "pink", "red", "green", "blue"]),
+      size: JSON.stringify(["small", "medium", "large"]),
+      description: "Sizes larger than xl will vary in price.",
+      price: 12.99
     },
    ])
   },

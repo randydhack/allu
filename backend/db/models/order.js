@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Order.belongsTo(models.User, { foreignKey:'userId' })
+      Order.belongsToMany(models.Batch, { through: "OrderBatches"})
+      // didn't understand the product to batches association in Cart model
     }
   }
   Order.init({
@@ -22,22 +25,28 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    productId: {
+    products: {
+      type: DataTypes.TEXT,
       allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    colors: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    sizes: {
-      allowNull: false,
-      type: DataTypes.STRING,
+      get() {
+        // Parse the stored JSON string into an array
+        const value = this.getDataValue('products');
+        return value ? JSON.parse(value) : [];
+      },
+      set(value) {
+        // Store the array as a JSON string
+        this.setDataValue('products', JSON.stringify(value));
+      },
     },
     special_request: DataTypes.STRING,
-    design: DataTypes.INTEGER,
-    user_design: DataTypes.INTEGER,
-    workforce_race: DataTypes.BOOLEAN,
+    quote: {
+      allowNull: false,
+      type: DataTypes.FLOAT,
+    },
+    workforce_race: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+    },
     processed: {
       allowNull: false,
       type: DataTypes.BOOLEAN,
