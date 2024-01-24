@@ -21,8 +21,8 @@ module.exports = {
         allowNull: false,
       },
       size: {
-          type: DataTypes.JSON,
-          defaultValue: ["Test1", "Test2", "Test3"],
+          type: Sequelize.TEXT,
+          defaultValue: JSON.stringify(["Test1", "Test2", "Test3"]),
           allowNull: false
       },
       description: {

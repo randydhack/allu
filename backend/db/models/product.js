@@ -25,8 +25,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     size: {
-        type: DataTypes.JSON,
-        defaultValue: ['Test1', "Test2", "Test3"]
+      type: DataTypes.TEXT,
+      allowNull: false,
+      get() {
+        // Parse the stored JSON string into an array
+        const value = this.getDataValue('size');
+        return value ? JSON.parse(value) : [];
+      },
+      set(value) {
+        // Store the array as a JSON string
+        this.setDataValue('size', JSON.stringify(value));
+      },
+
     },
     description: {
       allowNull: false,

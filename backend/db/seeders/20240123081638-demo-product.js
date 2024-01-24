@@ -15,7 +15,7 @@ module.exports = {
       id: 1,
       name: "T-Shirt",
       colors: "pink-red-green-blue",
-      size: ["small", "medium", "large", "x-large"],
+      size: JSON.stringify(["small", "medium", "large", "x-large"]),
       description: "Sizes larger than xl will vary in price.",
       price: 9.99
     },
@@ -23,7 +23,7 @@ module.exports = {
       id: 2,
       name: "Sweater",
       colors: "blue-red-yellow-orange-white-black",
-      size: ["x-small", "small", "medium", "large"],
+      size: JSON.stringify(["x-small", "small", "medium", "large"]),
       description: "Sizes larger than xl will vary in price.",
       price: 15.99
     },
@@ -31,7 +31,7 @@ module.exports = {
       id: 3,
       name: "Longsleeve",
       colors: "red-blue-black-white-gray",
-      size: ["small", "medium", "large"],
+      size: JSON.stringify(["small", "medium", "large"]),
       description: "Sizes larger than xl will vary in price.",
       price: 12.99
     },
