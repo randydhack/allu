@@ -3,8 +3,6 @@ import "./ChangePassword.scss";
 
 // Libaries
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 
 function ChangePassword() {
   return (
@@ -15,16 +13,16 @@ function ChangePassword() {
         <hr className="setting__divider"></hr>
       </div>
       <h2>Update Password</h2>
-      <form action="/update-password" method="post">
-        <div class="form-group">
+      <form className="password_form" action="/update_password" method="post">
+        <div class="form_group">
           <label for="oldPassword">Old Password:</label>
           <input type="password" id="oldPassword" name="oldPassword" required />
         </div>
-        <div class="form-group">
+        <div class="form_group">
           <label for="newPassword">New Password:</label>
           <input type="password" id="newPassword" name="newPassword" required />
         </div>
-        <div class="form-group">
+        <div class="form_group">
           <label for="confirmNewPassword">Retype New Password:</label>
           <input
             type="password"
@@ -32,6 +30,7 @@ function ChangePassword() {
             name="confirmNewPassword"
             required
           />
+          <p className="pw_guide">At least 8 characters long</p>
         </div>
         <button type="submit">Update Password</button>
       </form>
