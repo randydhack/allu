@@ -1,0 +1,67 @@
+
+
+
+.home {
+    padding: 100px 150px;
+    display: grid;
+    gap: 50px;
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.home__left__container {
+
+}
+
+.home__left__heading {
+    h1 {
+        font-size: 64px;
+        margin: 0px;
+        line-height: 70px
+    };
+
+    h3 {
+        margin: 0px;
+    }
+
+}
+
+.home__left__infos {
+    display: flex;
+}
+
+.home__left__buttons {
+
+}
+
+.home__left__choose__design {
+    text-align: center;
+}
+
+// DIVIDER
+
+.divider {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+
+    :first-child {
+        border-top: 1px;
+        border: 1px black solid;
+        flex: auto;
+        min-width: 1px;
+    }
+
+    :nth-child(2) {
+        padding: 0px 10px;
+    }
+
+    :last-child {
+        border-top: 1px;
+        border: 1px black solid;
+        flex: auto;
+        min-width: 1px;
+    }
+
+}
