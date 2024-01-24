@@ -5,7 +5,7 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
-// The check function from express-validator will be used with 
+// The check function from express-validator will be used with
 // the handleValidationErrors to validate the body of a request
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -37,19 +37,18 @@ router.post(
       err.errors = ['The provided credentials were invalid.'];
       return next(err);
     }
-
-    if(!credential || !password || credential === "" || password === "") {
-      return res.json({
-        message: "Validation error",
-        statusCode: 400,
-        errors: {
-          credential: "Email is required",
-          password: "Password is required"
-        }
-      })
-    }
+    //just remove code below bc redundant with line 33
+    // if(!credential || !password || credential === "" || password === "") {
+    //   return res.json({
+    //     message: "Validation error",
+    //     statusCode: 400,
+    //     errors: {
+    //       credential: "Email is required",
+    //       password: "Password is required"
+    //     }
+    //   })
+    // }
     let token = await setTokenCookie(res, user);
-
     return res.json({
       id: user.id,
       firstName: user.firstName,
