@@ -17,7 +17,8 @@ module.exports = {
         allowNull: false,
       },
       colors: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
+        defaultValue: JSON.stringify(["red", "green", "blue"]),
         allowNull: false,
       },
       size: {

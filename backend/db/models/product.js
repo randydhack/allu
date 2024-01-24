@@ -23,11 +23,20 @@ module.exports = (sequelize, DataTypes) => {
     },
     colors: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      get() {
+        // Parse the stored JSON string into an array
+        const value = this.getDataValue('colors');
+        return value ? JSON.parse(value) : [];
+      },
+      set(value) {
+        // Store the array as a JSON string
+        this.setDataValue('colors', JSON.stringify(value));
+      },
     },
     size: {
-      type: DataTypes.TEXT,
       allowNull: false,
+      type: DataTypes.TEXT,
       get() {
         // Parse the stored JSON string into an array
         const value = this.getDataValue('size');
