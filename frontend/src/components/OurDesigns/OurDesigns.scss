@@ -28,13 +28,21 @@ $banner-color: gray;
     margin: 10px 0px;
 }
 
+.design__selections {
+    margin: 100px;
+}
+
 .fake {
     display: grid;
-    grid-template-columns: repeat(1,2fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(3, 300px);
     align-items: center;
+    text-align: center;
+    grid-gap: 6rem;
+    grid-auto-flow: dense;
 }
 
 .fakeimage {
-    width: 50px;
-    height: 50px;
+    width: 300px;
+    height: 300px;
 }

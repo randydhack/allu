@@ -28,6 +28,7 @@ function OurDesigns() {
                 return (
                     <div >
                         <img src={el.image} alt="image" className='fakeimage'/>
+                        <p>{el.productName}</p>
                     </div>
                 )
             })}
