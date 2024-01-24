@@ -35,6 +35,8 @@ router.post(
       err.status = 401;
       err.title = 'Login failed';
       err.errors = ['The provided credentials were invalid.'];
+      err.message = "Invalid Credentials"
+      err.statusCode = 401
       return next(err);
     }
     //just remove code below bc redundant with line 33
@@ -50,11 +52,13 @@ router.post(
     // }
     let token = await setTokenCookie(res, user);
     return res.json({
+      user: {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       token: token
+      }
     });
   }
 );
