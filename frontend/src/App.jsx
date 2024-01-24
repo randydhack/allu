@@ -17,6 +17,7 @@ import ChangePassword from "./components/Settings/ChangePassword/ChangePassword"
 import "./components/utils/DefaultStyles.scss";
 import "./components/Settings/Settings.scss";
 import Navbar from "./components/Navigation/Navbar";
+import Footer from "./components/Footer/Footer";
 
 // Settings Wrapper
 const SettingsWrapper = ({ children }) => (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/change-email" element={<SettingsWrapper><ChangeEmail /></SettingsWrapper>} />
             <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
           </Routes>
+          <Footer/>
         </>
       )}
     </>

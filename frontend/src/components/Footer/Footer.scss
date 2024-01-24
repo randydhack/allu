@@ -1,0 +1,42 @@
+$footer-background: #637DA5;
+$footer-copyright-background: #486592;
+
+
+.footer {
+    color: white;
+}
+
+.footer__main {
+    background-color: $footer-background;
+    height: 200px;
+    width: 100%;
+    padding: 10px 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.showroom__header {
+    margin: 10px 0px;
+}
+
+.showroom__schedule {
+    display: flex;
+    gap: 10px;
+
+    :first-child p {
+        margin: 0px;
+    }
+
+    :last-child p {
+        margin: 0px;
+    }
+}
+
+.footer__copyright {
+    padding: 5px 0px;
+    text-align: center;
+    color: white;
+    background-color: $footer-copyright-background;
+}
