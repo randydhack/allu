@@ -14,31 +14,31 @@ module.exports = {
         allowNull: false,
         references: { model: 'Products'}
       },
-      xs: {
+      XS: {
         type: Sequelize.INTEGER
       },
-      s: {
+      S: {
         type: Sequelize.INTEGER
       },
-      m: {
+      M: {
         type: Sequelize.INTEGER
       },
-      l: {
+      L: {
         type: Sequelize.INTEGER
       },
-      xl: {
+      XL: {
         type: Sequelize.INTEGER
       },
-      xxl: {
+      "2XL": {
         type: Sequelize.INTEGER
       },
-      xxxl: {
+      "3XL": {
         type: Sequelize.INTEGER
       },
-      xxxxl: {
+      "4XL": {
         type: Sequelize.INTEGER
       },
-      xxxxxl: {
+      "5XL": {
         type: Sequelize.INTEGER
       },
       designId: {
