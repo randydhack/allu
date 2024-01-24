@@ -13,25 +13,25 @@ module.exports = {
       {
         id: 1,
         productId: 1,
-        XS: 5,
-        S:5,
-        M: 5,
+        xs: 5,
+        s:5,
+        m: 5,
         designId: 3
       },
       {
         id: 2,
         productId: 2,
-        S: 5,
-        M: 5,
-        L: 10,
+        s: 5,
+        m: 5,
+        l: 10,
         designId: 2
       },
       {
         id: 3,
         productId: 3,
-        L: 5,
-        XL: 10,
-        "2XL": 10,
+        l: 5,
+        xl: 10,
+        xxl: 10,
         userDesignId: 4
       }
     ], {});

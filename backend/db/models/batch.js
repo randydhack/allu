@@ -1,46 +1,61 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Batch extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
-      Batch.hasOne(models.Product, { foreignKey:'productId' })
-      Batch.hasOne(models.Design, { foreignKey:'designId' })
-      Batch.hasOne(models.UserDesign, { foreignKey:'userDesignId' })
-      Batch.belongsToMany(models.Order, { through: "OrderProducts"})
-      Batch.belongsToMany(models.Cart, { through: "CartProducts"})
+      Batch.hasOne(models.Product, { foreignKey: "productId" });
+      Batch.hasOne(models.Design, { foreignKey: "designId" });
+      Batch.hasOne(models.UserDesign, { foreignKey: "userDesignId" });
+      Batch.belongsToMany(models.Order, { through: "OrderProducts" });
+      Batch.belongsToMany(models.Cart, { through: "CartProducts" });
     }
   }
-  Batch.init({
-    productId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
+  Batch.init(
+    {
+      productId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      xs: {
+        type: DataTypes.INTEGER,
+      },
+      s: {
+        type: DataTypes.INTEGER,
+      },
+      m: {
+        type: DataTypes.INTEGER,
+      },
+      l: {
+        type: DataTypes.INTEGER,
+      },
+      xl: {
+        type: DataTypes.INTEGER,
+      },
+      xxl: {
+        type: DataTypes.INTEGER,
+      },
+      xxxl: {
+        type: DataTypes.INTEGER,
+      },
+      xxxxl: {
+        type: DataTypes.INTEGER,
+      },
+      xxxxxl: {
+        type: DataTypes.INTEGER,
+      },
+      designId: {
+        type: DataTypes.INTEGER,
+      },
+      userDesignId: {
+        type: DataTypes.INTEGER,
+      },
     },
-    XS: DataTypes.INTEGER,
-    S: DataTypes.INTEGER,
-    M: DataTypes.INTEGER,
-    "L": DataTypes.INTEGER,
-    "XL": DataTypes.INTEGER,
-    "2XL": DataTypes.INTEGER,
-    "3XL": DataTypes.INTEGER,
-    "4XL": DataTypes.INTEGER,
-    "5XL:": DataTypes.INTEGER,
-    designId: {
-      type: DataTypes.INTEGER,
-    },
-    userDesignId: {
-      type: DataTypes.INTEGER,
+    {
+      sequelize,
+      modelName: "Batch",
     }
-  }, {
-    sequelize,
-    modelName: 'Batch',
-  });
+  );
   return Batch;
 };

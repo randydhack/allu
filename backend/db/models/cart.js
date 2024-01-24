@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Cart extends Model {
 
     static associate(models) {
-      
+
       Cart.belongsTo(models.User, { foreignKey:'userId' })
       Cart.belongsToMany(models.Batch, {through: "CartBatches"})
     }
