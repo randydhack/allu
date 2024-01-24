@@ -16,19 +16,24 @@ module.exports = {
       name: "T-Shirt",
       colors: "pink-red-green-blue",
       size: "xxs-xs-s-m-l-xl-xxl",
-
+      description: "Sizes larger than xl will vary in price.",
+      price: 9.99
     },
     {
       id: 2,
       name: "Sweater",
       colors: "blue-red-yellow-orange-white-black",
       size: "s-m-l-xl-xxl",
+      description: "Sizes larger than xl will vary in price.",
+      price: 15.99
     },
     {
       id: 3,
       name: "Longsleeve",
       colors: "red-blue-black-white-gray",
       size: "xs-s-m-l-xl",
+      description: "Sizes larger than xl will vary in price.",
+      price: 12.99
     },
    ])
   },

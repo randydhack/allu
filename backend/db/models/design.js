@@ -11,13 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Design.belongsTo(models.Order, { foreignKey: 'design' })
     }
   }
   Design.init({
     design_url: {
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    text_layers: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    design_price: {
+      allowNull: false,
+      type: DataTypes.FLOAT,
     }
   }, {
     sequelize,

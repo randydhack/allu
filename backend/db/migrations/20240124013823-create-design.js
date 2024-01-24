@@ -13,6 +13,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      text_layers: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      design_price: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

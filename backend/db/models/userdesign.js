@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       UserDesign.belongsTo(models.User, { foreignKey: 'userId' })
-      UserDesign.belongsTo(models.Order, { foreignKey: 'user_design' })
     }
   }
   UserDesign.init({

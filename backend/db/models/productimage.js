@@ -11,11 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ProductImage.belongsTo(models.Product, { foreignKey: 'productId' })
+      ProductImage.belongsTo(models.Product, { foreignKey:'productId' })
     }
   }
   ProductImage.init({
-    productId: DataTypes.INTEGER,
+    productId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
     img_url: {
       allowNull: false,
       type: DataTypes.STRING,
