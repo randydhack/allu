@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -24,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     size: {
-      allowNull: false,
-      type: DataTypes.STRING,
+        type: DataTypes.JSON,
+        defaultValue: ['Test1', "Test2", "Test3"]
     },
     description: {
       allowNull: false,
