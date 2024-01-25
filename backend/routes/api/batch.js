@@ -11,7 +11,7 @@ const { Op } = require("sequelize");
 router.get("/", async (req, res) => {
   const batches = await Batch.findAll();
   if (!batches) {
-    return res.status(500).json({ error: "Products not found bad request" });
+    return res.status(500).json({ error: "Batches not found bad request" });
   }
   return res.json(batches);
 });
@@ -26,7 +26,7 @@ router.get("/:batchId", async (req, res) => {
 
   if (!batch) {
     return res.status(404).json({
-      message: "Product could not be found",
+      message: "Batch could not be found",
       statusCode: 404,
     });
   }
@@ -123,9 +123,9 @@ router.post("/", requireAuth, async (req, res) => {
 router.put("/:batchId", requireAuth, async (req, res) => {
   const { user } = req;
 
-  let batch = await Batch.findByPk(req.params.batchId);
-  let cart = await Cart.findOne({
-    where: {id: batch.cartId}
+  let batch = await Batch.findOne({
+    where: {id: req.params.batchId},
+    include: Cart
   });
 
   if (!batch) {
@@ -136,7 +136,7 @@ router.put("/:batchId", requireAuth, async (req, res) => {
     });
   }
 
-  if (user.id == cart.userId && cart.id == batch.cartId) {
+  if (user.id == batch.Cart.userId) {
     const {
       productId,
       orderId,
