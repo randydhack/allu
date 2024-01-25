@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Batch, UserDesign, Design } = require("../../db/models");
+const { Batch, UserDesign, Design, Cart } = require("../../db/models");
+const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -50,6 +51,67 @@ router.get("/:batchId", async (req, res) => {
     batch,
     userDesign,
   });
+});
+
+router.post("/", requireAuth, async (req, res) => {
+  const { user } = req;
+  if (user) {
+    const cart = await Cart.findOne({
+      where: { userId: user.id },
+    });
+
+    const {
+      productId,
+      orderId,
+      xs,
+      s,
+      m,
+      l,
+      xl,
+      xxl,
+      xxxl,
+      xxxxl,
+      xxxxxl,
+      designId,
+      userDesignId,
+      note,
+    } = req.body;
+
+    if (!productId) {
+      return res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          productId: "Product id is required",
+        },
+      });
+    }
+
+    let newBatch = await Batch.create({
+      productId: productId,
+      orderId: orderId,
+      cartId: cart.id,
+      xs: xs,
+      s: s,
+      m: m,
+      l: l,
+      xl: xl,
+      xxl: xxl,
+      xxxl: xxxl,
+      xxxxl: xxxxl,
+      xxxxxl: xxxxxl,
+      designId: designId,
+      userDesignId: userDesignId,
+      note: note,
+    });
+    res.status = 201;
+    res.json(newBatch);
+  } else {
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
 });
 
 module.exports = router;

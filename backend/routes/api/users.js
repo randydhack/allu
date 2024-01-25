@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Cart} = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -28,15 +28,13 @@ const validateSignup = [
 // Sign up
 router.post(
   '/',
-  validateSignup
-  ,
+  validateSignup,
   async (req, res) => {
     const { firstName, lastName, email, password} = req.body;
 
     const existingEmail = await User.findOne({
       where: { email: email }
     })
-
 
     if (existingEmail) {
       return res.json({
@@ -48,19 +46,25 @@ router.post(
       })
     }
 
-    let user = await User.signup({ firstName, lastName, email, password });
+    let user = await User.signup({ firstName, lastName, email, password })
 
-    let token = await setTokenCookie(res, user);
+    let token = await setTokenCookie(res, user)
 
     user = user.toJSON()
 
     user.token = token
 
+    await Cart.create({
+      userId: user.id
+    })
+
     delete user.createdAt
     delete user.updatedAt
+
 
     return res.json({"user": user});
   }
 );
+
 
 module.exports = router;

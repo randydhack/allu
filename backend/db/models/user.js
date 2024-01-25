@@ -48,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Order, { foreignKey:'userId' })
       User.hasMany(models.UserDesign, { foreignKey:'userId' })
+      User.hasOne(models.Cart, { foreignKey:'userId' })
     }
   }
 

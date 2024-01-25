@@ -16,8 +16,12 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        onDelete: 'CASCADE',
         references: { model: 'Orders'}
+      },
+      cartId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Carts'}
       },
       xs: {
         type: Sequelize.INTEGER,

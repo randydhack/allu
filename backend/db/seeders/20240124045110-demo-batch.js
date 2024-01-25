@@ -13,7 +13,7 @@ module.exports = {
       {
         id: 1,
         productId: 1,
-        orderId: 1,
+        cartId: 1,
         xs: 5,
         s:5,
         m: 5,
@@ -23,7 +23,7 @@ module.exports = {
       {
         id: 2,
         productId: 2,
-        orderId: 2,
+        cartId: 2,
         s: 5,
         m: 5,
         l: 10,
@@ -32,7 +32,7 @@ module.exports = {
       {
         id: 3,
         productId: 3,
-        orderId: 3,
+        cartId: 3,
         l: 5,
         xl: 10,
         xxl: 10,
@@ -41,7 +41,7 @@ module.exports = {
       {
         id: 4,
         productId: 3,
-        orderId: 1,
+        cartId: 3,
         l: 3,
         xl: 12,
         xxl: 13,
