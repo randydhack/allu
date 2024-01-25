@@ -18,11 +18,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      products: {
-        type: Sequelize.TEXT,
-        defaultValue: JSON.stringify(["Test1", "Test2", "Test3"]),
-        allowNull: false
-    },
       special_request: {
         type: Sequelize.STRING
       },
