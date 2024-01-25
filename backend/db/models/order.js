@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Order.belongsTo(models.User, { foreignKey:'userId' })
-      Order.belongsToMany(models.Batch, { through: "OrderBatches"})
+      Order.hasMany(models.Batch, { foreignKey: "orderId"})
       // didn't understand the product to batches association in Cart model
     }
   }
@@ -24,19 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     address: {
       allowNull: false,
       type: DataTypes.STRING,
-    },
-    products: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      get() {
-        // Parse the stored JSON string into an array
-        const value = this.getDataValue('products');
-        return value ? JSON.parse(value) : [];
-      },
-      set(value) {
-        // Store the array as a JSON string
-        this.setDataValue('products', JSON.stringify(value));
-      },
     },
     special_request: DataTypes.STRING,
     quote: {

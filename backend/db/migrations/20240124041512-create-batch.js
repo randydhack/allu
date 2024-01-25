@@ -14,6 +14,11 @@ module.exports = {
         allowNull: false,
         references: { model: 'Products'}
       },
+      orderId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'Orders'}
+      },
       xs: {
         type: Sequelize.INTEGER,
       },
@@ -48,6 +53,9 @@ module.exports = {
       userDesignId: {
         type: Sequelize.INTEGER,
         references: { model: 'UserDesigns'}
+      },
+      note: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
