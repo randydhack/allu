@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Batch, UserDesign, Design, Cart } = require("../../db/models");
+const { Batch, UserDesign, Design, Cart, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
@@ -8,6 +8,7 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
 //Get all batches
+// checked
 router.get("/", async (req, res) => {
   const batches = await Batch.findAll();
   if (!batches) {
@@ -17,20 +18,26 @@ router.get("/", async (req, res) => {
 });
 
 //Get a single batch
+// checked but not the most optimal
+// "include" doesnt work with a one to one querying
 router.get("/:batchId", async (req, res) => {
   const batch = await Batch.findOne({
     where: {
       id: req.params.batchId,
     },
+    include: Cart
   });
-
+  
   if (!batch) {
     return res.status(404).json({
       message: "Batch could not be found",
       statusCode: 404,
     });
   }
-
+  
+  const product = await Product.findOne({
+    where: { id: batch.productId },
+  });
   // User will either use "userDesign" or "design" so condition is needed
   if (!batch.userDesignId) {
     const design = await Design.findAll({
@@ -39,6 +46,7 @@ router.get("/:batchId", async (req, res) => {
     });
     return res.json({
       batch,
+      product,
       design,
     });
   }
@@ -50,11 +58,13 @@ router.get("/:batchId", async (req, res) => {
 
   return res.json({
     batch,
+    product,
     userDesign,
   });
 });
 
 // Create a batch
+// checked
 // This is will require authentication because
 // batch --> cart --> user
 // each user has a unique cart
@@ -82,7 +92,7 @@ router.post("/", requireAuth, async (req, res) => {
       note,
     } = req.body;
 
-    if (!productId) {
+    if (!productId || !cart) {
       return res.json({
         message: "Validation Error",
         statusCode: 400,
@@ -124,8 +134,8 @@ router.put("/:batchId", requireAuth, async (req, res) => {
   const { user } = req;
 
   let batch = await Batch.findOne({
-    where: {id: req.params.batchId},
-    include: Cart
+    where: { id: req.params.batchId },
+    include: Cart,
   });
 
   if (!batch) {
@@ -199,7 +209,7 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
 
   let batch = await Batch.findByPk(req.params.batchId);
   let cart = await Cart.findOne({
-    where: {id: batch.cartId}
+    where: { id: batch.cartId },
   });
 
   if (!batch) {
@@ -219,9 +229,9 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
     });
   } else {
     return res.json({
-      "message": "Forbidden",
-      "statusCode": 403
-  });
+      message: "Forbidden",
+      statusCode: 403,
+    });
   }
 });
 
