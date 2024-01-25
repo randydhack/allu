@@ -1,8 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-// const { Sequelize } = require('.');
+const { Model } = require('sequelize');
+// const ProductImage = require('./productimage')
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -12,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.hasMany(models.ProductImage, { foreignKey:'productId' })
+      Product.hasMany(models.ProductImage, { foreignKey:'productId', onDelete: 'CASCADE', hooks: true })
       Product.hasOne(models.Batch, { foreignKey:'productId' })
     }
   }
@@ -58,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Product',
+    defaultScope: {
+    attributes: ['id', 'name', 'colors', 'size', 'description', 'price'],
+    // include: [{ model: ProductImage, attributes: ['id', 'img_url', 'description', 'color' ]}],
+  }
   });
   return Product;
 };

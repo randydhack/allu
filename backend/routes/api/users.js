@@ -10,10 +10,6 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Invalid email.'),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Invalid Username, must include 4 characters.'),
   check('firstName')
     .exists({ checkFalsy: true })
     .isLength({ min: 2 })
@@ -51,20 +47,6 @@ router.post(
         }
       })
     }
-
-    // if (!firstName || !lastName || !email || !password ||
-    //   firstName === "" || lastName === "" || email === "" || password === "") {
-    //   return res.json({
-    //     "message": "Validation error",
-    //     "statusCode": 400,
-    //     "errors": {
-    //       "email": "Invalid email",
-    //       "username": "Username is required",
-    //       "firstName": "First Name is required",
-    //       "lastName": "Last Name is required"
-    //     }
-    //   })
-    // }
 
     let user = await User.signup({ firstName, lastName, email, password });
 
