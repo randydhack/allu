@@ -7,7 +7,7 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
-//get all batches
+//Get all batches
 router.get("/", async (req, res) => {
   const batches = await Batch.findAll();
   if (!batches) {
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   return res.json(batches);
 });
 
-//get a single batch
+//Get a single batch
 router.get("/:batchId", async (req, res) => {
   const batch = await Batch.findOne({
     where: {
@@ -31,6 +31,7 @@ router.get("/:batchId", async (req, res) => {
     });
   }
 
+  // User will either use "userDesign" or "design" so condition is needed
   if (!batch.userDesignId) {
     const design = await Design.findAll({
       attributes: ["id", "design_url", "text_layers", "design_price"],
@@ -53,6 +54,10 @@ router.get("/:batchId", async (req, res) => {
   });
 });
 
+// Create a batch
+// This is will require authentication because
+// batch --> cart --> user
+// each user has a unique cart
 router.post("/", requireAuth, async (req, res) => {
   const { user } = req;
   if (user) {
@@ -111,6 +116,112 @@ router.post("/", requireAuth, async (req, res) => {
       message: "Forbidden",
       statusCode: 403,
     });
+  }
+});
+
+// Update a batch
+router.put("/:batchId", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  let batch = await Batch.findByPk(req.params.batchId);
+  let cart = await Cart.findOne({
+    where: {id: batch.cartId}
+  });
+
+  if (!batch) {
+    res.status(404);
+    return res.json({
+      message: "Batch couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (user.id == cart.userId && cart.id == batch.cartId) {
+    const {
+      productId,
+      orderId,
+      cartId,
+      xs,
+      s,
+      m,
+      l,
+      xl,
+      xxl,
+      xxxl,
+      xxxxl,
+      xxxxxl,
+      designId,
+      userDesignId,
+      note,
+    } = req.body;
+
+    if (!productId) {
+      return res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          productId: "Product id is required",
+        },
+      });
+    }
+
+    batch.productId = productId;
+    batch.orderId = orderId;
+    batch.cartId = cartId;
+    batch.xs = xs;
+    batch.s = s;
+    batch.m = m;
+    batch.l = l;
+    batch.xl = xl;
+    batch.xxl = xxl;
+    batch.xxxl = xxxl;
+    batch.xxxxl = xxxxl;
+    batch.xxxxxl = xxxxxl;
+    batch.designId = designId;
+    batch.userDesignId = userDesignId;
+    batch.note = note;
+
+    await batch.save();
+
+    res.status = 200;
+    res.json(batch);
+  } else {
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
+});
+
+// Delete a batch
+router.delete("/:batchId", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  let batch = await Batch.findByPk(req.params.batchId);
+  let cart = await Cart.findOne({
+    where: {id: batch.cartId}
+  });
+
+  if (!batch) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (user && user.id == cart.userId && cart.id == batch.cartId) {
+    await batch.destroy();
+
+    res.json({
+      message: "Successfully deleted",
+      statusCode: 200,
+    });
+  } else {
+    return res.json({
+      "message": "Forbidden",
+      "statusCode": 403
+  });
   }
 });
 
