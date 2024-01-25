@@ -6,6 +6,7 @@ const productRouter = require('./products.js')
 const productImageRouter = require('./product-images.js')
 const designRouter = require('./design.js')
 const userDesignRouter = require('./userdesign.js')
+const orderRouter = require('./orders.js')
 const { restoreUser } = require('../../utils/auth.js');
 
 // Connect restoreUser middleware to the API router
@@ -24,4 +25,7 @@ const { restoreUser } = require('../../utils/auth.js');
   router.use('/designs', designRouter)
 
   router.use('/userDesigns', userDesignRouter)
+
+  router.use('/orders', orderRouter)
+
 module.exports = router;

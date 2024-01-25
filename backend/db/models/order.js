@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       set(value) {
         // Store the array as a JSON string
         this.setDataValue('products', JSON.stringify(value));
-      },
+      }
     },
     special_request: DataTypes.STRING,
     quote: {
