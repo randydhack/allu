@@ -1,25 +1,32 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { Order, Product } = require('../../db/models')
+const { Order, Batch } = require("../../db/models");
 
-router.get('/', async (req,res ,next) => {
+const { requireAuth } = require("../../utils/auth");
 
-    const orders = await Order.findAll()
-
-    res.status(200).json(orders)
-})
-
-router.get('/:orderId', async (req, res, next) => {
-
-    const order = await Order.findByPk(req.params.orderId)
-
-    if (!order) {
-        const err = new Error("Order does not exist")
-        err.status = 404
-        return next(err)
+router.get("/", requireAuth, async (req, res, next) => {
+    const { user } = req
+  const orders = await Order.findAll({
+    where: { userId: user.id},
+    include: {
+        model: Batch
     }
+  }
+  );
 
-    res.status(200).json(order)
-})
+  res.status(200).json(orders);
+});
+
+router.get("/:orderId", async (req, res, next) => {
+  const order = await Order.findByPk(req.params.orderId);
+
+  if (!order) {
+    const err = new Error("Order does not exist");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.status(200).json(order);
+});
 
 module.exports = router;
