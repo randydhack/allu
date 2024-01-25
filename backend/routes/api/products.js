@@ -4,9 +4,9 @@ const { Product, ProductImage } = require('../../db/models')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const productimage = require('../../db/models/productimage');
 
 
+//CREATE and EDIT product routes not needed at the moment but can create
 
 //get all products
 router.get(
@@ -24,7 +24,7 @@ router.get(
         return res.json(products)
     }
 )
-
+//get a single product
 router.get(
     '/:productId',
     async (req, res) => {
@@ -47,6 +47,9 @@ router.get(
         return res.json(product)
     }
 )
+
+
+
 
 
 module.exports = router;
