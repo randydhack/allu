@@ -12,7 +12,6 @@ const productimage = require('../../db/models/productimage');
 router.get(
     '/',
     async (req, res) => {
-
         const products = await Product.findAll({
             include: [{
                 model: ProductImage,
@@ -23,6 +22,29 @@ router.get(
             return res.status(500).json({error: 'Products not found bad request'})
         }
         return res.json(products)
+    }
+)
+
+router.get(
+    '/:productId',
+    async (req, res) => {
+        const product = await Product.findOne({
+            where: {
+                id: req.params.productId
+            },
+            include: [{
+                model: ProductImage,
+            }],
+        })
+
+        if(!product) {
+            return res.status(404).json({
+                'message': "Product could not be found",
+                "statusCode": 404,
+            })
+        }
+
+        return res.json(product)
     }
 )
 
