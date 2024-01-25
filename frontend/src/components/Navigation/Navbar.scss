@@ -9,6 +9,13 @@
     filter: drop-shadow(0 0.5px 3px rgb(206, 206, 206))
 
 }
+.nav_logo {
+    height: 60px;
+    :hover {
+        cursor:pointer;
+        filter: drop-shadow(black 1rem 1rem 10px);
+    }
+}
 
 .nav__right__section {
     display: flex;
@@ -22,12 +29,17 @@
 
     button:hover {
         color: #637DA5;
+        cursor: pointer;
     }
 }
 
 .nav__middle__section {
     a {
         margin: 0px 25px;
+    }
+    a:hover {
+        color: #637DA5;
+        cursor: pointer;
     }
 
 }
