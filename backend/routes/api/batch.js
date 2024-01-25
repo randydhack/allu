@@ -25,16 +25,16 @@ router.get("/:batchId", async (req, res) => {
     where: {
       id: req.params.batchId,
     },
-    include: Cart
+    include: Cart,
   });
-  
+
   if (!batch) {
     return res.status(404).json({
       message: "Batch could not be found",
       statusCode: 404,
     });
   }
-  
+
   const product = await Product.findOne({
     where: { id: batch.productId },
   });
@@ -204,12 +204,13 @@ router.put("/:batchId", requireAuth, async (req, res) => {
 });
 
 // Delete a batch
+// checked
 router.delete("/:batchId", requireAuth, async (req, res) => {
   const { user } = req;
 
-  let batch = await Batch.findByPk(req.params.batchId);
-  let cart = await Cart.findOne({
-    where: { id: batch.cartId },
+  let batch = await Batch.findOne({
+    where: { id: req.params.batchId },
+    include: Cart,
   });
 
   if (!batch) {
@@ -219,6 +220,8 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
       statusCode: 404,
     });
   }
+
+  const cart = batch.Cart;
 
   if (user && user.id == cart.userId && cart.id == batch.cartId) {
     await batch.destroy();
