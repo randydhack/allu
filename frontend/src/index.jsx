@@ -12,10 +12,12 @@ import { ModalProvider } from "./context/modalContext";
 import "./index.scss";
 // App
 import App from "./App";
+import { restoreCSRF } from "./store/csrf";
 
 
 // React developer tool, if not in production. Used for debugging
 if (process.env.NODE_ENV !== "production") {
+  restoreCSRF()
   // window.store = store;
 }
 const root = ReactDOM.createRoot(document.getElementById('root'));
