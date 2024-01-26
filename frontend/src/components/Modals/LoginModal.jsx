@@ -33,12 +33,9 @@ function LoginModal() {
       }
     );
 
-    // console.log(data.user)
     if (data) {
       setErrors({});
       setType(null);
-      // localStorage.setItem("jwt", data.user.token)
-
       return navigate("/");
     }
   };
