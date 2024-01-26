@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
 // CSS
 import "./Product.scss";
 
@@ -13,35 +14,30 @@ function Product() {
           <NavLink>DESIGN NAME</NavLink>
         </span>
       </div>
-      <div className="product__container">
-          <img
-            src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-            alt="t-shirt"
-            width={500}
-          />
-        <form className="product__form">
-            <h1>DESIGN NAME</h1>
-            <div>
-                <h4>CHOOSE AN OPTION</h4>
-                <div>box box box</div>
-            </div>
-            <div>
-                <h4>CHOOSE A COLOR</h4>
-                <div>
-                    color mapping
-                </div>
-            </div>
 
-            <div>
-                <h4>SELECT SIZES</h4>
-                <div>
-                    xs<input type="number" />
-                </div>
+      <div className="main_panel">
+        <div className="top_panel">
+          <div className="top_left">
+            <div className="design_preview">
+              <button className="zoom_out"
+                // onClick={handleZoomOutClick}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                <FontAwesomeIcon icon={faSearchMinus} />
+              </button>
             </div>
-
-
-            <button>FINALIZE</button>
-        </form>
+          </div>
+          <div className="top_mid">
+            <img
+              src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+              alt="t-shirt"
+              width={500}
+            />
+          </div>
+          <div className="top_right"></div>
+        </div>
       </div>
     </div>
   );
