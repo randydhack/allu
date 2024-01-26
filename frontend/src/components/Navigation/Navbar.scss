@@ -13,11 +13,14 @@
 .nav_logo {
     height: 55px;
     transform: rotate(-20deg);
+    width: fit-content;
     :hover {
         cursor:pointer;
     }
+}
 
-
+.nav_logo__container {
+    width: fit-content;
 }
 
 .nav__right__section {
