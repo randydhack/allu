@@ -102,7 +102,7 @@ router.post("/", requireAuth, async (req, res) => {
       });
     }
 
-    let newBatch = await Batch.create({
+    const newBatch = await Batch.create({
       productId: productId,
       orderId: orderId,
       cartId: cart.id,
