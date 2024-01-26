@@ -11,18 +11,21 @@ export const sessionSlice = createSlice({
       login: (state, action) => {
         state.isAuth = true;
         state.user = action.payload
+      },
+      restoreSession: (state, action) => {
+        state.isAuth = true;
+        state.user = action.payload
       }
     }
 });
 
-export const { login } = sessionSlice.actions;
+export const { login, restoreSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
 
 // POST - Login with email and password
 export const loginUser = (credential, password) => async (dispatch) => {
 
-  console.log(credential, password)
     // Make API request to authenticate user (login)
     const response = await csrfFetch("/api/session", {
       method: "POST",
@@ -32,12 +35,20 @@ export const loginUser = (credential, password) => async (dispatch) => {
       }),
     });
 
+    // Dispatch the loginSuccess action with the user data
     if (response) {
       const data = await response.json();
-      // Dispatch the loginSuccess action with the user data
-
-      console.log(data)
       dispatch(login(data.user));
       return data
     }
 };
+
+export const restoreUser = () => async dispatch => {
+  const response = await csrfFetch('/api/session');
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(restoreSession(data.user));
+    return response;
+  };
+}

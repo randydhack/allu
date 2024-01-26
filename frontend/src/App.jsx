@@ -1,6 +1,10 @@
 // Libaries
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+// Redux Store
+import * as sessionActions from './store/session'
 
 // Utils
 import Modal from "./components/utils/Modal";
@@ -32,11 +36,12 @@ const SettingsWrapper = ({ children }) => (
 );
 
 function App() {
+  const dispatch = useDispatch()
   const [isLoaded, setIsLoaded] = useState(true);
 
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   // Add your routes here, and follow the formatting
   return (
