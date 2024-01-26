@@ -22,8 +22,6 @@ function Navbar() {
 
   const user = useSelector((state) => state.session.user);
 
-  console.log(user);
-
   return (
     <div className="nav__container">
       <NavLink to="/">
