@@ -1,7 +1,7 @@
 .main_panel {
   display: flex;
   flex-direction: column;
-  margin-top: 5%;
+  margin-top: 1%;
   margin-bottom: 5%;
   .top_panel {
     display: flex;
@@ -10,14 +10,26 @@
 
   .top_left {
     width: 25%;
-    button{
-        display: flex;
-        width: 20px;
-        height: 20px;
-        align-items: center;
-        justify-content: center;
-        margin-top: auto;
-        margin-left: auto;
+    .design_preview {
+      width: 75px;
+      height: 75px;
+      background-color: #d9d9d9;
+      display: flex;
+      margin-top: auto;
+      margin-left: auto;
+    }
+
+    button {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+      margin-left: auto;
+    }
+    .close_button {
+      font-size: 24px;
     }
   }
 
@@ -26,15 +38,29 @@
     margin-left: 0.5%;
   }
 }
-.design_preview {
-  width: 75px;
-  height: 75px;
-  background-color: #d9d9d9;
-  display: flex;
-  margin-top: auto;
-  margin-left: auto;
-}
 
 .top_right {
   width: 35%;
+}
+.product_modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .modal_img {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+    padding: 100px;
+  }
+  button {
+    position: relative;
+    cursor: pointer; /* Ensures the cursor changes to a pointer */
+    margin-bottom: auto;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
