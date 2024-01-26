@@ -1,10 +1,12 @@
 // Libaries
-import { useState } from "react";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 // CSS
 import "./AccountDetail.scss";
 import "../../utils/DefaultStyles.scss";
 import "../Settings.scss";
+// import { increment, decrement, incrementByAmount, incrementAsync} from "../../../store/counterSlice"
 
 // Components
 import SideNavigation from "../SideNavigation/SideNavigation";
@@ -12,6 +14,13 @@ import SideNavigation from "../SideNavigation/SideNavigation";
 function AccountDetail() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+
+// For Testing
+  // const dispatch = useDispatch();
+  // const count = useSelector(state => state.counter.value);
+
+//
 
   return (
         <div className="setting__contents setting__background">
@@ -56,6 +65,11 @@ function AccountDetail() {
             </form>
 
           </div>
+          {/* <div>{count}</div>
+          <button onClick={() => dispatch(increment())}>Increment</button>
+          <button onClick={() => dispatch(decrement())}>Decrement</button>
+          <button onClick={() => dispatch(incrementByAmount(5))}>Increment by 5</button>
+          <button onClick={() => dispatch(incrementAsync(5))}>Increment Async by 5</button> */}
         </div>
   );
 }
