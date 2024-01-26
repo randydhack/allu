@@ -71,6 +71,9 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
+      admin: {
+        type: DataTypes.BOOLEAN
+      },
       hashedPassword: {
         allowNull: false,
         type: DataTypes.STRING.BINARY,
