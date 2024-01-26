@@ -50,8 +50,8 @@ function Product() {
     <div className="container">
       <div className="product__directory_history">
         <span>
-          <NavLink to="/">Home</NavLink> /{" "}
-          <NavLink to="/our-designs">Our Designs</NavLink> /{" "}
+          <NavLink to="/">Home</NavLink> /
+          <NavLink to="/our-designs">Our Designs</NavLink> /
           <NavLink>DESIGN NAME</NavLink>
         </span>
       </div>
@@ -105,8 +105,8 @@ function Product() {
             <p>Description:</p>
           </div>
           <div className="top_right">
-            <p className="product_name">PRODUCT NAME</p>
-            <p>Choose an option:</p>
+            <p className="product_name">Product Name</p>
+            <p>Choose An Option:</p>
             <form id="product_form">
               <div id="imageSelection">
                 {[1, 2, 3].map((id) => (
@@ -139,15 +139,53 @@ function Product() {
                 ))}
               </div>
 
-              <div id="sizeQuantity">
-                <div>
-                  <label>S</label>
-                  <input type="number" name="size_S" />
+              <div id="size_quantity">
+                <p>Select A Size And Quantity</p>
+                <div className="size_chart">
+                  <div>
+                    <label>XS</label>
+                    <input type="number" name="size_XS" />
+                  </div>
+                  <div>
+                    <label>S</label>
+                    <input type="number" name="size_S" />
+                  </div>
+                  <div>
+                    <label>M</label>
+                    <input type="number" name="size_M" />
+                  </div>
+                  <div>
+                    <label>L</label>
+                    <input type="number" name="size_L" />
+                  </div>
+                  <div>
+                    <label>XL</label>
+                    <input type="number" name="size_XL" />
+                  </div>
+                  <div>
+                    <label>2XL</label>
+                    <input type="number" name="size_2XL" />
+                  </div>
+                  <div>
+                    <label>3XL</label>
+                    <input type="number" name="size_3XL" />
+                  </div>
+                  <div>
+                    <label>4XL</label>
+                    <input type="number" name="size_4XL" />
+                  </div>
+                  <div>
+                    <label>5XL</label>
+                    <input type="number" name="size_5XL" />
+                  </div>
                 </div>
               </div>
 
-              <button type="submit">Confirm</button>
+              <button className="confirm_button" type="submit">
+                FINALIZE SELECTION
+              </button>
             </form>
+            <p className="place_holder">LOREM IPSUM</p>
           </div>
         </div>
       </div>
