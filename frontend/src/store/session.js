@@ -20,11 +20,15 @@ export const sessionSlice = createSlice({
     signup: (state, action) => {
       state.isAuth = true;
       state.user = action.payload
+    },
+    logout: (state, action) => {
+      state.isAuth = false
+      state.user = null
     }
   },
 });
 
-export const { login, restoreSession, signup } = sessionSlice.actions;
+export const { login, restoreSession, signup, logout } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
 
@@ -47,6 +51,8 @@ export const loginUser = (credential, password) => async (dispatch) => {
   }
 };
 
+
+// restore user session
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/session");
 
@@ -57,6 +63,8 @@ export const restoreUser = () => async (dispatch) => {
   }
 };
 
+
+// Create a new user
 export const registerUser =
   (email, firstName, lastName, password) => async (dispatch) => {
     const response = await csrfFetch("/api/users", {
@@ -75,3 +83,17 @@ export const registerUser =
       return data
     }
   };
+
+
+// Log outs the user and delete session
+export const logoutUser = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE'
+  });
+
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(logout())
+    return data
+  }
+}
