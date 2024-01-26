@@ -36,6 +36,7 @@ router.post(
       where: { email: email }
     })
 
+    console.log(existingEmail)
     if (existingEmail) {
       return res.json({
         "message": "User already exists",
