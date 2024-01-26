@@ -8,6 +8,15 @@ import "./Product.scss";
 
 function Product() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const colors = {
+    red: "#ff0000",
+    blue: "#0000ff",
+    green: "#00ff00",
+    white: "#FFFFFF",
+  };
+
   Modal.setAppElement("#root");
   const handleZoomOutClick = () => {
     setModalIsOpen(true);
@@ -16,6 +25,27 @@ function Product() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  function selectImage(imageId) {
+    document.querySelectorAll("#imageSelection img").forEach((img) => {
+      img.classList.remove("selected");
+    });
+
+    document
+      .querySelector(`#imageSelection img:nth-child(${imageId})`)
+      .classList.add("selected");
+  }
+
+  function selectColor(color) {
+    document.querySelectorAll("#colorSelection div").forEach((div) => {
+      div.classList.remove("selected");
+    });
+
+    document
+      .querySelector(`#colorSelection div[onclick="selectColor('${color}')"]`)
+      .classList.add("selected");
+  }
+
   return (
     <div className="container">
       <div className="product__directory_history">
@@ -39,6 +69,7 @@ function Product() {
               >
                 <FontAwesomeIcon icon={faSearchMinus} />
               </button>
+
               <Modal
                 className={"product_modal"}
                 isOpen={modalIsOpen}
@@ -46,31 +77,22 @@ function Product() {
                 contentLabel="Example Modal"
                 onClick={closeModal}
               >
-                <img
-                  className="modal_img"
-                  src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-                  alt="Modal Image"
-                  style={{
-                    position: "relative",
-                    zIndex: 1,
-                  }}
-                  onClick={(e) => e.stopPropagation()}
-                />
+                <div className="modal_container" onClick={() => closeModal()}>
+                  <img
+                    className="modal_img"
+                    src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                    alt="Modal Image"
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  />
 
-                <div
-                  className="modal_overlay"
-                  onClick={closeModal}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                  }}
-                />
-                <button className="close_button" onClick={closeModal}>
-                  X
-                </button>
+                  <button className="close_button" onClick={closeModal}>
+                    X
+                  </button>
+                </div>
               </Modal>
             </div>
           </div>
@@ -82,7 +104,51 @@ function Product() {
             />
             <p>Description:</p>
           </div>
-          <div className="top_right"></div>
+          <div className="top_right">
+            <p className="product_name">PRODUCT NAME</p>
+            <p>Choose an option:</p>
+            <form id="product_form">
+              <div id="imageSelection">
+                {[1, 2, 3].map((id) => (
+                  <img
+                    key={id}
+                    src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                    width={50}
+                    height={50}
+                    onClick={() => setSelectedImageId(id)}
+                    className={selectedImageId === id ? "selected" : ""}
+                  />
+                ))}
+              </div>
+
+              <div id="colorSelection">
+                <div className="color_name">
+                  Colors -
+                  {selectedColor
+                    ? selectedColor.charAt(0).toUpperCase() +
+                      selectedColor.slice(1)
+                    : "Select a color"}
+                </div>
+                {Object.entries(colors).map(([colorName, colorValue]) => (
+                  <div
+                    key={colorName}
+                    className="color-circle"
+                    style={{ backgroundColor: colorValue }}
+                    onClick={() => setSelectedColor(colorName)}
+                  ></div>
+                ))}
+              </div>
+
+              <div id="sizeQuantity">
+                <div>
+                  <label>S</label>
+                  <input type="number" name="size_S" />
+                </div>
+              </div>
+
+              <button type="submit">Confirm</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
