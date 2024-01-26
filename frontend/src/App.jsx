@@ -19,15 +19,16 @@ import OrderHistory from "./components/Settings/OrderHistory/OrderHistory";
 import SideNavigation from "./components/Settings/SideNavigation/SideNavigation";
 import ChangeEmail from "./components/Settings/ChangeEmail/ChangeEmail";
 import ChangePassword from "./components/Settings/ChangePassword/ChangePassword";
+import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navigation/Navbar";
+import PickupAndDelivery from "./components/PickupAndDelivery/PickupAndDelivery";
+import OurDesigns from "./components/OurDesigns/OurDesigns";
+import Product from "./components/Product/Product";
 import Checkout from "./components/Checkout/Checkout";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
 import "./components/Settings/Settings.scss";
-import Navbar from "./components/Navigation/Navbar";
-import Footer from "./components/Footer/Footer";
-import OurDesigns from "./components/OurDesigns/OurDesigns";
-import Product from "./components/Product/Product";
 
 // Settings Wrapper
 const SettingsWrapper = ({ children }) => (
@@ -95,6 +96,7 @@ function App() {
                 </SettingsWrapper>
               }
             />
+            <Route path="/shipping-information" element={<PickupAndDelivery />} />
             <Route path="/our-designs" element={<OurDesigns />} />
             <Route path="/product" element={<Product />} />
 
