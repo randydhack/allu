@@ -1,5 +1,5 @@
 // Hooks, Libaries, Context
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
 import { useNavigate } from 'react-router-dom'
@@ -18,19 +18,42 @@ function LoginModal() {
   // Set the type to null when clicking the close icon and closes the modal
   const { setType, toggleSignUp } = useContext(ModalContext);
 
-  function login(e) {
-    e.preventDefault()
-    dispatch(loginUser("demo@user.io", "password234"));
-    setType(null)
-    return navigate('/')
-  }
+  const [credential, setCredential] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState('');
+
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+     const data = await dispatch(
+      loginUser(
+        credential,
+        password,
+      )
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+      }
+    });
+
+    console.log(data)
+    if (data) {
+      setErrors({})
+      setType(null)
+      return navigate("/");
+    }
+  };
+
+  console.log(credential, password, errors)
 
   return (
     <div className="login-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
       {/* FORM FIELDS */}
-      <form onSubmit={e => login(e)} className="form">
-        <h2 className="header">Sign In</h2>
+      <form onSubmit={e => handleLoginSubmit(e)} className="form">
+        <h2 className="login-header">Sign In</h2>
+        {errors && <div className="login__error__message font-light">The email or password you have enter does not exist in our records. Please try again.</div>}
 
         <div className="field_container">
           <div className="field">
@@ -42,6 +65,8 @@ function LoginModal() {
               id="email"
               name="email"
               className="inputField"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
             />
           </div>
           <div className="field">
@@ -53,6 +78,8 @@ function LoginModal() {
               id="password"
               name="password"
               className="inputField"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>

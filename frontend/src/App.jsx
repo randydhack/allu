@@ -34,6 +34,10 @@ const SettingsWrapper = ({ children }) => (
 function App() {
   const [isLoaded, setIsLoaded] = useState(true);
 
+  // useEffect(() => {
+  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+
   // Add your routes here, and follow the formatting
   return (
     <>

@@ -38,5 +38,6 @@ export const loginUser = (credential, password) => async (dispatch) => {
 
       console.log(data)
       dispatch(login(data.user));
+      return data
     }
 };
