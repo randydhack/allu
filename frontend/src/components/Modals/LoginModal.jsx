@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 // Store
 import { loginUser } from "../../store/session";
@@ -13,47 +13,50 @@ import { RxCross1 } from "react-icons/rx";
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Set the type to null when clicking the close icon and closes the modal
   const { setType, toggleSignUp } = useContext(ModalContext);
 
-  const [credential, setCredential] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState('');
-
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-     const data = await dispatch(
-      loginUser(
-        credential,
-        password,
-      )
-    ).catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) {
-        setErrors(data.errors);
+    const data = await dispatch(loginUser(credential, password)).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
       }
-    });
+    );
 
-    console.log(data)
+    // console.log(data.user)
     if (data) {
-      setErrors({})
-      setType(null)
+      setErrors({});
+      setType(null);
+      // localStorage.setItem("jwt", data.user.token)
+
       return navigate("/");
     }
   };
 
-  console.log(credential, password, errors)
+  console.log(credential, password, errors);
 
   return (
     <div className="login-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
       {/* FORM FIELDS */}
-      <form onSubmit={e => handleLoginSubmit(e)} className="form">
+      <form onSubmit={(e) => handleLoginSubmit(e)} className="form">
         <h2 className="login-header">Sign In</h2>
-        {errors && <div className="login__error__message font-light">The email or password you have enter does not exist in our records. Please try again.</div>}
+        {errors && (
+          <div className="login__error__message font-light">
+            The email or password you have enter does not exist in our records.
+            Please try again.
+          </div>
+        )}
 
         <div className="field_container">
           <div className="field">
@@ -84,14 +87,8 @@ function LoginModal() {
           </div>
         </div>
 
-        {/* Remember Me Toggle Button */}
-        <div className="remember_forgot">
-          <div className="remember_me">
-            <input type="checkbox" className="remember_toggle_box"></input>
-            <div style={{ cursor: "default" }}>Remember me</div>
-          </div>
-          <div className="forgot-password-link">Forgot your password?</div>
-        </div>
+        {/* Forgot Password */}
+        <div className="forgot-password-link">Forgot your password?</div>
 
         {/* Login Button */}
         <div>

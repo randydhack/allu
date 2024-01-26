@@ -55,27 +55,13 @@
   justify-content: space-between;
 }
 
-.remember_me {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.remember_toggle_box {
-  width: 20px;
-  height: 20px;
-  border: 1px black solid;
-  border-radius: 2px;
-  cursor: pointer;
-  margin: 0px;
-}
-
 .forgot-password-link {
   color: #005db5;
   cursor: pointer;
   &:hover {
     text-decoration: underline;
   }
+  margin: 10px 0px;
 }
 
 .create-account-link {
