@@ -43,3 +43,25 @@
     }
 
 }
+
+.nav__profile__cart {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+
+}
+
+.profile__icon {
+    font-size: 30px;
+}
