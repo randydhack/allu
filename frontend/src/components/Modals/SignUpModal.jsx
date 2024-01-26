@@ -49,14 +49,14 @@ function SignUpModal() {
   return (
     <div className="signup-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
-      <form onSubmit={e => handleSignupSubmit()} className="form">
+      <form onSubmit={e => handleSignupSubmit(e)} className="form">
         <h2 className="header">Create an Account</h2>
 
         {/* FORM FIELDS */}
         <div className="field_container">
           <div className="field">
             <label htmlFor="email" className="label">
-              Email Address<span className="asterisk">*</span>
+              Email<span className="asterisk">*</span>
             </label>
             <input
               type="email"
@@ -66,6 +66,7 @@ function SignUpModal() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <div className="signup__email_error">{errors.email}</div>}
           </div>
 
           <div className="field">
@@ -108,6 +109,7 @@ function SignUpModal() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {password && password.length < 6 && <div>Password length must be 6 characters or more</div>}
           </div>
         </div>
 

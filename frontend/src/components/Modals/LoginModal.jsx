@@ -56,7 +56,7 @@ function LoginModal() {
         <div className="field_container">
           <div className="field">
             <label htmlFor="email" className="label">
-              Email Address<span className="asterisk">*</span>
+              Email<span className="asterisk">*</span>
             </label>
             <input
               type="email"

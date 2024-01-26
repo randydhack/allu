@@ -29,22 +29,21 @@ const validateSignup = [
 router.post(
   '/',
   validateSignup,
-  async (req, res) => {
+  async (req, res, next) => {
     const { firstName, lastName, email, password} = req.body;
 
     const existingEmail = await User.findOne({
       where: { email: email }
     })
 
-    console.log(existingEmail)
     if (existingEmail) {
-      return res.json({
-        "message": "User already exists",
-        "statusCode": 403,
-        "errors": {
-          "email": "User with that email already exists"
-        }
-      })
+      const err = new Error('Sign up failed');
+      err.status = 403;
+      err.title = 'Sign up failed';
+      err.errors = {email: 'User with that email already exists'};
+      err.message = "Invalid field"
+      err.statusCode = 403
+      return next(err);
     }
 
     let user = await User.signup({ firstName, lastName, email, password })
