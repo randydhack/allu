@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
+import { InfoContext } from "../../context/infoContext";
 
 // Redux Store
 import { registerUser } from '../../store/session'
@@ -15,7 +16,9 @@ import { RxCross1 } from "react-icons/rx";
 
 function SignUpModal() {
   // Set the type to null when clicking the close icon and closes the modal
-  const { setType,  toggleLogin} = useContext(ModalContext);
+  const { toggleLogin, handleContent} = useContext(ModalContext);
+  const {setUser} = useContext(InfoContext)
+
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -39,16 +42,15 @@ function SignUpModal() {
 
     if (data) {
       setErrors({});
-      setType(null);
+      handleContent()
+      setUser(data)
       return navigate("/");
     }
   };
 
-  console.log(errors)
-
   return (
     <div className="signup-container">
-      <RxCross1 className="close" onClick={() => setType(null)} />
+      <RxCross1 className="close" onClick={handleContent} />
       <form onSubmit={e => handleSignupSubmit(e)} className="form">
         <h2 className="header">Create an Account</h2>
 

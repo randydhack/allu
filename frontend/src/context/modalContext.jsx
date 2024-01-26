@@ -6,14 +6,22 @@ export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
 
+  // Closes Modal when click outside of content
+  const handleContent = () => {
+    setType(null);
+    setIsModalOpen(false)
+  };
+
   // Example:
   //   Create toggle function for onClicks to change modal type to show
     const toggleLogin = () => {
       setType("login");
+      setIsModalOpen(true)
     };
 
     const toggleSignUp = () => {
       setType("signup");
+      setIsModalOpen(true)
     };
 
 
@@ -22,6 +30,7 @@ export const ModalProvider = ({ children }) => {
       value={{
         isModalOpen,
         setIsModalOpen,
+        handleContent,
         type,
         setType,
         toggleLogin,

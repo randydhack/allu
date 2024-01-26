@@ -6,13 +6,9 @@ import SignUpModal from "../Modals/SignUpModal"
 import './modal.css'
 
 export default function Modal(props) {
-    const { type, setType } = useContext(ModalContext);
+    const { type, handleContent } = useContext(ModalContext);
 
     let content = null;
-
-    const handleContent = () => {
-      setType(null);
-    };
 
     // // Allows ESC key to close modal
     // useEffect(() => {

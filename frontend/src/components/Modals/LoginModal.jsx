@@ -19,7 +19,7 @@ function LoginModal() {
   const navigate = useNavigate();
 
   // Set the type to null when clicking the close icon and closes the modal
-  const { setType, toggleSignUp } = useContext(ModalContext);
+  const { toggleSignUp, handleContent } = useContext(ModalContext);
   const { setUser } = useContext(InfoContext)
 
   const [credential, setCredential] = useState("");
@@ -39,7 +39,7 @@ function LoginModal() {
 
     if (data) {
       setErrors(null);
-      setType(null);
+      handleContent()
       setUser(data)
       return navigate("/");
     }
@@ -47,7 +47,7 @@ function LoginModal() {
 
   return (
     <div className="login-container">
-      <RxCross1 className="close" onClick={() => setType(null)} />
+      <RxCross1 className="close" onClick={handleContent} />
       {/* FORM FIELDS */}
       <form onSubmit={(e) => handleLoginSubmit(e)} className="form">
         <h2 className="login-header">Sign In</h2>
