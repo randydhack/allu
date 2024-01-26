@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Order, Batch } = require("../../db/models");
+const { Order, Batch, Cart } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
@@ -18,12 +18,13 @@ router.get("/", async (req, res) => {
 });
 
 // Get all user orders
-router.get("/", requireAuth, async (req, res) => {
+router.get("/user", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user) {
     const orders = await Order.findAll({
       where: { userId: user.id },
+      include: Batch,
     });
 
     if (!orders) {
@@ -39,19 +40,14 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
+// Create orders and attach batches to orders for order history
 router.post("/", requireAuth, async (req, res) => {
   const { user } = req;
   if (user) {
-    const {
-      userId,
-      address,
-      special_request,
-      quote,
-      workforce_race,
-      processed,
-    } = req.body;
+    const { address, special_request, quote, workforce_race, processed } =
+      req.body;
 
-    if (!userId || !address || !quote || !workforce_race || !processed) {
+    if (!address || !quote || !workforce_race || !processed) {
       return res.json({
         message: "Validation Error",
         statusCode: 400,
@@ -65,7 +61,7 @@ router.post("/", requireAuth, async (req, res) => {
       });
     }
 
-    let newOrder = await Order.create({
+    const newOrder = await Order.create({
       userId: user.id,
       address: address,
       special_request: special_request,
@@ -74,25 +70,55 @@ router.post("/", requireAuth, async (req, res) => {
       processed: processed,
     });
 
-    const cart = await cart.findOne({
+    const cart = await Cart.findOne({
       where: { userId: user.id },
-      include: { Batch }
+      include: Batch,
     });
 
-    for (let i = 0; i < batches; i++) {
-      // const curr = batches[i]
-      // await curr.update({
-      //   orderId: newOrder.id,
-      //   cartId: null,
-      // });
-      batches[i].orderId = newOrder.id;
-      batches[i].cartId = null;
+    for (let i = 0; i < cart.Batches.length; i++) {
+      const curr = cart.Batches[i];
 
-      batches[i].save();
+      curr.orderId = newOrder.id;
+      curr.cartId = null;
+
+      await curr.save();
     }
 
     res.status = 201;
-    res.json({ newOrder, Batches: batches });
+    res.json({ newOrder, Batches: cart.Batches });
+  } else {
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
+});
+
+// Delete an order
+router.delete("/:orderId", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  let order = await Order.findOne({
+    where: { id: req.params.orderId },
+    include: Batch
+  });
+
+  if (!order) {
+    res.status(404);
+    return res.json({
+      message: "Order couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (user && user.id == order.userId) {
+    
+    await order.destroy();
+
+    res.json({
+      message: "Successfully deleted",
+      statusCode: 200,
+    });
   } else {
     return res.json({
       message: "Forbidden",

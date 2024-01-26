@@ -13,7 +13,7 @@ router.get("/", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user) {
-    let cart = await Cart.findOne({
+    let cart = await Cart.findAll({
       where: {
         userId: user.id,
       },

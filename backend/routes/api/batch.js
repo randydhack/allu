@@ -216,7 +216,7 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
   if (!batch) {
     res.status(404);
     return res.json({
-      message: "Spot couldn't be found",
+      message: "Batch couldn't be found",
       statusCode: 404,
     });
   }
