@@ -25,7 +25,7 @@ router.get("/:batchId", async (req, res) => {
     where: {
       id: req.params.batchId,
     },
-    include: Cart,
+    include: Cart
   });
 
   if (!batch) {
@@ -38,6 +38,7 @@ router.get("/:batchId", async (req, res) => {
   const product = await Product.findOne({
     where: { id: batch.productId },
   });
+  
   // User will either use "userDesign" or "design" so condition is needed
   if (!batch.userDesignId) {
     const design = await Design.findAll({

@@ -33,6 +33,7 @@ router.get("/:productImageId", async (req, res) => {
   return res.json(productImage);
 });
 
+// Create a product-image
 router.post("/", requireAuth, async (req, res) => {
   const { user } = req;
 
@@ -69,6 +70,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
+// Update a product image.
 router.put("/:productImageId", requireAuth, async (req, res) => {
   const { user } = req;
 
@@ -117,6 +119,7 @@ router.put("/:productImageId", requireAuth, async (req, res) => {
   }
 });
 
+// Delete a product image
 router.delete("/:productImageId", requireAuth, async (req, res) => {
   const { user } = req;
 
