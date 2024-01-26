@@ -70,12 +70,12 @@ router.post("/", requireAuth, async (req, res) => {
 });
 
 // Update a design
-router.put("/:id", requireAuth, async (req, res) => {
+router.put("/:designId", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user.admin) {
     const design = await Design.findOne({
-      where: { id: req.params.id },
+      where: { id: req.params.designId },
       attributes: ["id", "design_url", "text_layers", "design_price"],
     });
 
