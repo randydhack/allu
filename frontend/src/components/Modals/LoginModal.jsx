@@ -1,22 +1,37 @@
 // Hooks, Libaries, Context
 import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
+import { useNavigate } from 'react-router-dom'
+
+// Store
+import { loginUser } from "../../store/session";
 
 // CSS / ICONS
-import './FormStyles.scss'
+import "./FormStyles.scss";
 import { RxCross1 } from "react-icons/rx";
 
 function LoginModal() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   // Set the type to null when clicking the close icon and closes the modal
-  const { setType, toggleSignUp} = useContext(ModalContext);
+  const { setType, toggleSignUp } = useContext(ModalContext);
+
+  function login(e) {
+    e.preventDefault()
+    dispatch(loginUser("demo@user.io", "password234"));
+    setType(null)
+    return navigate('/')
+  }
 
   return (
     <div className="login-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
-      <form onSubmit={""} className="form">
+      {/* FORM FIELDS */}
+      <form onSubmit={e => login(e)} className="form">
         <h2 className="header">Sign In</h2>
 
-        {/* FORM FIELDS */}
         <div className="field_container">
           <div className="field">
             <label htmlFor="email" className="label">
@@ -45,10 +60,7 @@ function LoginModal() {
         {/* Remember Me Toggle Button */}
         <div className="remember_forgot">
           <div className="remember_me">
-            <input
-              type="checkbox"
-              className="remember_toggle_box"
-            ></input>
+            <input type="checkbox" className="remember_toggle_box"></input>
             <div style={{ cursor: "default" }}>Remember me</div>
           </div>
           <div className="forgot-password-link">Forgot your password?</div>
@@ -56,13 +68,13 @@ function LoginModal() {
 
         {/* Login Button */}
         <div>
-          <button
-            className="login-button"
-          >
+          <button type="submit" className="login-button">
             Sign In
           </button>
         </div>
-        <div className="create-account-link" onClick={toggleSignUp}>Don't have an account?</div>
+        <div className="create-account-link" onClick={toggleSignUp}>
+          Don't have an account?
+        </div>
       </form>
     </div>
   );
