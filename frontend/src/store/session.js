@@ -59,7 +59,7 @@ export const restoreUser = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(restoreSession(data.user));
-    return response;
+    return data;
   }
 };
 
