@@ -1,11 +1,14 @@
 // Hooks, Libaries, Context
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { ModalContext } from "../../context/modalContext";
 import { useNavigate } from "react-router-dom";
 
 // Store
 import { loginUser } from "../../store/session";
+
+// Context
+import { ModalContext } from "../../context/modalContext";
+import { InfoContext } from "../../context/infoContext";
 
 // CSS / ICONS
 import "./FormStyles.scss";
@@ -17,10 +20,11 @@ function LoginModal() {
 
   // Set the type to null when clicking the close icon and closes the modal
   const { setType, toggleSignUp } = useContext(ModalContext);
+  const { setUser } = useContext(InfoContext)
 
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState(null);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +38,9 @@ function LoginModal() {
     );
 
     if (data) {
-      setErrors({});
+      setErrors(null);
       setType(null);
+      setUser(data)
       return navigate("/");
     }
   };
@@ -68,7 +73,7 @@ function LoginModal() {
             />
           </div>
           <div className="field">
-            <label htmlFor="password" className="lavel">
+            <label htmlFor="password" className="label">
               Password<span className="asterisk">*</span>
             </label>
             <input

@@ -1,10 +1,13 @@
 // Libaries
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
 
 // Redux Store
 import * as sessionActions from './store/session'
+
+// Context
+import { InfoContext } from "./context/infoContext";
 
 // Utils
 import Modal from "./components/utils/Modal";
@@ -35,13 +38,24 @@ const SettingsWrapper = ({ children }) => (
   </div>
 );
 
+
+// Main App
 function App() {
   const dispatch = useDispatch()
-  const [isLoaded, setIsLoaded] = useState(true);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { user, setUser } = useContext(InfoContext)
+
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+
+    (async () => {
+      const session = await dispatch(sessionActions.restoreUser())
+      if (session.user) setUser(session)
+      setIsLoaded(true)
+    })()
+
+  }, [dispatch, setUser]);
 
   // Add your routes here, and follow the formatting
   return (
@@ -52,12 +66,18 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/account-details" element={<SettingsWrapper><AccountDetail /></SettingsWrapper>} />
-            <Route path="/order-history" element={<SettingsWrapper><OrderHistory /></SettingsWrapper>} />
-            <Route path="/change-email" element={<SettingsWrapper><ChangeEmail /></SettingsWrapper>} />
-            <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
             <Route path="/our-designs" element={<OurDesigns/>}/>
             <Route path="/product" element={<Product/>} />
+
+            {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
+            {user &&
+            <>
+              <Route path="/account-details" element={<SettingsWrapper><AccountDetail /></SettingsWrapper>} />
+              <Route path="/order-history" element={<SettingsWrapper><OrderHistory /></SettingsWrapper>} />
+              <Route path="/change-email" element={<SettingsWrapper><ChangeEmail /></SettingsWrapper>} />
+              <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
+            </>
+            }
           </Routes>
           <Footer/>
         </div>

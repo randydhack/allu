@@ -1,6 +1,7 @@
 // Libaries
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Cookies from 'js-cookie'
 
 // Redux Store
 import { logoutUser } from "../../../store/session";
@@ -22,6 +23,8 @@ function SideNavigation() {
 
   const handleUserLogout = async (e) => {
     e.preventDefault()
+    console.log()
+    Cookies.remove("token")
     await dispatch(logoutUser())
     return navigate('/')
   }
