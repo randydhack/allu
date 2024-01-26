@@ -9,6 +9,11 @@ function SignUpModal() {
   // Set the type to null when clicking the close icon and closes the modal
   const { setType,  toggleLogin} = useContext(ModalContext);
 
+  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
     <div className="signup-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
@@ -26,6 +31,8 @@ function SignUpModal() {
               id="email"
               name="email"
               className="inputField"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -38,6 +45,8 @@ function SignUpModal() {
               id="first_name"
               name="first_name"
               className="inputField"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
 
@@ -50,6 +59,8 @@ function SignUpModal() {
               id="last_name"
               name="last_name"
               className="inputField"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
 
@@ -62,6 +73,8 @@ function SignUpModal() {
               id="password"
               name="password"
               className="inputField"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>

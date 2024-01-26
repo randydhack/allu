@@ -40,8 +40,6 @@ function LoginModal() {
     }
   };
 
-  console.log(credential, password, errors);
-
   return (
     <div className="login-container">
       <RxCross1 className="close" onClick={() => setType(null)} />
