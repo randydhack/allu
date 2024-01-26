@@ -66,7 +66,7 @@ function SignUpModal() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <div className="signup__email_error">{errors.email}</div>}
+            {errors.email && <div className="signup__error_msg">{errors.email}</div>}
           </div>
 
           <div className="field">
@@ -109,7 +109,7 @@ function SignUpModal() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {password && password.length < 6 && <div>Password length must be 6 characters or more</div>}
+            {password && password.length < 6 && <div className="signup__error_msg">Password length must be 6 characters or more</div>}
           </div>
         </div>
 
