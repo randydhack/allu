@@ -23,8 +23,6 @@ function SideNavigation() {
 
   const handleUserLogout = async (e) => {
     e.preventDefault()
-    console.log()
-    Cookies.remove("token")
     await dispatch(logoutUser())
     return navigate('/')
   }
