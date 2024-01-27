@@ -19,7 +19,7 @@ function LoginModal() {
   const navigate = useNavigate();
 
   // Set the type to null when clicking the close icon and closes the modal
-  const { toggleSignUp, handleContent } = useContext(ModalContext);
+  const { type, toggleSignUp, handleContent } = useContext(ModalContext);
   const { setUser } = useContext(InfoContext)
 
   const [credential, setCredential] = useState("");
