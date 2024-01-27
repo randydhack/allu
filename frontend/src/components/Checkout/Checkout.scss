@@ -1,20 +1,25 @@
 .checkout_page {
-  width: 100vh;
+  width: 75%;
   height: 100vh;
-  margin-left: 15vh;
+  margin-left: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  button {
+    border: none;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+  }
 
   .checkout_main_body {
-    width: 80%; // Adjusted for consistent width
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
   }
 
   .checkout_header {
     height: 70px;
-    width: 100%; // Adjusted to match the width of the main body
+    width: 100%;
     border-bottom: 1px solid grey;
     display: flex;
     align-items: flex-end;
@@ -27,7 +32,7 @@
   }
 
   .home-items-container {
-    width: 100%; // Ensuring full width
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -36,48 +41,65 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #ccc;
-    padding: 10px; // Added padding for consistent spacing
-
+    padding: 10px;
     > div {
-      flex-grow: 1; // Flex grow to distribute space evenly
+      flex-grow: 1;
       text-align: center;
-      padding: 10px; // Reduced padding for better alignment
+      padding: 10px;
     }
-
+    .home-item-size {
+      min-width: 10%;
+      max-width: 10%;
+    }
+    .home-item-quantity {
+      min-width: 10%;
+      max-width: 10%;
+    }
+    .home-item-change {
+      min-width: 10%;
+      max-width: 10%;
+    }
+    .home-item-price {
+      min-width: 10%;
+      max-width: 10%;
+    }
     .home-item-image-container {
-      min-width: 30%; // Adjust as needed
-      max-width: 30%;
+      min-width: 25%;
+      max-width: 25%;
     }
-
+    .removal {
+      min-width: 10%;
+      max-width: 10%;
+    }
     .home-item-image {
       max-width: 100px;
       min-width: 100px;
     }
 
     .home-item-info-container {
-      max-width: 30%; // Adjust as needed
-      min-width: 30%;
+      max-width: 20%;
+      min-width: 20%;
       display: flex;
-      align-items: center; // Vertically center the content
+      align-items: center;
       justify-content: center;
 
       .home-item-title {
-        min-width: 100%; // Minimum width set to 30% of its parent
-        max-width: 100%; // Maximum width set to 30% of its parent
-        white-space: nowrap; // Prevent text from wrapping to the next line
-        overflow: hidden; // Hide overflow
+        min-width: 100%;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
         text-overflow: ellipsis;
       }
     }
 
     .change_quantity {
-      width: 50px; // Adjust as needed
+      width: 50px;
     }
   }
 
   .subtotal {
     display: flex;
-    margin-top: 10px; // Adjust spacing
+    margin-top: 10px;
     margin-left: auto;
     font-weight: 600;
     font-size: 24px;

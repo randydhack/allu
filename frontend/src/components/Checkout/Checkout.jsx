@@ -3,7 +3,6 @@ import { useState } from "react";
 import "./Checkout.scss";
 
 function Checkout() {
-  // Placeholder functions for button clicks
   const handleRemoveFromCart = (itemId) => {
     console.log("Remove item:", itemId);
   };
@@ -79,10 +78,10 @@ function Checkout() {
               <div className="home-item-image-container">Image Preview</div>
               <div className="home-item-info-container">Name</div>
               <div className="home-item-size">Size</div>
-              <div>Quantity</div>
-              <div>Change Quantity</div>
-              <div>Unit Price</div>
-              <div>Remove</div>
+              <div className="home-item-quantity">Quantity</div>
+              <div className="home-item-change">Change Quantity</div>
+              <div className="home-item-price">Unit Price</div>
+              <div className="removal">Remove</div>
             </div>
             {items.map((item) => (
               <div key={item.id} className="home-item-row">
@@ -97,10 +96,8 @@ function Checkout() {
                   <h3 className="home-item-title">{item.name}</h3>
                 </div>
                 <div className="home-item-size">{item.size}</div>
-                <div className="home-item-quantity">
-                  Quantity: {item.quantity}
-                </div>
-                <div>
+                <div className="home-item-quantity">{item.quantity}</div>
+                <div className="home-item-change">
                   {editingItemId === item.id ? (
                     <>
                       <input
@@ -132,7 +129,7 @@ function Checkout() {
                 </div>
                 <div className="home-item-price">${item.price}</div>
                 <button
-                  className="cart-button"
+                  className="removal"
                   onClick={() => handleRemoveFromCart(item.id)}
                 >
                   Remove from Cart
