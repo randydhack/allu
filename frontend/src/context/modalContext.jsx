@@ -6,18 +6,18 @@ export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-      setType(type);
-      if (type) {
-        document.querySelector("html").style.overflowY = "hidden";
-        document.body.style.overflowY = 'auto'
-      }
+  //     setType(type);
+  //     if (type) {
+  //       // document.querySelector("html").style.overflowY = "hidden";
+  //       document.body.style.overflowY = 'auto'
+  //     }
 
-    return () => {
-      document.querySelector("html").style.overflow = null;
-    };
-  }, [type]);
+  //   return () => {
+  //     document.querySelector("html").style.overflow = null;
+  //   };
+  // }, [type]);
 
   // Closes Modal when click outside of content
   const handleContent = () => {
