@@ -40,7 +40,7 @@ function LoginModal() {
     if (data) {
       setErrors(null);
       handleContent()
-      setUser(data)
+      setUser(data.user)
       return navigate("/");
     }
   };

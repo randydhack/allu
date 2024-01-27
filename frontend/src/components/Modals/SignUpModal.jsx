@@ -43,7 +43,7 @@ function SignUpModal() {
     if (data) {
       setErrors({});
       handleContent()
-      setUser(data)
+      setUser(data.user)
       return navigate("/");
     }
   };

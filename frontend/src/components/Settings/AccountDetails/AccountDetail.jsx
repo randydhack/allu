@@ -1,26 +1,21 @@
 // Libaries
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // CSS
 import "./AccountDetail.scss";
 import "../../utils/DefaultStyles.scss";
 import "../Settings.scss";
-// import { increment, decrement, incrementByAmount, incrementAsync} from "../../../store/counterSlice"
+import { InfoContext } from '../../../context/infoContext';
 
-// Components
-import SideNavigation from "../SideNavigation/SideNavigation";
 
 function AccountDetail() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const user = useSelector(state => state.session.user)
+
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
 
 
-// For Testing
-  // const dispatch = useDispatch();
-  // const count = useSelector(state => state.counter.value);
-
-//
 
   return (
         <div className="setting__contents setting__background">
@@ -33,7 +28,7 @@ function AccountDetail() {
           {/* Contents */}
           <div className="account-form__content__container">
             <div>
-              <div>Email Address</div>
+              <div className='font-semibold'>Email Address</div>
               <div className="font-light">johndoe@yahoo.com</div>
             </div>
 
@@ -65,11 +60,6 @@ function AccountDetail() {
             </form>
 
           </div>
-          {/* <div>{count}</div>
-          <button onClick={() => dispatch(increment())}>Increment</button>
-          <button onClick={() => dispatch(decrement())}>Decrement</button>
-          <button onClick={() => dispatch(incrementByAmount(5))}>Increment by 5</button>
-          <button onClick={() => dispatch(incrementAsync(5))}>Increment Async by 5</button> */}
         </div>
   );
 }
