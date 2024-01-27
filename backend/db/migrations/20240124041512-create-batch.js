@@ -14,6 +14,15 @@ module.exports = {
         allowNull: false,
         references: { model: 'Products'}
       },
+      orderId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: { model: 'Orders'}
+      },
+      cartId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Carts'}
+      },
       xs: {
         type: Sequelize.INTEGER,
       },
@@ -48,6 +57,9 @@ module.exports = {
       userDesignId: {
         type: Sequelize.INTEGER,
         references: { model: 'UserDesigns'}
+      },
+      note: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

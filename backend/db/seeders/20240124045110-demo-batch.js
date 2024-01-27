@@ -13,14 +13,17 @@ module.exports = {
       {
         id: 1,
         productId: 1,
+        cartId: 1,
         xs: 5,
         s:5,
         m: 5,
-        designId: 3
+        designId: 3,
+        note: "All tshirts have this design"
       },
       {
         id: 2,
         productId: 2,
+        cartId: 2,
         s: 5,
         m: 5,
         l: 10,
@@ -29,11 +32,21 @@ module.exports = {
       {
         id: 3,
         productId: 3,
+        cartId: 3,
         l: 5,
         xl: 10,
         xxl: 10,
         userDesignId: 4
-      }
+      },
+      {
+        id: 4,
+        productId: 3,
+        cartId: 3,
+        l: 3,
+        xl: 12,
+        xxl: 13,
+        userDesignId: 2
+      },
     ], {});
 
   },
@@ -43,7 +56,7 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       id: {
-        [Op.in]: [1, 2, 3]
+        [Op.in]: [1, 2, 3, 4]
       }
     }, {});
   }

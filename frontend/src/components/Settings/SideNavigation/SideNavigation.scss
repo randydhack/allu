@@ -16,9 +16,11 @@
 .side-navigation-links {
     &:hover {
         font-weight: 500;
+        cursor: pointer;
     }
     width: 160px;
     display: flex;
     gap: 8px;
     align-items: center;
+
 }

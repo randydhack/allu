@@ -8,14 +8,20 @@ module.exports = (sequelize, DataTypes) => {
       Batch.hasOne(models.Product, { foreignKey: "productId" });
       Batch.hasOne(models.Design, { foreignKey: "designId" });
       Batch.hasOne(models.UserDesign, { foreignKey: "userDesignId" });
-      Batch.belongsToMany(models.Order, { through: "OrderProducts" });
-      Batch.belongsToMany(models.Cart, { through: "CartProducts" });
+      Batch.belongsTo(models.Order, { foreignKey: "orderId" });
+      Batch.belongsTo(models.Cart, { foreignKey: "cartId" });
     }
   }
   Batch.init(
     {
       productId: {
         allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      orderId: {
+        type: DataTypes.INTEGER,
+      },
+      cartId: {
         type: DataTypes.INTEGER,
       },
       xs: {
@@ -51,6 +57,9 @@ module.exports = (sequelize, DataTypes) => {
       userDesignId: {
         type: DataTypes.INTEGER,
       },
+      note: {
+        type: DataTypes.STRING,
+      }
     },
     {
       sequelize,

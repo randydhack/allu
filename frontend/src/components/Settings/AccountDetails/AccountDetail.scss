@@ -3,21 +3,29 @@
     gap: 25px;
 }
 
-.account-form__field {
+.account-field {
     display: flex;
     flex-direction: column;
+
+    p {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0px;
+    }
+
+    label {
+        font-weight: 500;
+    }
 }
 
-.account-form__content__container {
+.account__content__container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.account-form__input {
-    height: 25px;
-    background-color: rgb(210, 210, 210);
-    border-style: none;
-    border: 1px rgb(115, 115, 115) solid;
-    border-radius: 2px;
+.account-details {
+    display: flex;
+    gap: 50px;
 }

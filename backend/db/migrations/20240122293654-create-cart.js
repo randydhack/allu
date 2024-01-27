@@ -10,15 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: { model: 'Users'}
       },
-      batches: {
-        type: Sequelize.TEXT,
-        defaultValue: JSON.stringify(["Test1", "Test2", "Test3"]),
-        allowNull: false
-    },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
