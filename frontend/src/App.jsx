@@ -12,6 +12,7 @@ import OrderHistory from "./components/Settings/OrderHistory/OrderHistory";
 import SideNavigation from "./components/Settings/SideNavigation/SideNavigation";
 import ChangeEmail from "./components/Settings/ChangeEmail/ChangeEmail";
 import ChangePassword from "./components/Settings/ChangePassword/ChangePassword";
+import Checkout from "./components/Checkout/Checkout";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
@@ -49,6 +50,7 @@ function App() {
             <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
             <Route path="/our-designs" element={<OurDesigns/>}/>
             <Route path="/product" element={<Product/>} />
+            <Route path="/checkout" element={<Checkout/>} />
           </Routes>
           <Footer/>
         </div>
