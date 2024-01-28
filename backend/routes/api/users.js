@@ -91,6 +91,17 @@ router.put('/change-email', requireAuth, async (req, res, next) => {
 
   const { password, newEmail } = req.body;
 
+  // Find a user to check if that email already exist
+  const checkEmail = await User.findOne({where: {email: newEmail}})
+
+  // If user is already found with that email, throw an error.
+  if (checkEmail) {
+    const err = new Error("A user already exist with that email. Please try another email.");
+    err.status = 401;
+    return next(err);
+  }
+
+  // Finds the current user and compare the password before allowing to update the email.
   const user = await User.findOne({
     where: {id: req.user.id},
     attributes: {

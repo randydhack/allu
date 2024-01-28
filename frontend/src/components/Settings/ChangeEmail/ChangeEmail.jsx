@@ -1,5 +1,5 @@
-import "./ChangeEmail.scss";
 // CSS
+import "./ChangeEmail.scss";
 
 // Libaries
 import React, { useState } from "react";
@@ -16,10 +16,7 @@ function ChangeEmail() {
 
       <div>
         <div className="change_email_header">
-          <p>
-            change the email you use to login and we will send you an email for
-            confirmation
-          </p>
+          <p>Enter a new email and current password to confirm changes.</p>
         </div>
         <div className="email_header">
           <p>Current Email</p>
@@ -28,11 +25,28 @@ function ChangeEmail() {
           <p className="current_email">johndoe@gmail.com</p>
         </div>
 
+        <form className="email_form" action="/update_password" method="post">
+          <div class="form_group">
+            <label for="newEmail">New Email:</label>
+            <input type="email" id="newEmail" name="newEmail" required />
+          </div>
+          <div class="form_group">
+            <label for="confirmNewPassword">Current Password:</label>
+            <input
+              type="password"
+              id="confirmNewPassword"
+              name="confirmNewPassword"
+              required
+            />
+          </div>
+        </form>
+
         <div className="confirmation_guide">
           <div className="change_email_guide">
             <p>
-              Once you click the button below, a link will be sent to your email
-              inbox with instructions on how to change your email.
+              Before you click the button below, make sure you have entered the
+              correct email. You will be logged out and will have to log back in
+              using your new credentials.
             </p>
           </div>
           <div className="change_email_btn">
