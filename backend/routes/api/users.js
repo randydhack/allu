@@ -63,7 +63,7 @@ router.post("/", validateSignup, async (req, res, next) => {
 });
 
 // Change Password
-router.put("/change-password", requireAuth, async (req, res, next) => {
+router.put("/update-password", requireAuth, async (req, res, next) => {
   const { password, newPassword } = req.body;
 
   const user = await User.findOne({
@@ -87,7 +87,7 @@ router.put("/change-password", requireAuth, async (req, res, next) => {
 });
 
 
-router.put('/change-email', requireAuth, async (req, res, next) => {
+router.put('/update-email', requireAuth, async (req, res, next) => {
 
   const { password, newEmail } = req.body;
 
@@ -96,9 +96,10 @@ router.put('/change-email', requireAuth, async (req, res, next) => {
 
   // If user is already found with that email, throw an error.
   if (checkEmail) {
-    const err = new Error("A user already exist with that email. Please try another email.");
-    err.status = 401;
-    return next(err);
+    return res.json({
+      message: {email: "A user already exist with that email. Please try another email."},
+      statusCode: 404,
+    });
   }
 
   // Finds the current user and compare the password before allowing to update the email.
@@ -110,9 +111,10 @@ router.put('/change-email', requireAuth, async (req, res, next) => {
   });
 
   if (!user || !user.validatePassword(password)) {
-    const err = new Error("Invalid password");
-    err.status = 401;
-    return next(err);
+    return res.json({
+      message: {password: "Invalid Password"},
+      statusCode: 404,
+    });
   }
 
   await user.update({email: newEmail})

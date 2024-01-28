@@ -2,10 +2,42 @@
 import "./ChangeEmail.scss";
 
 // Libaries
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { changeEmail, logoutUser } from "../../../store/session";
+import { useNavigate } from "react-router-dom";
+
+// Context
+import { InfoContext } from "../../../context/infoContext";
 
 function ChangeEmail() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const {setUser} = useContext(InfoContext)
+
+  const [newEmail, setNewEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState(null)
+
+  const handleUpdateEmail = async (e) => {
+    e.preventDefault()
+
+    const data = await dispatch(changeEmail(newEmail, password))
+
+    if (data && data.message) {
+      setErrors(data.message)
+    } else {
+      setErrors(null);
+      logoutUser()
+      setUser(null)
+      return navigate("/");
+    }
+  }
+
+
+
   return (
     <div className="setting__contents setting__background">
       {/* HEADING */}
@@ -25,10 +57,11 @@ function ChangeEmail() {
           <p className="current_email">johndoe@gmail.com</p>
         </div>
 
-        <form className="email_form" action="/update_password" method="post">
+        <form className="email_form" action="/update_password" method="post" onSubmit={e => handleUpdateEmail(e)}>
           <div class="form_group">
             <label for="newEmail">New Email:</label>
-            <input type="email" id="newEmail" name="newEmail" required />
+            <input type="email" id="newEmail" name="newEmail" required value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
+            {errors && <div>{errors.email}</div>}
           </div>
           <div class="form_group">
             <label for="confirmNewPassword">Current Password:</label>
@@ -37,9 +70,11 @@ function ChangeEmail() {
               id="confirmNewPassword"
               name="confirmNewPassword"
               required
+              value={password} onChange={(e) => setPassword(e.target.value)}
             />
+            {errors && <div>{errors.password}</div>}
           </div>
-        </form>
+
 
         <div className="confirmation_guide">
           <div className="change_email_guide">
@@ -50,9 +85,10 @@ function ChangeEmail() {
             </p>
           </div>
           <div className="change_email_btn">
-            <button type="submit">send email change link</button>
+            <button type="submit">Confirm Changes</button>
           </div>
         </div>
+        </form>
       </div>
     </div>
   );
