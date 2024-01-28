@@ -10,39 +10,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Users'}
       },
       address: {
-        type: Sequelize.STRING
-      },
-      productId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      colors: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      sizes: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       special_request: {
         type: Sequelize.STRING
       },
-      design: {
-        type: Sequelize.INTEGER
-      },
-      user_design: {
-        type: Sequelize.INTEGER
+      quote: {
+        type: Sequelize.FLOAT
       },
       workforce_race: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       processed: {
-        type: Sequelize.BOOLEAN,
         allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

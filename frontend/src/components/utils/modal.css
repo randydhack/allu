@@ -8,7 +8,7 @@
 }
 
 .modalContent {
-  position: relative;
+  position: fixed;
   z-index: 60;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .modalBackdrop {
-  position: absolute;
+  position: fixed;
   z-index: 50;
   height: 100vh;
   width: 100%;

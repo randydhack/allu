@@ -7,10 +7,18 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       design_url: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      text_layers: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      design_price: {
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       createdAt: {

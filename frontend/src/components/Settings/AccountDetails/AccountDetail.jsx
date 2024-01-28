@@ -1,20 +1,24 @@
 // Libaries
-import { useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 // CSS
 import "./AccountDetail.scss";
 import "../../utils/DefaultStyles.scss";
 import "../Settings.scss";
+import { InfoContext } from '../../../context/infoContext';
 
-// Components
-import SideNavigation from "../SideNavigation/SideNavigation";
 
 function AccountDetail() {
+  const user = useSelector(state => state.session.user)
+
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+
+
+
   return (
-    <div className="container">
-      <div className="setting__container">
-        <SideNavigation />
-        <div className="setting__contents account-detail-background pr-56">
+        <div className="setting__contents setting__background">
           {/* HEADING */}
           <div className="setting__header__mb">
             <h2 className="setting__header">Account Details</h2>
@@ -22,27 +26,33 @@ function AccountDetail() {
           </div>
 
           {/* Contents */}
-          <div>
+          <div className="account__content__container">
             <div>
-              <div>Email Address</div>
-              <div className="font-light">johndoe@yahoo.com</div>
+              <div>Email Address:</div>
+              <div className="font-semibold">johndoe@yahoo.com</div>
             </div>
 
-            <form className="account-form">
-              <div className="account-form__field">
-                <label htmlFor="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name"/>
+            {/* Form for updating first name and last name */}
+            <div className="account-details">
+              <div className="account-field">
+                <div>First Name:</div>
+                <div
+                  id="first_name"
+                  className='font-semibold'
+                  >{firstName}</div>
               </div>
 
-              <div className="account-form__field">
-                <label htmlFor="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name"/>
+              <div className="account-field">
+                <div>Last Name:</div>
+                <div
+                  id="last_name"
+                  className='font-semibold'
+                >{lastName}</div>
               </div>
-            </form>
+            </div>
+
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

@@ -6,8 +6,21 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: max-content;
 }
 
 .side-navigation__left__border {
     border-left: 0.5px solid #DBDBDB;
+}
+
+.side-navigation-links {
+    &:hover {
+        font-weight: 500;
+        cursor: pointer;
+    }
+    width: 160px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
 }

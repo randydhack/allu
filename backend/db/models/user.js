@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(models.Order, { foreignKey:'userId' })
+      User.hasMany(models.UserDesign, { foreignKey:'userId' })
+      User.hasOne(models.Cart, { foreignKey:'userId' })
     }
   }
 
@@ -67,6 +70,9 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 256],
           isEmail: true,
         },
+      },
+      admin: {
+        type: DataTypes.BOOLEAN
       },
       hashedPassword: {
         allowNull: false,
