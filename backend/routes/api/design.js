@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
+const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
 const { Design } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
 //Most CRUD for desings can be added later again prioritize time on the features we have planned for frontend
 
-//get all premade designs
+// get all premade designs
 router.get("/", async (req, res) => {
   const designs = await Design.findAll({
     attributes: ["id", "design_url", "text_layers", "design_price"],
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
   return res.json({ Designs: designs });
 });
 
-//get a single premade design
+
 router.get("/:designId", async (req, res) => {
   const designs = await Design.findOne({
     where: {
@@ -34,30 +35,44 @@ router.get("/:designId", async (req, res) => {
   return res.json({ Designs: [designs] });
 });
 
+
 //Create a premade design for admin
-router.post("/", requireAuth, async (req, res) => {
+//includes aws upload
+router.post("/", 
+singleMulterUpload("image"),
+requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user.admin) {
-    const { design_url, text_layers, design_price } = req.body;
+    // const { design_url, text_layers, design_price } = req.body;
 
-    if (!design_url || !text_layers || !design_price) {
-      return res.json({
-        message: "Validation Error",
-        statusCode: 400,
-        errors: {
-          design_url: "Design url is required",
-          text_layers: "Text layer is required",
-          design_price: "Design price is required",
-        },
-      });
-    }
+    // if (!design_url || !text_layers || !design_price) {
+    //   return res.json({
+    //     message: "Validation Error",
+    //     statusCode: 400,
+    //     errors: {
+    //       design_url: "Design url is required",
+    //       text_layers: "Text layer is required",
+    //       design_price: "Design price is required",
+    //     },
+    //   });
+    // }
 
+    // const newDesign = await Design.create({
+    //   design_url: design_url,
+    //   text_layers: text_layers,
+    //   design_price: design_price,
+    // });
+
+    const { text_layers, design_price } = req.body;
+    const designImageUrl = await singlePublicFileUpload(req.file);
     const newDesign = await Design.create({
-      design_url: design_url,
+      design_url: designImageUrl,
       text_layers: text_layers,
       design_price: design_price,
     });
+
+
 
     res.status = 201;
     res.json(newDesign);
@@ -149,5 +164,6 @@ router.delete("/:designId", requireAuth, async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;
