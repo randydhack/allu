@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import Modal from "react-modal";
+
 // CSS
 import "./Product.scss";
 
