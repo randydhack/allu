@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './counterSlice';
 import sessionReducer from './session';
 import designReducer from './designReducer';
+import orderReducer from './order'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     session: sessionReducer,
-    designs: designReducer
+    designs: designReducer,
+    orders: orderReducer
   },
 
   middleware: (getDefaultMiddleware) =>
