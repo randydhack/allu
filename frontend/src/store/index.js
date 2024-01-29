@@ -9,7 +9,8 @@ export const store = configureStore({
     counter: counterReducer,
     session: sessionReducer,
     designs: designReducer,
-    orders: orderReducer
+    orders: orderReducer,
+    batches: batchReducer
   },
 
   middleware: (getDefaultMiddleware) =>
