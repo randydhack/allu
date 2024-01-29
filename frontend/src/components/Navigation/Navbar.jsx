@@ -5,17 +5,18 @@ import { useSelector } from "react-redux";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
+import { InfoContext } from "../../context/infoContext";
 
-// Components
-import LoginModal from "../Modals/LoginModal";
-import SignUpModal from "../Modals/SignUpModal";
+// Logo
+import Logo from '../../images/t_shirt_logo.png'
 
 // CSS
 import "./Navbar.scss";
 
 // Icons
 import { FaRegUserCircle } from "react-icons/fa";
-import { InfoContext } from "../../context/infoContext";
+import { IoCartOutline } from "react-icons/io5";
+
 
 
 function Navbar() {
@@ -31,7 +32,7 @@ function Navbar() {
         <NavLink to="/">
           <img
             className="nav_logo"
-            src="t_shirt_logo.png"
+            src={Logo}
             alt="all-u logo, click to return to home page"
           />
         </NavLink>
@@ -47,14 +48,20 @@ function Navbar() {
       {user || currUser ? (
         <div className="nav__profile__cart">
           <NavLink to="/account-details">
-            <FaRegUserCircle className="profile__icon" /></NavLink>
-          <i className="fa-solid fa-cart-shopping"></i>
+          <FaRegUserCircle className="nav-icon" /></NavLink>
+          <NavLink to='/checkout'>
+            <div>
+            <IoCartOutline className="nav-icon "/>
+            <div className="cart_total_items">0</div>
+            </div>
+
+            </NavLink>
         </div>
       ) : (
         <div className="nav__right__section">
           <button onClick={() => toggleLogin()}>Sign in</button>
           <button onClick={() => toggleSignUp()}>Register</button>
-          <i className="fa-solid fa-cart-shopping"></i>
+          <NavLink to='/checkout'><IoCartOutline className="nav-icon "/></NavLink>
         </div>
       )}
     </div>
