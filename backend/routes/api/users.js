@@ -110,7 +110,6 @@ router.put("/update-email", requireAuth, async (req, res, next) => {
     errors.message["password"] = "Invalid Password"
   }
 
-  console.log(errors)
   if (errors) {
     return res.json(errors)
   }
