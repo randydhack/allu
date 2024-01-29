@@ -67,10 +67,10 @@ router.put("/update-password", requireAuth, async (req, res, next) => {
   const { password, newPassword } = req.body;
 
   const user = await User.findOne({
-    where: {id: req.user.id},
+    where: { id: req.user.id },
     attributes: {
-      include: ["hashedPassword"]
-    }
+      include: ["hashedPassword"],
+    },
   });
 
   if (!user || !user.validatePassword(password)) {
@@ -81,46 +81,54 @@ router.put("/update-password", requireAuth, async (req, res, next) => {
 
   const newHashedPassword = bcrypt.hashSync(newPassword);
 
-  await user.update({hashedPassword: newHashedPassword})
+  await user.update({ hashedPassword: newHashedPassword });
 
-  res.status(200).json(user.toSafeObject())
+  res.status(200).json(user.toSafeObject());
 });
 
-
-router.put('/update-email', requireAuth, async (req, res, next) => {
-
+router.put("/update-email", requireAuth, async (req, res, next) => {
   const { password, newEmail } = req.body;
 
+  // Throw error is user enter same email
+  if (req.user.email === newEmail) {
+    return res.json({
+      message: { email: "You are already using this email" },
+      statusCode: 401,
+    });
+  }
+
   // Find a user to check if that email already exist
-  const checkEmail = await User.findOne({where: {email: newEmail}})
+  const checkEmail = await User.findOne({ where: { email: newEmail } });
 
   // If user is already found with that email, throw an error.
   if (checkEmail) {
     return res.json({
-      message: {email: "A user already exist with that email. Please try another email."},
-      statusCode: 404,
+      message: {
+        email:
+          "A user already exist with that email. Please try another email.",
+      },
+      statusCode: 401,
     });
   }
 
   // Finds the current user and compare the password before allowing to update the email.
   const user = await User.findOne({
-    where: {id: req.user.id},
+    where: { id: req.user.id },
     attributes: {
-      include: ["hashedPassword"]
-    }
+      include: ["hashedPassword"],
+    },
   });
 
-  if (!user || !user.validatePassword(password)) {
+  if (!user.validatePassword(password)) {
     return res.json({
-      message: {password: "Invalid Password"},
-      statusCode: 404,
+      message: { password: "Invalid Password" },
+      statusCode: 401,
     });
   }
 
-  await user.update({email: newEmail})
+  await user.update({ email: newEmail });
 
-  res.status(200).json(user.toSafeObject())
-})
-
+  res.status(200).json(user.toSafeObject());
+});
 
 module.exports = router;

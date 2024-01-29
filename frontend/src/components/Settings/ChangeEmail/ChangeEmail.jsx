@@ -2,7 +2,7 @@
 import "./ChangeEmail.scss";
 
 // Libaries
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeEmail, logoutUser } from "../../../store/session";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +15,15 @@ function ChangeEmail() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  const {setUser} = useContext(InfoContext)
+  const {user, setUser} = useContext(InfoContext)
 
   const [newEmail, setNewEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState(null)
+
+  // useEffect(() => {
+  //   setUser(user)
+  // }, [user])
 
   const handleUpdateEmail = async (e) => {
     e.preventDefault()
@@ -54,7 +58,7 @@ function ChangeEmail() {
           <p>Current Email</p>
         </div>
         <div>
-          <p className="current_email">johndoe@gmail.com</p>
+          <p className="current_email">{user?.email}</p>
         </div>
 
         <form className="email_form" action="/update_password" method="post" onSubmit={e => handleUpdateEmail(e)}>
