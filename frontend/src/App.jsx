@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
 
 // Redux Store
-import * as sessionActions from './store/session'
+import * as sessionActions from "./store/session";
 
 // Context
 import { InfoContext } from "./context/infoContext";
@@ -19,6 +19,7 @@ import OrderHistory from "./components/Settings/OrderHistory/OrderHistory";
 import SideNavigation from "./components/Settings/SideNavigation/SideNavigation";
 import ChangeEmail from "./components/Settings/ChangeEmail/ChangeEmail";
 import ChangePassword from "./components/Settings/ChangePassword/ChangePassword";
+import Checkout from "./components/Checkout/Checkout";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
@@ -38,23 +39,19 @@ const SettingsWrapper = ({ children }) => (
   </div>
 );
 
-
 // Main App
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const { user, setUser } = useContext(InfoContext)
-
+  const { user, setUser } = useContext(InfoContext);
 
   useEffect(() => {
-
     (async () => {
-      const session = await dispatch(sessionActions.restoreUser())
-      if (session.user) setUser(session)
-      setIsLoaded(true)
-    })()
-
+      const session = await dispatch(sessionActions.restoreUser());
+      if (session.user) setUser(session);
+      setIsLoaded(true);
+    })();
   }, [dispatch, setUser]);
 
   // Add your routes here, and follow the formatting
@@ -66,20 +63,81 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/our-designs" element={<OurDesigns/>}/>
-            <Route path="/product" element={<Product/>} />
+            <Route
+              path="/account-details"
+              element={
+                <SettingsWrapper>
+                  <AccountDetail />
+                </SettingsWrapper>
+              }
+            />
+            <Route
+              path="/order-history"
+              element={
+                <SettingsWrapper>
+                  <OrderHistory />
+                </SettingsWrapper>
+              }
+            />
+            <Route
+              path="/change-email"
+              element={
+                <SettingsWrapper>
+                  <ChangeEmail />
+                </SettingsWrapper>
+              }
+            />
+            <Route
+              path="/change-password"
+              element={
+                <SettingsWrapper>
+                  <ChangePassword />
+                </SettingsWrapper>
+              }
+            />
+            <Route path="/our-designs" element={<OurDesigns />} />
+            <Route path="/product" element={<Product />} />
 
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
-            {user &&
-            <>
-              <Route path="/account-details" element={<SettingsWrapper><AccountDetail /></SettingsWrapper>} />
-              <Route path="/order-history" element={<SettingsWrapper><OrderHistory /></SettingsWrapper>} />
-              <Route path="/change-email" element={<SettingsWrapper><ChangeEmail /></SettingsWrapper>} />
-              <Route path="/change-password" element={<SettingsWrapper><ChangePassword /></SettingsWrapper>} />
-            </>
-            }
+            {user && (
+              <>
+                <Route
+                  path="/account-details"
+                  element={
+                    <SettingsWrapper>
+                      <AccountDetail />
+                    </SettingsWrapper>
+                  }
+                />
+                <Route
+                  path="/order-history"
+                  element={
+                    <SettingsWrapper>
+                      <OrderHistory />
+                    </SettingsWrapper>
+                  }
+                />
+                <Route
+                  path="/change-email"
+                  element={
+                    <SettingsWrapper>
+                      <ChangeEmail />
+                    </SettingsWrapper>
+                  }
+                />
+                <Route
+                  path="/change-password"
+                  element={
+                    <SettingsWrapper>
+                      <ChangePassword />
+                    </SettingsWrapper>
+                  }
+                />
+              </>
+            )}
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
-          <Footer/>
+          <Footer />
         </div>
       )}
     </>
