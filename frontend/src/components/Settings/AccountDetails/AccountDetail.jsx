@@ -7,15 +7,24 @@ import "./AccountDetail.scss";
 import "../../utils/DefaultStyles.scss";
 import "../Settings.scss";
 import { InfoContext } from '../../../context/infoContext';
+import { restoreUser } from '../../../store/session';
 
 
 function AccountDetail() {
+
+  const dispatch = useDispatch()
+  const { setUser } = useContext(InfoContext)
+
   const user = useSelector(state => state.session.user)
 
-  const [firstName, setFirstName] = useState(user?.firstName || "");
-  const [lastName, setLastName] = useState(user?.lastName || "");
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userData = await dispatch(restoreUser());
+      setUser(userData);
+    };
 
-
+    fetchUserInfo();
+  }, [setUser]);
 
   return (
         <div className="setting__contents setting__background">
@@ -29,7 +38,7 @@ function AccountDetail() {
           <div className="account__content__container">
             <div>
               <div>Email Address:</div>
-              <div className="font-semibold">johndoe@yahoo.com</div>
+              <div className="font-semibold">{user.email}</div>
             </div>
 
             {/* Form for updating first name and last name */}
@@ -39,7 +48,7 @@ function AccountDetail() {
                 <div
                   id="first_name"
                   className='font-semibold'
-                  >{firstName}</div>
+                  >{user.firstName}</div>
               </div>
 
               <div className="account-field">
@@ -47,7 +56,7 @@ function AccountDetail() {
                 <div
                   id="last_name"
                   className='font-semibold'
-                >{lastName}</div>
+                >{user.lastName}</div>
               </div>
             </div>
 
