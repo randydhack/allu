@@ -14,7 +14,8 @@ import SignUpModal from "../Modals/SignUpModal";
 import "./Navbar.scss";
 
 // Icons
-import { CiUser } from "react-icons/ci";
+import { FaRegUserCircle } from "react-icons/fa";
+
 
 function Navbar() {
   const { toggleLogin, toggleSignUp } = useContext(ModalContext);
@@ -23,6 +24,7 @@ function Navbar() {
 
   return (
     <div className="nav__container">
+      <div className="left-nav">
       <div className="nav_logo__container">
         <NavLink to="/">
           <img
@@ -34,16 +36,16 @@ function Navbar() {
       </div>
 
       <div className="nav__middle__section">
-        <NavLink to="/our-designs">Our Designs</NavLink>
-        <NavLink>Create your own designs</NavLink>
+        <NavLink to="/our-designs" alt='designs'>Designs</NavLink>
+        <NavLink>Create</NavLink>
         <NavLink>About us</NavLink>
+      </div>
       </div>
 
       {user ? (
         <div className="nav__profile__cart">
           <NavLink to="/account-details">
-            <CiUser className="profile__icon" /> <span>My Account</span>
-          </NavLink>
+            <FaRegUserCircle className="profile__icon" /></NavLink>
           <i className="fa-solid fa-cart-shopping"></i>
         </div>
       ) : (

@@ -33,9 +33,9 @@ function SideNavigation() {
       <div className="setting__contents">
         <div className="setting__header setting__header__mb">Settings</div>
         <div className="side-navigation__contents">
-          <NavLink to='/account-details' className="side-navigation-links"><MdOutlineManageAccounts /> Account Details</NavLink>
+          <NavLink to='/account-details' className="side-navigation-links" aria-current="Account Details Page"><MdOutlineManageAccounts /> Account Details</NavLink>
           <NavLink to='/order-history' className="side-navigation-links"><TbTruckDelivery /> Order History</NavLink>
-          <NavLink to='/change-email' className="side-navigation-links"><HiOutlineMail /> Change Email</NavLink>
+          <NavLink to='/change-email' className="side-navigation-links"><HiOutlineMail aria-hidden="true"/> Change Email</NavLink>
           <NavLink to='/change-password'className="side-navigation-links"><IoKeyOutline /> Change Password</NavLink>
           <div className="side-navigation-links" onClick={e => handleUserLogout(e)}><IoLogOutOutline/> Log out</div>
         </div>
