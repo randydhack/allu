@@ -1,23 +1,27 @@
 import { csrfFetch } from "../store/csrf";
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const designSlice = createSlice({
-    name: "designs",
-    initialState: {
-        allDesigns: null,
-        singleDesign: null,
+  name: "designs",
+  initialState: {
+    isLoaded: false,
+    allDesigns: null,
+    singleDesign: null,
+  },
+  reducers: {
+    loadDesigns: (state, action) => {
+      state.isLoaded = true;
+      state.allDesigns = action.payload;
     },
-    reducers: {
-        loadDesigns: (state, action) => {
-           state.allDesigns = action.payload 
-        },
-        singleDesign: (state, action) => {
-          state.
-          state.singleDesign = action.payload
-        }
+    singleDesign: (state, action) => {
+      state.singleDesign = action.payload;
+    },
+  },
+});
 
-    }
-})
+export const { loadDesigns, singleDesign } = designSlice.actions;
+
+export default designSlice.reducer;
 
 //get all designs
 export const getDesigns = () => async (dispatch) => {
@@ -42,46 +46,44 @@ export const spotDetails = (designId) => async (dispatch) => {
 };
 
 //create design
-export const createDesign = (design) => async (dispatch) => {
-  const response = await csrfFetch("/api/designs", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(design),
-  });
+// export const createDesign = (design) => async (dispatch) => {
+//   const response = await csrfFetch("/api/designs", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(design),
+//   });
 
-  if (response.ok) {
-    const newDesign = await response.json();
+//   if (response.ok) {
+//     const newDesign = await response.json();
 
-    dispatch(addDesign(newDesign));
-    return newDesign;
-  }
-};
+//     dispatch(addDesign(newDesign));
+//     return newDesign;
+//   }
+// };
 
 //update design
-export const updateDesign = (design, id) => async (dispatch) => {
-  const response = await csrfFetch(`/api/designs/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(design),
-  });
+// export const updateDesign = (design, id) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/designs/${id}`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(design),
+//   });
 
-  if (response.ok) {
-    const edit = await response.json();
-    dispatch(editDesign(edit));
-    return edit;
-  }
-};
+//   if (response.ok) {
+//     const edit = await response.json();
+//     dispatch(editDesign(edit));
+//     return edit;
+//   }
+// };
 
 //delete design
-export const deleteDesign = (id) => async (dispatch) => {
-  const response = await csrfFetch(`/api/designs/${id}`, {
-    method: "DELETE",
-  });
+// export const deleteDesign = (id) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/designs/${id}`, {
+//     method: "DELETE",
+//   });
 
-  if (response.ok) {
-    await response.json();
-    dispatch(removeDesign(id));
-  }
-};
-
-export default designReducer;
+//   if (response.ok) {
+//     await response.json();
+//     dispatch(removeDesign(id));
+//   }
+// };
