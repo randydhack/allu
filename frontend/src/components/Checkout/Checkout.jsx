@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBatches } from "../../store/BatchReducer";
 import "./Checkout.scss";
 
 function Checkout() {
@@ -8,6 +9,13 @@ function Checkout() {
   };
   const [editingItemId, setEditingItemId] = useState(null);
   const [editedQuantity, setEditedQuantity] = useState({});
+
+  const dispatch = useDispatch();
+  const { allBatches, isLoaded } = useSelector((state) => state.batches);
+
+  useEffect(() => {
+    dispatch(getAllBatches());
+  }, [dispatch]);
 
   const [items, setItems] = useState([
     {
@@ -68,6 +76,20 @@ function Checkout() {
 
   return (
     <div className="checkout_page">
+      <div>
+        <h2>Batches:</h2>
+        {isLoaded ? (
+          <ul>
+            {allBatches?.map((batch) => (
+              <li key={batch.id}>
+                {batch.name /* Adjust according to your batch structure */}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Loading batches...</p>
+        )}
+      </div>
       <header className="checkout_header">CURRENT ORDER</header>
       <div className="checkout_main_body">
         {items.length === 0 ? (

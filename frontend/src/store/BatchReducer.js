@@ -45,7 +45,6 @@ export const getAllBatches = () => async (dispatch) => {
   }
 };
 
-
 export const getBatch = (batchId) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`);
 
@@ -64,23 +63,21 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
 
   if (response.ok) {
     const updatedBatch = await response.json();
-    dispatch(loadSingleBatch(updatedBatch)); // or your update logic here
+    dispatch(loadSingleBatch(updatedBatch));
   }
 };
 
-// Thunk for deleting a batch
 export const deleteBatch = (batchId) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`, {
     method: "DELETE",
   });
 
   if (response.ok) {
-    dispatch(loadSingleBatch(null)); // Clear the deleted batch
-    // You might also want to refresh the list of all batches
-    // if they are displayed in the UI
+    dispatch(batchSlice.actions.deleteBatch(batchId));
+
+    dispatch(getAllBatches());
   }
 };
-
 export const { loadBatches, loadSingleBatch } = batchSlice.actions;
 
 export default batchSlice.reducer;
