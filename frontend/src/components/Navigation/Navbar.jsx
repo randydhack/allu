@@ -15,12 +15,14 @@ import "./Navbar.scss";
 
 // Icons
 import { FaRegUserCircle } from "react-icons/fa";
+import { InfoContext } from "../../context/infoContext";
 
 
 function Navbar() {
   const { toggleLogin, toggleSignUp } = useContext(ModalContext);
+  const { user } = useContext(InfoContext)
 
-  const user = useSelector((state) => state.session.user);
+  const currUser = useSelector((state) => state.session.user);
 
   return (
     <div className="nav__container">
@@ -42,7 +44,7 @@ function Navbar() {
       </div>
       </div>
 
-      {user ? (
+      {user || currUser ? (
         <div className="nav__profile__cart">
           <NavLink to="/account-details">
             <FaRegUserCircle className="profile__icon" /></NavLink>

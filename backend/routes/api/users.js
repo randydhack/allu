@@ -64,7 +64,12 @@ router.post("/", validateSignup, async (req, res, next) => {
 
 // Change Password
 router.put("/update-password", requireAuth, async (req, res, next) => {
-  const { password, newPassword } = req.body;
+  const { password, newPassword, confirmedPassword} = req.body;
+  const errors = {message: {}}
+
+  if (confirmedPassword !== newPassword) {
+    errors.message["match"] = "Password must match the confirmed password"
+  }
 
   const user = await User.findOne({
     where: { id: req.user.id },
@@ -74,8 +79,12 @@ router.put("/update-password", requireAuth, async (req, res, next) => {
   });
 
   if (!user || !user.validatePassword(password)) {
-    const err = new Error("Invalid password");
-    err.status = 401;
+    errors.message["password"] = "Invalid Password";
+  }
+
+  if (errors.message) {
+    const err = new Error(JSON.stringify(errors.message));
+    err.status = 404;
     return next(err);
   }
 
