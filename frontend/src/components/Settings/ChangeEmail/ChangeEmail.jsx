@@ -24,15 +24,6 @@ function ChangeEmail() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
 
-  if (!currentUser) {
-    const fetchUserInfo = async () => {
-      const userData = await dispatch(restoreUser());
-      setUser(userData.user);
-    };
-
-    fetchUserInfo();
-  }
-
   const handleUpdateEmail = async (e) => {
     e.preventDefault();
 
@@ -40,10 +31,11 @@ function ChangeEmail() {
 
     if (data && data.message) {
       setErrors(data.message);
-      setUser(currentUser);
+      // setUser(currentUser);
     } else {
       setErrors(null);
       logoutUser();
+      setUser(null)
       return navigate("/");
     }
   };
