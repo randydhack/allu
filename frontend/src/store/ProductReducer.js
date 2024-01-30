@@ -21,7 +21,7 @@ export const productSlice = createSlice({
 
 // Async thunk action for getting all products
 export const getAllProducts = () => async (dispatch) => {
-  const response = await csrfFetch("/api/product");
+  const response = await csrfFetch("/api/products");
 
   if (response.ok) {
     const products = await response.json();
@@ -31,7 +31,7 @@ export const getAllProducts = () => async (dispatch) => {
 
 // Async thunk action for getting a single product
 export const getProduct = (productId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/product/${productId}`);
+  const response = await csrfFetch(`/api/products/${productId}`);
 
   if (response.ok) {
     const product = await response.json();

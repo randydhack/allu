@@ -35,8 +35,8 @@ function DeliveryForm({setFormInfo, formInfo, errors}){
                 <input required={true} type="text" name="city" id="city"onChange={formChange} value={formInfo["city"]?formInfo["city"]:""}/>
             </label>
             <label htmlFor="state-selector">State:
-                <select required={true} name="state"id="state-selector" onChange={formChange} value={formInfo["state"] || "Choose Your State"}>
-                    <option disabled>Choose Your State</option>
+                <select required name="state"id="state-selector" onChange={formChange} defaultValue="" value={formInfo["state"]}>
+                    <option disabled value=""  >Choose Your State</option>
                     {
                         states.map((state)=> {
                             return (<option key={state}>{state}</option>)
@@ -56,11 +56,6 @@ function DeliveryForm({setFormInfo, formInfo, errors}){
             <label className="text-area-label" htmlFor="special-instructions">Any Special Instructions:
                 <textarea name="special-instructions" id="" cols="30" rows="10" onChange={formChange} value={formInfo["special-instructions"]?formInfo["special-instructions"]:""}></textarea>
             </label>
-            <ul className="errors">
-            {
-                errors.map((error)=> <li key={error}>{error}</li> )
-            }
-            </ul>
         </>
     )
 }
