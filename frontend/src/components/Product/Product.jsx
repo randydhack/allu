@@ -25,13 +25,18 @@ function Product() {
     (state) => state.products
   );
 
-  const [color, setColor] = useState({ id: null, colorName: null });
   const [product, setProduct] = useState({ id: 1, type: "Heavy-T" });
+  const [color, setColor] = useState({ id: 0, colorName: "bannana"});
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log(productColors)
+  // console.log("all products", allProducts)
+  // console.log("sizes", productSizes)
+  // console.log("colors", productColors)
+  // console.log(isLoaded)
+  // console.log(color)
+  // console.log(product)
 
   return (
     isLoaded && (
@@ -49,17 +54,18 @@ function Product() {
             <div>
               <img
                 className="side_img"
-                src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-                alt="Model Image"
+                src={allProducts[product.id - 1].ProductImages[color.id || 0]?.img_url}
+                alt={`Product Image - ${color.colorName}`}
               />
             </div>
             <div>
               <img
                 className="model_img"
-                src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                src={allProducts[product.id - 1]?.ProductImages[color.id || 0]?.img_url} //selects first image of that product with selected id
                 alt="Model Image"
               />
-              <div>description</div>
+              <h1>description</h1>
+              <div>{allProducts[product.id - 1].description}</div>
             </div>
           </div>
 
@@ -70,15 +76,16 @@ function Product() {
             <div>
               <h3>Choose an option: {product.type}</h3>
               <div>
-                {allProducts.map((product, id) => (
+                {allProducts.map((product, id, colors) => (
                   <img
                     key={product.name + id}
-                    src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                    src={allProducts[product.id - 1]?.ProductImages[0]?.img_url} //selects first image of that product with selected id
                     width={50}
                     height={50}
-                    onClick={() =>
+                    onClick={() => {
                       setProduct({ id: product.id, type: product.name })
-                    }
+                      setColor({ id: 0, colorName: colors[product.id-1]?.colors[0].name }) //sets color of main image back to first color with name
+                    }}
                   />
                 ))}
               </div>
@@ -94,7 +101,7 @@ function Product() {
                             style={{
                               backgroundColor: `${color.hex}`,
                             }}
-                            onClick={() => setColor({id: product.id, colorName: color.name})}
+                            onClick={() => setColor({id: i, colorName: color.name})}
                           ></div>
                         );
                       })}
@@ -112,6 +119,9 @@ function Product() {
                 })}
               </div>
             </div>
+              <button className="confirm_button" type="submit">
+                  FINALIZE SELECTION
+              </button>
           </form>
         </div>
       </div>
@@ -222,9 +232,9 @@ function Product() {
       //             </div>
       //           </div>
 
-      //           <button className="confirm_button" type="submit">
-      //             FINALIZE SELECTION
-      //           </button>
+                // <button className="confirm_button" type="submit">
+                //   FINALIZE SELECTION
+                // </button>
       //         </form>
       //         <p className="place_holder">LOREM IPSUM</p>
       //       </div>

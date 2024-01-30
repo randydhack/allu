@@ -30,7 +30,6 @@ function Home() {
   }, [currentImgIdx])
   
 
-  console.log(currentImgIdx)
   return (
     <div className="home-container">
       {/* Left Section */}
@@ -46,7 +45,7 @@ function Home() {
             <div className="subcolumn">
               <p>Order shirts or hoodies with one of our pre-built designs!</p>
               <button onClick={()=>{navigate('/designs')}} className="home-left-buttons">
-                Browse pre-made designs
+                Browse designs
               </button>
             </div>
             <div className="subcolumn">
