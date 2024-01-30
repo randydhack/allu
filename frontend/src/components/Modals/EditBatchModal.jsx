@@ -76,7 +76,14 @@ const EditBatchModal = () => {
         ))}
         <button type="submit">Update Sizes</button>
       </form>
-      <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+      <button
+        onClick={() => {
+          setIsModalOpen(false);
+          setType(null);
+        }}
+      >
+        Cancel
+      </button>
     </div>
   );
 };
