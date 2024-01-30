@@ -35,7 +35,7 @@ function OurDesigns() {
         <div className="design_grid">
           {designs.Designs.map((el, i) => {
             return (
-              <div>
+              <div key={`design${i}`}>
                 <img src={el.design_url} alt="image" className="design_image" />
               </div>
             );

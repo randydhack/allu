@@ -1,24 +1,23 @@
 import { csrfFetch } from "../store/csrf";
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const designSlice = createSlice({
-    name: "designs",
-    initialState: {
-      isLoaded: false,
-        allDesigns: null,
-        singleDesign: null,
+  name: "designs",
+  initialState: {
+    isLoaded: false,
+    allDesigns: null,
+    singleDesign: null,
+  },
+  reducers: {
+    loadDesigns: (state, action) => {
+      state.isLoaded = true;
+      state.allDesigns = action.payload;
     },
-    reducers: {
-        loadDesigns: (state, action) => {
-          state.isLoaded = true
-           state.allDesigns = action.payload
-        },
-        singleDesign: (state, action) => {
-          state.singleDesign = action.payload
-        }
-
-    }
-})
+    singleDesign: (state, action) => {
+      state.singleDesign = action.payload;
+    },
+  },
+});
 
 export const { loadDesigns, singleDesign } = designSlice.actions;
 

@@ -50,7 +50,6 @@ function App() {
   useEffect(() => {
     (async () => {
       const session = await dispatch(sessionActions.restoreUser());
-      console.log(session.user)
       if (session.user) setUser(session.user);
       setIsLoaded(true);
     })();
