@@ -45,9 +45,9 @@ function ChangePassword() {
       const data = await res.json()
       const error = JSON.parse(data.message)
       if (data && error) setErrors(error);
-
     })
 
+    console.log(userData)
     if (userData) {
       dispatch(logoutUser());
       setUser(null)
