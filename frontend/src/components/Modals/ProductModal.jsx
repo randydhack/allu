@@ -12,8 +12,8 @@ const ProductModal = () => {
   if (!isModalOpen) return null;
 
   return (
-    <div className={`modal ${isModalOpen ? "show" : ""}`} onClick={closeModal}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={`product_modal`} onClick={closeModal}>
+      <div className="modal_container" onClick={(e) => e.stopPropagation()}>
         <img
           className="modal_img"
           src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"

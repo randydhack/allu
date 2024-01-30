@@ -66,8 +66,11 @@ function Product() {
               >
                 <FontAwesomeIcon icon={faSearchMinus} />
               </button>
-
-              <ProductModal />
+              <img
+                className="modal_img"
+                src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                alt="Modal Image"
+              />
             </div>
           </div>
           <div className="top_mid">
