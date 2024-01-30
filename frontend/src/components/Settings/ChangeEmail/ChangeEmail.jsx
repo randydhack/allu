@@ -78,7 +78,7 @@ function ChangeEmail() {
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
               />
-              {errors && <div>{errors.email}</div>}
+              {errors && <p className="email_form__error">{errors.email}</p>}
             </div>
             <div className="form_group">
               <label htmlFor="confirmNewPassword">Current Password:</label>
@@ -90,7 +90,7 @@ function ChangeEmail() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {errors && <div>{errors.password}</div>}
+              {errors && <p className="email_form__error">{errors.password}</p>}
             </div>
 
             <div className="confirmation_guide">

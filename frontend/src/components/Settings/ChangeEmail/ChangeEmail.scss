@@ -14,6 +14,12 @@
   margin-bottom: 0;
 }
 
+.email_form__error {
+  font-size: 10px;
+  color: red;
+  margin: 0px;
+}
+
 .confirmation_guide {
   display: flex;
   flex-direction: column;
@@ -22,7 +28,7 @@
 
 .change_email_header {
   margin-top: -10px;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .change_email_guide,
