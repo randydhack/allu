@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Batch, Cart } = require("../../db/models");
+const { Batch, Cart, Design, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
@@ -31,16 +31,14 @@ router.get("/", requireAuth, async (req, res) => {
           ],
         },
       ],
-      raw: true
+      raw: true,
     });
 
     if (!cart) {
       return res.status(500).json({ error: "Cart not found bad request" });
     }
 
-    return res.json({
-      cart,
-    });
+    return res.json(cart);
   }
 });
 
