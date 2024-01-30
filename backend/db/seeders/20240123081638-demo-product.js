@@ -22,9 +22,9 @@ module.exports = {
     {
       id: 2,
       name: "Sweater",
-      colors: JSON.stringify(["black", "orange", "pink", "red", "green", "blue"]),
       size: JSON.stringify(["x-small", "small", "medium", "large"]),
       description: "Sizes larger than xl will vary in price.",
+      colors: JSON.stringify([{"name": "antique cherry red", "hex": "#7C0418"}, {"name": "sapphire", "hex": "#1C5674"}, {"name": "ash", "hex": "#D8D8D8"}, {"name": "azalea", "hex": "#F58AB5"}, {"name": "black", "hex": "#1D2327"}, {"name": "cardinal red", "hex": "#6D1427"}, {"name": "carolina blue", "hex": "#799CDB"}, {"name": "charcoal", "hex": "#5F6260"}, {"name": "cherry red", "hex": "#9B1127"}, {"name": "dark chocolate", "hex": "#351F1B"}, {"name": "dark heather", "hex": "#374248"}, {"name": "forest green", "hex": "#1F2D17"}, {"name": "garnet", "hex": "#530612"}, {"name": "gold", "hex": "#DE9D27"}, {"name": "graphite heather", "hex": "#808283"}, {"name": "sport dark green", "hex": "#445B4F"}, {"name": "sport dark maroon", "hex": "#63343D"}, {"name": "sport dark navy", "hex": "#3E4453"}, {"name": "heather sport royal", "hex": "#4D71B7"}, {"name": "heather sport scarlet", "hex": "#4D71B7"}, {"name": "heliconia", "hex": "#BA3572"}, {"name": "indigo blue", "hex": "#495A71"}, {"name": "irish green", "hex": "#328D48"}, {"name": "light blue", "hex": "#A1BFD9"}, {"name": "light pink", "hex": "#EFC4E0"}, {"name": "maroon", "hex": "#4B1426"}, {"name": "military green", "hex": "#48553C"}, {"name": "mint green", "hex": "#B3CAB0"}, {"name": "navy", "hex": "#323A4E"}, {"name": "old gold", "hex": "#BA9657"}, {"name": "orange", "hex": "#E24D2B"}, {"name": "orchid", "hex": "#C8B9D2"}, {"name": "purple", "hex": "#34225A"}, {"name": "red", "hex": "#B12A2E"}, {"name": "royal", "hex": "#1B519A"}, {"name": "safety green", "hex": "#D2F721"}, {"name": "safety orange", "hex": "#F47F3B"}, {"name": "safety pink", "hex": "#F36CA4"}, {"name": "sand", "hex": "#B9B2A4"}, {"name": "sapphire", "hex": "#2D81A4"}, {"name": "sport grey", "hex": "#A09FA4"}, {"name": "violet", "hex": "#7673A1"}, {"name": "white", "hex": "#EEEEEE"},]),
       price: 15.99
     },
     {
