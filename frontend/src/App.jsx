@@ -64,42 +64,9 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route
-              path="/account-details"
-              element={
-                <SettingsWrapper>
-                  <AccountDetail />
-                </SettingsWrapper>
-              }
-            />
-            <Route
-              path="/order-history"
-              element={
-                <SettingsWrapper>
-                  <OrderHistory />
-                </SettingsWrapper>
-              }
-            />
-            <Route
-              path="/change-email"
-              element={
-                <SettingsWrapper>
-                  <ChangeEmail />
-                </SettingsWrapper>
-              }
-            />
-            <Route
-              path="/change-password"
-              element={
-                <SettingsWrapper>
-                  <ChangePassword />
-                </SettingsWrapper>
-              }
-            />
             <Route path="/shipping-information" element={<PickupAndDelivery />} />
             <Route path="/our-designs" element={<OurDesigns />} />
             <Route path="/product" element={<Product />} />
-
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
             {user && (
               <>
