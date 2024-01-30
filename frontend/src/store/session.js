@@ -124,18 +124,19 @@ export const changeEmail = (newEmail, password) => async (dispatch) => {
 }
 
 // Change Password
-export const changePassword = (newPassword, password) => async (dispatch) => {
+export const changePassword = (newPassword, confirmedPassword, password) => async (dispatch) => {
   const response = await csrfFetch('/api/users/update-password', {
     method: 'PUT',
     body: JSON.stringify({
       newPassword,
+      confirmedPassword,
       password
     })
   });
 
   if (response.ok) {
     const data = await response.json()
-    dispatch(updateEmail(data.user))
+    dispatch(updatePassword(data.user))
     return data
   }
 }

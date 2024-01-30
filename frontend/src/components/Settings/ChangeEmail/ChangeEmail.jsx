@@ -27,7 +27,7 @@ function ChangeEmail() {
   if (!currentUser) {
     const fetchUserInfo = async () => {
       const userData = await dispatch(restoreUser());
-      setUser(userData);
+      setUser(userData.user);
     };
 
     fetchUserInfo();
@@ -64,7 +64,7 @@ function ChangeEmail() {
             <p>Current Email</p>
           </div>
           <div>
-            <p className="current_email">{user?.email || currentUser?.email}</p>
+            <p className="current_email">{user.email || currentUser.email}</p>
           </div>
 
           <form className="email_form" onSubmit={(e) => handleUpdateEmail(e)}>
