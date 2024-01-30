@@ -15,7 +15,7 @@ module.exports = {
 //   { type: Sequelize.QueryTypes.SELECT }
 // );
 
-    return queryInterface.bulkInsert('Orders', [
+    return queryInterface.bulkInsert(options, [
       {
         id: 1,
         userId: 1,
