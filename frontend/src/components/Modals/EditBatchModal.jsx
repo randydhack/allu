@@ -5,9 +5,9 @@ import { editBatch } from "../../store/BatchReducer";
 import { InfoContext } from "../../context/infoContext";
 
 const EditBatchModal = () => {
-  const { setIsModalOpen } = useContext(ModalContext);
-  const { batchDetails } = useContext(InfoContext)
-  console.log(batchDetails)
+  const { setIsModalOpen, setType } = useContext(ModalContext);
+  const { batchDetails } = useContext(InfoContext);
+  console.log(batchDetails);
   const dispatch = useDispatch();
   const [sizes, setSizes] = useState({
     xs: batchDetails?.xs || 0,
@@ -35,7 +35,7 @@ const EditBatchModal = () => {
       ["Batches.color"]: color,
       ["Batches.total_price"]: total_price,
     } = batchDetails;
-
+    console.log(productId, color, total_price);
     const payload = {
       productId,
       color,
@@ -49,7 +49,7 @@ const EditBatchModal = () => {
 
     await dispatch(editBatch(batchDetails.id, payload));
     setIsModalOpen(false);
-    // if (closeModal) closeModal();
+    setType(null);
   };
 
   return (
