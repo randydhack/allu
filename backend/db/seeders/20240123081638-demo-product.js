@@ -35,7 +35,7 @@ module.exports = {
       description: "Sizes larger than xl will vary in price.",
       price: 12.99
     },
-   ])
+   ], {})
   },
 
   async down (queryInterface, Sequelize) {
