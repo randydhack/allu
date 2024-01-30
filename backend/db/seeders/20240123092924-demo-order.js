@@ -18,7 +18,7 @@ module.exports = {
     return queryInterface.bulkInsert('Orders', [
       {
         id: 1,
-        userId: 2,
+        userId: 1,
         address: "123 Fargo Street",
         special_request: "I am a little lost on designs, so I picked one from your selection.",
         quote: 1.50,

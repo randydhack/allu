@@ -67,6 +67,7 @@ const multiplePrivateFileUpload = async (files) => {
 
 const retrievePrivateFile = (key) => {
   let fileUrl;
+
   if (key) {
     fileUrl = s3.getSignedUrl("getObject", {
       Bucket: NAME_OF_BUCKET,
