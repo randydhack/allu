@@ -9,8 +9,13 @@ export const designSlice = createSlice({
     },
     reducers: {
         loadDesigns: (state, action) => {
-            
+           state.allDesigns = action.payload 
+        },
+        singleDesign: (state, action) => {
+          state.
+          state.singleDesign = action.payload
         }
+
     }
 })
 
