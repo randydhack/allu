@@ -9,7 +9,7 @@ export const designSlice = createSlice({
     },
     reducers: {
         loadDesigns: (state, action) => {
-           state.allDesigns = action.payload 
+           state.allDesigns = action.payload
         },
         singleDesign: (state, action) => {
           state.
@@ -18,6 +18,10 @@ export const designSlice = createSlice({
 
     }
 })
+
+export const { loadDesigns, singleDesign} = designSlice.actions;
+
+export default designSlice.reducer;
 
 //get all designs
 export const getDesigns = () => async (dispatch) => {
@@ -83,5 +87,3 @@ export const deleteDesign = (id) => async (dispatch) => {
     dispatch(removeDesign(id));
   }
 };
-
-export default designReducer;
