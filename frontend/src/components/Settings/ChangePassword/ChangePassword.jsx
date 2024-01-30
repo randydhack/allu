@@ -1,11 +1,61 @@
-import "./ChangePassword.scss";
-// CSS
-
 // Libaries
-import React, { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// CSS
+import "./ChangePassword.scss";
+
+// Context
+import { InfoContext } from "../../../context/infoContext";
+
+// Redux Store
+import {
+  changePassword,
+  logoutUser,
+  restoreUser,
+} from "../../../store/session";
 
 function ChangePassword() {
-  return (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, setUser } = useContext(InfoContext);
+
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState({ new: "", confirm: "" });
+  const [errors, setErrors] = useState(null);
+
+
+  useEffect(() => {
+    (async () => {
+      const session = await dispatch(restoreUser());
+      if (session) setUser(session.user);
+    })();
+  }, [setUser]);
+
+
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+
+    const userData = await dispatch(
+      changePassword(newPassword.new, newPassword.confirm, password)
+    ).catch(async (res) => {
+      const data = await res.json()
+      const error = JSON.parse(data.message)
+      if (data && error) setErrors(error);
+
+    })
+
+    if (userData) {
+      dispatch(logoutUser());
+      setUser(null)
+      return navigate("/");
+    }
+  };
+
+  return user && (
     <div className="setting__contents setting__background">
       {/* HEADING */}
       <div className="setting__header__mb">
@@ -13,30 +63,55 @@ function ChangePassword() {
         <hr className="setting__divider"></hr>
       </div>
       <h2>Update Password</h2>
-      <form className="password_form" action="/update_password" method="post">
-        <div class="form_group">
-          <label for="oldPassword">Old Password:</label>
-          <input type="password" id="oldPassword" name="oldPassword" required />
+      <form className="password_form" onSubmit={(e) => handleUpdatePassword(e)}>
+        <div className="form_group">
+          <label htmlFor="oldPassword">Old Password:</label>
+          <input
+            type="password"
+            id="oldPassword"
+            name="oldPassword"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errors && <p className="email_form__error">{errors.password}</p>}
         </div>
-        <div class="form_group">
-          <label for="newPassword">New Password:</label>
-          <input type="password" id="newPassword" name="newPassword" required />
+        <div className="form_group">
+          <label htmlFor="newPassword">New Password:</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            required
+            value={newPassword.new}
+            onChange={(e) =>
+              setNewPassword({
+                new: e.target.value,
+                confirm: newPassword.confirm,
+              })
+            }
+          />
+          {errors && <p className="email_form__error">{errors.match}</p>}
         </div>
-        <div class="form_group">
-          <label for="confirmNewPassword">Retype New Password:</label>
+        <div className="form_group">
+          <label htmlFor="confirmNewPassword">Retype New Password:</label>
           <input
             type="password"
             id="confirmNewPassword"
             name="confirmNewPassword"
             required
+            value={newPassword.confirm}
+            onChange={(e) =>
+              setNewPassword({ new: newPassword.new, confirm: e.target.value })
+            }
           />
           <p className="pw_guide">At least 8 characters long</p>
         </div>
         <div className="confirmation_guide">
           <div className="change_email_guide">
             <p>
-              Once you click the button below, a link will be sent to your email
-              inbox with instructions on how to change your email.
+              Once you click the button below, you will be signed out and
+              required to sign back in with your new updated password.
             </p>
           </div>
           <div className="change_pw_btn">

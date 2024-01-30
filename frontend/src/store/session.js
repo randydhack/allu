@@ -28,11 +28,15 @@ export const sessionSlice = createSlice({
     updateEmail: (state, action) => {
       state.isAuth = true
       state.user = action.payload
+    },
+    updatePassword: (state, action) => {
+      state.isAuth = true
+      state.user = action.payload
     }
   },
 });
 
-export const { login, restoreSession, signup, logout, updateEmail } = sessionSlice.actions;
+export const { login, restoreSession, signup, logout, updateEmail, updatePassword } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
 
@@ -115,6 +119,24 @@ export const changeEmail = (newEmail, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json()
     dispatch(updateEmail(data.user))
+    return data
+  }
+}
+
+// Change Password
+export const changePassword = (newPassword, confirmedPassword, password) => async (dispatch) => {
+  const response = await csrfFetch('/api/users/update-password', {
+    method: 'PUT',
+    body: JSON.stringify({
+      newPassword,
+      confirmedPassword,
+      password
+    })
+  });
+
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(updatePassword(data.user))
     return data
   }
 }

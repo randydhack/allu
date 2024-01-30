@@ -30,7 +30,7 @@ module.exports = {
         img_url: "https://i.pinimg.com/474x/a1/7e/23/a17e23192907c8bfed8d6cb6923107e0.jpg",
         userId: 5
       },
-     ])
+     ], {})
   },
 
   async down (queryInterface, Sequelize) {
