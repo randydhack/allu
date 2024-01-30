@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
-import Modal from "react-modal";
+import React, { useState, useContext } from "react";
+import ProductModal from "../Modals/ProductModal";
+import { ModalContext } from "../../context/modalContext";
 // CSS
 import "./Product.scss";
 
 function Product() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { setIsModalOpen, setType } = useContext(ModalContext);
   const [selectedImageId, setSelectedImageId] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const colors = {
@@ -17,13 +18,9 @@ function Product() {
     white: "#FFFFFF",
   };
 
-  Modal.setAppElement("#root");
   const handleZoomOutClick = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
+    setIsModalOpen(true);
+    setType("productZoom");
   };
 
   function selectImage(imageId) {
@@ -70,30 +67,7 @@ function Product() {
                 <FontAwesomeIcon icon={faSearchMinus} />
               </button>
 
-              <Modal
-                className={"product_modal"}
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Example Modal"
-                onClick={closeModal}
-              >
-                <div className="modal_container" onClick={() => closeModal()}>
-                  <img
-                    className="modal_img"
-                    src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-                    alt="Modal Image"
-                    style={{
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-
-                  <button className="close_button" onClick={closeModal}>
-                    X
-                  </button>
-                </div>
-              </Modal>
+              <ProductModal />
             </div>
           </div>
           <div className="top_mid">
