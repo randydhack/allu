@@ -82,7 +82,8 @@ router.put("/update-password", requireAuth, async (req, res, next) => {
     errors.message["password"] = "Invalid Password";
   }
 
-  if (errors.message) {
+  console.log(errors)
+  if (Object.values(errors.message).length) {
     const err = new Error(JSON.stringify(errors.message));
     err.status = 404;
     return next(err);
@@ -119,7 +120,7 @@ router.put("/update-email", requireAuth, async (req, res, next) => {
     errors.message["password"] = "Invalid Password"
   }
 
-  if (errors) {
+  if (Object.values(errors.message).length) {
     return res.json(errors)
   }
 
