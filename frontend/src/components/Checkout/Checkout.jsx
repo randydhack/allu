@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, deleteBatch } from "../../store/BatchReducer";
-import EditBatchModal from "../Modals/EditBatchModal";
+// import EditBatchModal from "../Modals/EditBatchModal";
+import { InfoContext } from "../../context/infoContext";
+import { ModalContext } from "../../context/modalContext";
+
 import "./Checkout.scss";
 
 function Checkout() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
-
+  const { type, toggleEditBatchModal, handleContent } =
+    useContext(ModalContext);
+  const { setBatch } = useContext(InfoContext);
   const dispatch = useDispatch();
   const { cart, isLoaded } = useSelector((state) => state.batches);
   const handleRemoveFromCart = (itemId) => {
@@ -47,8 +52,8 @@ function Checkout() {
   };
 
   const handleOpenEditModal = (item) => {
-    setCurrentEditingBatchId(item["Batches.id"]);
-    setIsEditModalOpen(true);
+    setBatch(item["Batches.id"]);
+    toggleEditBatchModal();
   };
   return (
     <div className="checkout_page">
@@ -105,7 +110,7 @@ function Checkout() {
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
             </div>
 
-            {isEditModalOpen && (
+            {/* {isEditModalOpen && (
               <EditBatchModal
                 batchId={currentEditingBatchId}
                 batchDetails={cart.find(
@@ -113,7 +118,7 @@ function Checkout() {
                 )}
                 closeModal={() => setIsEditModalOpen(false)}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>

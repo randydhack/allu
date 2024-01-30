@@ -3,19 +3,19 @@ import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
 import { editBatch } from "../../store/BatchReducer";
 
-const EditBatchModal = ({ batchId, productId, batchDetails, closeModal }) => {
+const EditBatchModal = ({ batchId, batchDetails, closeModal }) => {
   const { setIsModalOpen } = useContext(ModalContext);
   const dispatch = useDispatch();
   const [sizes, setSizes] = useState({
     xs: batchDetails?.xs || 0,
     s: batchDetails?.s || 0,
-    m: null,
-    l: null,
-    xl: null,
-    xxl: null,
-    xxxl: null,
-    xxxxl: null,
-    xxxxxl: null,
+    m: batchDetails?.m || 0,
+    l: batchDetails?.l || 0,
+    xl: batchDetails?.xl || 0,
+    xxl: batchDetails?.xxl || 0,
+    xxxl: batchDetails?.xxxl || 0,
+    xxxxl: batchDetails?.xxxxl || 0,
+    xxxxxl: batchDetails?.xxxxxl || 0,
   });
 
   const handleChange = (e) => {
