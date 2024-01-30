@@ -77,7 +77,6 @@ function Product() {
             <img
               src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
               alt="t-shirt"
-              width={500}
             />
             <p>Description:</p>
           </div>
