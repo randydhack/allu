@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "../../store/BatchReducer";
+import { getCart, deleteBatch } from "../../store/BatchReducer";
 import EditBatchModal from "../Modals/EditBatchModal";
 import "./Checkout.scss";
 
 function Checkout() {
-  const handleRemoveFromCart = (itemId) => {
-    console.log("Remove item:", itemId);
-  };
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
 
   const dispatch = useDispatch();
   const { cart, isLoaded } = useSelector((state) => state.batches);
-
+  const handleRemoveFromCart = (itemId) => {
+    dispatch(deleteBatch(itemId));
+  };
   useEffect(() => {
     (async () => {
       await dispatch(getCart());
@@ -105,6 +104,7 @@ function Checkout() {
             <div className="subtotal">
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
             </div>
+
             {isEditModalOpen && (
               <EditBatchModal
                 batchId={currentEditingBatchId}
