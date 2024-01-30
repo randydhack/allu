@@ -29,7 +29,7 @@ module.exports = {
         description: "Longsleeve top. Rib knit cuffs. Relaxed fit.",
         color: "red",
       },
-     ])
+     ], {})
   },
 
   async down (queryInterface, Sequelize) {

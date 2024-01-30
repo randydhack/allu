@@ -41,7 +41,7 @@ module.exports = {
         text_layers: 2,
         design_price: 1.00
       },
-     ])
+     ], {})
   },
 
   async down (queryInterface, Sequelize) {

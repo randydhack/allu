@@ -31,7 +31,7 @@ module.exports = {
         id: 5,
         userId: 5,
       },
-     ])
+     ], {})
   },
 
   async down (queryInterface, Sequelize) {

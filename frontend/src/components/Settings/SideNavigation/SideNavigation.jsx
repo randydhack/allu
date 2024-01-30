@@ -15,8 +15,13 @@ import { IoLogOutOutline } from "react-icons/io5";
 
 // CSS
 import "./SideNavigation.scss";
+import { useContext } from "react";
+import { InfoContext } from "../../../context/infoContext";
 
 function SideNavigation() {
+
+  const { setUser } = useContext(InfoContext)
+
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -24,6 +29,7 @@ function SideNavigation() {
   const handleUserLogout = async (e) => {
     e.preventDefault()
     await dispatch(logoutUser())
+    setUser(null)
     return navigate('/')
   }
 

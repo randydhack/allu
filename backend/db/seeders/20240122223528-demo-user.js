@@ -56,7 +56,7 @@ module.exports = {
       email: 'john.smith@gmail.com',
       hashedPassword: bcrypt.hashSync('secret password789')
     }
-   ])
+   ], {})
   },
 
   async down (queryInterface, Sequelize) {

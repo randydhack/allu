@@ -18,15 +18,13 @@ function AccountDetail() {
   const user = useSelector(state => state.session.user)
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      const userData = await dispatch(restoreUser());
-      setUser(userData);
-    };
-
-    fetchUserInfo();
+    (async () => {
+      const session = await dispatch(restoreUser());
+      if (session.user) setUser(session.user);
+    })();
   }, [setUser]);
 
-  return (
+  return user && (
         <div className="setting__contents setting__background">
           {/* HEADING */}
           <div className="setting__header__mb">
