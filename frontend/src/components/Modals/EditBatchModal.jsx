@@ -35,7 +35,13 @@ const EditBatchModal = () => {
       ["Batches.color"]: color,
       ["Batches.total_price"]: total_price,
     } = batchDetails;
-    console.log(productId, color, total_price);
+    const allSizesAreZero = Object.values(sizes).every((size) => size === 0);
+
+    if (allSizesAreZero) {
+      alert("You need at least one item. Please adjust the sizes.");
+      return;
+    }
+
     const payload = {
       productId,
       color,
