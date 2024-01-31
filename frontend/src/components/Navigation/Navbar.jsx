@@ -40,8 +40,12 @@ function Navbar() {
           <NavLink to="/designs" alt="designs">
             Designs
           </NavLink>
-          <NavLink>Contact Us</NavLink>
-          <NavLink>About us</NavLink>
+          <NavLink to="/contact-us" alt="Contact Us">
+            Contact Us
+          </NavLink>
+          <NavLink to="/about-us" alt="About Us">
+            About us
+          </NavLink>
         </div>
       </div>
 
