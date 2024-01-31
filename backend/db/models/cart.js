@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Cart',
+    defaultScope: {
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    },
   });
   return Cart;
 };
