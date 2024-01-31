@@ -75,28 +75,29 @@ router.get("/user", requireAuth, async (req, res) => {
 });
 
 // Create orders and attach batches to orders for order history
-router.post("/", requireAuth, async (req, res) => {
-  console.log("ASDFASDFASDFASDFASDFASDFASDFASSDFASDFASDFASDFASDFAS")
+router.post("/", requireAuth, async (req, res, next) => {
   const { user } = req;
   if (user) {
-    const { address, special_request, quote, workforce_race, processed, firstName, lastName, phone, email } =
-      req.body;
+    const { address, special_request, quote, workforce_race, processed, firstName, lastName, phone, email, delivery } =
+    req.body;
+    
+    console.log("ASDFASDFASDFASDFASDFASDFASDFASSDFASDFASDFASDFASDFAS")
+      console.log(address, special_request, quote, workforce_race, processed, phone, firstName, lastName, email, delivery)
 
-      console.log(address, special_request, quote, workforce_race, processed, phone, firstName, lastName, email)
-
-    if (!address || !quote ) {
-      return res.json({
-        message: "Validation Error",
-        statusCode: 400,
-        errors: {
-          userId: "User id is required",
-          address: "Address is required",
-          quote: "Quote is required",
-          workforce_race: "Workforce race is required",
-          processed: "Processed is required",
-        },
-      });
-    }
+      if (quote == null || workforce_race == null || processed == null) {
+        const err = new Error("Creating order failed");
+        err.status = 403;
+        err.title = "Creating order failed";
+        err.errors = { 
+          quote: "quote does not exist", 
+          workforce_race: "quote does not exist", 
+          processed: "processed does not exist", 
+          delivery: "delivery does not exist", 
+        };
+        err.message = "Invalid field";
+        err.statusCode = 403;
+        return next(err);
+      }
 
     const newOrder = await Order.create({
       userId: user.id,
@@ -109,6 +110,7 @@ router.post("/", requireAuth, async (req, res) => {
       quote: Number(quote),
       workforce_race: false,
       processed: processed,
+      delivery: delivery
     });
 
     const cart = await Cart.findOne({

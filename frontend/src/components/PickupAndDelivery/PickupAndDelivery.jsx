@@ -23,7 +23,7 @@ function PickupAndDelivery() {
 
     let order;
     if (isDelivery) {
-      let address = `${formInfo["address1"]} ${formInfo["address2"]} ${formInfo["city"]}, ${formInfo["state"]} ${formInfo["zip"]}`;
+      let address = `${formInfo["address1"]} ${formInfo["address2"] || ""} ${formInfo["city"]}, ${formInfo["state"]} ${formInfo["zipCode"]}`; 
       order = {
         userId: currUser.id,
         address: address,
@@ -32,8 +32,10 @@ function PickupAndDelivery() {
         phone: formInfo["phone"],
         email: formInfo["email"],
         special_request: formInfo["special-request"],
+        quote: 0,
         workforce_race: false,
-        processed: false
+        processed: false,
+        delivery: true
       };
     }
     //send all or some fields to backend (depending on pickup or delivery)
@@ -46,8 +48,10 @@ function PickupAndDelivery() {
         phone: formInfo["phone"],
         email: formInfo["email"],
         special_request: formInfo["special-request"] || "",
+        quote: 0,
         workforce_race: false,
-        processed: false
+        processed: false,
+        delivery: false
       };
     }
 
@@ -68,7 +72,6 @@ function PickupAndDelivery() {
     <div className="pickup-delivery-page">
       <header>
         <h1>FINALIZE YOUR ORDER</h1>
-        <div className="divider"></div>
       </header>
 
       <div className="checkout_options">

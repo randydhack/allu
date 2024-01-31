@@ -16,6 +16,7 @@ import { ModalContext } from "../../context/modalContext";
 import "./Product.scss";
 import { designDetails } from "../../store/designReducer";
 import { createBatch } from "../../store/BatchReducer";
+import { getCart } from "../../store/BatchReducer";
 
 function Product() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ function Product() {
     price: 12.99,
   });
   const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
-  const product_url = color.product_url
+  const [note, setNote] = useState("");
 
   const [sizes, setSizes] = useState({
     XS: 0,
@@ -47,7 +48,16 @@ function Product() {
     "4XL": 0,
     "5XL": 0,
   });
+
+  const [productImage, setProductImage] = useState(
+    `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`
+  );
+
   const [addNotification, setAddNotification] = useState("");
+
+  console.log("COLOR", color);
+
+  console.log("current", currentProduct);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -74,7 +84,8 @@ function Product() {
           designId,
           color.name,
           currentProduct.price + singleDesign.design_price,
-          product_url,
+          productImage,
+          note
         )
       );
           // console.log(data)
@@ -92,16 +103,19 @@ function Product() {
           "5XL": 0,
         });
 
-        const field = document.getElementsByClassName('size_input');
-        Array.from(field).forEach(el => el.value = "");
+        const field = document.getElementsByClassName("size_input");
+        Array.from(field).forEach((el) => (el.value = ""));
 
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
+
+        // updates the cart bubble
+        dispatch(getCart())
       }
     }
   };
- 
+
   return (
     isLoaded && (
       <div className="container">
@@ -125,25 +139,6 @@ function Product() {
                     alt={`Product Image of ${color.name}`}
                   />
                 </div>
-                {/* {allProducts[product.id - 1].ProductImages.map(
-                  (productImage, idx) => {
-                    return (
-                      <>
-                        {productImage.id !==
-                          allProducts[product.id - 1].ProductImages[
-                            color.id || 0
-                          ] && <img
-                          className="side_img_map side_img"
-                          src={
-                            productImage
-                              ?.img_url
-                          }
-                          alt={`Product Image - ${color.name}`}
-                          />}
-                      </>
-                    );
-                  }
-                )} */}
               </div>
 
               <img
@@ -206,9 +201,10 @@ function Product() {
                       setColor({
                         id: 0,
                         name: colors[product.id - 1]?.colors[0].name,
-                        product_url: allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url
+                        product_url:
+                          allProducts[currentProduct.id - 1]?.ProductImages[
+                            color.id || 0
+                          ]?.img_url,
                       }); //sets color of main image back to first color with name
                     }}
                   />
@@ -228,9 +224,10 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => setColor({ id: i, name: color.name, product_url: allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url })}
+                        onClick={() => {
+                          setColor({ id: i, name: color.name });
+                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg` )
+                        }}
                       ></div>
                     );
                   })}
@@ -261,6 +258,18 @@ function Product() {
                     );
                   })}
               </div>
+            </div>
+
+            <div>
+              <h4>Add a personalize note:</h4>
+              <input
+                onChange={(e) => {
+                  setNote(e.target.value)
+                }}
+                id="note_input"
+                className="note_input"
+                aria_label="note"
+              ></input>
             </div>
 
             <div className="finalize">
