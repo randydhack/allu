@@ -21,19 +21,19 @@ module.exports = {
         id: 2,
         design_url: "https://allutestbucket.s3.amazonaws.com/aventura_2.png",
         text_layers: 3,
-        design_price: 2.00
+        design_price: 1.00
       },
       {
         id: 3,
         design_url: "https://allutestbucket.s3.amazonaws.com/aventura_3.png",
         text_layers: 1,
-        design_price: 0.50
+        design_price: 1.00
       },
       {
         id: 4,
         design_url: "https://allutestbucket.s3.amazonaws.com/aventura_4.png",
         text_layers: 0,
-        design_price: 0.00
+        design_price: 1.00
       },
       {
         id: 5,
