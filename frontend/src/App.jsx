@@ -50,7 +50,6 @@ function App() {
   useEffect(() => {
     (async () => {
       const session = await dispatch(sessionActions.restoreUser());
-      console.log(session.user)
       if (session.user) setUser(session.user);
       setIsLoaded(true);
     })();
@@ -66,8 +65,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/shipping-information" element={<PickupAndDelivery />} />
-            <Route path="/our-designs" element={<OurDesigns />} />
-            <Route path="/product" element={<Product />} />
+            <Route path="/designs" element={<OurDesigns />} />
+            <Route path="/design/:id/product" element={<Product />} />
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
             {user && (
               <>

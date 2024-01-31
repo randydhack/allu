@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './counterSlice';
 import sessionReducer from './session';
+import designReducer from './designReducer';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     session: sessionReducer,
+    designs: designReducer
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
