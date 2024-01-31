@@ -25,13 +25,13 @@ module.exports = {
       },
       {
         id: 3,
-        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_1.png",
+        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_3.png",
         text_layers: 1,
         design_price: 0.50
       },
       {
         id: 4,
-        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_1.png",
+        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_4.png",
         text_layers: 0,
         design_price: 0.00
       },
@@ -115,7 +115,7 @@ module.exports = {
       },
       {
         id: 18,
-        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_19.png",
+        design_url: "https://allutestbucket.s3.amazonaws.com/aventura_19.jpg",
         text_layers: 2,
         design_price: 1.00
       },
