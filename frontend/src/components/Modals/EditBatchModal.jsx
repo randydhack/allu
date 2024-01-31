@@ -66,8 +66,11 @@ const EditBatchModal = () => {
     <div className="edit-batch-modal">
       <form onSubmit={handleSubmit}>
         {Object.keys(sizes).map((size) => (
-          <div key={size}>
-            <label htmlFor={size}>{size.toUpperCase()}</label>
+          <div className="edit_column" key={size}>
+            <div className="edit_label">
+              <label htmlFor={size}>{size.toUpperCase()}</label>
+            </div>
+
             <input
               type="number"
               id={size}
@@ -78,16 +81,20 @@ const EditBatchModal = () => {
             />
           </div>
         ))}
-        <button type="submit">Update Sizes</button>
+        <div className="edit_button">
+          <button type="submit">Update Sizes</button>
+        </div>
       </form>
-      <button
-        onClick={() => {
-          setIsModalOpen(false);
-          setType(null);
-        }}
-      >
-        Cancel
-      </button>
+      <div className="edit_button">
+        <button
+          onClick={() => {
+            setIsModalOpen(false);
+            setType(null);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
