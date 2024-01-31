@@ -98,7 +98,7 @@ function Checkout() {
           <div className="home-items-container">
             <div className="home-item-row header-row">
               <div className="home-item-image-container">Image Preview</div>
-              <div className="home-item-info-container">Name</div>
+              <div className="home-item-info-container">Color</div>
               <div className="home-item-size">Size</div>
               <div className="home-item-quantity">Quantity</div>
               <div className="home-item-change">Change Quantity</div>
