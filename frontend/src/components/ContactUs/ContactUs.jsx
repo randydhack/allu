@@ -80,6 +80,7 @@ function ContactUs() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
+                aria-label="First Name"
               />
               {shouldShowError("firstname") && (
                 <span className="error">
@@ -97,6 +98,7 @@ function ContactUs() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
+                aria-label="Last Name"
               />
               {shouldShowError("lastname") && (
                 <span className="error">
@@ -117,6 +119,7 @@ function ContactUs() {
                 aria-describedby="email-error"
                 onBlur={handleBlur}
                 required
+                aria-label="Email"
               />
               {shouldShowError("email") && (
                 <span className="error">
@@ -134,6 +137,7 @@ function ContactUs() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
+                aria-label="Phone number"
               />
               {shouldShowError("phone") && (
                 <span className="error">
@@ -151,6 +155,7 @@ function ContactUs() {
               value={formData.message}
               onChange={handleChange}
               required
+              aria-label="Message"
             ></textarea>
             {shouldShowError("email") && (
               <span className="error">
@@ -160,7 +165,9 @@ function ContactUs() {
           </div>
           <div className="form-group">
             <div className="submit_contact">
-              <button type="submit">Send Message</button>
+              <button type="submit" aria-label="Send message">
+                Send Message
+              </button>
             </div>
           </div>
         </form>

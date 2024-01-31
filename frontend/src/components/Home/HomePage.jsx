@@ -85,9 +85,9 @@ function Home() {
           <div className="home-left-heading">
             {/* <img src={Logo} alt="All-U logo" width={500}/> */}
             <h1>CUSTOM APPAREL</h1>
-            <h3>
+            <h2>
               Your one stop shop for custom screenprinting, embroidery and more!
-            </h3>
+            </h2>
           </div>
 
           <div className="home-left-contents">
