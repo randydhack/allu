@@ -9,12 +9,19 @@ const { Op } = require("sequelize");
 
 // Get all orders
 router.get("/", async (req, res) => {
-  const orders = await Order.findAll();
+  const { user } = req;
 
-  if (!orders) {
-    return res.status(500).json({ error: "Orders not found bad request" });
+  if (user.admin) {
+    const orders = await Order.findAll({
+      include: Batch,
+    });
+    if (!orders) {
+      return res.status(500).json({ error: "Orders not found bad request" });
+    }
+    return res.json(orders);
   }
-  return res.json(orders);
+
+  return res.json([]);
 });
 
 // Get all user orders
@@ -100,7 +107,7 @@ router.delete("/:orderId", requireAuth, async (req, res) => {
 
   let order = await Order.findOne({
     where: { id: req.params.orderId },
-    include: Batch
+    include: Batch,
   });
 
   if (!order) {
@@ -112,7 +119,6 @@ router.delete("/:orderId", requireAuth, async (req, res) => {
   }
 
   if (user && user.id == order.userId) {
-    
     await order.destroy();
 
     res.json({

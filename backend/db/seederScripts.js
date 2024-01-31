@@ -50,7 +50,6 @@ const hoodieSeeders = () => {
     const name = color[i].name;
 
     const object = {
-      id: i+1,
       productId: 3,
       img_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_${name}.jpg`,
       description:
@@ -61,19 +60,24 @@ const hoodieSeeders = () => {
     seeder.push(object);
   }
 
+  // console.log(seeder.length)
   return seeder;
 };
 
 const undoHoodie = async () => {
-  const length = await hoodieSeeders().length
+  const data = await hoodieSeeders()
   const undoId = []
-  for(let i = 0; i < length; i++) {
+  for(let i = 0; i < data.length; i++) {
     undoId.push(i+1)
   }
 
-  console.log(undoId)
+  // console.log(undoId)
 
-  // return undoId;
+  return undoId;
 }
 
-undoHoodie()
+
+
+
+module.exports = { hoodieSeeders, undoHoodie };
+
