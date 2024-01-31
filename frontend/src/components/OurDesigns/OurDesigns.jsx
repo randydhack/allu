@@ -37,6 +37,7 @@ function OurDesigns() {
           <h1>Designs</h1>
           <h2>All designs ({designs.Designs.length})</h2>
         </div>
+        <div className='design_divider'></div>
         <div className="design_grid">
           {designs.Designs.map((el, i) => {
             return (
