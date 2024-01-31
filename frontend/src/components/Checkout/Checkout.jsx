@@ -18,7 +18,9 @@ function Checkout() {
   // States
   // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
-  const { cart, isLoaded } = useSelector((state) => state.batches);
+  const { cart: rawCart, isLoaded } = useSelector((state) => state.batches);
+  // Filter out any batches with a null id
+  const cart = rawCart?.filter((batch) => batch["Batches.id"] !== null);
 
   // Remove Cart handle
   const handleRemoveFromCart = (itemId) => {
@@ -80,7 +82,7 @@ function Checkout() {
       <header className="checkout_header">CURRENT ORDER</header>
       <div className="checkout_main_body">
         {isLoaded && (!cart || cart.length === 0) ? (
-          <div className="empty-cart-message">Your cart is empty.</div>
+          <div className="empty_cart_message">Your cart is empty.</div>
         ) : (
           <div className="home-items-container">
             <div className="home-item-row header-row">
