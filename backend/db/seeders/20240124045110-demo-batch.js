@@ -13,6 +13,7 @@ module.exports = {
       {
         id: 1,
         productId: 1,
+        orderId: 1,
         cartId: 1,
         xs: 5,
         s:5,
