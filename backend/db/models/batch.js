@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      Batch.hasOne(models.Product, { foreignKey: "productId" });
-      Batch.hasOne(models.Design, { foreignKey: "designId" });
-      Batch.hasOne(models.UserDesign, { foreignKey: "userDesignId" });
+      Batch.belongsTo(models.Product, { foreignKey: "productId" });
+      Batch.belongsTo(models.Design, { foreignKey: "designId" });
+      Batch.belongsTo(models.UserDesign, { foreignKey: "userDesignId" });
       Batch.belongsTo(models.Order, { foreignKey: "orderId" });
       Batch.belongsTo(models.Cart, { foreignKey: "cartId" });
     }
@@ -59,6 +59,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       note: {
         type: DataTypes.STRING,
+      },
+      color: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      total_price: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
       }
     },
     {

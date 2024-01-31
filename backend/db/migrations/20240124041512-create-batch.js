@@ -69,6 +69,14 @@ module.exports = {
       note: {
         type: Sequelize.STRING,
       },
+      color: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      total_price: {
+        allowNull: false,
+        type: Sequelize.FLOAT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

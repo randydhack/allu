@@ -25,6 +25,9 @@ import PickupAndDelivery from "./components/PickupAndDelivery/PickupAndDelivery"
 import OurDesigns from "./components/OurDesigns/OurDesigns";
 import Product from "./components/Product/Product";
 import Checkout from "./components/Checkout/Checkout";
+import SuccessPage from "./components/SuccessPage/SuccessPage";
+import AboutUs from "./components/AboutUs/AboutUs";
+import ContactUs from "./components/ContactUs/ContactUs";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
@@ -66,10 +69,14 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/designs" element={<OurDesigns />} />
             <Route path="/design/:id/product" element={<Product />} />
+            <Route path="/about-us" element={<AboutUs/>}/>
+            <Route path="/contact-us" element={<ContactUs/>}/>
+
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
             {user && (
               <>
                 <Route path="/shipping-information" element={<PickupAndDelivery />} />
+                <Route path="/order-submitted"element={<SuccessPage />} />
                 <Route
                   path="/account-details"
                   element={
