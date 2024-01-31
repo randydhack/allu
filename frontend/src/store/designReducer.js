@@ -6,7 +6,8 @@ export const designSlice = createSlice({
   initialState: {
     isLoaded: false,
     allDesigns: null,
-    singleDesign: null,
+    // singleDesign: null,
+    userDesigns: null,
   },
   reducers: {
     loadDesigns: (state, action) => {
@@ -35,7 +36,7 @@ export const getDesigns = () => async (dispatch) => {
 };
 
 //single design
-export const spotDetails = (designId) => async (dispatch) => {
+export const designDetails = (designId) => async (dispatch) => {
   const response = await fetch(`/api/designs/${designId}`);
 
   if (response.ok) {
