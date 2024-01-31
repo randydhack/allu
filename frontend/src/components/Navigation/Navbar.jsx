@@ -39,7 +39,7 @@ function Navbar() {
 
       <div className="nav__middle__section">
         <NavLink to="/designs" alt='designs'>Designs</NavLink>
-        <NavLink>Create</NavLink>
+        <NavLink>Contact Us</NavLink>
         <NavLink>About us</NavLink>
       </div>
       </div>
