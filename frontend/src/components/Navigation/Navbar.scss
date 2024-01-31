@@ -44,7 +44,6 @@
         color: #637DA5;
         cursor: pointer;
     }
-
 }
 
 .nav__middle__section {
@@ -80,4 +79,15 @@
 
 .nav-icon {
     font-size: 20px;
+}
+
+.cart_total_items {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    font-weight: 500;
+}
+
+.cart-container {
+    display: flex;
 }
