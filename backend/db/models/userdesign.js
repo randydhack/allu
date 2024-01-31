@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       UserDesign.belongsTo(models.User, { foreignKey: 'userId' })
-      UserDesign.belongsTo(models.Batch, { foreignKey: 'userDesignId' })
+      UserDesign.hasMany(models.Batch, { foreignKey: 'userDesignId' })
     }
   }
   UserDesign.init({
