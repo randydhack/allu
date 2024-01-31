@@ -1,6 +1,7 @@
 // Libaries
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 // CSS
 import "../utils/DefaultStyles.scss";
@@ -26,7 +27,7 @@ function OurDesigns() {
 
     }, [dispatch])
 
-    console.log(designs.Designs)
+    // console.log(designs.Designs)
 
 
   return isLoaded && (
@@ -36,8 +37,10 @@ function OurDesigns() {
           {designs.Designs.map((el, i) => {
             return (
               <div key={`design${i}`}>
-
+                <NavLink to={`/design/${el.id}/product`}>
                 <img src={el.design_url} alt="image" className="design_image" />
+
+                </NavLink>
               </div>
             );
           })}
