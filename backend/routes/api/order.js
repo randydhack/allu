@@ -13,7 +13,15 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: Batch,
-          include: Design,
+          include: [
+            {
+              model: Design,
+            },
+            {
+              model: Product,
+              attributes: { exclude: ["colors"] },
+            },
+          ],
         },
       ],
       raw: true,

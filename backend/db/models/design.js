@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Design",
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
     }
   );
   return Design;
