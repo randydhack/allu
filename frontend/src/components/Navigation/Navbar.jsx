@@ -6,9 +6,8 @@ import { useSelector } from "react-redux";
 // Context
 import { ModalContext } from "../../context/modalContext";
 
-// Components
-import LoginModal from "../Modals/LoginModal";
-import SignUpModal from "../Modals/SignUpModal";
+// Logo
+import Logo from '../../images/t_shirt_logo.png'
 
 // CSS
 import "./Navbar.scss";
@@ -31,7 +30,7 @@ function Navbar() {
         <NavLink to="/">
           <img
             className="nav_logo"
-            src="t_shirt_logo.png"
+            src={Logo}
             alt="all-u logo, click to return to home page"
           />
         </NavLink>
