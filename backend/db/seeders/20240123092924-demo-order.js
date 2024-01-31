@@ -22,7 +22,7 @@ module.exports = {
           id: 1,
           userId: 1,
           firstName: "John",
-          lasttName: "Doe",
+          lastName: "Doe",
           email: "johndoe@email.com",
           phone: 1234567890,
           address: "123 Fargo Street",
