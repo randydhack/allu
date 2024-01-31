@@ -25,6 +25,7 @@ import PickupAndDelivery from "./components/PickupAndDelivery/PickupAndDelivery"
 import OurDesigns from "./components/OurDesigns/OurDesigns";
 import Product from "./components/Product/Product";
 import Checkout from "./components/Checkout/Checkout";
+import SuccessPage from "./components/SuccessPage/SuccessPage";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
@@ -70,6 +71,7 @@ function App() {
             {user && (
               <>
                 <Route path="/shipping-information" element={<PickupAndDelivery />} />
+                <Route path="/order-submitted"element={<SuccessPage />}></Route>
                 <Route
                   path="/account-details"
                   element={
