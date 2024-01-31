@@ -69,10 +69,11 @@ function Checkout() {
     toggleEditBatchModal();
   };
 
-  function goToShip(){
-    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  function goToShip() {
+    navigate("/shipping-information", {
+      state: { quote: calculateSubtotal(cart).toFixed(2) },
+    });
   }
-
 
   return (
     <div className="checkout_page">
@@ -100,6 +101,11 @@ function Checkout() {
                     <img
                       className="home-item-image"
                       src={item["Batches.Design.design_url"]}
+                      alt={item.name}
+                    />
+                    <img
+                      className="home-item-image"
+                      src={item["Batches.product_url"]}
                       alt={item.name}
                     />
                   </div>
