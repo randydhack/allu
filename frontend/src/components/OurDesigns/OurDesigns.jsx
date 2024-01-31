@@ -26,7 +26,7 @@ function OurDesigns() {
 
     }, [dispatch])
 
-    // console.log(designs.allDesigns?.Designs)
+    console.log(designs.Designs)
 
 
   return isLoaded && (
@@ -36,6 +36,7 @@ function OurDesigns() {
           {designs.Designs.map((el, i) => {
             return (
               <div key={`design${i}`}>
+
                 <img src={el.design_url} alt="image" className="design_image" />
               </div>
             );
