@@ -31,7 +31,7 @@ export default function Modal(props) {
           {/* EXAMPLE HOW TO SET UP A MODAL PAGE */}
           {type === "login" && <LoginModal />}
           {type === "signup" && <SignUpModal />}
-          {type === "productZoom" && <ProductModal />}
+          {/* {type === "productZoom" && <ProductModal />} */}
         </div>  
         <div className="modalBackdrop" onClick={handleContent} />
       </div>
