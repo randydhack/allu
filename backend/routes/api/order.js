@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Order, Batch, Cart } = require("../../db/models");
+const { Order, Batch, Cart, Design, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-
-const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
 // Get all orders
@@ -13,7 +10,21 @@ router.get("/", async (req, res) => {
 
   if (user.admin) {
     const orders = await Order.findAll({
-      include: Batch,
+      include: [
+        {
+          model: Batch,
+          include: [
+            {
+              model: Design,
+            },
+            {
+              model: Product,
+              attributes: { exclude: ["colors"] },
+            },
+          ],
+        },
+      ],
+      raw: true,
     });
     if (!orders) {
       return res.status(500).json({ error: "Orders not found bad request" });
@@ -31,7 +42,21 @@ router.get("/user", requireAuth, async (req, res) => {
   if (user) {
     const orders = await Order.findAll({
       where: { userId: user.id },
-      include: Batch,
+      include: [
+        {
+          model: Batch,
+          include: [
+            {
+              model: Design,
+            },
+            {
+              model: Product,
+              attributes: { exclude: ["colors"] },
+            },
+          ],
+        },
+      ],
+      raw: true,
     });
 
     if (!orders) {

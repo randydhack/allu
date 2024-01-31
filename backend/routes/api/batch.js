@@ -10,58 +10,59 @@ const { Op } = require("sequelize");
 //Get all batches
 // checked
 router.get("/", async (req, res) => {
-  const batches = await Batch.findAll();
-  if (!batches) {
-    return res.status(500).json({ error: "Batches not found bad request" });
+  const { user } = req;
+  if (user.admin) {
+    const batches = await Batch.findAll();
+    if (!batches) {
+      return res.status(500).json({ error: "Batches not found bad request" });
+    }
+    return res.json(batches);
   }
-  return res.json(batches);
+  return res.json([]);
 });
 
 //Get a single batch
-// checked but not the most optimal
-// "include" doesnt work with a one to one querying
+// checked
 router.get("/:batchId", async (req, res) => {
-  const batch = await Batch.findOne({
-    where: {
-      id: req.params.batchId,
-    },
-    include: Cart
-  });
-
-  if (!batch) {
-    return res.status(404).json({
-      message: "Batch could not be found",
-      statusCode: 404,
+  const { user } = req;
+  if (user) {
+    const batch = await Batch.findOne({
+      where: {
+        id: req.params.batchId,
+      },
+      include: [
+        {
+          model: Cart,
+        },
+        {
+          model: Product,
+          attributes: { exclude: ["colors"] },
+        },
+        {
+          model: Design,
+        },
+        {
+          model: UserDesign,
+        },
+      ],
     });
-  }
 
-  const product = await Product.findOne({
-    where: { id: batch.productId },
-  });
-  
-  // User will either use "userDesign" or "design" so condition is needed
-  if (!batch.userDesignId) {
-    const design = await Design.findAll({
-      attributes: ["id", "design_url", "text_layers", "design_price"],
-      where: { id: batch.designId },
-    });
+    if (!batch) {
+      return res.status(404).json({
+        message: "Batch could not be found",
+        statusCode: 404,
+      });
+    }
+
     return res.json({
       batch,
-      product,
-      design,
+    });
+  } else {
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
     });
   }
-
-  const userDesign = await UserDesign.findAll({
-    attributes: ["id", "img_url"],
-    where: { id: batch.userDesignId },
-  });
-
-  return res.json({
-    batch,
-    product,
-    userDesign,
-  });
 });
 
 // Create a batch
@@ -131,6 +132,7 @@ router.post("/", requireAuth, async (req, res) => {
 });
 
 // Update a batch
+// checked
 router.put("/:batchId", requireAuth, async (req, res) => {
   const { user } = req;
 

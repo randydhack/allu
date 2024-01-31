@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Design extends Model {
     /**
@@ -11,25 +9,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Design.belongsTo(models.Batch, { foreignKey: 'designId' })
+      Design.hasMany(models.Batch);
     }
   }
-  Design.init({
-    design_url: {
-      allowNull: false,
-      type: DataTypes.STRING,
+  Design.init(
+    {
+      design_url: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      text_layers: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      design_price: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
+      },
     },
-    text_layers: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    design_price: {
-      allowNull: false,
-      type: DataTypes.FLOAT,
+    {
+      sequelize,
+      modelName: "Design",
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
     }
-  }, {
-    sequelize,
-    modelName: 'Design',
-  });
+  );
   return Design;
 };
