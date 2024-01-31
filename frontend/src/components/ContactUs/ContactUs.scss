@@ -11,6 +11,7 @@
   }
 
   .contact_form_container {
+    margin-top: 5%;
     width: 80%;
     background: #f2f2f2;
     padding: 20px;
@@ -22,7 +23,7 @@
       justify-content: center;
       font-size: 48px;
       color: #3a2d80;
-      margin-bottom: 5%;
+      margin-bottom: 3%;
     }
     form {
       display: flex;
@@ -44,6 +45,7 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 20px;
+        padding: 15px;
 
         label {
           margin-bottom: 5px;
@@ -61,6 +63,7 @@
         }
         textarea {
           height: 150px;
+          resize: none;
         }
         .error {
           color: red;
