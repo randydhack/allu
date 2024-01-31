@@ -16,9 +16,11 @@ function PickupAndDelivery(){
         }
     }
     function handleFormSubmit(){
+
         //validate fields/ add errors to errors array
         //send all or some fields to backend (depending on pickup or delivery)
-        console.log(formInfo)
+        // console.log(formInfo)
+
         if (!deliveryOrder){
             let pickupFormInfo = {}
             pickupFormInfo["first-name"]=formInfo["phone"]
@@ -36,7 +38,7 @@ function PickupAndDelivery(){
             <h2>Finalize your order</h2>
         </header>
         <div className="radio-button-container">
-            <form action="">
+            <form >
                 <label htmlFor="delivery" className="delivery-radio">
                 <input type="radio" id="delivery" name="pickup-or-delivery" value="delivery" defaultChecked onChange={radioChange} />
                 Order will be shipped.</label>
@@ -45,12 +47,14 @@ function PickupAndDelivery(){
                 Order will be picked up at 9 Interstate Ave, Albany ny</label>
             </form>
         </div>
-        {deliveryOrder?<DeliveryForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors}/>
-        :<PickupForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors}/>}
-        <footer>
-            <p>Submit your order for {deliveryOrder?"delivery":"pickup"}</p>
-            <button onClick={handleFormSubmit}>Submit Order</button>
-        </footer>
+        <form className={deliveryOrder?"delivery-form":"pickup-form"} onSubmit={handleFormSubmit}>
+            {deliveryOrder?<DeliveryForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors} handleFormSubmit={handleFormSubmit}/>
+            :<PickupForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors} handleFormSubmit={handleFormSubmit}/>}
+            <footer>
+                <p>Submit your order for pickup.</p>
+                <input type="submit" value="Submit"/>
+            </footer>    
+        </form>
     </div>
     )
 }

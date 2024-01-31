@@ -26,11 +26,11 @@ export const sessionSlice = createSlice({
       state.user = null
     },
     updateEmail: (state, action) => {
-      state.isAuth = true
+      state.isAuth = null
       state.user = action.payload
     },
     updatePassword: (state, action) => {
-      state.isAuth = true
+      state.isAuth = null
       state.user = action.payload
     }
   },

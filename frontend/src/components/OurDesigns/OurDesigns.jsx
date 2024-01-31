@@ -1,40 +1,56 @@
-import React from 'react'
+// Libaries
+import {useDispatch, useSelector} from 'react-redux'
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 // CSS
-import '../utils/DefaultStyles.scss'
-import './OurDesigns.scss'
+import "../utils/DefaultStyles.scss";
+import "./OurDesigns.scss";
 
-// DATA
-import { fakeData } from './fakedata'
+// Redux Store
+import { getDesigns } from "../../store/designReducer";
+
+
 
 function OurDesigns() {
-  return (
-    <div className='container'>
-        <div className='design__banner__container'>
-            <div className='design__banner'>
-                <div className='design__contents'>
-                    <h1>Our Designs</h1>
-                    <div>--</div>
-                    <p>Choose from one of our custom designs</p>
-                </div>
-            </div>
-        </div>
 
-        <div className='design__filtering__bar'>
+    const dispatch = useDispatch()
 
+    const isLoaded = useSelector(state => state.designs.isLoaded)
+    const designs = useSelector(state => state.designs.allDesigns)
+
+    useEffect(() => {
+
+        (async () => {
+            await dispatch(getDesigns())
+        })()
+
+    }, [dispatch])
+
+    // console.log(designs.Designs)
+
+
+  return isLoaded && (
+      <div className="design_main">
+      <div className="design_image_container">
+        <div className='design_headings'>
+          <h1>Designs</h1>
+          <h2>All designs ({designs.Designs.length})</h2>
         </div>
-        <div className='design__selections fake'>
-            {fakeData.map(el => {
-                return (
-                    <div >
-                        <img src={el.image} alt="image" className='fakeimage'/>
-                        <p>{el.productName}</p>
-                    </div>
-                )
-            })}
+        <div className="design_grid">
+          {designs.Designs.map((el, i) => {
+            return (
+              <div key={`design${i}`}>
+                <NavLink to={`/design/${el.id}/product`}>
+                <img src={el.design_url} alt={`design-${el.id}`} className="design_image" />
+                </NavLink>
+              </div>
+            );
+          })}
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default OurDesigns
+export default OurDesigns;

@@ -1,48 +1,52 @@
-$banner-color: gray;
+@import "../../styles/responsive.scss";
 
-.design__banner__container {
-    width: 100%;
-    height: 300px;
-}
 
-.design__banner {
-    background-color: $banner-color;
-    height: 300px;
-    margin: 25px;
-    border-radius: 3px;
-}
-
-.design__contents {
+.design_main {
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    flex-direction: column;
 }
 
-.design__filtering__bar {
-    width: 100%;
-    height: 50px;
-    background-color: $banner-color;
-    margin: 10px 0px;
+.design_headings {
+    h2 {
+        font-size: 14px;
+    }
 }
 
-.design__selections {
-    margin: 100px;
+.design_image_container {
+    margin: 20px 0px 50px 0px;
+    max-width: 1920px;
+    // background-color: white;
 }
 
-.fake {
+.design_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: repeat(3, 300px);
-    align-items: center;
-    text-align: center;
-    grid-gap: 6rem;
-    grid-auto-flow: dense;
+    grid-column-gap: 12px;
+    grid-template-columns: repeat(6, 1fr);
+
+    @include xxl {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+
+
+    @include xl {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include lg {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include md {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include sm {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
-.fakeimage {
-    width: 300px;
-    height: 300px;
+.design_image {
+    width: 200px;
+    height: 200px;
 }
