@@ -22,6 +22,22 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users'}
       },
+      firstName: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      lastName: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      phone: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       address: {
         allowNull: false,
         type: Sequelize.STRING,
