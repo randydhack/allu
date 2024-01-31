@@ -17,7 +17,21 @@ router.get("/", requireAuth, async (req, res) => {
       where: {
         userId: user.id,
       },
-      include: Batch,
+      include: [
+        {
+          model: Batch,
+          include: [
+            {
+              model: Design,
+            },
+            {
+              model: Product,
+              attributes: { exclude: ["colors"] },
+            },
+          ],
+        },
+      ],
+      raw: true
     });
 
     if (!cart) {
