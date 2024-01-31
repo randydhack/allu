@@ -1,6 +1,10 @@
 // CSS
 import "./OrderHistory.scss";
 
+// icons
+import { MdKeyboardArrowRight } from "react-icons/md";
+
+
 // Libaries
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,10 +41,35 @@ function OrderHistory() {
           "dasdas",
           orders.map((el) => el.firstName)
         )}
+
+
+        <div className="order-guide">
+          <div>
+            <span>Order no.</span>
+          </div>
+          <div>
+            <span>Order date</span>
+          </div>
+          <div>
+            <span>Order status</span>
+          </div>
+        </div>
+
         {orders.map((el, i) => {
           return (
             <div className="main__panel" key={`order${el.id}`}>
-              <div className="order__detail">
+              <div className="order_number">
+                <span>{`OD-${el.id + 100000}`}</span>
+              </div>
+              <div className="order_date">
+                <p><p>{moment(el.createdAt).format("LL")}</p></p>
+              </div>
+              <div>
+                {el.processed ? "Pending" : "Completed"}
+              </div>
+
+              <button className="more_detail_order"><MdKeyboardArrowRight /> View details</button>
+              {/* <div className="order__detail">
                 <div className="order__description">
                   <img
                     className="order__picture"
@@ -82,12 +111,8 @@ function OrderHistory() {
                     </div>
                   </div>
                 </div>
-                <div className="delivery_stat">
-                  <p>Order Placed</p>
-                  <p>{moment(el.createdAt).format("MMMM Do, YYYY")}</p>
-                </div>
-              </div>
-              <div className="delivery_detail">
+              </div> */}
+              {/* <div className="delivery_detail">
                 <div>
                   <p>Shipped To: {el.address}</p>
                 </div>
@@ -101,14 +126,14 @@ function OrderHistory() {
                   </button>
                   <button>cancel order</button>
                 </div>
-              </div>
-              {isFormVisible && (
+              </div> */}
+              {/* {isFormVisible && (
                 <form className="special-request-form">
                   <p>Special Request</p>
                   <textarea placeholder="Enter your special request"></textarea>
                   <button type="submit">Send Request</button>
                 </form>
-              )}
+              )} */}
             </div>
           );
         })}
