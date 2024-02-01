@@ -31,7 +31,6 @@ function OrderHistory() {
         {/* HEADING */}
         <div className="setting__header__mb">
           <h2 className="setting__header">Order History</h2>
-          <hr className="setting__divider"></hr>
         </div>
         <div className="status">
           <p>Fulfilled</p>

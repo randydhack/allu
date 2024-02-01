@@ -60,7 +60,6 @@ function ChangePassword() {
       {/* HEADING */}
       <div className="setting__header__mb">
         <h2 className="setting__header">Change Password</h2>
-        <hr className="setting__divider"></hr>
       </div>
       <h2>Update Password</h2>
       <form className="password_form" onSubmit={(e) => handleUpdatePassword(e)}>

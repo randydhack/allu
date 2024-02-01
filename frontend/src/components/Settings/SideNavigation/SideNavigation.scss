@@ -1,26 +1,20 @@
-.side-navigation {
-    height: 100dvh;
+.setting-nav-header {
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
 }
 
 .side-navigation__contents {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: max-content;
-}
+    gap: 20px;
 
-.side-navigation__left__border {
-    border-left: 0.5px solid #DBDBDB;
-}
-
-.side-navigation-links {
-    &:hover {
+    a:hover {
         font-weight: 500;
-        cursor: pointer;
     }
-    width: 160px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
+}
 
+.side-navigation {
+    width: 300px;
+    margin-left: 20px;
 }

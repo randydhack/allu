@@ -29,7 +29,6 @@ function AccountDetail() {
           {/* HEADING */}
           <div className="setting__header__mb">
             <h2 className="setting__header">Account Details</h2>
-            <hr className="setting__divider"></hr>
           </div>
 
           {/* Contents */}
