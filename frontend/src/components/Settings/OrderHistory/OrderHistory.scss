@@ -1,135 +1,93 @@
-.status {
-  display: flex;
-  flex-direction: row;
-  width: 40%;
-  justify-content: space-between;
-
-  p {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 18px;
-    font-weight: normal;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-top: -30px;
-  }
-}
-
 .main__panel {
   display: flex;
-  gap: 50px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-top: 20px;
+  flex-direction: column;
 }
-.order_date {
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.order_design_image {
+  width: 150px;
+  height: 150px;
+}
+
+.order_detail_main {
+  display: flex;
+}
+
+.order_details {
+  h3 {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
   p {
+    font-size: 14px;
     margin: 0px;
+    margin-bottom: 5px;
   }
 }
-.order-guide {
+
+.order-details_right {
   display: flex;
-  gap: 110px;
-}
-
-.delivery_stat {
-  p {
-    margin: 0px;
-  }
-
-}
-
-.more_detail_order {
-  border: none;
-  color: #0000CD;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-}
-
-.order__picture {
-  width: 75px;
-  height: 75px;
-  background-color: grey;
-}
-
-.order__detail {
-  display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  margin-top: 3%;
-  p {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
 }
 
-.order__description {
+.order-buttons {
+  margin-bottom: 15px;
   display: flex;
-  flex-direction: row;
-  width: 70%;
-}
-
-.name_size {
-  margin-left: 3%;
-}
-
-.size {
-  display: flex;
-  flex-direction: row;
-}
-
-.delivery_detail {
-  display: flex;
-  flex-direction: row;
-  margin-top: 5%;
-  justify-content: space-between;
-
-  p {
-    margin-top: 0;
-  }
-
-}
-
-.request_btn {
-  display: flex;
-  flex-direction: row;
-  height: 5%;
-  width: 35%;
-
-  justify-content: space-between;
+  gap: 10px;
 
   button {
-    background-color: #d9d9d9;
-    font-size: 12px;
-    font-weight: lighter;
+    background-color: white;
+    border: 1px black solid;
+    cursor: pointer;
+    padding: 5px 10px
+  }
+}
+
+.order-shipping-info {
+  h3 {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+  :last-child {
+    margin-top: 3px;
   }
 }
 
 .special-request-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-top: 1%;
-}
 
-.special-request-form p {
-  margin-bottom: 5px;
+  p {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+
   textarea {
-    height: 100px;
     width: 100%;
+    resize: none;
+    padding: 5px;
+    height: 100px;
+    line-height: 1.5rem;
   }
 
   button {
     margin-left: auto;
     margin-top: 5px;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 0.5% 1%;
+    border: 1px black solid;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px 15px;
   }
 }

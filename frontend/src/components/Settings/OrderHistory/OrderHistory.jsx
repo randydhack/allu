@@ -1,10 +1,6 @@
 // CSS
 import "./OrderHistory.scss";
 
-// icons
-import { MdKeyboardArrowRight } from "react-icons/md";
-
-
 // Libaries
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +11,7 @@ function OrderHistory() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.allOrders);
 
-  const [isFormVisible, setFormVisible] = useState(false);
+  const [isFormVisible, setFormVisible] = useState({id: null, toggle: false});
 
   useEffect(() => {
     (async () => {
@@ -23,95 +19,92 @@ function OrderHistory() {
     })();
   }, [dispatch]);
 
-  console.log(orders);
-
   return (
     orders && (
       <div className="setting__contents setting__background">
         {/* HEADING */}
         <div className="setting__header__mb">
-          <h2 className="setting__header">Order History</h2>
-        </div>
-        <div className="status">
-          <p>Fulfilled</p>
-          <p>In Progress</p>
+          <h1 className="setting__header">Order History</h1>
         </div>
         {console.log(
           "dasdas",
           orders.map((el) => el.firstName)
         )}
 
-
-        <div className="order-guide">
-          <div>
-            <span>Order no.</span>
-          </div>
-          <div>
-            <span>Order date</span>
-          </div>
-          <div>
-            <span>Order status</span>
-          </div>
-        </div>
+        <p>{orders.length} order(s)</p>
 
         {orders.map((el, i) => {
           return (
-            <div className="main__panel" key={`order${el.id}`}>
-              <div className="order_number">
-                <span>{`OD-${el.id + 100000}`}</span>
-              </div>
-              <div className="order_date">
-                <p><p>{moment(el.createdAt).format("LL")}</p></p>
-              </div>
-              <div>
-                {el.processed ? "Pending" : "Completed"}
-              </div>
-
-              <button className="more_detail_order"><MdKeyboardArrowRight /> View details</button>
-              {/* <div className="order__detail">
-                <div className="order__description">
-                  <img
-                    className="order__picture"
-                    src={el["Batches.Design.design_url"]}
-                  />
-                  <div className="name_size">
-                    <div className="name">
-                      <p>{el["Batches.Product.name"]}</p>
-                    </div>
-                    <div className="size">
+            <>
+              <div className="setting__divider"></div>
+              <div className="main__panel" key={`order${el.id}`}>
+                <div className="order">
+                  <div className="order_detail_main">
+                    <img
+                      src={el["Batches.Design.design_url"]}
+                      className="order_design_image"
+                    />
+                    <div className="order_details">
+                      <h3>{el["Batches.Product.name"]}</h3>
                       <p>
-                        Sizes -{" "}
+                        Sizes:{" "}
                         {el["Batches.xs"]
-                          ? `xs${el["Batches.s"] ? "," : ""}`
+                          ? `XS${el["Batches.s"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.s"]
-                          ? `s${el["Batches.m"] ? "," : ""}`
+                          ? `S${el["Batches.m"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.m"]
-                          ? `m${el["Batches.lg"] ? "," : ""}`
+                          ? `M${el["Batches.lg"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.lg"]
-                          ? `lg${el["Batches.xl"] ? "," : ""}`
+                          ? `L${el["Batches.xl"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.xl"]
-                          ? `xl${el["Batches.xxl"] ? "," : ""}`
+                          ? `XL${el["Batches.xxl"] ? "," : ""}`
                           : ""}
                         {el["Batches.xxl"]
-                          ? `2xl${el["Batches.xxxl"] ? "," : ""}`
+                          ? `2XL${el["Batches.xxxl"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.xxxl"]
-                          ? `3xl${el["Batches.xxxxl"] ? "," : ""}`
+                          ? `3XL${el["Batches.xxxxl"] ? "," : ""}`
                           : ""}{" "}
                         {el["Batches.xxxxl"]
-                          ? `4xl${el["Batches.xxxxxlg"] ? "," : ""}`
+                          ? `4XL${el["Batches.xxxxxlg"] ? "," : ""}`
                           : ""}{" "}
-                        {el["Batches.xxxxxl"] ? `5xl` : ""}
+                        {el["Batches.xxxxxl"] ? `5XL` : ""}
                       </p>
+                      <p>Color: BLANK FOR NOW</p>
+                      <p>
+                        Process: {el.processed ? "Complete" : "In Progress"}
+                      </p>
+                      <p>Order date: {moment(el.createdAt).format("l")}</p>
+                    </div>
+                  </div>
+
+                  <div className="order-details_right">
+                    <div className="order-shipping-info">
+                      <h3>Ship To: {`${el.firstName} ${el.lastName}`}</h3>
+                      <h3>Address: {el.address}</h3>
+                    </div>
+                    <div className="order-buttons">
+                      <button onClick={() => setFormVisible({id: el.id, toggle: !isFormVisible.toggle})}>
+                        SPECIAL REQUEST
+                      </button>
+                      <button>CANCEL</button>
                     </div>
                   </div>
                 </div>
-              </div> */}
-              {/* <div className="delivery_detail">
+
+                {isFormVisible.toggle && (
+                  <form className="special-request-form">
+                    <p>Special Request</p>
+                    <textarea placeholder="Enter your special request" ></textarea>
+                    <button type="submit">Submit Request</button>
+                  </form>
+                )}
+
+                {/* <div className="delivery_detail">
                 <div>
                   <p>Shipped To: {el.address}</p>
                 </div>
@@ -126,14 +119,8 @@ function OrderHistory() {
                   <button>cancel order</button>
                 </div>
               </div> */}
-              {/* {isFormVisible && (
-                <form className="special-request-form">
-                  <p>Special Request</p>
-                  <textarea placeholder="Enter your special request"></textarea>
-                  <button type="submit">Send Request</button>
-                </form>
-              )} */}
-            </div>
+              </div>
+            </>
           );
         })}
       </div>
