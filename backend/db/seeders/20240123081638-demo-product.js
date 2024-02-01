@@ -80,7 +80,7 @@ module.exports = {
             "3x-large",
           ]),
           description: "Sizes larger than xl will vary in price.",
-          price: 9.99,
+          price: 12.99,
         },
         {
           id: 2,
@@ -175,7 +175,7 @@ module.exports = {
             "4x-large",
           ]),
           description: "Sizes larger than xl will vary in price.",
-          price: 12.99,
+          price: 9.99,
         },
       ],
       {}

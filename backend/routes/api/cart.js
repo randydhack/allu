@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Batch, Cart } = require("../../db/models");
+const { Batch, Cart, Design, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
@@ -17,7 +17,21 @@ router.get("/", requireAuth, async (req, res) => {
       where: {
         userId: user.id,
       },
-      include: Batch,
+      include: [
+        {
+          model: Batch,
+          include: [
+            {
+              model: Design,
+            },
+            {
+              model: Product,
+              attributes: { exclude: ["colors"] },
+            },
+          ],
+        },
+      ],
+      raw: true
     });
 
     if (!cart) {
