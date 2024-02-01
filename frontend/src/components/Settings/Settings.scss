@@ -3,13 +3,16 @@
 // Allow the navigation and content to be side by side
 .setting__container {
     display: flex;
-    justify-content: center;
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    height: 100vh;
 }
 
 // For main contents
 .setting__contents {
-    padding: 35px 50px;
+    width: 100%;
+    margin: 50px 0px;
 }
 
 // Navigation / Content Header
@@ -26,9 +29,4 @@
 
 .setting__header__mb {
     margin-bottom: 30px;
-}
-
-.setting__background {
-    background-color: #f1f1f1;
-    width: 50rem;
 }

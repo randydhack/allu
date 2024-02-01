@@ -59,6 +59,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       note: {
         type: DataTypes.STRING,
+      },
+      color: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      total_price: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
       }
     },
     {

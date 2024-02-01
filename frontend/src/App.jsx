@@ -25,6 +25,10 @@ import PickupAndDelivery from "./components/PickupAndDelivery/PickupAndDelivery"
 import OurDesigns from "./components/OurDesigns/OurDesigns";
 import Product from "./components/Product/Product";
 import Checkout from "./components/Checkout/Checkout";
+import SuccessPage from "./components/SuccessPage/SuccessPage";
+import AboutUs from "./components/AboutUs/AboutUs";
+import ContactUs from "./components/ContactUs/ContactUs";
+import PageNotFound from "./components/404/404";
 
 // CSS
 import "./components/utils/DefaultStyles.scss";
@@ -64,12 +68,17 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/designs" element={<OurDesigns />} />
-            <Route path="/design/:id/product" element={<Product />} />
+            <Route exact path="/designs" element={<OurDesigns />} />
+            <Route exact path="/design/:id/product" element={<Product />} />
+            <Route exact path="/about-us" element={<AboutUs/>}/>
+            <Route exact path="/contact-us" element={<ContactUs/>}/>
+            <Route path="*" element={<PageNotFound/>}/>
+
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
             {user && (
               <>
                 <Route path="/shipping-information" element={<PickupAndDelivery />} />
+                <Route path="/order-submitted"element={<SuccessPage />} />
                 <Route
                   path="/account-details"
                   element={
