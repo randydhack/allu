@@ -4,6 +4,7 @@ import sessionReducer from "./session";
 import designReducer from "./designReducer";
 import orderReducer from "./order";
 import BatchReducer from "./BatchReducer";
+import ProductReducer from "./ProductReducer";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     designs: designReducer,
     orders: orderReducer,
     batches: BatchReducer,
+    products: ProductReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

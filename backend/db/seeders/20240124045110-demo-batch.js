@@ -19,7 +19,9 @@ module.exports = {
         s:5,
         m: 5,
         designId: 3,
-        note: "All tshirts have this design"
+        note: "All tshirts have this design",
+        color: "banana",
+        total_price: 41.00
       },
       {
         id: 2,
@@ -28,7 +30,9 @@ module.exports = {
         s: 5,
         m: 5,
         l: 10,
-        designId: 2
+        designId: 2,
+        color: "banana",
+        total_price: 81.00
       },
       {
         id: 3,
@@ -37,7 +41,9 @@ module.exports = {
         l: 5,
         xl: 10,
         xxl: 10,
-        userDesignId: 4
+        designId: 4,
+        color: "banana",
+        total_price: 121.00
       },
       {
         id: 4,
@@ -46,7 +52,9 @@ module.exports = {
         l: 3,
         xl: 12,
         xxl: 13,
-        userDesignId: 2
+        designId: 10,
+        color: "banana",
+        total_price: 201.00
       },
     ], {});
 
