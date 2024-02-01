@@ -41,9 +41,9 @@ function OurDesigns() {
         <div className="design_grid">
           {designs.Designs.map((el, i) => {
             return (
-              <div key={`design${i}`}>
-                <NavLink to={`/design/${el.id}/product`}>
+              <div key={`design${i}`} className='design-link-container'>
                 <img src={el.design_url} alt={`design-${el.id}`} className="design_image" />
+                <NavLink to={`/design/${el.id}/product`} className='link-design'>
                 </NavLink>
               </div>
             );

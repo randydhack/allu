@@ -1,3 +1,6 @@
+// Libaries
+import { NavLink } from 'react-router-dom'
+
 // CSS
 import "./Footer.scss";
 
@@ -5,8 +8,8 @@ function Footer() {
   return (
     <div className="footer">
       <div className="footer__main">
-        <div>
-          <h4 className="showroom__header">Showroom Hours:</h4>
+        <div className='footer__section'>
+          <h4 className="footer-header">Showroom Hours:</h4>
           <div className="showroom__schedule">
             <div>
               <p>Mon:</p>
@@ -24,14 +27,20 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div>
-          <h4>For sales inquiry</h4>
-        </div>
-        <div>
-          <h4>Company</h4>
+        <div className='footer__section'>
+          <h4 className="footer-header">Business</h4>
+          <NavLink to='/about-us'>About Us</NavLink>
+          <NavLink to='/contact-us'>Contact Us</NavLink>
+          <NavLink to='/designs'>Designs</NavLink>
           <div>
-
           </div>
+        </div>
+
+        <div className='footer__section'>
+          <h4 className="footer-header">Account</h4>
+          <NavLink >Order History</NavLink>
+          <NavLink>Account</NavLink>
+          <NavLink>Logout</NavLink>
         </div>
       </div>
       <div className="footer__copyright">

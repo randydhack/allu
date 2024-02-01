@@ -4,6 +4,7 @@
 .design_main {
     display: flex;
     justify-content: center;
+    // background-color: rgb(213, 213, 213);
 }
 
 .design_headings {
@@ -49,9 +50,23 @@
 .design_image {
     width: 200px;
     height: 200px;
+    clip-path: inset(28px 30px)
 }
 
 .design_divider {
     border: 0.5px #DBDBDB solid;
     margin: 0px;
+}
+
+.design-link-container {
+    position: relative;
+}
+.link-design {
+    height: 200px;
+    position: absolute;
+    left: 15%;
+    top: 28px;
+    z-index: 1;
+    height: 144px;
+    width: 140px;
 }
