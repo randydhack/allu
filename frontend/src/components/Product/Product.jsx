@@ -31,12 +31,12 @@ function Product() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log("all products", allProducts)
+  // console.log("all products", allProducts)
   // console.log("sizes", productSizes)
   // console.log("colors", productColors)
   // console.log(isLoaded)
-  console.log(color)
-  console.log(product)
+  // console.log(color)
+  // console.log(product)
 
   return (
     isLoaded && (
@@ -119,6 +119,9 @@ function Product() {
                 })}
               </div>
             </div>
+              <button className="confirm_button" type="submit">
+                  FINALIZE SELECTION
+              </button>
           </form>
         </div>
       </div>
@@ -229,9 +232,9 @@ function Product() {
       //             </div>
       //           </div>
 
-      //           <button className="confirm_button" type="submit">
-      //             FINALIZE SELECTION
-      //           </button>
+                // <button className="confirm_button" type="submit">
+                //   FINALIZE SELECTION
+                // </button>
       //         </form>
       //         <p className="place_holder">LOREM IPSUM</p>
       //       </div>
