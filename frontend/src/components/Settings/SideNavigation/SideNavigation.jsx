@@ -23,12 +23,14 @@ function SideNavigation() {
   const { setUser } = useContext(InfoContext)
 
 
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleUserLogout = async (e) => {
     e.preventDefault()
     await dispatch(logoutUser())
     setUser(null)
+    return navigate('/')
   }
 
 
