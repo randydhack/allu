@@ -67,9 +67,9 @@ function Navbar() {
           <div className="nav__right__section">
             <button onClick={() => toggleLogin()}>Sign in</button>
             <button onClick={() => toggleSignUp()}>Register</button>
-            <NavLink to="/checkout">
+            {/* <NavLink to="/checkout">
               <IoCartOutline className="nav-icon " />
-            </NavLink>
+            </NavLink> */}
           </div>
         )}
       </div>
