@@ -16,21 +16,21 @@ function OrderHistory() {
   const [isFormVisible, setIsFormVisible] = useState({ id: null, toggle: false });
   const [noteContent, setNoteContent] = useState("")
   const [updateNote, setUpdateNote] = useState(false);
+  const note = { note: noteContent }
 
   useEffect(() => {
 
-       dispatch(getOrders());
+    dispatch(getOrders());
 
   }, [dispatch]);
+
 
   const handleDeleteBatch = async (e, batchId) => {
     e.preventDefault()
     await dispatch(deleteBatchOrder(batchId))
   }
 
-  const handleEditNote = async(e, batchId) => {
-    e.preventDefault()
-    const note = { note: noteContent }
+  const handleEditNote = async (batchId) => {
     await dispatch(editNote(batchId, note))
   }
 
@@ -57,9 +57,9 @@ function OrderHistory() {
         <p>{items.length} order(s)</p>
 
         {items.map((el, i) => {
-          console.log(el)
           return (
-            <React.Fragment key={`order${el.id}+${uuidv4()}`}>
+            // <React.Fragment key={`order${el.id}+${uuidv4()}`}>
+            <div>
               <div className="setting__divider"></div>
               <div className="main__panel">
                 <div className="order">
@@ -115,6 +115,8 @@ function OrderHistory() {
                       <button aria-label="batch notes" onClick={() => {
                         setIsFormVisible({ id: el["Batches.id"], toggle: true })
                         handleSpecialRequest(el["Batches.id"])
+                        setNoteContent(el["Batches.note"])
+                        setUpdateNote(false)
                       }}>
                         CUSTOM TEXT
                       </button>
@@ -133,17 +135,23 @@ function OrderHistory() {
                     :
                     // If edit button is clicked the editNote will turn true and into a form/input
                     updateNote ?
-                      <div className="note-edit-form">
-                        <h4>Custom Text:</h4>
-                        <textarea
-                          type="text"
-                          value={noteContent}
-                          onChange={(e) => setNoteContent(e.target.value)}
-                        />
-                        <button onClick={(e) => {
+                      <div>
+                        <h4 className="note-edit-form">Custom Text:</h4>
+                        <form className="note-edit-form" onSubmit={(e) => {
+                          e.preventDefault()
+                          handleEditNote(el["Batches.id"])
                           setUpdateNote(false)
-                          handleEditNote(e, el["Batches.id"])
-                        }}>Submit</button>
+                        }}>
+                          <textarea
+                            id="edit-custom-text"
+                            type="text"
+                            value={noteContent}
+                            onChange={(e) => {
+                              setNoteContent(e.target.value)
+                            }}
+                          ></textarea>
+                          <button type="submit">Submit</button>
+                        </form>
                       </div>
                       :
                       // if editNote is false the edit button will be available
@@ -152,15 +160,14 @@ function OrderHistory() {
                         <p>{el["Batches.note"]}</p>
                         <button onClick={() => {
                           setUpdateNote(true)
-                          setNoteContent(el["Batches.note"])
                         }}>Edit</button>
                       </div>
                 )}
               </div>
-            </React.Fragment>
+            </div>
           );
         })}
-      </div>
+      </div >
     )
   );
 }

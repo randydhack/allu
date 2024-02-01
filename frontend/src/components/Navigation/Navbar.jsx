@@ -8,9 +8,6 @@ import { useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
-// Logo
-import Logo from "../../images/allu-high-res.png";
-
 // CSS
 import "./Navbar.scss";
 
@@ -20,6 +17,8 @@ import { getCart } from "../../store/BatchReducer";
 // Icons
 import { PiUserCircleThin } from "react-icons/pi";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
+import { HiOutlineMenu } from "react-icons/hi";
+import { RxCross1 } from "react-icons/rx";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -31,8 +30,10 @@ function Navbar() {
   const cart = useSelector((state) => state.batches.cart);
   const cartNull = cart.filter((el) => el["Batches.id"] != null);
   const [screenSmall, setScreenSmall] = useState(
-    getWindowDimensions().width < 700
+    getWindowDimensions().width <= 768
   );
+  const [mobile, setMobile] = useState(getWindowDimensions().width <= 425);
+  const [toggleBurger, setToggleBurger] = useState(false);
 
   useEffect(() => {
     if (currUser) {
@@ -55,12 +56,17 @@ function Navbar() {
     useEffect(() => {
       function handleResize() {
         setWindowDimensions(getWindowDimensions());
-        setScreenSmall(getWindowDimensions().width < 700);
+        setScreenSmall(getWindowDimensions().width <= 768);
+        setMobile(getWindowDimensions().width <= 425);
+
+        if (screenSmall === false && mobile === false) {
+          setToggleBurger(false)
+        }
       }
 
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [useWindowDimensions, setMobile, setToggleBurger]);
 
     return windowDimensions;
   }
@@ -70,39 +76,81 @@ function Navbar() {
     <div className="nav__container">
       <div className="nav_inner_container">
         <div className="left-nav">
-          {screenSmall && (
-            <>
-              <input id="toggle1" type="checkbox" aria-label="hamburger" />
-              <label className="hamburger1" htmlFor="toggle1">
-                <div className="top"></div>
-                <div className="middle"></div>
-                <div className="bottom"></div>
-              </label>
-              <nav className="menu1">
-                <NavLink to="/designs" alt="designs" aria-label="design">
-                  DESIGNS
-                </NavLink>
-                <NavLink to="/about-us" alt="About Us" aria-label="about">
-                  ABOUT US
-                </NavLink>
-                <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
-                  CONTACT US
-                </NavLink>
-              </nav>
-            </>
-          )}
           <div className="nav_logo__container">
-            <NavLink to="/" aria-label="home" className="nav_logo">
-              {/* <img
-                className="nav_logo"
-                src={Logo}
-                alt="all-u logo, click to return to home page"
-              /> */}
-              ALL U
-            </NavLink>
+            {screenSmall ? (
+              <div className="hamburger">
+                {toggleBurger ? (
+                  <button
+                    aria-label="dropdown menu"
+                    onClick={() => setToggleBurger(false)}
+                  >
+                    <RxCross1 />
+                  </button>
+                ) : (
+                  <button
+                    aria-label="dropdown menu"
+                    onClick={() => setToggleBurger(true)}
+                  >
+                    <HiOutlineMenu />
+                  </button>
+                )}
+                <NavLink to="/" aria-label="home" className="nav_logo-small">
+                  ALL U
+                </NavLink>
+              </div>
+            ) : (
+              <NavLink to="/" aria-label="home" className="nav_logo">
+                ALL U
+              </NavLink>
+            )}
           </div>
 
-          {!screenSmall && (
+          {screenSmall ? (
+            toggleBurger ? (
+
+              <div className="dropdown-menu" style={{height: `${mobile && "100vh"}`}}>
+                <div className="drop-down-inner">
+
+                  <NavLink to="/designs" alt="designs" aria-label="design">
+                    DESIGNS
+                  </NavLink>
+                  <NavLink to="/about-us" alt="About Us" aria-label="about">
+                    ABOUT US
+                  </NavLink>
+                  <NavLink
+                    to="/contact-us"
+                    alt="Contact Us"
+                    aria-label="contact"
+                  >
+                    CONTACT US
+                  </NavLink>
+                  {mobile && (
+                    <div className="mobile-acc_cart">
+                      <NavLink
+                        to="/account-details"
+                        aria-label="account"
+                        className="mobile-account"
+                      >
+                        <PiUserCircleThin className="user-icon" />
+                        <p className="mobile-icons">Account</p>
+                      </NavLink>
+                      <NavLink to="/checkout" aria-label="cart">
+                        <div className="mobile-cart">
+                          <PiShoppingCartSimpleThin className="cart-icon" />
+                          <p>
+                            Cart (
+                            {cart?.length && cartNull.length ? cart.length : 0})
+                          </p>
+                        </div>
+                      </NavLink>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              ""
+            )
+          ) : (
             <div className="nav__middle__section">
               <NavLink to="/designs" alt="designs" aria-label="design">
                 DESIGNS
@@ -115,33 +163,31 @@ function Navbar() {
               </NavLink>
             </div>
           )}
-          {screenSmall && <></>}
         </div>
 
         {user || currUser ? (
-          <div className="nav__profile__cart">
+
+            !mobile &&
+
+            <div className="nav__profile__cart">
             <NavLink
-              to="/account-details"
-              aria-label="account"
-              className="account"
+            to="/account-details"
+            aria-label="account"
+            className="account"
             >
-              <PiUserCircleThin className="user-icon" />
-              <p>Account</p>
+            <PiUserCircleThin className="user-icon" />
+            <p>Account</p>
             </NavLink>
             <NavLink to="/checkout" aria-label="cart">
-              <div className="cart-container">
-                <PiShoppingCartSimpleThin className="cart-icon" />
-                <p>
-                Cart ({cart?.length && cartNull.length ? cart.length : 0})
-                </p>
-                {/* {cart?.length && cartNull.length ? (
-                  <div className="cart_total_items">{cart?.length}</div>
-                ) : (
-                  ""
-                )} */}
-              </div>
+            <div className="cart-container">
+            <PiShoppingCartSimpleThin className="cart-icon" />
+            <p>
+            Cart ({cart?.length && cartNull.length ? cart.length : 0})
+            </p>
+            </div>
             </NavLink>
-          </div>
+            </div>
+
         ) : (
           <div className="nav__right__section">
             <NavLink

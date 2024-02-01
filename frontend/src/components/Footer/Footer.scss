@@ -1,4 +1,4 @@
-$footer-background: #6b85c8;
+$footer-background: #414141;
 $footer-copyright-background: #486592;
 $md: 700px;
 
@@ -7,7 +7,8 @@ $md: 700px;
 }
 
 .footer__main {
-  background-color: $footer-background;
+  background: rgb(36,35,41);
+background: linear-gradient(0deg, rgba(36,35,41,1) 0%, rgba(36,35,41,0.9) 80%, rgba(36,35,41,0.8) 100%);
   min-height: 200px;
   width: 100%;
   padding: 10px;
@@ -54,10 +55,11 @@ $md: 700px;
 }
 
 .footer__copyright {
-  // padding: 5px 0px;
+  padding: 20px 0px;
+
   text-align: center;
   color: white;
-  background-color: $footer-copyright-background;
+  background-color: rgb(32, 31, 36);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

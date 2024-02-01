@@ -12,17 +12,17 @@ function Footer() {
   }
   function useWindowDimensions() {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  
+
     useEffect(() => {
       function handleResize() {
         setWindowDimensions(getWindowDimensions());
         setScreenSmall(getWindowDimensions().width<700)
       }
-  
+
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []);
-  
+
     return windowDimensions;
   }
   useWindowDimensions()
@@ -48,13 +48,6 @@ function Footer() {
               </>}
 
             </div>
-            {/* <div>
-              <p>8:30am - 4:30pm</p>
-              <p>8:30am - 4:30pm</p>
-              <p>8:30am - 4:30pm</p>
-              <p>8:30am - 4:30pm</p>
-              <p>8:30am - 4:30pm</p>
-            </div> */}
           </div>
         </div>
         <div className='footer__section'>
@@ -74,8 +67,8 @@ function Footer() {
         </div>
       </div>
       <div className="footer__copyright">
-      <p>© 2024 ALL U, Inc. All rights reserved |</p><p>9 Interstate Ave • Albany, NY
-        12205</p> 
+      <p>© 2024 ALL U, Inc. All rights reserved | 9 Interstate Ave • Albany, NY
+        12205</p>
       </div>
     </div>
   );
