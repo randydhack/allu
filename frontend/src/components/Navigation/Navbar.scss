@@ -12,10 +12,9 @@
 
 .nav_logo {
     height: 55px;
-    transform: rotate(-20deg);
-    :hover {
-        cursor:pointer;
-    }
+    // transform: rotate(-20deg);
+    cursor:pointer
+
 }
 
 .nav_logo__container {

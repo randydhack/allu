@@ -22,28 +22,25 @@ function PickupAndDelivery(){
             setDelivery(!deliveryOrder)
         }
     }
-    async function handleFormSubmit(e){
+    function handleFormSubmit(e){
         e.preventDefault()
-        if (deliveryOrder&&!formInfo["state"]){
-            setErrors(["Please choose a state to continue"])
-        }else{
             setErrors([])
             let order
             if (deliveryOrder){
                 let address = formInfo["address-1"]+" "+formInfo["address-2"]+" "+formInfo["city"]+" "+formInfo["state"]+" "+formInfo["zip"]
-                order = {userId:currUser.id, address: address, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"], special_request: formInfo['special-instructions']}
-                // console.log(order)
+                order = {userId:currUser.id, address: address, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"], special_request: formInfo['special-instructions'], workforce: false}
+                console.log(order)
             }
             //send all or some fields to backend (depending on pickup or delivery)
             else{
-                order = {userId:currUser.id, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"],special_request: formInfo['special-instructions']}
+                order = {userId:currUser.id, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"],special_request: formInfo['special-instructions'], workforce: false}
                 // console.log(order)
             }
-            let orderCreated = await dispatch(createOrder(order))
+            let orderCreated = dispatch(createOrder(order))
             if(orderCreated){
                 navigate('/order-submitted')
             }
-        }
+
     }
 
 
