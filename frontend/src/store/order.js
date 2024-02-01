@@ -40,6 +40,17 @@ export const getOrders = () => async (dispatch) => {
   }
 };
 
+//get all orders
+export const getUserOrders = () => async (dispatch) => {
+  const response = await csrfFetch("/api/orders/user");
+
+  if (response.ok) {
+    const list = await response.json();
+    dispatch(loadOrders(list));
+    return list;
+  }
+};
+
 // //single order
 // export const spotDetails = (orderId) => async (dispatch) => {
 //   const response = await fetch(`/api/orders/${orderId}`);

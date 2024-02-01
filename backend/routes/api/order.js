@@ -19,9 +19,10 @@ router.get("/", async (req, res) => {
             },
             {
               model: Product,
-              attributes: { exclude: ["colors"] },
+              attributes: { exclude: ["colors", "createdAt", "updatedAt"] },
             },
           ],
+          attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       ],
       raw: true,
@@ -51,9 +52,10 @@ router.get("/user", requireAuth, async (req, res) => {
             },
             {
               model: Product,
-              attributes: { exclude: ["colors"] },
+              attributes: { exclude: ["colors", "createdAt", "updatedAt"] },
             },
           ],
+          attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       ],
       raw: true,
