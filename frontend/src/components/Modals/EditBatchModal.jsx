@@ -29,12 +29,6 @@ const EditBatchModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      ["Batches.productId"]: productId,
-      ["Batches.color"]: color,
-      ["Batches.total_price"]: total_price,
-      ["Batches.product_url"]: product_url,
-    } = batchDetails;
     const allSizesAreZero = Object.values(sizes).every(
       (size) => size === 0 || size === null
     );
@@ -45,10 +39,6 @@ const EditBatchModal = () => {
     }
 
     const payload = {
-      // productId,
-      // color,
-      // total_price,
-      // product_url,
       ...Object.fromEntries(
         Object.entries(sizes).filter(
           ([key, value]) => value !== batchDetails[`Batches.${key}`]

@@ -73,7 +73,6 @@ function Checkout() {
 
   // Handle Modal
   const handleOpenEditModal = (item) => {
-    console.log(item["Batches.id"]);
     const batchDetails = cart.find(
       (b) => b["Batches.id"] === item["Batches.id"]
     );
