@@ -64,7 +64,8 @@ function Product() {
                 src={allProducts[product.id - 1]?.ProductImages[color.id || 0]?.img_url} //selects first image of that product with selected id
                 alt="Model Image"
               />
-              <div>description</div>
+              <h1>description</h1>
+              <div>{allProducts[product.id - 1].description}</div>
             </div>
           </div>
 
@@ -82,9 +83,6 @@ function Product() {
                     width={50}
                     height={50}
                     onClick={() => {
-                      console.log("COLORS", colors)
-                      console.log("COLOR", color)
-                      console.log("ID", id)
                       setProduct({ id: product.id, type: product.name })
                       setColor({ id: 0, colorName: colors[product.id-1]?.colors[0].name }) //sets color of main image back to first color with name
                     }}
