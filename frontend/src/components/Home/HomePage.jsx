@@ -85,14 +85,14 @@ function Home() {
       //   backgroundSize: "cover",
       //   backgroundPosition: "center center",
       // });
-    }, 15000);
+    }, 10000);
     return () => {
       clearInterval(intervalId);
     };
   }, [currentImgIdx]);
 
   return (
-    <div className="home-container" style={homeStyle}>
+    <div className="home-container">
       {/* Left Section */}
       <div className="home-left-container">
         <img
@@ -104,11 +104,17 @@ function Home() {
           <div className="home-left-heading">
             {/* <img src={Logo} alt="All-U logo" width={500}/> */}
             <div className="header_logo">
-              <img src={Logo} alt="all-u logo, click to return to home page" />
-            </div>
-            <h3>
-              Your one stop shop for custom screenprinting, embroidery and more!
-            </h3>
+            <img
+                src={Logo}
+                alt="all-u logo, click to return to home page"
+                />
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+            {/* <h1>
+              Custom screenprinting, embroidery and more!
+            </h1> */}
           </div>
           <br></br>
           <br></br>
@@ -124,7 +130,6 @@ function Home() {
                 >
                   Catalogue
                 </button>
-                <p>Create a T-shirt or hoodie with custom prints!</p>
               </div>
               {!currUser && (
                 <div className="subcolumn">
@@ -133,12 +138,18 @@ function Home() {
                     aria-label="sign up"
                     onClick={toggleSignUp}
                     className="home-left-buttons"
-                  >
+                    >
                     Sign Up!
                   </button>
                 </div>
               )}
             </div>
+                    <h2>
+                    Welcome to ALL U – where style meets self-expression! Explore our curated collection of custom-printed T-shirts and hoodies, designed to showcase your unique personality. Elevate your wardrobe with quality, comfort, and a touch of individuality. Discover the joy of personalized fashion at ALL U today!
+                    </h2>
+                    <h1>
+              Custom screenprinting, embroidery and more!
+            </h1>
           </div>
 
           {/* <span className="divider">

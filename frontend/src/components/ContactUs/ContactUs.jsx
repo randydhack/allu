@@ -1,9 +1,11 @@
 import Logo from "../../images/t_shirt_logo.png";
 import "./ContactUs.scss";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 
 function ContactUs() {
+  const [addNotification, setAddNotification] = useState("");
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -139,7 +141,7 @@ function ContactUs() {
             <div className="form-group">
               <label htmlFor="phone">Phone number</label>
               <input
-                type="text"
+                type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
@@ -170,6 +172,12 @@ function ContactUs() {
                 Send Message
               </button>
             </div>
+              {addNotification && (
+            <p className="cart-added-msg">
+              <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+              {addNotification}
+            </p>
+          )}
           </div>
         </form>
       </div>
