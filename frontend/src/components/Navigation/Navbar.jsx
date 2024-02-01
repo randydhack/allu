@@ -8,7 +8,7 @@ import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
 // Logo
-import Logo from "../../images/t_shirt_logo.png";
+import Logo from "../../images/allu-high-res.png";
 
 // CSS
 import "./Navbar.scss";
@@ -67,9 +67,9 @@ function Navbar() {
           <div className="nav__right__section">
             <button onClick={() => toggleLogin()}>Sign in</button>
             <button onClick={() => toggleSignUp()}>Register</button>
-            <NavLink to="/checkout">
+            {/* <NavLink to="/checkout">
               <IoCartOutline className="nav-icon " />
-            </NavLink>
+            </NavLink> */}
           </div>
         )}
       </div>
