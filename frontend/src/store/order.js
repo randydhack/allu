@@ -9,7 +9,7 @@ export const orderSlice = createSlice({
     },
     reducers: {
         loadOrders: (state, action) => {
-           state.allOrders = action.payload 
+           state.allOrders = action.payload
         },
         // singleOrder: (state, action) => {
         //   state.singleOrder = action.payload
@@ -31,7 +31,7 @@ export const {loadOrders, addOrder, editOrder} = orderSlice.actions
 
 //get all orders
 export const getOrders = () => async (dispatch) => {
-  const response = await csrfFetch("/api/orders");
+  const response = await csrfFetch("/api/orders/user");
 
   if (response.ok) {
     const list = await response.json();
