@@ -32,20 +32,20 @@ function Home() {
   //   };
   // }
   // const newHomeStyle = () => {
-    // return getWindowDimensions().width < 1150
-    //   ?
+  // return getWindowDimensions().width < 1150
+  //   ?
 
-    // const backgroundStyle =
-    // {
-    //   backgroundImage: `url(${images[currentImgIdx].url})`,
-    //   backgroundRepeat: "no-repeat",
-    //   backgroundSize: "cover",
-    //   backgroundPosition: "center center",
-    // };
+  // const backgroundStyle =
+  // {
+  //   backgroundImage: `url(${images[currentImgIdx].url})`,
+  //   backgroundRepeat: "no-repeat",
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center center",
+  // };
 
-    // return backgroundStyle
+  // return backgroundStyle
 
-    // : {};
+  // : {};
   // }
   const [homeStyle, setHomeStyle] = useState({
     backgroundImage: `url(${images[currentImgIdx].url})`,
@@ -54,23 +54,22 @@ function Home() {
     backgroundPosition: "center center",
   });
 
-
   // function useWindowDimensions() {
   //   const [windowDimensions, setWindowDimensions] = useState(
   //     getWindowDimensions()
   //   );
 
-    // useEffect(() => {
-    //   function handleResize() {
-    //     setWindowDimensions(getWindowDimensions());
-    //     setHomeStyle(newHomeStyle());
-    //   }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimensions(getWindowDimensions());
+  //     setHomeStyle(newHomeStyle());
+  //   }
 
-    //   window.addEventListener("resize", handleResize);
-    //   return () => window.removeEventListener("resize", handleResize);
-    // }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
-    // return windowDimensions;
+  // return windowDimensions;
   // }
   // useWindowDimensions();
   const currUser = useSelector((state) => state.session.user);
@@ -105,17 +104,14 @@ function Home() {
           <div className="home-left-heading">
             {/* <img src={Logo} alt="All-U logo" width={500}/> */}
             <div className="header_logo">
-            <img
-                src={Logo}
-                alt="all-u logo, click to return to home page"
-                />
-                </div>
+              <img src={Logo} alt="all-u logo, click to return to home page" />
+            </div>
             <h3>
               Your one stop shop for custom screenprinting, embroidery and more!
-            </h2>
+            </h3>
           </div>
-      <br></br>
-      <br></br>
+          <br></br>
+          <br></br>
           <div className="home-left-contents">
             <div className="home-left-infos">
               <div className={currUser ? "solocolumn" : "subcolumn"}>
@@ -128,9 +124,7 @@ function Home() {
                 >
                   Catalogue
                 </button>
-                <p>
-                  Create a T-shirt or hoodie with custom prints!
-                </p>
+                <p>Create a T-shirt or hoodie with custom prints!</p>
               </div>
               {!currUser && (
                 <div className="subcolumn">
