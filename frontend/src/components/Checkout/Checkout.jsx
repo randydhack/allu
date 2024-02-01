@@ -39,9 +39,7 @@ function Checkout() {
   };
 
   useEffect(() => {
-
     dispatch(getCart());
-
   }, [dispatch]);
 
   // Format Batch sizes
@@ -75,6 +73,7 @@ function Checkout() {
 
   // Handle Modal
   const handleOpenEditModal = (item) => {
+    console.log(item["Batches.id"]);
     const batchDetails = cart.find(
       (b) => b["Batches.id"] === item["Batches.id"]
     );
@@ -82,8 +81,10 @@ function Checkout() {
     toggleEditBatchModal();
   };
 
-  function goToShip(){
-    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  function goToShip() {
+    navigate("/shipping-information", {
+      state: { quote: calculateSubtotal(cart).toFixed(2) },
+    });
   }
 
   return (
@@ -108,10 +109,9 @@ function Checkout() {
             {cart.map((item, idx) => {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
-                console.log(item["Batches.id"])
+
               return (
                 <div key={item["Batches.id"]} className="home-item-row">
-
                   <div className="home-item-image-container border_bottom">
                     <img
                       className="home-item-image"
@@ -160,9 +160,13 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="checkout"
                 onClick={() => goToShip()}
-                style={{backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`}}
+                style={{
+                  backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`,
+                }}
               >
-                <p style={{color: `${cart.length ? "white":"#707070"}`}}>Continue to shipping</p>
+                <p style={{ color: `${cart.length ? "white" : "#707070"}` }}>
+                  Continue to shipping
+                </p>
               </button>
             </div>
             {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}
