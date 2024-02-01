@@ -31,10 +31,10 @@ function Product() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log("all products", allProducts)
+  // console.log("all products", allProducts)
   // console.log("sizes", productSizes)
-  console.log("colors", productColors)
-  console.log(isLoaded)
+  // console.log("colors", productColors)
+  // console.log(isLoaded)
   console.log(color)
   console.log(product)
 
@@ -75,15 +75,18 @@ function Product() {
             <div>
               <h3>Choose an option: {product.type}</h3>
               <div>
-                {allProducts.map((product, id) => (
+                {allProducts.map((product, id, colors) => (
                   <img
                     key={product.name + id}
                     src={allProducts[product.id - 1]?.ProductImages[0]?.img_url} //selects first image of that product with selected id
                     width={50}
                     height={50}
                     onClick={() => {
+                      console.log("COLORS", colors)
+                      console.log("COLOR", color)
+                      console.log("ID", id)
+                      setColor({ id: product.id, colorName: colors[product.id]?.colors[0].name })
                       setProduct({ id: product.id, type: product.name })
-                      // setColor({ id: product.id - 1, colorName: allProducts[product.id - 1].colors[0] })
                     }}
                   />
                 ))}
