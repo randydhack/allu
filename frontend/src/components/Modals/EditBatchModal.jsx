@@ -9,17 +9,29 @@ const EditBatchModal = () => {
   const { batchDetails } = useContext(InfoContext);
   console.log(batchDetails);
   const dispatch = useDispatch();
-  const [sizes, setSizes] = useState({
-    xs: batchDetails?.["Batches.xs"] || 0,
-    s: batchDetails?.["Batches.s"] || 0,
-    m: batchDetails?.["Batches.m"] || 0,
-    l: batchDetails?.["Batches.l"] || 0,
-    xl: batchDetails?.["Batches.xl"] || 0,
-    xxl: batchDetails?.["Batches.xxl"] || 0,
-    xxxl: batchDetails?.["Batches.xxxl"] || 0,
-    xxxxl: batchDetails?.["Batches.xxxxl"] || 0,
-    xxxxxl: batchDetails?.["Batches.xxxxxl"] || 0,
-  });
+  const getInitialSizes = () => {
+    const sizes = {
+      xs: batchDetails?.["Batches.xs"] || 0,
+      s: batchDetails?.["Batches.s"] || 0,
+      m: batchDetails?.["Batches.m"] || 0,
+      l: batchDetails?.["Batches.l"] || 0,
+      xl: batchDetails?.["Batches.xl"] || 0,
+      xxl: batchDetails?.["Batches.xxl"] || 0,
+      xxxl: batchDetails?.["Batches.xxxl"] || 0,
+      xxxxl: batchDetails?.["Batches.xxxxl"] || 0,
+      xxxxxl: batchDetails?.["Batches.xxxxxl"] || 0,
+    };
+    if (batchDetails["Batches.productId"] === 1) {
+      delete sizes.xxxxl;
+      delete sizes.xxxxxl;
+    } else if (batchDetails["Batches.productId"] === 3) {
+      delete sizes.xxxxxl;
+    }
+    return sizes;
+  };
+
+  const [sizes, setSizes] = useState(getInitialSizes());
+
   const handleChange = (e) => {
     setSizes({
       ...sizes,
@@ -29,6 +41,12 @@ const EditBatchModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const {
+    //   ["Batches.productId"]: productId,
+    //   ["Batches.color"]: color,
+    //   ["Batches.total_price"]: total_price,
+    //   ["Batches.product_url"]: product_url,
+    // } = batchDetails;
     const allSizesAreZero = Object.values(sizes).every(
       (size) => size === 0 || size === null
     );
@@ -39,6 +57,10 @@ const EditBatchModal = () => {
     }
 
     const payload = {
+      // productId,
+      // color,
+      // total_price,
+      // product_url,
       ...Object.fromEntries(
         Object.entries(sizes).filter(
           ([key, value]) => value !== batchDetails[`Batches.${key}`]
