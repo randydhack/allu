@@ -31,7 +31,7 @@ function Product() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  // console.log("all products", allProducts)
+  console.log("all products", allProducts)
   // console.log("sizes", productSizes)
   // console.log("colors", productColors)
   // console.log(isLoaded)
@@ -85,8 +85,8 @@ function Product() {
                       console.log("COLORS", colors)
                       console.log("COLOR", color)
                       console.log("ID", id)
-                      setColor({ id: product.id, colorName: colors[product.id]?.colors[0].name })
                       setProduct({ id: product.id, type: product.name })
+                      setColor({ id: 0, colorName: colors[product.id-1]?.colors[0].name }) //sets color of main image back to first color with name
                     }}
                   />
                 ))}
