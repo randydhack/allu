@@ -112,7 +112,7 @@ function Home() {
                 </div>
             <h3>
               Your one stop shop for custom screenprinting, embroidery and more!
-            </h3>
+            </h2>
           </div>
       <br></br>
       <br></br>
