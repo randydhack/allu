@@ -57,3 +57,16 @@
     border: 0.5px #DBDBDB solid;
     margin: 0px;
 }
+
+.design-link-container {
+    position: relative;
+}
+.link-design {
+    height: 200px;
+    position: absolute;
+    left: 15%;
+    top: 28px;
+    z-index: 1;
+    height: 144px;
+    width: 140px;
+}
