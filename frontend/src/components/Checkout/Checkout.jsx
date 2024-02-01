@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../store/BatchReducer";
+import EditBatchModal from "../Modals/EditBatchModal";
 import "./Checkout.scss";
 
 function Checkout() {
   const handleRemoveFromCart = (itemId) => {
     console.log("Remove item:", itemId);
   };
-  const [editingItemId, setEditingItemId] = useState(null);
-  const [editedQuantity, setEditedQuantity] = useState({});
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
 
   const dispatch = useDispatch();
   const { cart, isLoaded } = useSelector((state) => state.batches);
@@ -20,33 +21,36 @@ function Checkout() {
   }, [dispatch]);
 
   const formatBatchSizes = (batch) => {
-    if (!batch || !batch.Batches)
-      return { sizeDescriptions: "", totalQuantity: 0 };
-
-    const batchData = batch.Batches;
     const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
     const sizeDescriptions = sizes
       .map((size) =>
-        batchData[size] ? `${batchData[size]}${size.toUpperCase()}` : ""
+        batch[`Batches.${size}`]
+          ? `${batch[`Batches.${size}`]}${size.toUpperCase()}`
+          : ""
       )
       .filter((desc) => desc !== "")
       .join(",");
 
     const totalQuantity = sizes.reduce(
-      (sum, size) => sum + (batchData[size] || 0),
+      (sum, size) => sum + (batch[`Batches.${size}`] || 0),
       0
     );
 
     return { sizeDescriptions, totalQuantity };
   };
 
-  const calculateSubtotal = () => {
-    return Object.values(cart).reduce((total, batch) => {
-      const { totalQuantity } = formatBatchSizes(batch);
-      return total + batch.total_price * totalQuantity;
+  const calculateSubtotal = (cart) => {
+    return cart.reduce((total, item) => {
+      const { totalQuantity } = formatBatchSizes(item);
+      const itemPrice = item["Batches.total_price"];
+      return total + itemPrice * totalQuantity;
     }, 0);
   };
-  console.log(cart);
+
+  const handleOpenEditModal = (batchId) => {
+    setCurrentEditingBatchId(batchId);
+    setIsEditModalOpen(true);
+  };
 
   return (
     <div className="checkout_page">
@@ -70,23 +74,31 @@ function Checkout() {
                 formatBatchSizes(item);
               return (
                 <div key={item.id} className="home-item-row">
-                  {/* <div className="home-item-image-container">
+                  <div className="home-item-image-container">
                     <img
                       className="home-item-image"
-                      src={item.image}
+                      src={item["Batches.Design.design_url"]}
                       alt={item.name}
                     />
-                  </div> */}
+                  </div>
                   <div className="home-item-info-container">
                     <h3 className="home-item-title">{item["Batches.color"]}</h3>
                   </div>
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
-                  <div className="home-item-change"></div>
-                  <div className="home-item-price">${item.total_price}</div>
+                  <div className="home-item-change">
+                    <button
+                      onClick={() => handleOpenEditModal(item["Batches.id"])}
+                    >
+                      Edit Sizes
+                    </button>
+                  </div>
+                  <div className="home-item-price">
+                    ${item["Batches.total_price"]}
+                  </div>
                   <button
                     className="removal"
-                    onClick={() => handleRemoveFromCart(item.id)}
+                    onClick={() => handleRemoveFromCart(item["Batches.id"])}
                   >
                     Remove from Cart
                   </button>
@@ -94,7 +106,7 @@ function Checkout() {
               );
             })}
             <div className="subtotal">
-              Subtotal: ${calculateSubtotal().toFixed(2)}
+              Subtotal: ${calculateSubtotal(cart).toFixed(2)}
             </div>
           </div>
         )}
