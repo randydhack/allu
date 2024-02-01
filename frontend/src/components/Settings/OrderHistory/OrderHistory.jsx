@@ -19,6 +19,8 @@ function OrderHistory() {
     })();
   }, [dispatch]);
 
+
+
   return (
     orders && (
       <div className="setting__contents setting__background">
@@ -74,7 +76,7 @@ function OrderHistory() {
                           : ""}{" "}
                         {el["Batches.xxxxxl"] ? `5XL` : ""}
                       </p>
-                      <p>Color: BLANK FOR NOW</p>
+                      <p>Color: {el["Batches.color"]}</p>
                       <p>
                         Process: {el.processed ? "Complete" : "In Progress"}
                       </p>
