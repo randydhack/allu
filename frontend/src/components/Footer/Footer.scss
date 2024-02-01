@@ -13,12 +13,15 @@ $footer-copyright-background: #486592;
     padding: 10px 200px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 50px;
 
 }
 
-.showroom__header {
+.footer-header {
     margin: 10px 0px;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .showroom__schedule {
@@ -33,6 +36,16 @@ $footer-copyright-background: #486592;
         margin: 0px;
     }
 }
+
+
+.footer__section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
 
 .footer__copyright {
     padding: 5px 0px;
