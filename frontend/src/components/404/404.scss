@@ -1,0 +1,19 @@
+.nfp-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 40px;
+}
+
+.nfp-404 {
+    font-size: 45px;
+}
+
+.nfp-home {
+    font-size: 30px;
+    color: blue;
+}
+
+.nfp-home:hover {
+    text-decoration: underline;
+}
