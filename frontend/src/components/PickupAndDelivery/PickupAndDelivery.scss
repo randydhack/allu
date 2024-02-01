@@ -1,5 +1,11 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .pickup-delivery-page {
-    // margin: 50px auto;
+    margin: 50px 0px;
     // height: 100%;
 
     header {
@@ -158,8 +164,9 @@
     justify-content: center;
 
     button {
-        border: 1px black solid;
-        padding: 5px 10px;
+        padding: 10px 15px;
         cursor: pointer;
+        color: white;
+        background-color: black;
     }
 }

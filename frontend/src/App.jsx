@@ -63,60 +63,69 @@ function App() {
   return (
     <>
       {isLoaded && (
-        <div className="container">
-          <Navbar />
-          <Modal />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/designs" element={<OurDesigns />} />
-            <Route exact path="/design/:designId/product" element={<Product />} />
-            <Route exact path="/about-us" element={<AboutUs />} />
-            <Route exact path="/contact-us" element={<ContactUs />} />
-            <Route path="*" element={<PageNotFound />} />
+        <>
+          <div className="container">
+            <Modal />
+            <Navbar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/designs" element={<OurDesigns />} />
+              <Route
+                exact
+                path="/design/:designId/product"
+                element={<Product />}
+              />
+              <Route exact path="/about-us" element={<AboutUs />} />
+              <Route exact path="/contact-us" element={<ContactUs />} />
+              <Route path="*" element={<PageNotFound />} />
 
-            {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
-            {user && (
-              <>
-                <Route path="/shipping-information" element={<PickupAndDelivery />} />
-                <Route path="/order-submitted" element={<SuccessPage />} />
-                <Route
-                  path="/account-details"
-                  element={
-                    <SettingsWrapper>
-                      <AccountDetail />
-                    </SettingsWrapper>
-                  }
-                />
-                <Route
-                  path="/order-history"
-                  element={
-                    <SettingsWrapper>
-                      <OrderHistory />
-                    </SettingsWrapper>
-                  }
-                />
-                <Route
-                  path="/change-email"
-                  element={
-                    <SettingsWrapper>
-                      <ChangeEmail />
-                    </SettingsWrapper>
-                  }
-                />
-                <Route
-                  path="/change-password"
-                  element={
-                    <SettingsWrapper>
-                      <ChangePassword />
-                    </SettingsWrapper>
-                  }
-                />
-              </>
-            )}
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
+              {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
+              {user && (
+                <>
+                  <Route
+                    path="/shipping-information"
+                    element={<PickupAndDelivery />}
+                  />
+                  <Route path="/order-submitted" element={<SuccessPage />} />
+                  <Route
+                    path="/account-details"
+                    element={
+                      <SettingsWrapper>
+                        <AccountDetail />
+                      </SettingsWrapper>
+                    }
+                  />
+                  <Route
+                    path="/order-history"
+                    element={
+                      <SettingsWrapper>
+                        <OrderHistory />
+                      </SettingsWrapper>
+                    }
+                  />
+                  <Route
+                    path="/change-email"
+                    element={
+                      <SettingsWrapper>
+                        <ChangeEmail />
+                      </SettingsWrapper>
+                    }
+                  />
+                  <Route
+                    path="/change-password"
+                    element={
+                      <SettingsWrapper>
+                        <ChangePassword />
+                      </SettingsWrapper>
+                    }
+                  />
+                </>
+              )}
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </div>
           <Footer />
-        </div>
+        </>
       )}
     </>
   );

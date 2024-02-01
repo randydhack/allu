@@ -10,23 +10,28 @@ import { getAllProducts } from "../../store/ProductReducer";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
 // Context
-import { ModalContext } from "../../context/modalContext";
+// import { ModalContext } from "../../context/modalContext";
 
 // CSS
 import "./Product.scss";
 import { designDetails } from "../../store/designReducer";
 import { createBatch } from "../../store/BatchReducer";
 import { getCart } from "../../store/BatchReducer";
+import { ModalContext } from "../../context/modalContext";
 
 function Product() {
   const dispatch = useDispatch();
   const { designId } = useParams();
+
+
+  const { toggleLogin } = useContext(ModalContext)
 
   // useSelectors
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
   const { singleDesign } = useSelector((state) => state.designs);
+  const { user } = useSelector((state) => state.session)
 
 
   // useStates
@@ -314,6 +319,20 @@ function Product() {
                 {addNotification}
               </p>
             )}
+
+            {!user ?
+            <div className="finalize">
+            <button
+              style={{
+                backgroundColor: `black`,
+              }}
+              aria-label="sign up to create product"
+              onClick={toggleLogin}
+            >
+              <span>Sign Up to Continue</span>
+            </button>
+          </div>
+          :
             <div className="finalize">
               <button
                 type="submit"
@@ -337,6 +356,7 @@ function Product() {
                 <span>Add to cart</span>
               </button>
             </div>
+}
           </form>
         </div>
     )

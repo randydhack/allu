@@ -89,8 +89,6 @@ function LoginModal() {
           </div>
         </div>
 
-        {/* Forgot Password */}
-        <div className="forgot-password-link">Forgot your password?</div>
 
         {/* Login Button */}
         <div>
