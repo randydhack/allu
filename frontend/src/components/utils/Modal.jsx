@@ -32,7 +32,7 @@ export default function Modal(props) {
           {type === "login" && <LoginModal />}
           {type === "signup" && <SignUpModal />}
           {/* {type === "productZoom" && <ProductModal />} */}
-        </div>  
+        </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>
     );

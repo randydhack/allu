@@ -1,26 +1,27 @@
-.side-navigation {
-    height: 100dvh;
+.setting-nav-header {
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
 }
 
 .side-navigation__contents {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: max-content;
-}
+    gap: 20px;
+    font-weight: 500;
 
-.side-navigation__left__border {
-    border-left: 0.5px solid #DBDBDB;
-}
-
-.side-navigation-links {
-    &:hover {
-        font-weight: 500;
-        cursor: pointer;
+    a {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
-    width: 160px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
+    a:hover {
+        font-weight: 500;
+    }
+}
 
+.side-navigation {
+    width: 300px;
+    margin-left: 20px;
 }
