@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Batch, Cart } = require("../../db/models");
+const { Batch, Cart, Design, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const { check } = require("express-validator");
