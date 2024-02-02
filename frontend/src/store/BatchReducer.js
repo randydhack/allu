@@ -43,6 +43,7 @@ export const getCart = () => async (dispatch) => {
   if (response.ok) {
     const cart = await response.json();
     dispatch(loadCart(cart));
+    return cart
   }
 };
 

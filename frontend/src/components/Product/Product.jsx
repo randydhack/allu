@@ -28,7 +28,6 @@ function Product() {
 
   const { singleDesign } = useSelector((state) => state.designs);
 
-
   const [currentProduct, setCurrentProduct] = useState({
     id: 1,
     type: "Heavyweight Ring Spun Tee",
@@ -105,7 +104,6 @@ function Product() {
   return (
     isLoaded && (
       <div className="container">
-
         <div className="main_panel">
           <div className="left_panel">
             <div className="product-images">

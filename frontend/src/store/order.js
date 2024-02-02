@@ -23,7 +23,6 @@ export const orderSlice = createSlice({
         // removeOrder:(state, action)=>{
         //     state.allOrders
         // }
-
     }
 })
 
