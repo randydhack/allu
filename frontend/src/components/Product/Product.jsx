@@ -26,17 +26,11 @@ function Product() {
   );
 
   const [product, setProduct] = useState({ id: 1, type: "Heavy-T" });
-  const [color, setColor] = useState({ id: 0, colorName: "bannana"});
+  const [color, setColor] = useState({ id: 0, colorName: "banana"});
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  // console.log("all products", allProducts)
-  // console.log("sizes", productSizes)
-  // console.log("colors", productColors)
-  // console.log(isLoaded)
-  // console.log(color)
-  // console.log(product)
 
   return (
     isLoaded && (
@@ -82,6 +76,7 @@ function Product() {
                     src={allProducts[product.id - 1]?.ProductImages[0]?.img_url} //selects first image of that product with selected id
                     width={50}
                     height={50}
+                    className="product-option-img"
                     onClick={() => {
                       setProduct({ id: product.id, type: product.name })
                       setColor({ id: 0, colorName: colors[product.id-1]?.colors[0].name }) //sets color of main image back to first color with name
@@ -125,122 +120,6 @@ function Product() {
           </form>
         </div>
       </div>
-
-      //   {/* <div className="main_panel">
-      //     <div className="top_panel">
-      //       <div className="top_mid">
-      //       <div className="top_left">
-      //         <div className="design_preview">
-      //           <button
-      //             className="zoom_out"
-      //             onClick={handleZoomOutClick}
-      //             style={{
-      //               cursor: "pointer",
-      //             }}
-      //           >
-      //             <FontAwesomeIcon icon={faSearchMinus} />
-      //           </button>
-      //           <img
-      //             className="modal_img"
-      //             src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //             alt="Modal Image"
-      //           />
-      //         </div>
-      //       </div>
-      //       <div className="product-mid-section">
-      //         <img
-      //           src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //           alt="t-shirt"
-      //         />
-      //         <p>Description:</p>
-      //       </div>
-      //       </div>
-      //       <div className="top_right">
-      //         <p className="product_name">Product Name</p>
-      //         <p>Choose An Option:</p>
-      //         <form id="product_form">
-      //           <div id="imageSelection">
-      //             {[1, 2, 3].map((id) => (
-      //               <img
-      //                 key={id}
-      //                 src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //                 width={50}
-      //                 height={50}
-      //                 onClick={() => setSelectedImageId(id)}
-      //                 className={selectedImageId === id ? "selected" : ""}
-      //               />
-      //             ))}
-      //           </div>
-
-      //           <div id="colorSelection">
-      //             <div className="color_name">
-      //               Colors -
-      //               {selectedColor
-      //                 ? selectedColor.charAt(0).toUpperCase() +
-      //                   selectedColor.slice(1)
-      //                 : "Select a color"}
-      //             </div>
-      //             {Object.entries(colors).map(([colorName, colorValue]) => (
-      //               <div
-      //                 key={colorName}
-      //                 className="color-circle"
-      //                 style={{ backgroundColor: colorValue }}
-      //                 onClick={() => setSelectedColor(colorName)}
-      //               ></div>
-      //             ))}
-      //           </div>
-
-      //           <div id="size_quantity">
-      //             <p>Select A Size And Quantity</p>
-      //             <div className="size_chart">
-      //               <div>
-      //                 <label>XS</label>
-      //                 <input type="number" name="size_XS" />
-      //               </div>
-      //               <div>
-      //                 <label>S</label>
-      //                 <input type="number" name="size_S" />
-      //               </div>
-      //               <div>
-      //                 <label>M</label>
-      //                 <input type="number" name="size_M" />
-      //               </div>
-      //               <div>
-      //                 <label>L</label>
-      //                 <input type="number" name="size_L" />
-      //               </div>
-      //               <div>
-      //                 <label>XL</label>
-      //                 <input type="number" name="size_XL" />
-      //               </div>
-      //               <div>
-      //                 <label>2XL</label>
-      //                 <input type="number" name="size_2XL" />
-      //               </div>
-      //               <div>
-      //                 <label>3XL</label>
-      //                 <input type="number" name="size_3XL" />
-      //               </div>
-      //               <div>
-      //                 <label>4XL</label>
-      //                 <input type="number" name="size_4XL" />
-      //               </div>
-      //               <div>
-      //                 <label>5XL</label>
-      //                 <input type="number" name="size_5XL" />
-      //               </div>
-      //             </div>
-      //           </div>
-
-                // <button className="confirm_button" type="submit">
-                //   FINALIZE SELECTION
-                // </button>
-      //         </form>
-      //         <p className="place_holder">LOREM IPSUM</p>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div> */}
     )
   );
 }
