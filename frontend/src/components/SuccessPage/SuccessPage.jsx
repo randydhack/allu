@@ -1,10 +1,9 @@
 import './SuccessPage.scss'
-// import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import Logo from '../../images/allu-high-res.png'
 
 function SuccessPage(){
-    // const order = useSelector(state=>state.singleOrder)
+
     return(
         <main className="success-page">
             <section className="text-section">

@@ -33,7 +33,7 @@ function OrderHistory() {
           orders.map((el) => el.firstName)
         )}
 
-        <p>{orders.length} order(s)</p>
+        <p>{orders.length} {orders.length==1?"order":"orders"}</p>
 
         {orders.map((el, i) => {
           return (

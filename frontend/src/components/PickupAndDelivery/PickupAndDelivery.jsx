@@ -8,9 +8,10 @@ import { useSelector } from "react-redux"
 
 import "./PickupAndDelivery.scss"
 import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 function PickupAndDelivery(){
-    // const { user } = useContext(InfoContext);
+    const {state} = useLocation()
     const navigate = useNavigate()
     const currUser = useSelector((state) => state.session.user);
     const [deliveryOrder, setDelivery] = useState(true)
@@ -28,13 +29,12 @@ function PickupAndDelivery(){
             let order
             if (deliveryOrder){
                 let address = formInfo["address-1"]+" "+formInfo["address-2"]+" "+formInfo["city"]+" "+formInfo["state"]+" "+formInfo["zip"]
-                order = {userId:currUser.id, address: address, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"], special_request: formInfo['special-instructions'], workforce: false}
-                console.log(order)
+                order = {userId:currUser.id, address: address, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"], special_request: formInfo['special-instructions'], workforce: false, quote:state.quote, processed: false}
+                // console.log(order)
             }
             //send all or some fields to backend (depending on pickup or delivery)
             else{
-                order = {userId:currUser.id, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"],special_request: formInfo['special-instructions'], workforce: false}
-                // console.log(order)
+                order = {userId:currUser.id, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"],special_request: formInfo['special-instructions'], workforce: false, quote:state.quote, processed: false}
             }
             let orderCreated = dispatch(createOrder(order))
             if(orderCreated){
