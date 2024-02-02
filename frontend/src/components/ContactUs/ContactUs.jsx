@@ -40,16 +40,20 @@ function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    emailjs.init("qX2bG7gix8uM5rrzg");
+    console.log(process.env.REACT_APP_EMAILJS_USER_ID);
+    emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID);
     emailjs
-      .send("service_z6xyat9", "template_078tqyq", {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      })
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }
+      )
       .then(
         (response) => {
           console.log("SUCCESS!", response.status, response.text);
@@ -172,12 +176,12 @@ function ContactUs() {
                 Send Message
               </button>
             </div>
-              {addNotification && (
-            <p className="cart-added-msg">
-              <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
-              {addNotification}
-            </p>
-          )}
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
           </div>
         </form>
       </div>

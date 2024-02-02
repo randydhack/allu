@@ -83,10 +83,10 @@ function PickupAndDelivery() {
 
     try {
       const emailResponse = await emailjs.send(
-        "service_z6xyat9",
-        "template_jl5btlf",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         emailData,
-        "qX2bG7gix8uM5rrzg"
+        process.env.REACT_APP_EMAILJS_USER_ID
       );
       console.log(
         "Email successfully sent!",
