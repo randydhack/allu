@@ -96,6 +96,7 @@ router.post("/", requireAuth, async (req, res) => {
       total_price,
       product_url,
     } = req.body;
+    console.log(product_url)
 
     if (!productId || !cart) {
       return res.json({

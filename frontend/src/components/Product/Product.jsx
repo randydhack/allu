@@ -22,22 +22,20 @@ function Product() {
   const { designId } = useParams();
   const { setIsModalOpen, setType } = useContext(ModalContext);
 
-  console.log(designId);
-
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
 
   const { singleDesign } = useSelector((state) => state.designs);
 
-  console.log(singleDesign);
 
   const [currentProduct, setCurrentProduct] = useState({
     id: 1,
     type: "Heavyweight Ring Spun Tee",
     price: 12.99,
   });
-  const [color, setColor] = useState({ id: 0, name: "banana" });
+  const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
+  const product_url = color.product_url
 
   const [sizes, setSizes] = useState({
     XS: 0,
@@ -51,7 +49,6 @@ function Product() {
     "5XL": 0,
   });
   const [addNotification, setAddNotification] = useState("");
-  console.log(sizes);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -60,7 +57,6 @@ function Product() {
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
-
     if (
       !sizes["XS"] ||
       !sizes["S"] ||
@@ -78,10 +74,11 @@ function Product() {
           sizes,
           designId,
           color.name,
-          currentProduct.price + singleDesign.design_price
+          currentProduct.price + singleDesign.design_price,
+          product_url,
         )
       );
-
+          console.log(data)
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -105,7 +102,6 @@ function Product() {
       }
     }
   };
-
   return (
     isLoaded && (
       <div className="container">
@@ -210,6 +206,9 @@ function Product() {
                       setColor({
                         id: 0,
                         name: colors[product.id - 1]?.colors[0].name,
+                        product_url: allProducts[currentProduct.id - 1]?.ProductImages[
+                          color.id || 0
+                        ]?.img_url
                       }); //sets color of main image back to first color with name
                     }}
                   />
@@ -228,7 +227,9 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => setColor({ id: i, name: color.name })}
+                        onClick={() => setColor({ id: i, name: color.name, product_url: allProducts[currentProduct.id - 1]?.ProductImages[
+                          color.id || 0
+                        ]?.img_url })}
                       ></div>
                     );
                   })}

@@ -6,14 +6,14 @@ import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 
 import "./Checkout.scss";
+import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
 
 function Checkout() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // Context
   const { toggleEditBatchModal } = useContext(ModalContext);
   const { setBatchDetails } = useContext(InfoContext);
-  const navigate = useNavigate();
 
   // States
   // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -68,6 +68,11 @@ function Checkout() {
     setBatchDetails(batchDetails);
     toggleEditBatchModal();
   };
+
+  function goToShip(){
+    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  }
+
 
   return (
     <div className="checkout_page">
@@ -128,11 +133,21 @@ function Checkout() {
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
               <button
                 className="navigate-shipping"
-                onClick={() => navigate("/shipping-information")}
+                onClick={() => goToShip()}
               >
                 Proceed to Shipping Information
               </button>
             </div>
+            {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}
+            {/* {isEditModalOpen && (
+              <EditBatchModal
+                batchId={currentEditingBatchId}
+                batchDetails={cart.find(
+                  (b) => b["Batches.id"] === currentEditingBatchId
+                )}
+                closeModal={() => setIsEditModalOpen(false)}
+              />
+            )} */}
           </div>
         )}
       </div>
