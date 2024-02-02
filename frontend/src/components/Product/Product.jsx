@@ -75,6 +75,8 @@ function Product() {
           <div className="left_panel">
             <div className="product-images">
               <div className="mini-images-container">
+                <div style={{display: "flex", flexDirection: "column"}}>
+                  <img className="side_img" src={singleDesign.design_url} alt={`Design ${designId}`} />
                 <img
                   className="side_img"
                   src={
@@ -83,6 +85,7 @@ function Product() {
                   }
                   alt={`Product Image - ${color.name}`}
                 />
+                </div>
                 {/* {allProducts[product.id - 1].ProductImages.map(
                   (productImage, idx) => {
                     return (
