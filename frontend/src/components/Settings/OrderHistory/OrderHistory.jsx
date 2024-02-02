@@ -108,7 +108,7 @@ function OrderHistory() {
                       <button onClick={() => {
                         setIsFormVisible({id: el["Batches.id"], toggle: true})
                         handleSpecialRequest(el["Batches.id"])}}>
-                        SPECIAL REQUEST
+                        NOTES
                       </button>
                       <button onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
                     </div>
@@ -117,9 +117,11 @@ function OrderHistory() {
 
                 {isFormVisible.toggle && isFormVisible.id === el["Batches.id"] && (
                   <form className="special-request-form">
-                    <p>Special Request</p>
-                    <textarea placeholder="Enter your special request" ></textarea>
-                    <button type="submit">Submit Request</button>
+                    <p>Notes</p>
+                    {/* <textarea placeholder="Enter your special request" ></textarea> */}
+                    <p>{el["Batches.note"]}</p>
+                    {console.log(el["Batches.note"])}
+                    {/* <button type="submit">Submit Request</button> */}
                   </form>
                 )}
 
