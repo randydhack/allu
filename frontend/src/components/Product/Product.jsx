@@ -76,7 +76,7 @@ function Product() {
             <div className="product-images">
               <div className="mini-images-container">
                 <div style={{display: "flex", flexDirection: "column"}}>
-                  <img className="side_img" src={singleDesign.design_url} alt={`Design ${designId}`} />
+                  <img className="side_img" src={singleDesign?.design_url} alt={`Design ${designId}`} />
                 <img
                   className="side_img"
                   src={
