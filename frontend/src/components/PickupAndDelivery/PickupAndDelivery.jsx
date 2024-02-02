@@ -115,15 +115,6 @@ function PickupAndDelivery() {
             value={formInfo["special-request"] || ""}
           ></textarea>
         </div>
-        <form className={deliveryOrder?"delivery-form":"pickup-form"} onSubmit={handleFormSubmit}>
-            {deliveryOrder?<DeliveryForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors}/>
-            :<PickupForm setFormInfo={setFormInfo} formInfo={formInfo} />}
-
-            <footer>
-                <p>Submit your order for {deliveryOrder?"delivery.":"pickup."}</p>
-                <input type="submit" value="Submit"/>
-            </footer>
-        </form>
 
         <div className="submit-order-main">
           <p>
