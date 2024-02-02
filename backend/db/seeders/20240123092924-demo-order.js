@@ -57,6 +57,19 @@ module.exports = {
           workforce_race: true,
           processed: false,
         },
+        {
+          id: 4,
+          userId: 1,
+          firstName: "John",
+          lastName: "Doe",
+          email: "johndoe@email.com",
+          phone: 1234567890,
+          address: "789 Ground Street",
+          quote: 505.5,
+          special_request: "Make this order snappy",
+          workforce_race: false,
+          processed: false,
+        },
       ],
       {}
     );
@@ -69,7 +82,7 @@ module.exports = {
       options,
       {
         id: {
-          [Op.in]: [1, 2, 3],
+          [Op.in]: [1, 2, 3, 4],
         },
       },
       {}
