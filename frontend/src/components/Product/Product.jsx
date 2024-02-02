@@ -22,15 +22,11 @@ function Product() {
   const { designId } = useParams();
   const { setIsModalOpen, setType } = useContext(ModalContext);
 
-  console.log(designId);
-
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
 
   const { singleDesign } = useSelector((state) => state.designs);
-
-  console.log(singleDesign);
 
   const [currentProduct, setCurrentProduct] = useState({
     id: 1,

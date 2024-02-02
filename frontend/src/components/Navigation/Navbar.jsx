@@ -23,6 +23,9 @@ function Navbar() {
   const { user } = useContext(InfoContext);
 
   const currUser = useSelector((state) => state.session.user);
+  const cart = useSelector((state) => state.cart);
+
+  console.log(cart)
 
   return (
     <div className="nav__container">
@@ -59,7 +62,11 @@ function Navbar() {
             <NavLink to="/checkout">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
-                <div className="cart_total_items">0</div>
+                {cart?.length ? (
+                  <div className="cart_total_items">{cart?.length}</div>
+                ) : (
+                  ""
+                )}
               </div>
             </NavLink>
           </div>
