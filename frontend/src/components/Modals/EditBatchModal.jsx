@@ -34,8 +34,11 @@ const EditBatchModal = () => {
       ["Batches.productId"]: productId,
       ["Batches.color"]: color,
       ["Batches.total_price"]: total_price,
+      ["Batches.product_url"]: product_url,
     } = batchDetails;
-    const allSizesAreZero = Object.values(sizes).every((size) => size === 0);
+    const allSizesAreZero = Object.values(sizes).every(
+      (size) => size === 0 || size === null
+    );
 
     if (allSizesAreZero) {
       alert("You need at least one item. Please adjust the sizes.");
@@ -46,6 +49,7 @@ const EditBatchModal = () => {
       productId,
       color,
       total_price,
+      product_url,
       ...Object.fromEntries(
         Object.entries(sizes).filter(
           ([key, value]) => value !== batchDetails[`Batches.${key}`]
@@ -76,7 +80,14 @@ const EditBatchModal = () => {
         ))}
         <button type="submit">Update Sizes</button>
       </form>
-      <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+      <button
+        onClick={() => {
+          setIsModalOpen(false);
+          setType(null);
+        }}
+      >
+        Cancel
+      </button>
     </div>
   );
 };

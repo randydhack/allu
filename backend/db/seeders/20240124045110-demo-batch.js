@@ -34,6 +34,7 @@ module.exports = {
           m: 5,
           l: 10,
           designId: 2,
+          note: "I want to replace the text with: \"Summer Camp\"",
           color: "ash",
           total_price: 81.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_ash.jpg`
@@ -46,6 +47,7 @@ module.exports = {
           xl: 10,
           xxl: 10,
           designId: 4,
+          note: "The xl sizes and above should have bigger logos",
           color: "black",
           total_price: 121.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/lighttshirt/District_Tee_black.jpg`
@@ -58,6 +60,7 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 10,
+          note: "Can i have the logo black and white instead of these colors",
           color: "black",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_black.jpg`
@@ -70,6 +73,7 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 29,
+          note: "All tshirts have this design",
           color: "black",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_black.jpg`
@@ -82,6 +86,7 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 18,
+          note: "All tshirts have this design",
           color: "light_pink",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_light_pink.jpg`
@@ -94,6 +99,7 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 22,
+          note: "All tshirts have this design",
           color: "cherry_red",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_cherry_red.jpg`
@@ -106,6 +112,7 @@ module.exports = {
           m: 3,
           xxl: 14,
           designId: 14,
+          note: "All tshirts have this design",
           color: "butter",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/Comfort_Colors_butter.jpg`
@@ -118,6 +125,7 @@ module.exports = {
           m: 3,
           l: 1,
           designId: 13,
+          note: "All tshirts have this design",
           color: "new_navy",
           total_price: 201.0,
           product_url: `https://allutestbucket.s3.amazonaws.com/lighttshirt/District_Tee_new_navy.jpg`
