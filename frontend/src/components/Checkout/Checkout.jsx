@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, deleteBatch } from "../../store/BatchReducer";
-// import EditBatchModal from "../Modals/EditBatchModal";
+import { useNavigate } from "react-router-dom";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +10,12 @@ import "./Checkout.scss";
 import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
 
 function Checkout() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Context
-  const { toggleEditBatchModal } =
-    useContext(ModalContext);
+  const { toggleEditBatchModal } = useContext(ModalContext);
   const { setBatchDetails } = useContext(InfoContext);
+  const navigate = useNavigate();
 
   // States
   // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -134,6 +133,12 @@ function Checkout() {
             })}
             <div className="subtotal">
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
+              <button
+                className="navigate-shipping"
+                onClick={() => navigate("/shipping-information")}
+              >
+                Proceed to Shipping Information
+              </button>
             </div>
             <button className="continue-button" onClick={goToShip}>Continue</button>
             {/* {isEditModalOpen && (

@@ -24,6 +24,7 @@ module.exports = {
           note: "All tshirts have this design",
           color: "banana",
           total_price: 41.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`
         },
         {
           id: 2,
@@ -33,8 +34,9 @@ module.exports = {
           m: 5,
           l: 10,
           designId: 2,
-          color: "banana",
+          color: "ash",
           total_price: 81.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_ash.jpg`
         },
         {
           id: 3,
@@ -44,30 +46,33 @@ module.exports = {
           xl: 10,
           xxl: 10,
           designId: 4,
-          color: "banana",
+          color: "black",
           total_price: 121.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/lighttshirt/District_Tee_black.jpg`
         },
         {
           id: 4,
-          productId: 3,
+          productId: 2,
           cartId: 3,
           l: 3,
           xl: 12,
           xxl: 13,
           designId: 10,
-          color: "banana",
+          color: "black",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_black.jpg`
         },
         {
           id: 5,
-          productId: 3,
+          productId: 2,
           cartId: 1,
           l: 3,
           xl: 12,
           xxl: 13,
           designId: 29,
-          color: "banana",
+          color: "black",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_black.jpg`
         },
         {
           id: 6,
@@ -77,8 +82,9 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 18,
-          color: "neon_pink",
+          color: "light_pink",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_light_pink.jpg`
         },
         {
           id: 7,
@@ -88,8 +94,9 @@ module.exports = {
           xl: 12,
           xxl: 13,
           designId: 22,
-          color: "neon_pink",
+          color: "cherry_red",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_cherry_red.jpg`
         },
         {
           id: 8,
@@ -99,8 +106,9 @@ module.exports = {
           m: 3,
           xxl: 14,
           designId: 14,
-          color: "neon_pink",
+          color: "butter",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/Comfort_Colors_butter.jpg`
         },
         {
           id: 9,
@@ -110,8 +118,9 @@ module.exports = {
           m: 3,
           l: 1,
           designId: 13,
-          color: "neon_pink",
+          color: "new_navy",
           total_price: 201.0,
+          product_url: `https://allutestbucket.s3.amazonaws.com/lighttshirt/District_Tee_new_navy.jpg`
         },
       ],
       {}
