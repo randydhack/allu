@@ -1,7 +1,7 @@
 // Libaries
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
@@ -13,16 +13,26 @@ import Logo from "../../images/allu-high-res.png";
 // CSS
 import "./Navbar.scss";
 
+// Redux Store
+import { getCart } from "../../store/BatchReducer";
+
 // Icons
 import { PiUserCircle } from "react-icons/pi";
-
 import { IoCartOutline } from "react-icons/io5";
 
 function Navbar() {
+
+  const dispatch = useDispatch()
+
   const { toggleLogin, toggleSignUp } = useContext(ModalContext);
   const { user } = useContext(InfoContext);
 
   const currUser = useSelector((state) => state.session.user);
+  const cart = useSelector((state) => state.batches.cart);
+
+  useEffect(() => {
+      dispatch(getCart())
+  }, [dispatch])
 
   return (
     <div className="nav__container">
@@ -59,7 +69,11 @@ function Navbar() {
             <NavLink to="/checkout">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
-                <div className="cart_total_items">0</div>
+                {cart?.length ? (
+                  <div className="cart_total_items">{cart?.length}</div>
+                ) : (
+                  ""
+                )}
               </div>
             </NavLink>
           </div>
@@ -67,9 +81,6 @@ function Navbar() {
           <div className="nav__right__section">
             <button onClick={() => toggleLogin()}>Sign in</button>
             <button onClick={() => toggleSignUp()}>Register</button>
-            {/* <NavLink to="/checkout">
-              <IoCartOutline className="nav-icon " />
-            </NavLink> */}
           </div>
         )}
       </div>

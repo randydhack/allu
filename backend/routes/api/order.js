@@ -76,12 +76,15 @@ router.get("/user", requireAuth, async (req, res) => {
 
 // Create orders and attach batches to orders for order history
 router.post("/", requireAuth, async (req, res) => {
+  console.log("ASDFASDFASDFASDFASDFASDFASDFASSDFASDFASDFASDFASDFAS")
   const { user } = req;
   if (user) {
-    const { address, special_request, quote, workforce_race, processed } =
+    const { address, special_request, quote, workforce_race, processed, firstName, lastName, phone, email } =
       req.body;
 
-    if (!address || !quote || !workforce_race || !processed) {
+      console.log(address, special_request, quote, workforce_race, processed, phone, firstName, lastName, email)
+
+    if (!address || !quote ) {
       return res.json({
         message: "Validation Error",
         statusCode: 400,
@@ -97,10 +100,14 @@ router.post("/", requireAuth, async (req, res) => {
 
     const newOrder = await Order.create({
       userId: user.id,
+      firstName,
+      lastName,
       address: address,
+      email,
+      phone: Number(phone),
       special_request: special_request,
-      quote: quote,
-      workforce_race: workforce_race,
+      quote: Number(quote),
+      workforce_race: false,
       processed: processed,
     });
 
@@ -111,6 +118,7 @@ router.post("/", requireAuth, async (req, res) => {
 
     for (let i = 0; i < cart.Batches.length; i++) {
       const curr = cart.Batches[i];
+      console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK")
 
       curr.orderId = newOrder.id;
       curr.cartId = null;

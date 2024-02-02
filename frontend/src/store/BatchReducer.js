@@ -1,6 +1,6 @@
 import { csrfFetch } from "../store/csrf";
 import { createSlice } from "@reduxjs/toolkit";
-
+import { getOrders } from './order'
 export const batchSlice = createSlice({
   name: "batches",
   initialState: {
@@ -43,6 +43,7 @@ export const getCart = () => async (dispatch) => {
   if (response.ok) {
     const cart = await response.json();
     dispatch(loadCart(cart));
+    return cart
   }
 };
 
@@ -69,7 +70,7 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   }
 };
 
-export const createBatch = (productId, size, designId, color, total_price) => async (dispatch) => {
+export const createBatch = (productId, size, designId, color, total_price, product_url) => async (dispatch) => {
   const res = await csrfFetch(`/api/batch`, {
     method: "POST",
     body: JSON.stringify({
@@ -84,7 +85,8 @@ export const createBatch = (productId, size, designId, color, total_price) => as
       xxxxl: size["4XL"],
       xxxxxl: size["5XL"],
       color,
-      total_price
+      total_price,
+      product_url,
     })
   })
 
@@ -105,6 +107,18 @@ export const deleteBatch = (batchId) => async (dispatch) => {
     dispatch(batchSlice.actions.deleteBatch(batchId));
 
     dispatch(getCart());
+  }
+};
+
+export const deleteBatchOrder = (batchId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/batch/${batchId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    dispatch(batchSlice.actions.deleteBatch(batchId));
+
+    dispatch(getOrders());
   }
 };
 

@@ -94,7 +94,9 @@ router.post("/", requireAuth, async (req, res) => {
       note,
       color,
       total_price,
+      product_url,
     } = req.body;
+    console.log(product_url)
 
     if (!productId || !cart) {
       return res.json({
@@ -123,7 +125,8 @@ router.post("/", requireAuth, async (req, res) => {
       userDesignId: userDesignId,
       note: note,
       color: color,
-      total_price: total_price
+      total_price: total_price,
+      product_url: product_url,
     });
     res.status = 201;
     res.json(newBatch);
@@ -171,7 +174,8 @@ router.put("/:batchId", requireAuth, async (req, res) => {
       userDesignId,
       note,
       color,
-      total_price
+      total_price,
+      product_url,
     } = req.body;
 
     if (!productId) {
@@ -201,6 +205,7 @@ router.put("/:batchId", requireAuth, async (req, res) => {
     batch.note = note;
     batch.color = color;
     batch.total_price = total_price;
+    batch.product_url = product_url;
 
     await batch.save();
 
@@ -234,7 +239,7 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
 
   const cart = batch.Cart;
 
-  if (user && user.id == cart.userId && cart.id == batch.cartId) {
+  if (user) {
     await batch.destroy();
 
     res.json({
