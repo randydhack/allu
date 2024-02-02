@@ -187,8 +187,8 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        name: {
-          [Op.in]: ["Heavy-T", "Sweater", "Light-T"],
+        id: {
+          [Op.in]: [1, 2, 3],
         },
       },
       {}

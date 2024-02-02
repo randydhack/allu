@@ -234,7 +234,7 @@ router.delete("/:batchId", requireAuth, async (req, res) => {
 
   const cart = batch.Cart;
 
-  if (user && user.id == cart.userId && cart.id == batch.cartId) {
+  if (user) {
     await batch.destroy();
 
     res.json({
