@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "../utils/DefaultStyles.scss"
+import "../utils/DefaultStyles.scss";
 
 // Redux Store
 import { getCart, deleteBatch } from "../../store/BatchReducer";
@@ -170,16 +170,17 @@ function Checkout() {
                   </div>
                   <div className="removal">
                     <button className="delete-button">
-                    <CiSquareRemove
-                      className={`remove-button remove-icon ${
-                        isRemoving ? "disabled" : ""
-                      }`}
-                      onClick={
-                        !isRemoving
-                          ? () => handleRemoveFromCart(item["Batches.id"])
-                          : undefined
-                      }
-                    />
+                      <CiSquareRemove
+                        className={`remove-button remove-icon ${
+                          isRemoving ? "disabled" : ""
+                        }`}
+                        onClick={
+                          !isRemoving
+                            ? () => handleRemoveFromCart(item["Batches.id"])
+                            : undefined
+                        }
+                      />
+                    </button>
                   </div>
                 </div>
               );
@@ -192,11 +193,8 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="shipping"
                 onClick={() => goToShip()}
-                
               >
-                <p >
-                  Finalize Order
-                </p>
+                <p>Finalize Order</p>
               </button>
             </div>
           </div>
