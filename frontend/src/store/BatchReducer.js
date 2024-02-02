@@ -1,6 +1,6 @@
 import { csrfFetch } from "../store/csrf";
 import { createSlice } from "@reduxjs/toolkit";
-
+import { getOrders } from './order'
 export const batchSlice = createSlice({
   name: "batches",
   initialState: {
@@ -105,6 +105,18 @@ export const deleteBatch = (batchId) => async (dispatch) => {
     dispatch(batchSlice.actions.deleteBatch(batchId));
 
     dispatch(getCart());
+  }
+};
+
+export const deleteBatchOrder = (batchId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/batch/${batchId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    dispatch(batchSlice.actions.deleteBatch(batchId));
+
+    dispatch(getOrders());
   }
 };
 
