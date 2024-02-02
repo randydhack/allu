@@ -8,22 +8,31 @@ import { ModalContext } from "../../context/modalContext";
 import "./Checkout.scss";
 
 function Checkout() {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
-  const { type, toggleEditBatchModal, handleContent } =
-    useContext(ModalContext);
-  const { setBatch } = useContext(InfoContext);
+
   const dispatch = useDispatch();
+
+  // Context
+  const { toggleEditBatchModal } =
+    useContext(ModalContext);
+  const { setBatchDetails } = useContext(InfoContext);
+
+  // States
+  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
   const { cart, isLoaded } = useSelector((state) => state.batches);
+
+  // Remove Cart handle
   const handleRemoveFromCart = (itemId) => {
     dispatch(deleteBatch(itemId));
   };
+
   useEffect(() => {
     (async () => {
       await dispatch(getCart());
     })();
   }, [dispatch]);
 
+  // Format Batch sizes
   const formatBatchSizes = (batch) => {
     const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
     const sizeDescriptions = sizes
@@ -43,6 +52,7 @@ function Checkout() {
     return { sizeDescriptions, totalQuantity };
   };
 
+  // Calculate Cart Total
   const calculateSubtotal = (cart) => {
     return cart.reduce((total, item) => {
       const { totalQuantity } = formatBatchSizes(item);
@@ -51,10 +61,16 @@ function Checkout() {
     }, 0);
   };
 
+  // Handle Modal
   const handleOpenEditModal = (item) => {
-    setBatch(item["Batches.id"]);
+    const batchDetails = cart.find(
+      (b) => b["Batches.id"] === item["Batches.id"]
+    );
+    setBatchDetails(batchDetails);
     toggleEditBatchModal();
   };
+
+
   return (
     <div className="checkout_page">
       <header className="checkout_header">CURRENT ORDER</header>
@@ -90,7 +106,11 @@ function Checkout() {
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
                   <div className="home-item-change">
-                    <button onClick={() => handleOpenEditModal(item)}>
+                    <button
+                      onClick={() => {
+                        handleOpenEditModal(item);
+                      }}
+                    >
                       Edit Sizes
                     </button>
                   </div>

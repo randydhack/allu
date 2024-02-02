@@ -2,9 +2,12 @@ import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
 import { editBatch } from "../../store/BatchReducer";
+import { InfoContext } from "../../context/infoContext";
 
-const EditBatchModal = ({ batchId, batchDetails, closeModal }) => {
+const EditBatchModal = () => {
   const { setIsModalOpen } = useContext(ModalContext);
+  const { batchDetails } = useContext(InfoContext)
+  console.log(batchDetails)
   const dispatch = useDispatch();
   const [sizes, setSizes] = useState({
     xs: batchDetails?.xs || 0,
@@ -44,9 +47,9 @@ const EditBatchModal = ({ batchId, batchDetails, closeModal }) => {
       ),
     };
 
-    await dispatch(editBatch(batchId, payload));
+    await dispatch(editBatch(batchDetails.id, payload));
     setIsModalOpen(false);
-    if (closeModal) closeModal();
+    // if (closeModal) closeModal();
   };
 
   return (

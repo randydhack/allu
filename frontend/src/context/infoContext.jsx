@@ -4,14 +4,14 @@ export const InfoContext = createContext();
 
 export const InfoProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [batch, setBatch] = useState(null);
+  const [batchDetails, setBatchDetails] = useState(null);
   return (
     <InfoContext.Provider
       value={{
         user,
         setUser,
-        batch,
-        setBatch,
+        batchDetails,
+        setBatchDetails,
       }}
     >
       {children}
