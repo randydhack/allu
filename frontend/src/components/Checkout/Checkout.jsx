@@ -4,7 +4,6 @@ import { getCart, deleteBatch } from "../../store/BatchReducer";
 import { useNavigate } from "react-router-dom";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
-import { useNavigate } from "react-router-dom";
 
 import "./Checkout.scss";
 import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
@@ -15,7 +14,6 @@ function Checkout() {
   // Context
   const { toggleEditBatchModal } = useContext(ModalContext);
   const { setBatchDetails } = useContext(InfoContext);
-  const navigate = useNavigate();
 
   // States
   // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -135,12 +133,12 @@ function Checkout() {
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
               <button
                 className="navigate-shipping"
-                onClick={() => navigate("/shipping-information")}
+                onClick={() => goToShip()}
               >
                 Proceed to Shipping Information
               </button>
             </div>
-            <button className="continue-button" onClick={goToShip}>Continue</button>
+            {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}
             {/* {isEditModalOpen && (
               <EditBatchModal
                 batchId={currentEditingBatchId}

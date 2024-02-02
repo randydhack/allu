@@ -43,7 +43,6 @@ function PickupAndDelivery(){
 
     }
 
-
     return(
     <div className="pickup-delivery-page">
         <header className="pickup-deliery-header">
@@ -62,11 +61,11 @@ function PickupAndDelivery(){
         <form className={deliveryOrder?"delivery-form":"pickup-form"} onSubmit={handleFormSubmit}>
             {deliveryOrder?<DeliveryForm setFormInfo={setFormInfo} formInfo={formInfo} errors={errors}/>
             :<PickupForm setFormInfo={setFormInfo} formInfo={formInfo} />}
-            
+
             <footer>
                 <p>Submit your order for {deliveryOrder?"delivery.":"pickup."}</p>
                 <input type="submit" value="Submit"/>
-            </footer>    
+            </footer>
         </form>
     </div>
     )
