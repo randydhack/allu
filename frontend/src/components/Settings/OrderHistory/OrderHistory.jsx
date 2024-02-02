@@ -5,13 +5,14 @@ import "./OrderHistory.scss";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../../store/order";
+import { deleteBatchOrder } from "../../../store/BatchReducer";
 import moment from "moment";
 
 function OrderHistory() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.allOrders);
 
-  const [isFormVisible, setFormVisible] = useState({id: null, toggle: false});
+  const [isFormVisible, setIsFormVisible] = useState({id: null, toggle: false});
 
   useEffect(() => {
     (async () => {
@@ -19,26 +20,41 @@ function OrderHistory() {
     })();
   }, [dispatch]);
 
+  const handleDeleteBatch = async(e, batchId) => {
+    e.preventDefault()
+    dispatch(deleteBatchOrder(batchId))
+  }
 
+  const handleSpecialRequest = (id) => {
+    
+    if (id !== isFormVisible.id) {
+      setIsFormVisible({id: null, toggle: false})
+      setIsFormVisible({id: id, toggle: true})
+    } else {
+      setIsFormVisible({id: null, toggle: false})
+    }
+  };
+
+  const items = orders?.filter(el => el["Batches.id"] !== null)
 
   return (
-    orders && (
+    items && (
       <div className="setting__contents setting__background">
         {/* HEADING */}
         <div className="setting__header__mb">
           <h1 className="setting__header">Order History</h1>
         </div>
-        {console.log(
+        {/* {console.log(
           "dasdas",
           orders.map((el) => el.firstName)
-        )}
+        )} */}
 
-        <p>{orders.length} {orders.length==1?"order":"orders"}</p>
+        <p>{items.length} order(s)</p>
 
-        {orders.map((el, i) => {
+        {items.map((el, i) => {
           return (
             <>
-              <div className="setting__divider"></div>
+            <div className="setting__divider"></div>
               <div className="main__panel" key={`order${el.id}`}>
                 <div className="order">
                   <div className="order_detail_main">
@@ -83,22 +99,23 @@ function OrderHistory() {
                       <p>Order date: {moment(el.createdAt).format("l")}</p>
                     </div>
                   </div>
-
                   <div className="order-details_right">
                     <div className="order-shipping-info">
                       <h3>Ship To: {`${el.firstName} ${el.lastName}`}</h3>
                       <h3>Address: {el.address}</h3>
                     </div>
                     <div className="order-buttons">
-                      <button onClick={() => setFormVisible({id: el.id, toggle: !isFormVisible.toggle})}>
+                      <button onClick={() => {
+                        setIsFormVisible({id: el["Batches.id"], toggle: true})
+                        handleSpecialRequest(el["Batches.id"])}}>
                         SPECIAL REQUEST
                       </button>
-                      <button>CANCEL</button>
+                      <button onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
                     </div>
                   </div>
                 </div>
 
-                {isFormVisible.toggle && (
+                {isFormVisible.toggle && isFormVisible.id === el["Batches.id"] && (
                   <form className="special-request-form">
                     <p>Special Request</p>
                     <textarea placeholder="Enter your special request" ></textarea>
