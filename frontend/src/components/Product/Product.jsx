@@ -1,6 +1,6 @@
 // Libaries
 import React, { useState, useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux
@@ -16,27 +16,49 @@ import { ModalContext } from "../../context/modalContext";
 
 // CSS
 import "./Product.scss";
+import { designDetails } from "../../store/designReducer";
+import { createBatch } from "../../store/BatchReducer";
 
 function Product() {
   const dispatch = useDispatch();
+  const {designId} = useParams()
   const { setIsModalOpen, setType } = useContext(ModalContext);
+
+  console.log(designId)
 
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
 
-  const [product, setProduct] = useState({ id: 1, type: "Heavy-T" });
-  const [color, setColor] = useState({ id: 0, colorName: "bannana"});
+  const {singleDesign} = useSelector(state => state.designs)
+
+  console.log(singleDesign)
+
+  const [product, setProduct] = useState({ id: 1, type: "Heavy-T", price: 12.99 });
+  const [color, setColor] = useState({ id: 0, name: "banana" });
+
+  const [sizes, setSizes] = useState({XS: 0, S: 0, M: 0, L: 0, XL: 0, "2XL": 0, "3XL": 0, "4XL": 0, "5XL": 0})
+  const [addNotification, setAddNotification] = useState("")
+  console.log(sizes)
+
+
 
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(designDetails(designId))
   }, [dispatch]);
-  // console.log("all products", allProducts)
-  // console.log("sizes", productSizes)
-  // console.log("colors", productColors)
-  // console.log(isLoaded)
-  // console.log(color)
-  // console.log(product)
+
+  const handleProductSubmit = async (e) => {
+    e.preventDefault()
+
+    const data = await dispatch(createBatch(product.id, sizes, designId, color.name, product.price + singleDesign.design_price))
+
+    if (data) {
+      setAddNotification("Added to Cart")
+      setSizes({XS: 0, S: 0, M: 0, L: 0, XL: 0, "2XL": 0, "3XL": 0, "4XL": 0, "5XL": 0})
+    }
+
+  }
 
   return (
     isLoaded && (
@@ -51,26 +73,54 @@ function Product() {
 
         <div className="main_panel">
           <div className="left_panel">
-            <div>
+            <div className="product-images">
+              <div className="mini-images-container">
+                <img
+                  className="side_img"
+                  src={
+                    allProducts[product.id - 1].ProductImages[color.id || 0]
+                      ?.img_url
+                  }
+                  alt={`Product Image - ${color.name}`}
+                />
+                {/* {allProducts[product.id - 1].ProductImages.map(
+                  (productImage, idx) => {
+                    return (
+                      <>
+                        {productImage.id !==
+                          allProducts[product.id - 1].ProductImages[
+                            color.id || 0
+                          ] && <img
+                          className="side_img_map side_img"
+                          src={
+                            productImage
+                              ?.img_url
+                          }
+                          alt={`Product Image - ${color.name}`}
+                          />}
+                      </>
+                    );
+                  }
+                )} */}
+              </div>
+
               <img
-                className="side_img"
-                src={allProducts[product.id - 1].ProductImages[color.id || 0]?.img_url}
-                alt={`Product Image - ${color.colorName}`}
+                className="model_img"
+                src={
+                  allProducts[product.id - 1]?.ProductImages[color.id || 0]
+                    ?.img_url
+                } //selects first image of that product with selected id
+                alt="Model Image"
               />
             </div>
             <div>
-              <img
-                className="model_img"
-                src={allProducts[product.id - 1]?.ProductImages[color.id || 0]?.img_url} //selects first image of that product with selected id
-                alt="Model Image"
-              />
-              <h1>description</h1>
+              <h3>description</h3>
               <div>{allProducts[product.id - 1].description}</div>
             </div>
           </div>
 
           {/* FORM FOR PRODUCT / COLOR / SIZES */}
-          <form className="product_form">
+          <form className="product_form" onSubmit={(e) => handleProductSubmit(e)}>
             <h1>Product</h1>
 
             <div>
@@ -82,9 +132,13 @@ function Product() {
                     src={allProducts[product.id - 1]?.ProductImages[0]?.img_url} //selects first image of that product with selected id
                     width={50}
                     height={50}
+                    className="product-option-img"
                     onClick={() => {
-                      setProduct({ id: product.id, type: product.name })
-                      setColor({ id: 0, colorName: colors[product.id-1]?.colors[0].name }) //sets color of main image back to first color with name
+                      setProduct({ id: product.id, type: product.name, price: product.price });
+                      setColor({
+                        id: 0,
+                        name: colors[product.id - 1]?.colors[0].name,
+                      }); //sets color of main image back to first color with name
                     }}
                   />
                 ))}
@@ -92,155 +146,52 @@ function Product() {
             </div>
 
             <div>
-              <h3>Colors - {color.colorName}</h3>
+              <h3>Select Color: {color.name}</h3>
               <div className="colors_carousel">
-                {product.id && productColors[product.id].map((color, i) => {
-                        return (
-                          <div
-                            key={color.name + i}
-                            style={{
-                              backgroundColor: `${color.hex}`,
-                            }}
-                            onClick={() => setColor({id: i, colorName: color.name})}
-                          ></div>
-                        );
-                      })}
-
+                {product.id &&
+                  productColors[product.id].map((color, i) => {
+                    return (
+                      <div
+                        key={color.name + i}
+                        style={{
+                          backgroundColor: `${color.hex}`,
+                        }}
+                        onClick={() =>
+                          setColor({ id: i, name: color.name })
+                        }
+                      ></div>
+                    );
+                  })}
               </div>
             </div>
 
             <div>
-              <h3>Sizes</h3>
+              <h3>Select Sizes</h3>
               <div className="size_panel">
-                {product.id && productSizes[product.id].map((size, i) => {
-                  return <div key={size + i} className="size_input_container">
-                  <span style={{width: '100%', textAlign: 'right'}}>{size}</span> <input type="number"></input>
-                </div>;
-                })}
+                {product.id &&
+                  productSizes[product.id].map((size, i) => {
+                    return (
+                      <div key={size + i} className="size_input_container">
+                        <span style={{ width: "100%", textAlign: "right" }}>
+                          {size}
+                        </span>{" "}
+                        <input type="number" onChange={(e) => {
+                          sizes[size] = Number(e.target.value)
+                          setSizes(sizes)
+                          console.log(sizes)
+                        }}></input>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
-              <button className="confirm_button" type="submit">
-                  FINALIZE SELECTION
-              </button>
+            {addNotification && <p>{addNotification}</p>}
+            <button className="confirm_button" type="submit">
+              FINALIZE SELECTION
+            </button>
           </form>
         </div>
       </div>
-
-      //   {/* <div className="main_panel">
-      //     <div className="top_panel">
-      //       <div className="top_mid">
-      //       <div className="top_left">
-      //         <div className="design_preview">
-      //           <button
-      //             className="zoom_out"
-      //             onClick={handleZoomOutClick}
-      //             style={{
-      //               cursor: "pointer",
-      //             }}
-      //           >
-      //             <FontAwesomeIcon icon={faSearchMinus} />
-      //           </button>
-      //           <img
-      //             className="modal_img"
-      //             src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //             alt="Modal Image"
-      //           />
-      //         </div>
-      //       </div>
-      //       <div className="product-mid-section">
-      //         <img
-      //           src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //           alt="t-shirt"
-      //         />
-      //         <p>Description:</p>
-      //       </div>
-      //       </div>
-      //       <div className="top_right">
-      //         <p className="product_name">Product Name</p>
-      //         <p>Choose An Option:</p>
-      //         <form id="product_form">
-      //           <div id="imageSelection">
-      //             {[1, 2, 3].map((id) => (
-      //               <img
-      //                 key={id}
-      //                 src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-      //                 width={50}
-      //                 height={50}
-      //                 onClick={() => setSelectedImageId(id)}
-      //                 className={selectedImageId === id ? "selected" : ""}
-      //               />
-      //             ))}
-      //           </div>
-
-      //           <div id="colorSelection">
-      //             <div className="color_name">
-      //               Colors -
-      //               {selectedColor
-      //                 ? selectedColor.charAt(0).toUpperCase() +
-      //                   selectedColor.slice(1)
-      //                 : "Select a color"}
-      //             </div>
-      //             {Object.entries(colors).map(([colorName, colorValue]) => (
-      //               <div
-      //                 key={colorName}
-      //                 className="color-circle"
-      //                 style={{ backgroundColor: colorValue }}
-      //                 onClick={() => setSelectedColor(colorName)}
-      //               ></div>
-      //             ))}
-      //           </div>
-
-      //           <div id="size_quantity">
-      //             <p>Select A Size And Quantity</p>
-      //             <div className="size_chart">
-      //               <div>
-      //                 <label>XS</label>
-      //                 <input type="number" name="size_XS" />
-      //               </div>
-      //               <div>
-      //                 <label>S</label>
-      //                 <input type="number" name="size_S" />
-      //               </div>
-      //               <div>
-      //                 <label>M</label>
-      //                 <input type="number" name="size_M" />
-      //               </div>
-      //               <div>
-      //                 <label>L</label>
-      //                 <input type="number" name="size_L" />
-      //               </div>
-      //               <div>
-      //                 <label>XL</label>
-      //                 <input type="number" name="size_XL" />
-      //               </div>
-      //               <div>
-      //                 <label>2XL</label>
-      //                 <input type="number" name="size_2XL" />
-      //               </div>
-      //               <div>
-      //                 <label>3XL</label>
-      //                 <input type="number" name="size_3XL" />
-      //               </div>
-      //               <div>
-      //                 <label>4XL</label>
-      //                 <input type="number" name="size_4XL" />
-      //               </div>
-      //               <div>
-      //                 <label>5XL</label>
-      //                 <input type="number" name="size_5XL" />
-      //               </div>
-      //             </div>
-      //           </div>
-
-                // <button className="confirm_button" type="submit">
-                //   FINALIZE SELECTION
-                // </button>
-      //         </form>
-      //         <p className="place_holder">LOREM IPSUM</p>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div> */}
     )
   );
 }

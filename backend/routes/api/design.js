@@ -32,13 +32,13 @@ router.get("/:designId", async (req, res) => {
       .status(404)
       .json({ message: "Design not found bad request", statusCode: 404 });
   }
-  return res.json({ Designs: [designs] });
+  return res.json(designs);
 });
 
 
 //Create a premade design for admin
 //includes aws upload
-router.post("/", 
+router.post("/",
 singleMulterUpload("image"),
 requireAuth, async (req, res) => {
   const { user } = req;
