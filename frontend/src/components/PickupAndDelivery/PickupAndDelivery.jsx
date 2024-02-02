@@ -34,7 +34,6 @@ function PickupAndDelivery() {
         special_request: formInfo["special-request"],
         workforce: false,
       };
-      console.log(order);
     }
     //send all or some fields to backend (depending on pickup or delivery)
     else {
@@ -44,7 +43,7 @@ function PickupAndDelivery() {
         lastName: formInfo["lastName"],
         phone: formInfo["phone"],
         email: formInfo["email"],
-        // special_request: formInfo["special-instructions"],
+        special_request: formInfo["special-request"],
         workforce: false,
       };
     }
