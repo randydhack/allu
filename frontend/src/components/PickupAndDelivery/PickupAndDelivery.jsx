@@ -34,6 +34,7 @@ function PickupAndDelivery() {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+    window.scrollTo(0,0);
 
     let order;
     if (isDelivery) {

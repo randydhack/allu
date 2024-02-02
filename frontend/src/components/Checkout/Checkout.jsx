@@ -170,16 +170,16 @@ function Checkout() {
                   </div>
                   <div className="removal">
                     <button className="delete-button">
-                      <CiSquareRemove
-                        className={`remove-button remove-icon ${
-                          isRemoving ? "disabled" : ""
-                        }`}
-                        onClick={
-                          !isRemoving
-                            ? () => handleRemoveFromCart(item["Batches.id"])
-                            : undefined
-                        }
-                      />
+                    <CiSquareRemove
+                      className={`remove-button remove-icon ${
+                        isRemoving ? "disabled" : ""
+                      }`}
+                      onClick={
+                        !isRemoving
+                          ? () => handleRemoveFromCart(item["Batches.id"])
+                          : undefined
+                      }
+                    />
                     </button>
                   </div>
                 </div>
@@ -192,7 +192,8 @@ function Checkout() {
               <button
                 className="navigate-shipping"
                 aria-label="shipping"
-                onClick={() => goToShip()}
+                onClick={() => {goToShip(); window.scrollTo(0,0)}}
+
               >
                 <p>Finalize Order</p>
               </button>
