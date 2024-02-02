@@ -105,7 +105,6 @@ function Product() {
   return (
     isLoaded && (
       <div className="container">
-
         <div className="main_panel">
           <div className="left_panel">
             <div className="product-images">
