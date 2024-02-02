@@ -5,8 +5,7 @@ input::-webkit-inner-spin-button {
 }
 
 .main_panel {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 50px auto;
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -15,19 +14,36 @@ input::-webkit-inner-spin-button {
   gap: 50px;
 
   .left_panel {
-    display: flex;
-    gap: 5px
+
+    .product-images {
+      display: flex;
+    }
+
   }
 
   .side_img {
     width: 6rem;
+    object-fit: contain;
+  }
+
+  .side_img_map {
+    overflow: hidden;
+
+  }
+
+  .mini-images-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
   }
 
   .model_img {
     width: 30rem;
   }
 }
-
 
 
 

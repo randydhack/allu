@@ -31,6 +31,9 @@ export const batchSlice = createSlice({
         state.singleBatch = null;
       }
     },
+    createNewBatch: (state, action) => {
+      state.cart.push(action.payload)
+    }
   },
 });
 
@@ -65,6 +68,33 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   }
 };
 
+export const createBatch = (productId, size, designId, color, total_price) => async (dispatch) => {
+  const res = await csrfFetch(`/api/batch`, {
+    method: "POST",
+    body: JSON.stringify({
+      productId,
+      xs: size["XS"],
+      s: size["S"],
+      m: size["M"],
+      l: size["L"],
+      xl: size['XL'],
+      xxl: size["2XL"],
+      xxxl: size["3XL"],
+      xxxxl: size["4XL"],
+      xxxxxl: size["5XL"],
+      color,
+      total_price
+    })
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(createNewBatch(data))
+    return data
+  }
+
+}
+
 export const deleteBatch = (batchId) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`, {
     method: "DELETE",
@@ -76,6 +106,7 @@ export const deleteBatch = (batchId) => async (dispatch) => {
     dispatch(getCart());
   }
 };
-export const { loadCart, loadSingleBatch } = batchSlice.actions;
+
+export const { loadCart, loadSingleBatch, createNewBatch } = batchSlice.actions;
 
 export default batchSlice.reducer;
