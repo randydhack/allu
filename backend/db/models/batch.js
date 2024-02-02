@@ -67,6 +67,10 @@ module.exports = (sequelize, DataTypes) => {
       total_price: {
         allowNull: false,
         type: DataTypes.FLOAT,
+      },
+      product_url: {
+        allowNull: false,
+        type: DataTypes.STRING,
       }
     },
     {

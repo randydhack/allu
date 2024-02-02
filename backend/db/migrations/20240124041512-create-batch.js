@@ -77,6 +77,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
+      product_url: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

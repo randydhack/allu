@@ -94,6 +94,7 @@ router.post("/", requireAuth, async (req, res) => {
       note,
       color,
       total_price,
+      product_url,
     } = req.body;
 
     if (!productId || !cart) {
@@ -123,7 +124,8 @@ router.post("/", requireAuth, async (req, res) => {
       userDesignId: userDesignId,
       note: note,
       color: color,
-      total_price: total_price
+      total_price: total_price,
+      product_url: product_url,
     });
     res.status = 201;
     res.json(newBatch);
@@ -171,7 +173,8 @@ router.put("/:batchId", requireAuth, async (req, res) => {
       userDesignId,
       note,
       color,
-      total_price
+      total_price,
+      product_url,
     } = req.body;
 
     if (!productId) {
@@ -201,6 +204,7 @@ router.put("/:batchId", requireAuth, async (req, res) => {
     batch.note = note;
     batch.color = color;
     batch.total_price = total_price;
+    batch.product_url = product_url;
 
     await batch.save();
 
