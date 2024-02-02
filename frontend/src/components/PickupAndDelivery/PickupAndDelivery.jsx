@@ -3,7 +3,6 @@ import DeliveryForm from "./DeliveryForm";
 import { useEffect, useState } from "react";
 import { createOrder } from "../../store/order";
 import { useDispatch } from "react-redux";
-// import { useContext } from "react"
 import { useSelector } from "react-redux";
 
 import "./PickupAndDelivery.scss";
@@ -96,7 +95,7 @@ function PickupAndDelivery() {
 
       let orderCreated = await dispatch(createOrder(order));
       if (orderCreated) {
-        return navigate(`/order-submitted/${orderCreated.id}`);
+        return navigate(`/order-submitted`);
       }
     } catch (error) {
       console.error("Failed to send email:", error);
