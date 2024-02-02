@@ -6,6 +6,8 @@
     filter: drop-shadow(0 0.5px 3px rgb(206, 206, 206));
     display: flex;
     align-items: center;
+    position: relative;
+    z-index:2;
 }
 
 
@@ -25,6 +27,7 @@
     display: flex;
     gap: 50px;
     align-items: center;
+    z-index:2;
 
 }
 
@@ -114,3 +117,94 @@
     display: flex;
     position: relative;
 }
+.hamburger1 {
+    height: 45px;
+    margin: 10px;
+    display: -ms-grid;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    z-index: 120;
+    div {
+        background-color: rgb(61, 61, 61);
+        position: relative;
+        width: 40px;
+        height: 5px;
+        margin-top: 7px;
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+      }
+  }
+  
+  #toggle1 {
+    display: none;
+  }
+  
+  #toggle1:checked + .hamburger1 .top {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    margin-top: 22.5px;
+  }
+  
+  #toggle1:checked + .hamburger1 .middle {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    margin-top: -5px;
+  }
+  
+  #toggle1:checked + .hamburger1 .bottom {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  
+  #toggle1:checked ~ .menu1 {
+    height: fit-content;
+  }
+
+  .menu1 {
+    position: absolute;
+    color: white;
+    top: 80px;
+    left: 0px;
+    width: fit-content;
+    background-color: #486592;
+    display: -ms-grid;
+    display: grid;
+    grid-template-rows: 1fr repeat(3, 0.2fr);
+    grid-row-gap: 25px;
+    list-style: none;
+    clear: both;
+    text-align: left;
+    height: 0px;
+    overflow: hidden;
+    transition: height 1s ease;
+    z-index: 120;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border-bottom-left-radius: 2%;
+    border-bottom-right-radius: 2%;
+  }
+  
+  .menu1 a:first-child {
+    margin-top: 40px;
+  }
+  
+//   .menu1 a:last-child {
+//     margin-bottom: 40px;
+//   }
+  
+  .link1 {
+    width: 100%;
+    padding: 10px 30px;
+    color: white;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  .link1:hover {
+    background-color: #fff;
+    color: black;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }

@@ -42,7 +42,6 @@ function useWindowDimensions() {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
       setHomeStyle(newHomeStyle())
-      console.log(homeStyle)
     }
 
     window.addEventListener('resize', handleResize);

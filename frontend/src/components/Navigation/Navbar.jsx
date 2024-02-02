@@ -2,6 +2,7 @@
 import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
@@ -29,15 +30,63 @@ function Navbar() {
 
   const currUser = useSelector((state) => state.session.user);
   const cart = useSelector((state) => state.batches.cart);
+  const [screenSmall, setScreenSmall]=useState(getWindowDimensions().width<700)
 
   useEffect(() => {
+    if (currUser){
       dispatch(getCart())
-  }, [dispatch])
+    }
+  }, [dispatch, currUser])
+
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+        setScreenSmall(getWindowDimensions().width<700)
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+  }
+  useWindowDimensions()
 
   return (
     <div className="nav__container">
       <div className="nav_inner_container">
         <div className="left-nav">
+              {screenSmall&&
+              <>
+                <input id="toggle1" type="checkbox" />
+                <label className="hamburger1" htmlFor="toggle1">
+                  <div className="top"></div>
+                  <div className="middle"></div>
+                  <div className="bottom"></div>
+                </label>
+                <nav class="menu1">
+                <NavLink to="/designs" alt="designs" className="link1">
+                  Designs
+                </NavLink>
+                <NavLink to="/contact-us" alt="Contact Us" className="link1">
+                  Contact Us
+                </NavLink>
+                <NavLink to="/about-us" alt="About Us" className="link1">
+                  About us
+                </NavLink>
+                </nav>
+              </>
+              }
           <div className="nav_logo__container">
             <NavLink to="/">
               <img
@@ -48,6 +97,7 @@ function Navbar() {
             </NavLink>
           </div>
 
+          {!screenSmall&&
           <div className="nav__middle__section">
             <NavLink to="/designs" alt="designs">
               Designs
@@ -58,7 +108,12 @@ function Navbar() {
             <NavLink to="/about-us" alt="About Us">
               About us
             </NavLink>
-          </div>
+          </div>}
+          {screenSmall&&
+          <>
+
+          </>
+          }
         </div>
 
         {user || currUser ? (
