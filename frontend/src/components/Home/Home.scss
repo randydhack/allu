@@ -25,6 +25,10 @@ $lg: 1150px;
     flex-direction: column;
     justify-content: center;
     max-height: calc(100vh - 80px);
+    background-color: rgba(255, 255, 255, 0.6);
+    height: fit-content;
+    padding: 20px;
+    border-radius: 2%;
 }
 .home-right-container {
     width: 48%;

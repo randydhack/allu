@@ -12,28 +12,61 @@ import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from '../../images/allu-high-res.png'
-
 function Home() {
-  const currUser = useSelector((state) => state.session.user);
-  const { toggleSignUp } = useContext(ModalContext);
-  const navigate = useNavigate()
-  const images=[
-    {url:printingPress, alt:"screenprinting press in operation"},
+const images=[
+    {url: printingPress, alt:"screenprinting press in operation"},
     {url: model, alt: "model wearing screenprinted shirt"},
     {url: padPrinting, alt: "pad printing machine in operation"},
     {url: manualPress, alt:"manual screen printing press"}
   ]
-  const [currentImgIdx, setCurrentImg] = useState(Math.floor(Math.random(images.length)))
+const [currentImgIdx, setCurrentImg] = useState(Math.floor(Math.random(images.length)))
+const[homeStyle, setHomeStyle] = useState(newHomeStyle())
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+function newHomeStyle(){
+  return (getWindowDimensions().width<1150?
+  {backgroundImage:`url(${images[currentImgIdx].url})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize:"cover",
+  backgroundPosition:'center center'}:{})
+}
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+      setHomeStyle(newHomeStyle())
+      console.log(homeStyle)
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+useWindowDimensions()
+  const currUser = useSelector((state) => state.session.user);
+  const { toggleSignUp } = useContext(ModalContext);
+  const navigate = useNavigate()
+
   useEffect(()=>{
     const intervalId = setInterval(()=>{
-      setCurrentImg(currentImgIdx==images.length-1?0:currentImgIdx+1)      
+      setCurrentImg(currentImgIdx==images.length-1?0:currentImgIdx+1)
+      setHomeStyle(newHomeStyle())      
     }, 15000)
     return ()=>{clearInterval(intervalId)}
   }, [currentImgIdx])
   
 
   return (
-    <div className="home-container">
+    <div className="home-container"style={homeStyle}>
       {/* Left Section */}
       <div className="home-left-container">
         <div className="home-left-heading">
