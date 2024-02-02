@@ -14,7 +14,7 @@ module.exports = {
       [
         {
           id: 1,
-          name: "Heavy-T",
+          name: "Heavyweight Ring Spun Tee",
           colors: JSON.stringify([
             { name: "banana", hex: "#F2EBA7" },
             { name: "bay", hex: "#859285" },
@@ -79,12 +79,12 @@ module.exports = {
             "2XL",
             "3XL",
           ]),
-          description: "Sizes larger than xl will vary in price.",
+          description: "6.1-ounce, 100% US ring spun cotton. Soft-washed, garment-dyed fabric. Top-stitched, classic width rib collar. Twill-taped neck and shoulders.Twill label. Double-needle armhole, sleeve and bottom hems.",
           price: 12.99,
         },
         {
           id: 2,
-          name: "Sweater",
+          name: "Heavy Blend Hooded Sweatshirt",
           size: JSON.stringify([
             "XS",
             "M",
@@ -95,7 +95,7 @@ module.exports = {
             "4XL",
             "5XL",
           ]),
-          description: "Sizes larger than xl will vary in price.",
+          description: "8-ounce, 50/50 cotton/poly. Double-needle stitching at waistband and cuffs. Double-lined hood with dyed-to-match drawcord. 1x1 rib knit cuffs and waistband with spandex. Front pouch pocket",
           colors: JSON.stringify([
             { name: "antique_cherry_red", hex: "#7C0418" },
             { name: "antique_sapphire", hex: "#1C5674" },
@@ -145,7 +145,7 @@ module.exports = {
         },
         {
           id: 3,
-          name: "Light-T",
+          name: "District Perfect Tri DTG Tee",
           colors: JSON.stringify([
             { name: "black_frost", hex: "#313332" },
             { name: "black", hex: "#1B1B19" },
@@ -173,7 +173,7 @@ module.exports = {
             "3XL",
             "4XL",
           ]),
-          description: "Sizes larger than xl will vary in price.",
+          description: "5-ounce, 50/25/25 poly/combed ring spun cotton/rayon, 32 singles. Fabric pre-treated and optimized with patent pending. PosiPrint technology for direct to garment (DTG) printing. 1x1 rib knit neck. Tear-away label. Shoulder to shoulder taping.",
           price: 9.99,
         },
       ],
