@@ -1,69 +1,147 @@
-.pickup-delivery-page{
-    display:flex;
-    flex-direction: column;
+.pickup-delivery-page {
+    margin: 50px auto;
+    max-width: 1200px;
+    height: 100%;
+    h1 {
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    p {
+        margin: 0px;
+        font-weight: 500;
+    }
+
+    span {
+        font-weight: 500;
+    }
+}
+
+.divider {
+    border-bottom: 2px solid #DBDBDB;
+}
+
+.checkout_options {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
     align-items: center;
-    footer{
+
+}
+
+.delivery-radio {
+    display: flex;
+    align-items: center;
+
+}
+
+.radio-button-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+        margin: 0px;
+        margin-right: 5px;
+    }
+
+}
+
+.checkout-form-main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.form_field_container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: start;
+    flex-wrap: wrap;
+
+    input {
         display: flex;
-        justify-content: center;
-        width: 100%;
-        align-items: center;
-        input {
-            margin-left: 20px;
-            padding: 5px;
-            height: fit-content
-        }
-        margin-top: 20px;
+        justify-content: flex-end;
+        height: 30px;
+        font-size: 16px;
+        padding: 0px 5px;
+        width: 200px;
     }
-    height: calc(100vh - 80px)
-    
-}
 
+    label {
+        margin-right: 20px;
+        font-weight: 500;
+    }
 
-.pickup-deliery-header{
-    height: 100px;
-    width: 80%;
-    border-bottom: 1px solid grey;
-    display:flex;
-    align-items: flex-end;
-    
-}
-.radio-button-container{
-    margin: 20px;
-    width: 80%;
-    form{
-        display:flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        width:100%;
-        .delivery-radio{
-            margin-right: 20px;
-        }
-        label{
-            white-space: nowrap;
-            
-        }
+    select {
+        height: 30px;
+        font-size: 16px;
     }
 }
 
-.pickup-form, .delivery-form{
-    display:flex;
-    flex-direction: column;
+.form-field-right {
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
-    align-items:flex-end;
-    textarea{
-        height: 40px
+    width: 100%;
+    margin: 30px 0px;
+
+    label {
+        width: 100%;
+        max-width: fit-content;
     }
-    input, select, textarea{
-        margin-left:20px;
-        margin-bottom:20px;
-        width: 150px;
+
+    .address2 {
+        margin-right: 25px;
     }
-    label.text-area-label{
-        display:flex;
-        align-items: flex-start;
+}
+
+.form-field {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin: 30px 0px;
+
+    label {
+        width: 100%;
+        max-width: fit-content;
     }
-    margin: 20px;
-    ul.errors{
-        color:red;
+}
+
+.state-zip {
+    display: flex;
+    height: fit-content;
+    gap: 30px;
+    select {
+        width: 50px;
+    }
+    div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.submit-order-main {
+    display: flex;
+    gap: 50px;
+    margin-top: 100px;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        border: 1px black solid;
+        padding: 5px 10px;
+        cursor: pointer;
     }
 }
