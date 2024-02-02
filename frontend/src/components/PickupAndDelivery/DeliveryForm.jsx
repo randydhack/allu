@@ -2,11 +2,9 @@ import { states } from "./countriesAndStates.js";
 
 function DeliveryForm({ setFormInfo, formInfo, errors }) {
 
-    console.log(formInfo)
   function formChange(e){
       let currentFormInfo = {...formInfo}
-      console.log(e.target.value)
-      currentFormInfo[e.target.name]=e.target.value
+      currentFormInfo[e.target.name] =e.target.value
       setFormInfo(currentFormInfo)
   }
 
@@ -17,38 +15,38 @@ function DeliveryForm({ setFormInfo, formInfo, errors }) {
           {/* ------------------- Left ------------------- */}
           <div className="form-left-panel">
             <div className="form-field">
-              <label htmlFor="first-name">First Name</label>
-              <input type="text" name="first-name" id="first-name" onChange={formChange} value={formInfo["firstName"] ? formInfo["firstName"] : ""}/>
+              <label htmlFor="firstName">First Name</label>
+              <input required type="text" name="firstName" id="firstName" onChange={formChange} value={formInfo["firstName"] ? formInfo["firstName"] : ""}/>
             </div>
             <div className="form-field">
-              <label htmlFor="address-1">Address 1</label>
-              <input type="text" name="address-1" id="address-1" onChange={formChange} value={formInfo["address1"] || ""}/>
+              <label htmlFor="address1">Address 1</label>
+              <input required type="text" name="address1" id="address1" onChange={formChange} value={formInfo["address1"] || ""}/>
             </div>
             <div className="form-field">
               <label htmlFor="city">City</label>
-              <input type="text" name="city" id="city" onChange={formChange} value={formInfo["city"] || ''}/>
+              <input required type="text" name="city" id="city" onChange={formChange} value={formInfo["city"] || ''}/>
             </div>
             <div className="form-field">
-              <label htmlFor="phone">Phone Number</label>
-              <input type="number" name="phone" id="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
+              <label htmlFor="phone">Phone</label>
+              <input required type="number" name="phone" id="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" onChange={formChange} value={formInfo["email"] || ''} />
+              <input required type="email" name="email" id="email" onChange={formChange} value={formInfo["email"] || ''} />
             </div>
           </div>
 
           {/* ------------------- Right ------------------- */}
           <div>
             <div className="form-field-right">
-              <label htmlFor="last-name">Last Name</label>
-              <input type="text" name="last-name" id="last-name" onChange={formChange} value={formInfo["lastName"] || ''}/>
+              <label htmlFor="lastName">Last Name</label>
+              <input required type="text" name="lastName" id="lastName" onChange={formChange} value={formInfo["lastName"] || ''}/>
             </div>
             <div className="form-field-right">
-              <label htmlFor="address-2" className="address2">
+              <label htmlFor="address2" className="address2">
                 Address 2
               </label>
-              <input type="text" name="address-2" id="address-2" onChange={formChange} value={formInfo["address2"] || ''}/>
+              <input type="text" name="address2" id="address2" onChange={formChange} value={formInfo["address2"] || ''}/>
             </div>
             <div className="state-zip">
               <div>
@@ -70,8 +68,8 @@ function DeliveryForm({ setFormInfo, formInfo, errors }) {
                 </select>
               </div>
               <div>
-                <label htmlFor="zip-code">Zip Code</label>
-                <input type="number" name="zip-code" id="zip-code" onChange={formChange} value={formInfo["zipCode"] || ''}/>
+                <label htmlFor="zipCode">Zip Code</label>
+                <input required type="tel" className="zip" name="zipCode" id="zipCode" onChange={formChange} value={formInfo["zipCode"] || ''}/>
               </div>
             </div>
           </div>

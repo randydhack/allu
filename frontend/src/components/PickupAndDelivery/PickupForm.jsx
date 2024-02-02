@@ -1,11 +1,7 @@
 import { useState } from "react";
 
-function PickupForm({ setFormInfo, formInfo }) {
-//   function formChange(e) {
-//     let currentFormInfo = { ...formInfo };
-//     currentFormInfo[e.target.name] = e.target.value;
-//     setFormInfo(currentFormInfo);
-//   }
+function PickupForm({ setFormInfo, formInfo, formChange }) {
+
 
   return (
     <>
@@ -14,34 +10,26 @@ function PickupForm({ setFormInfo, formInfo }) {
           {/* ------------------- Left ------------------- */}
           <div className="form-left-panel">
             <div className="form-field">
-              <label htmlFor="first-name">First Name</label>
-              <input type="text" />
+            <label htmlFor="firstName">First Name</label>
+              <input required type="text" name="firstName" id="firstName" onChange={formChange} value={formInfo["firstName"] || ""}/>
             </div>
             <div className="form-field">
-              <label htmlFor="phone-number">Phone Number</label>
-              <input type="number" />
+              <label htmlFor="phone-number">Phone</label>
+              <input required type="number" name="phone" id="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>
-              <input type="email" />
+              <input required type="email" name="email" id="email" onChange={formChange} value={formInfo["email"] || ''} />
             </div>
           </div>
 
           {/* ------------------- Right ------------------- */}
           <div>
             <div className="form-field-right">
-              <label htmlFor="last-name">Last Name</label>
-              <input type="text" />
+            <label htmlFor="lastName">Last Name</label>
+              <input required type="text" name="lastName" id="lastName" onChange={formChange} value={formInfo["lastName"] || ''}/>
             </div>
           </div>
-        </div>
-
-        <div className="submit-order-main">
-          <p>
-            Submitting this will finalize your order and be reviewed before
-            shipping.
-          </p>
-          <button type="submit">Submit Order</button>
         </div>
 
     </>

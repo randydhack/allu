@@ -15,6 +15,10 @@
     span {
         font-weight: 500;
     }
+
+    label {
+        font-weight: 500;
+    }
 }
 
 .divider {
@@ -59,7 +63,7 @@
     flex-direction: column;
     width: fit-content;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 20px auto;
 }
 
 .form_field_container {
@@ -80,7 +84,6 @@
 
     label {
         margin-right: 20px;
-        font-weight: 500;
     }
 
     select {
@@ -130,12 +133,20 @@
         display: flex;
         align-items: center;
     }
+
+    .zip {
+        width: 75px;
+    }
+}
+
+.special-request-form {
+    margin-top: 50px;
 }
 
 .submit-order-main {
     display: flex;
     gap: 50px;
-    margin-top: 100px;
+    margin-top: 25px;
     align-items: center;
     justify-content: center;
 
