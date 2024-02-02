@@ -7,11 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/ProductReducer";
 
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 // Context
-import ProductModal from "../Modals/ProductModal";
 import { ModalContext } from "../../context/modalContext";
 
 // CSS
@@ -21,70 +19,116 @@ import { createBatch } from "../../store/BatchReducer";
 
 function Product() {
   const dispatch = useDispatch();
-  const {designId} = useParams()
+  const { designId } = useParams();
   const { setIsModalOpen, setType } = useContext(ModalContext);
 
-  console.log(designId)
+  console.log(designId);
 
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
 
-  const {singleDesign} = useSelector(state => state.designs)
+  const { singleDesign } = useSelector((state) => state.designs);
 
-  console.log(singleDesign)
+  console.log(singleDesign);
 
-  const [product, setProduct] = useState({ id: 1, type: "Heavy-T", price: 12.99 });
+  const [currentProduct, setCurrentProduct] = useState({
+    id: 1,
+    type: "Heavyweight Ring Spun Tee",
+    price: 12.99,
+  });
   const [color, setColor] = useState({ id: 0, name: "banana" });
 
-  const [sizes, setSizes] = useState({XS: 0, S: 0, M: 0, L: 0, XL: 0, "2XL": 0, "3XL": 0, "4XL": 0, "5XL": 0})
-  const [addNotification, setAddNotification] = useState("")
-  console.log(sizes)
-
-
+  const [sizes, setSizes] = useState({
+    XS: 0,
+    S: 0,
+    M: 0,
+    L: 0,
+    XL: 0,
+    "2XL": 0,
+    "3XL": 0,
+    "4XL": 0,
+    "5XL": 0,
+  });
+  const [addNotification, setAddNotification] = useState("");
+  console.log(sizes);
 
   useEffect(() => {
     dispatch(getAllProducts());
-    dispatch(designDetails(designId))
+    dispatch(designDetails(designId));
   }, [dispatch]);
 
   const handleProductSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const data = await dispatch(createBatch(product.id, sizes, designId, color.name, product.price + singleDesign.design_price))
+    if (
+      !sizes["XS"] ||
+      !sizes["S"] ||
+      !sizes["M"] ||
+      !sizes["L"] ||
+      !sizes["XL"] ||
+      !sizes["2XL"] ||
+      !sizes["3XL"] ||
+      !sizes["4XL"] ||
+      !sizes["5XL"]
+    ) {
+      const data = await dispatch(
+        createBatch(
+          currentProduct.id,
+          sizes,
+          designId,
+          color.name,
+          currentProduct.price + singleDesign.design_price
+        )
+      );
 
-    if (data) {
-      setAddNotification("Added to Cart")
-      setSizes({XS: 0, S: 0, M: 0, L: 0, XL: 0, "2XL": 0, "3XL": 0, "4XL": 0, "5XL": 0})
+      if (data) {
+        setAddNotification("Added to Cart");
+        setSizes({
+          XS: 0,
+          S: 0,
+          M: 0,
+          L: 0,
+          XL: 0,
+          "2XL": 0,
+          "3XL": 0,
+          "4XL": 0,
+          "5XL": 0,
+        });
+
+        const field = document.getElementsByClassName('size_input');
+        Array.from(field).forEach(el => el.value = "");
+
+        setTimeout(() => {
+          setAddNotification("");
+        }, 5000);
+      }
     }
-
-  }
+  };
 
   return (
     isLoaded && (
       <div className="container">
-        <div className="product__directory_history">
-          <span>
-            <NavLink to="/">Home</NavLink> /
-            <NavLink to="/our-designs">Our Designs</NavLink> /
-            <NavLink>DESIGN NAME</NavLink>
-          </span>
-        </div>
 
         <div className="main_panel">
           <div className="left_panel">
             <div className="product-images">
               <div className="mini-images-container">
-                <div style={{display: "flex", flexDirection: "column"}}>
-                  <img className="side_img" src={singleDesign.design_url} alt={`Design ${designId}`} />
-                <img
-                  className="side_img"
-                  src={
-                    allProducts[product.id - 1].ProductImages[color.id || 0]
-                      ?.img_url
-                  }
-                  alt={`Product Image - ${color.name}`}
-                />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  {/* <img
+                    className="side_img design_img"
+                    src={singleDesign?.design_url}
+                    alt={`Design ${designId}`}
+                  /> */}
+                  <img
+                    className="side_img"
+                    src={
+                      allProducts[currentProduct.id - 1].ProductImages[
+                        color.id || 0
+                      ]?.img_url
+                    }
+                    alt={`Product Image - ${color.name}`}
+                  />
                 </div>
                 {/* {allProducts[product.id - 1].ProductImages.map(
                   (productImage, idx) => {
@@ -110,25 +154,38 @@ function Product() {
               <img
                 className="model_img"
                 src={
-                  allProducts[product.id - 1]?.ProductImages[color.id || 0]
-                    ?.img_url
+                  allProducts[currentProduct.id - 1]?.ProductImages[
+                    color.id || 0
+                  ]?.img_url
                 } //selects first image of that product with selected id
                 alt="Model Image"
               />
             </div>
             <div>
-              <h3>description</h3>
-              <div>{allProducts[product.id - 1].description}</div>
+              <h3>Description</h3>
+              <div>{allProducts[currentProduct.id - 1].description}</div>
             </div>
           </div>
 
           {/* FORM FOR PRODUCT / COLOR / SIZES */}
-          <form className="product_form" onSubmit={(e) => handleProductSubmit(e)}>
-            <h1>Product</h1>
+          <form
+            className="product_form"
+            onSubmit={(e) => handleProductSubmit(e)}
+          >
+            <h1>{currentProduct.type}</h1>
 
             <div>
-              <h3>Choose an option: {product.type}</h3>
-              <div>
+              <h3 style={{marginBottom: "5px"}}>Chosen Design:</h3>
+            <img
+                    className="side_img design_img"
+                    src={singleDesign?.design_url}
+                    alt={`Design ${designId}`}
+                  />
+            </div>
+
+            <div>
+              <h3>Choose an option:</h3>
+              <div className="product-option-main">
                 {allProducts.map((product, id, colors) => (
                   <img
                     key={product.name + id}
@@ -136,8 +193,20 @@ function Product() {
                     width={50}
                     height={50}
                     className="product-option-img"
+                    style={{
+                      border: `${
+                        currentProduct.id === product.id
+                          ? "1px solid gray"
+                          : ""
+                      }`,
+                      borderRadius: '3px'
+                    }}
                     onClick={() => {
-                      setProduct({ id: product.id, type: product.name, price: product.price });
+                      setCurrentProduct({
+                        id: product.id,
+                        type: product.name,
+                        price: product.price,
+                      });
                       setColor({
                         id: 0,
                         name: colors[product.id - 1]?.colors[0].name,
@@ -151,17 +220,15 @@ function Product() {
             <div>
               <h3>Select Color: {color.name}</h3>
               <div className="colors_carousel">
-                {product.id &&
-                  productColors[product.id].map((color, i) => {
+                {currentProduct.id &&
+                  productColors[currentProduct.id].map((color, i) => {
                     return (
                       <div
                         key={color.name + i}
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() =>
-                          setColor({ id: i, name: color.name })
-                        }
+                        onClick={() => setColor({ id: i, name: color.name })}
                       ></div>
                     );
                   })}
@@ -171,27 +238,39 @@ function Product() {
             <div>
               <h3>Select Sizes</h3>
               <div className="size_panel">
-                {product.id &&
-                  productSizes[product.id].map((size, i) => {
+                {currentProduct.id &&
+                  productSizes[currentProduct.id].map((size, i) => {
                     return (
                       <div key={size + i} className="size_input_container">
                         <span style={{ width: "100%", textAlign: "right" }}>
                           {size}
                         </span>{" "}
-                        <input type="number" onChange={(e) => {
-                          sizes[size] = Number(e.target.value)
-                          setSizes(sizes)
-                          console.log(sizes)
-                        }}></input>
+                        <input
+                          type="number"
+                          onChange={(e) => {
+                            sizes[size] = Number(e.target.value);
+                            setSizes(sizes);
+                          }}
+                          id="size_input"
+                          className="size_input"
+                        ></input>
                       </div>
                     );
                   })}
               </div>
             </div>
-            {addNotification && <p>{addNotification}</p>}
-            <button className="confirm_button" type="submit">
-              FINALIZE SELECTION
-            </button>
+
+            <div className="finalize">
+              <button type="submit">
+                <span>Add to cart</span>
+              </button>
+            </div>
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
           </form>
         </div>
       </div>
