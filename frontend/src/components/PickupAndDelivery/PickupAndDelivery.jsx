@@ -23,12 +23,15 @@ function PickupAndDelivery(){
             setDelivery(!deliveryOrder)
         }
     }
+
     function handleFormSubmit(e){
         e.preventDefault()
             setErrors([])
             let order
+
             if (deliveryOrder){
-                let address = formInfo["address-1"]+" "+formInfo["address-2"]+" "+formInfo["city"]+" "+formInfo["state"]+" "+formInfo["zip"]
+                console.log(formInfo)
+                let address = formInfo["address-1"] +" "+formInfo["address-2"]+" "+formInfo["city"]+" "+formInfo["state"]+" "+formInfo["zip"]
                 order = {userId:currUser.id, address: address, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"], special_request: formInfo['special-instructions'], workforce: false, quote:state.quote, processed: false}
                 // console.log(order)
             }
@@ -36,7 +39,10 @@ function PickupAndDelivery(){
             else{
                 order = {userId:currUser.id, firstName: formInfo["first-name"], lastName: formInfo["last-name"], phone: formInfo["phone"], email: formInfo["email"],special_request: formInfo['special-instructions'], workforce: false, quote:state.quote, processed: false}
             }
+
+            console.log(order)
             let orderCreated = dispatch(createOrder(order))
+
             if(orderCreated){
                 navigate('/order-submitted')
             }
