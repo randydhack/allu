@@ -60,17 +60,23 @@ $lg: 1150px;
     display: flex;
     justify-content: space-between;
 }
-.subcolumn{
+.subcolumn, .solocolumn{
     display: flex;
     flex-direction: column;
     width: 50%;
     p, button{
         width: 70%;
-        margin-bottom: 20px;
+    }
+    button{
         min-height: 80px;
+        margin-bottom: 20px;
     }
     align-items: center;
 }
+.solocolumn{
+    width: 100%
+}
+
 .bottom{
     margin-top: 20px;
     width: 100%;

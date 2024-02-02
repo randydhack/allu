@@ -3,6 +3,7 @@ import "./Home.scss";
 import "../utils/DefaultStyles.scss";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import printingPress from '../../images/screen-printing.gif'
 import model from '../../images/model-with-books.png'
 import padPrinting from '../../images/pad-printing.gif'
@@ -13,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from '../../images/allu-high-res.png'
 
 function Home() {
+  const currUser = useSelector((state) => state.session.user);
   const { toggleSignUp } = useContext(ModalContext);
   const navigate = useNavigate()
   const images=[
@@ -42,16 +44,17 @@ function Home() {
 
         <div className="home-left-contents">
           <div className="home-left-infos">
-            <div className="subcolumn">
+            <div className={currUser?"solocolumn":"subcolumn"}>
               <p>Order shirts or hoodies with one of our pre-built designs!</p>
               <button onClick={()=>{navigate('/designs')}} className="home-left-buttons">
                 Browse designs
               </button>
             </div>
+            {!currUser&&
             <div className="subcolumn">
               <p>Sign up to track your orders and save custom designs</p>
               <button onClick={toggleSignUp} className="home-left-buttons">Sign Up!</button>
-            </div>
+            </div>}
           </div>
 
           {/* <span className="divider">
