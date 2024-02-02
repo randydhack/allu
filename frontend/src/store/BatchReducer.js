@@ -62,6 +62,7 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   if (response.ok) {
     const updatedBatch = await response.json();
     dispatch(loadSingleBatch(updatedBatch));
+    dispatch(getCart());
   }
 };
 

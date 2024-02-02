@@ -36,6 +36,10 @@ export const ModalProvider = ({ children }) => {
     setType("signup");
     setIsModalOpen(true);
   };
+  const toggleEditBatchModal = () => {
+    setType("editBatch");
+    setIsModalOpen(true);
+  };
 
   return (
     <ModalContext.Provider
@@ -47,6 +51,7 @@ export const ModalProvider = ({ children }) => {
         setType,
         toggleLogin,
         toggleSignUp,
+        toggleEditBatchModal,
       }}
     >
       {children}

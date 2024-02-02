@@ -3,14 +3,12 @@ import { useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
 import { editBatch } from "../../store/BatchReducer";
 
-const EditBatchModal = ({ batchId }) => {
+const EditBatchModal = ({ batchId, productId, batchDetails, closeModal }) => {
   const { setIsModalOpen } = useContext(ModalContext);
   const dispatch = useDispatch();
-
-  // Initialize sizes with null or an existing batch's sizes
   const [sizes, setSizes] = useState({
-    xs: null,
-    s: null,
+    xs: batchDetails?.xs || 0,
+    s: batchDetails?.s || 0,
     m: null,
     l: null,
     xl: null,
@@ -29,16 +27,26 @@ const EditBatchModal = ({ batchId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ensure to only send sizes that are not null
-    const updatedSizes = Object.entries(sizes).reduce((acc, [key, value]) => {
-      if (value !== null) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
+    const {
+      ["Batches.productId"]: productId,
+      ["Batches.color"]: color,
+      ["Batches.total_price"]: total_price,
+    } = batchDetails;
 
-    await dispatch(editBatch(batchId, updatedSizes));
+    const payload = {
+      productId,
+      color,
+      total_price,
+      ...Object.fromEntries(
+        Object.entries(sizes).filter(
+          ([key, value]) => value !== batchDetails[`Batches.${key}`]
+        )
+      ),
+    };
+
+    await dispatch(editBatch(batchId, payload));
     setIsModalOpen(false);
+    if (closeModal) closeModal();
   };
 
   return (

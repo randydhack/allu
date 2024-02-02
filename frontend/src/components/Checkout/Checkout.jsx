@@ -47,11 +47,10 @@ function Checkout() {
     }, 0);
   };
 
-  const handleOpenEditModal = (batchId) => {
-    setCurrentEditingBatchId(batchId);
+  const handleOpenEditModal = (item) => {
+    setCurrentEditingBatchId(item["Batches.id"]);
     setIsEditModalOpen(true);
   };
-
   return (
     <div className="checkout_page">
       <header className="checkout_header">CURRENT ORDER</header>
@@ -73,7 +72,7 @@ function Checkout() {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
               return (
-                <div key={item.id} className="home-item-row">
+                <div key={item["Batches.id"]} className="home-item-row">
                   <div className="home-item-image-container">
                     <img
                       className="home-item-image"
@@ -87,9 +86,7 @@ function Checkout() {
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
                   <div className="home-item-change">
-                    <button
-                      onClick={() => handleOpenEditModal(item["Batches.id"])}
-                    >
+                    <button onClick={() => handleOpenEditModal(item)}>
                       Edit Sizes
                     </button>
                   </div>
@@ -108,6 +105,15 @@ function Checkout() {
             <div className="subtotal">
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
             </div>
+            {isEditModalOpen && (
+              <EditBatchModal
+                batchId={currentEditingBatchId}
+                batchDetails={cart.find(
+                  (b) => b["Batches.id"] === currentEditingBatchId
+                )}
+                closeModal={() => setIsEditModalOpen(false)}
+              />
+            )}
           </div>
         )}
       </div>
