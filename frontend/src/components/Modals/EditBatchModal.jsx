@@ -7,7 +7,7 @@ import { InfoContext } from "../../context/infoContext";
 const EditBatchModal = () => {
   const { setIsModalOpen, setType } = useContext(ModalContext);
   const { batchDetails } = useContext(InfoContext);
-  console.log(batchDetails);
+
   const dispatch = useDispatch();
   const getInitialSizes = () => {
     const sizes = {

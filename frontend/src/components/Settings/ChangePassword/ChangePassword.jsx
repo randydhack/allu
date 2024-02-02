@@ -47,7 +47,6 @@ function ChangePassword() {
       if (data && error) setErrors(error);
     })
 
-    console.log(userData)
     if (userData) {
       dispatch(logoutUser());
       setUser(null)
