@@ -55,6 +55,12 @@ function Product() {
 
   const [addNotification, setAddNotification] = useState("");
 
+  function resetSelect(e){
+    let currentSelection = document.querySelector("div.selected")
+    currentSelection.classList.remove("selected")
+    e.target.classList.add("selected")
+  }
+
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(designDetails(designId));
@@ -220,8 +226,10 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => {
-                          setColor({ id: i, name: color.name });
+                        className={i==0?"selected":""}
+                        onClick={(e) => {
+                          resetSelect(e);
+                          setColor({ id: i, name: color.name.split("_").join(" ") });
                           setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`)
                         }}
                       ></div>
@@ -256,8 +264,8 @@ function Product() {
               </div>
             </div>
 
-            <div>
-              <h4>Add custom text to your design:</h4>
+            <div className="textinput-div">
+              <label htmlFor="note_input">Add custom text to your design:</label>
               <textarea
                 onChange={(e) => {
                   setNote(e.target.value)
