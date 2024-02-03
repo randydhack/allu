@@ -1,30 +1,60 @@
 // Libaries
 import { NavLink } from 'react-router-dom'
-
+import {useState, useEffect}from 'react';
 // CSS
 import "./Footer.scss";
 
 function Footer() {
+  const [screenSmall, setScreenSmall]=useState(getWindowDimensions().width<700)
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return { width, height};
+  }
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+        setScreenSmall(getWindowDimensions().width<700)
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+  }
+  useWindowDimensions()
   return (
     <div className="footer">
       <div className="footer__main">
         <div className='footer__section'>
-          <h4 className="footer-header">Showroom Hours:</h4>
+          <h4 className="footer-header">Showroom Hours</h4>
           <div className="showroom__schedule">
             <div>
-              <p>Mon:</p>
-              <p>Tue:</p>
-              <p>Wed:</p>
-              <p>Thur:</p>
-              <p>Fri:</p>
+             {!screenSmall&&
+             <>
+             <p>Mon:  8:30am - 4:30pm</p>
+              <p>Tue:  8:30am - 4:30pm</p>
+              <p>Wed:  8:30am - 4:30pm</p>
+              <p>Thur:  8:30am - 4:30pm</p>
+              <p>Fri:  8:30am - 4:30pm</p>
+              </>}
+              {screenSmall&&
+             <>
+              <p>Mon-Fri</p>
+              <p>8:30am - 4:30pm</p>
+              </>}
+
             </div>
-            <div>
+            {/* <div>
               <p>8:30am - 4:30pm</p>
               <p>8:30am - 4:30pm</p>
               <p>8:30am - 4:30pm</p>
               <p>8:30am - 4:30pm</p>
               <p>8:30am - 4:30pm</p>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className='footer__section'>
@@ -44,8 +74,8 @@ function Footer() {
         </div>
       </div>
       <div className="footer__copyright">
-        © 2024 ALL U, Inc. All rights reserved | 9 Interstate Ave • Albany, NY
-        12205
+      <p>© 2024 ALL U, Inc. All rights reserved |</p><p>9 Interstate Ave • Albany, NY
+        12205</p> 
       </div>
     </div>
   );
