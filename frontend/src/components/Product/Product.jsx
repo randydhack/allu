@@ -75,13 +75,13 @@ function Product() {
     ) {
       const data = await dispatch(
         createBatch(
-          currentProduct.id,
-          sizes,
-          designId,
-          color.name,
-          currentProduct.price + singleDesign.design_price,
-          productImage,
-          note
+          {productId:currentProduct.id,
+          size:sizes,
+          designId:designId,
+          color:color.name,
+          total_price:currentProduct.price + singleDesign.design_price,
+          product_url: productImage,
+          note:note}
         )
       );
       // console.log(data)
@@ -101,7 +101,7 @@ function Product() {
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
-
+        setNote("")
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
@@ -257,17 +257,23 @@ function Product() {
             </div>
 
             <div>
-              <h4>Add a personalized note:</h4>
-              <input
+              <h4>Add custom text to your design:</h4>
+              <textarea
                 onChange={(e) => {
                   setNote(e.target.value)
                 }}
                 id="note_input"
-                className="note_input"
+                className="note-input"
                 aria_label="note"
-              ></input>
+                value={note}
+              ></textarea>
             </div>
-
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
             <div className="finalize">
               <button type="submit" disabled={!sizes["XS"] &&
                 !sizes["S"] &&
@@ -291,12 +297,6 @@ function Product() {
                 <span>Add to cart</span>
               </button>
             </div>
-            {addNotification && (
-              <p className="cart-added-msg">
-                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
-                {addNotification}
-              </p>
-            )}
           </form>
         </div>
       </div>

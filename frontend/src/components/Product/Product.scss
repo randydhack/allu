@@ -112,6 +112,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   gap: 3px;
   text-align: center;
+  position: absolute;
 }
 
 .finalize {
@@ -129,4 +130,7 @@ input::-webkit-inner-spin-button {
       font-size: 18px;
     }
   }
+}
+.note-input{
+  width: 100%
 }
