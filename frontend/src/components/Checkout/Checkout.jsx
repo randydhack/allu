@@ -29,7 +29,9 @@ function Checkout() {
   // States
   // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
-  const { cart, isLoaded } = useSelector((state) => state.batches);
+  const { cart: rawCart, isLoaded } = useSelector((state) => state.batches);
+  // Filter out any batches with a null id
+  const cart = rawCart?.filter((batch) => batch["Batches.id"] !== null);
 
   // Remove Cart handle
   const handleRemoveFromCart = (itemId) => {
@@ -80,10 +82,8 @@ function Checkout() {
     toggleEditBatchModal();
   };
 
-  function goToShip() {
-    navigate("/shipping-information", {
-      state: { quote: calculateSubtotal(cart).toFixed(2) },
-    });
+  function goToShip(){
+    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
   }
 
   return (
@@ -93,7 +93,7 @@ function Checkout() {
           <h1>CURRENT ORDER</h1>
         </header>
         {isLoaded && (!cart || cart.length === 0) ? (
-          <div className="empty-cart-message">Your cart is empty.</div>
+          <div className="empty_cart_message">Your cart is empty.</div>
         ) : (
           <div className="home-items-container">
             <div className="home-item-row header-row">
@@ -158,10 +158,9 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="checkout"
                 onClick={() => goToShip()}
-                style={{backgroundColor: `${cart.length ? "#E4E4E4": "black"}`}}
+                style={{backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`}}
               >
-
-                <p style={{color: `${cart.length ? "#707070": "white"}`}}>Continue to shipping</p>
+                <p style={{color: `${cart.length ? "white":"#707070"}`}}>Continue to shipping</p>
               </button>
             </div>
             {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}

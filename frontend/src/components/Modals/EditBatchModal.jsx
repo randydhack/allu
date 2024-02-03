@@ -64,32 +64,45 @@ const EditBatchModal = () => {
 
   return (
     <div className="edit-batch-modal">
+      <span>Edit Quantity:</span>
       <form onSubmit={handleSubmit}>
-        {Object.keys(sizes).map((size) => (
-          <div key={size}>
-            <label htmlFor={size}>{size.toUpperCase()}</label>
-            <input
-              type="number"
-              id={size}
-              name={size}
-              aria-label="size"
-              value={sizes[size] ?? ""}
-              onChange={handleChange}
-              min="0"
-            />
-          </div>
-        ))}
-        <button aria-label="update size" type="submit">Update Sizes</button>
+        <div className="edit_form_container">
+          {Object.keys(sizes).map((size) => (
+            <div className="edit_column" key={size}>
+              <div className="edit_label">
+                <label htmlFor={size}>{size.toUpperCase()}</label>
+              </div>
+
+              <input
+                type="number"
+                id={size}
+                name={size}
+                aria-label="size"
+                value={sizes[size] ?? ""}
+                onChange={handleChange}
+                min="0"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="edit_button">
+          <button aria-label="update size" type="submit">
+            Update Sizes
+          </button>
+        </div>
       </form>
-      <button
-        aria-label="modal"
-        onClick={() => {
-          setIsModalOpen(false);
-          setType(null);
-        }}
-      >
-        Cancel
-      </button>
+      <div className="edit_button">
+        <button
+          aria-label="modal"
+          onClick={() => {
+            setIsModalOpen(false);
+            setType(null);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
