@@ -1,7 +1,8 @@
 // Libaries
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
@@ -13,23 +14,83 @@ import Logo from "../../images/allu-high-res.png";
 // CSS
 import "./Navbar.scss";
 
+// Redux Store
+import { getCart } from "../../store/BatchReducer";
+
 // Icons
 import { PiUserCircle } from "react-icons/pi";
-
 import { IoCartOutline } from "react-icons/io5";
 
 function Navbar() {
+
+  const dispatch = useDispatch()
+
   const { toggleLogin, toggleSignUp } = useContext(ModalContext);
   const { user } = useContext(InfoContext);
 
   const currUser = useSelector((state) => state.session.user);
+  const cart = useSelector((state) => state.batches.cart);
+  const cartNull = cart.filter(el => el["Batches.id"] != null)
+  const [screenSmall, setScreenSmall]=useState(getWindowDimensions().width<700)
+
+  useEffect(() => {
+    if (currUser){
+      dispatch(getCart())
+    }
+  }, [dispatch, currUser])
+
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+        setScreenSmall(getWindowDimensions().width<700)
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+  }
+  useWindowDimensions()
+
 
   return (
     <div className="nav__container">
       <div className="nav_inner_container">
         <div className="left-nav">
+              {screenSmall&&
+              <>
+                <input id="toggle1" type="checkbox" aria-label="hamburger"/>
+                <label className="hamburger1" htmlFor="toggle1">
+                  <div className="top"></div>
+                  <div className="middle"></div>
+                  <div className="bottom"></div>
+                </label>
+                <nav class="menu1">
+                <NavLink to="/designs" alt="designs" className="link1" aria-label="design">
+                  Designs
+                </NavLink>
+                <NavLink to="/contact-us" alt="Contact Us" className="link1" aria-label="contact">
+                  Contact Us
+                </NavLink>
+                <NavLink to="/about-us" alt="About Us" className="link1" aria-label="about">
+                  About us
+                </NavLink>
+                </nav>
+              </>
+              }
           <div className="nav_logo__container">
-            <NavLink to="/">
+            <NavLink to="/" aria-label="home">
               <img
                 className="nav_logo"
                 src={Logo}
@@ -38,38 +99,45 @@ function Navbar() {
             </NavLink>
           </div>
 
+          {!screenSmall&&
           <div className="nav__middle__section">
-            <NavLink to="/designs" alt="designs">
+            <NavLink to="/designs" alt="designs" aria-label="design">
               Designs
             </NavLink>
-            <NavLink to="/contact-us" alt="Contact Us">
+            <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
               Contact Us
             </NavLink>
-            <NavLink to="/about-us" alt="About Us">
+            <NavLink to="/about-us" alt="About Us" aria-label="about">
               About us
             </NavLink>
-          </div>
+          </div>}
+          {screenSmall&&
+          <>
+
+          </>
+          }
         </div>
 
         {user || currUser ? (
           <div className="nav__profile__cart">
-            <NavLink to="/account-details">
+            <NavLink to="/account-details" aria-label="account">
               <PiUserCircle className="user-icon" />
             </NavLink>
-            <NavLink to="/checkout">
+            <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
-                <div className="cart_total_items">0</div>
+                {cart?.length &&  cartNull.length ? (
+                  <div className="cart_total_items">{cart?.length}</div>
+                ) : (
+                  ""
+                )}
               </div>
             </NavLink>
           </div>
         ) : (
           <div className="nav__right__section">
-            <button onClick={() => toggleLogin()}>Sign in</button>
-            <button onClick={() => toggleSignUp()}>Register</button>
-            {/* <NavLink to="/checkout">
-              <IoCartOutline className="nav-icon " />
-            </NavLink> */}
+            <button aria-label="sign in" onClick={() => toggleLogin()}>Sign in</button>
+            <button aria-label="sign up" onClick={() => toggleSignUp()}>Register</button>
           </div>
         )}
       </div>

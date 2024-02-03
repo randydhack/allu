@@ -6,7 +6,7 @@ export const designSlice = createSlice({
   initialState: {
     isLoaded: false,
     allDesigns: null,
-    // singleDesign: null,
+    singleDesign: null,
     userDesigns: null,
   },
   reducers: {

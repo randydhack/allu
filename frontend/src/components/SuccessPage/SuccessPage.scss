@@ -1,7 +1,21 @@
-.success-page{
+.success-page, .text-section{
     height:calc(100vh - 80px);
     display:flex;
     flex-direction:column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+.text-section{
+    max-width: 70%;
+    margin-bottom: 100px;
+    a{
+        color: blue;
+        text-decoration: underline;
+    }
+}
+.text-logo{
+    height: 40px;
+    position:relative;
+    top:5px;
 }

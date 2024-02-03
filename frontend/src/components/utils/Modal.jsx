@@ -4,6 +4,7 @@ import { ModalContext } from "../../context/modalContext";
 import LoginModal from "../Modals/LoginModal";
 import SignUpModal from "../Modals/SignUpModal";
 import ProductModal from "../Modals/ProductModal";
+import EditBatchModal from "../Modals/EditBatchModal";
 import "./modal.css";
 
 export default function Modal(props) {
@@ -29,6 +30,7 @@ export default function Modal(props) {
         <div className="modalContent">
           <div className="closeButtonWrapper"></div>
           {/* EXAMPLE HOW TO SET UP A MODAL PAGE */}
+          {type === "editBatch" && <EditBatchModal />}
           {type === "login" && <LoginModal />}
           {type === "signup" && <SignUpModal />}
           {/* {type === "productZoom" && <ProductModal />} */}

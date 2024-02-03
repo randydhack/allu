@@ -7,11 +7,18 @@ export const productSlice = createSlice({
     isLoaded: false,
     allProducts: null,
     singleProduct: null,
+    productColors: null,
+    productSizes: null
   },
   reducers: {
     loadProducts: (state, action) => {
       state.isLoaded = true;
       state.allProducts = action.payload;
+      state.productColors = {}
+      state.productSizes = {}
+
+      action.payload.forEach((product) => state.productColors[product.id] = product.colors)
+      action.payload.forEach((product) => state.productSizes[product.id] = product.size)
     },
     loadSingleProduct: (state, action) => {
       state.singleProduct = action.payload;
@@ -26,6 +33,7 @@ export const getAllProducts = () => async (dispatch) => {
   if (response.ok) {
     const products = await response.json();
     dispatch(loadProducts(products));
+    return products
   }
 };
 

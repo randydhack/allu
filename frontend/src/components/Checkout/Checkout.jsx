@@ -1,166 +1,178 @@
-import { useState, useEffect } from "react";
+// Libaries
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBatches } from "../../store/BatchReducer";
+
+// Redux Store
+import { getCart, deleteBatch } from "../../store/BatchReducer";
+
+// Components
+import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
+
+// Context
+import { InfoContext } from "../../context/infoContext";
+import { ModalContext } from "../../context/modalContext";
+
+// CSS
 import "./Checkout.scss";
 
-function Checkout() {
-  const handleRemoveFromCart = (itemId) => {
-    console.log("Remove item:", itemId);
-  };
-  const [editingItemId, setEditingItemId] = useState(null);
-  const [editedQuantity, setEditedQuantity] = useState({});
+// Icons
+import { CiSquareRemove } from "react-icons/ci";
 
+function Checkout() {
   const dispatch = useDispatch();
-  const { allBatches, isLoaded } = useSelector((state) => state.batches);
+  const navigate = useNavigate();
+  // Context
+  const { toggleEditBatchModal } = useContext(ModalContext);
+  const { setBatchDetails } = useContext(InfoContext);
+
+  // States
+  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
+  const { cart: rawCart, isLoaded } = useSelector((state) => state.batches);
+  // Filter out any batches with a null id
+  const cart = rawCart?.filter((batch) => batch["Batches.id"] !== null);
+
+  // Remove Cart handle
+  const handleRemoveFromCart = (itemId) => {
+    dispatch(deleteBatch(itemId));
+  };
 
   useEffect(() => {
-    dispatch(getAllBatches());
+    (async () => {
+      await dispatch(getCart());
+    })();
   }, [dispatch]);
 
-  const [items, setItems] = useState([
-    {
-      id: "item1",
-      name: "clothAclothAclothAclothAclothAclothA",
-      size: "L",
-      image:
-        "https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg",
-      quantity: 2,
-      price: 99.99,
-    },
-    {
-      id: "item2",
-      name: "clothB",
-      size: "L",
-      image:
-        "https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg",
-      quantity: 1,
-      price: 19.99,
-    },
-    {
-      id: "item3",
-      name: "clothC",
-      size: "L",
-      image:
-        "https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg",
-      quantity: 3,
-      price: 49.99,
-    },
-  ]);
-
-  const handleEditQuantity = (itemId) => {
-    setEditingItemId(itemId);
-    setEditedQuantity((prev) => ({
-      ...prev,
-      [itemId]: items.find((item) => item.id === itemId).quantity,
-    }));
-  };
-
-  const handleQuantityChange = (itemId) => {
-    setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.id === itemId
-          ? { ...item, quantity: editedQuantity[itemId] }
-          : item
+  // Format Batch sizes
+  const formatBatchSizes = (batch) => {
+    const sizes = ["xs", "s", "m", "l", "xl", "2l", "3xl", "4xl", "5xl"];
+    const sizeDescriptions = sizes
+      .map((size) =>
+        batch[`Batches.${size}`]
+          ? ` ${batch[`Batches.${size}`]} ${size.toUpperCase()}`
+          : ""
       )
+      .filter((desc) => desc !== "")
+      .join(",");
+
+    const totalQuantity = sizes.reduce(
+      (sum, size) => sum + (batch[`Batches.${size}`] || 0),
+      0
     );
-    setEditingItemId(null);
+
+    return { sizeDescriptions, totalQuantity };
   };
 
-  const handleQuantityInputChange = (itemId, newQuantity) => {
-    setEditedQuantity((prev) => ({ ...prev, [itemId]: newQuantity }));
+  // Calculate Cart Total
+  const calculateSubtotal = (cart) => {
+    return cart.reduce((total, item) => {
+      const { totalQuantity } = formatBatchSizes(item);
+      const itemPrice = item["Batches.total_price"];
+      return total + itemPrice * totalQuantity;
+    }, 0);
   };
 
-  const calculateSubtotal = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  // Handle Modal
+  const handleOpenEditModal = (item) => {
+    const batchDetails = cart.find(
+      (b) => b["Batches.id"] === item["Batches.id"]
+    );
+    setBatchDetails(batchDetails);
+    toggleEditBatchModal();
   };
+
+  function goToShip(){
+    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  }
 
   return (
     <div className="checkout_page">
-      <div>
-        <h2>Batches:</h2>
-        {isLoaded ? (
-          <ul>
-            {allBatches?.map((batch) => (
-              <li key={batch.id}>
-                {batch.name /* Adjust according to your batch structure */}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Loading batches...</p>
-        )}
-      </div>
-      <header className="checkout_header">CURRENT ORDER</header>
       <div className="checkout_main_body">
-        {items.length === 0 ? (
-          <div className="empty-cart-message">Your cart is empty.</div>
+        <header className="checkout_header">
+          <h1>CURRENT ORDER</h1>
+        </header>
+        {isLoaded && (!cart || cart.length === 0) ? (
+          <div className="empty_cart_message">Your cart is empty.</div>
         ) : (
           <div className="home-items-container">
             <div className="home-item-row header-row">
-              <div className="home-item-image-container">Image Preview</div>
+              <div className="home-item-image-container">Item Preview</div>
               <div className="home-item-info-container">Color</div>
               <div className="home-item-size">Size</div>
               <div className="home-item-quantity">Quantity</div>
-              <div className="home-item-change">Change Quantity</div>
               <div className="home-item-price">Unit Price</div>
+              <div className="removal">Edit</div>
               <div className="removal">Remove</div>
             </div>
-            {items.map((item) => (
-              <div key={item.id} className="home-item-row">
-                <div className="home-item-image-container">
-                  <img
-                    className="home-item-image"
-                    src={item.image}
-                    alt={item.name}
-                  />
-                </div>
-                <div className="home-item-info-container">
-                  <h3 className="home-item-title">{item.name}</h3>
-                </div>
-                <div className="home-item-size">{item.size}</div>
-                <div className="home-item-quantity">{item.quantity}</div>
-                <div className="home-item-change">
-                  {editingItemId === item.id ? (
-                    <>
-                      <input
-                        className="change_quantity"
-                        type="number"
-                        value={editedQuantity[item.id]}
-                        onChange={(e) =>
-                          handleQuantityInputChange(
-                            item.id,
-                            parseInt(e.target.value, 10)
-                          )
-                        }
-                      />
-                      <button
-                        className="confirm-button"
-                        onClick={() => handleQuantityChange(item.id)}
-                      >
-                        Confirm
-                      </button>
-                    </>
-                  ) : (
+            {cart.map((item, idx) => {
+              const { sizeDescriptions, totalQuantity } =
+                formatBatchSizes(item);
+              return (
+                <div key={item["Batches.id"] + idx} className="home-item-row">
+                  <div className="home-item-image-container border_bottom">
+                    <img
+                      className="home-item-image"
+                      src={item["Batches.Design.design_url"]}
+                      alt={item.name}
+                    />
+                    <img
+                      className="home-item-image"
+                      src={item["Batches.product_url"]}
+                      alt={"design image"}
+                    />
+                  </div>
+                  <div className="home-item-info-container">
+                    <h3 className="home-item-title">{item["Batches.color"]}</h3>
+                  </div>
+                  <div className="home-item-size">{sizeDescriptions}</div>
+                  <div className="home-item-quantity">{totalQuantity}</div>
+                  <div className="home-item-price">
+                    ${item["Batches.total_price"]}
+                  </div>
+                  <div className="removal">
                     <button
                       className="edit-button"
-                      onClick={() => handleEditQuantity(item.id)}
+                      aria-label="edit batch"
+                      onClick={() => {
+                        handleOpenEditModal(item);
+                      }}
                     >
-                      Edit Quantity
+                      Edit
                     </button>
-                  )}
+                  </div>
+                  <div className="removal">
+                    <CiSquareRemove
+                      className="remove-button remove-icon"
+                      onClick={() => handleRemoveFromCart(item["Batches.id"])}
+                    />
+                  </div>
                 </div>
-                <div className="home-item-price">${item.price}</div>
-                <button
-                  className="removal"
-                  onClick={() => handleRemoveFromCart(item.id)}
-                >
-                  Remove from Cart
-                </button>
-              </div>
-            ))}
+              );
+            })}
             <div className="subtotal">
-              Subtotal: ${calculateSubtotal().toFixed(2)}
+              <p>
+                Subtotal: <span>${calculateSubtotal(cart).toFixed(2)}</span>
+              </p>
+              <button
+                className="navigate-shipping"
+                aria-label="checkout"
+                onClick={() => goToShip()}
+                style={{backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`}}
+              >
+                <p style={{color: `${cart.length ? "white":"#707070"}`}}>Continue to shipping</p>
+              </button>
             </div>
+            {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}
+            {/* {isEditModalOpen && (
+              <EditBatchModal
+                batchId={currentEditingBatchId}
+                batchDetails={cart.find(
+                  (b) => b["Batches.id"] === currentEditingBatchId
+                )}
+                closeModal={() => setIsEditModalOpen(false)}
+              />
+            )} */}
           </div>
         )}
       </div>

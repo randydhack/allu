@@ -23,7 +23,6 @@ export const orderSlice = createSlice({
         // removeOrder:(state, action)=>{
         //     state.allOrders
         // }
-
     }
 })
 
@@ -72,7 +71,7 @@ export const createOrder = (order) => async (dispatch) => {
 
   if (response.ok) {
     const newOrder = await response.json();
-
+    //this does not match store state needed
     dispatch(addOrder(newOrder));
     return newOrder;
   }

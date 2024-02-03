@@ -1,5 +1,6 @@
 $footer-background: #637DA5;
 $footer-copyright-background: #486592;
+$md: 700px;
 
 
 .footer {
@@ -8,23 +9,36 @@ $footer-copyright-background: #486592;
 
 .footer__main {
     background-color: $footer-background;
-    height: 200px;
+    min-height: 200px;
     width: 100%;
-    padding: 10px 200px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-
+    justify-content: center;
+    gap: 50px;
 }
 
-.showroom__header {
+.footer-header{
     margin: 10px 0px;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .showroom__schedule {
-    display: flex;
-    gap: 10px;
 
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    div{
+        display: flex;
+        flex-direction:column;
+        align-items: flex-end;
+        @media screen and (max-width: ($md)) {
+
+            align-items: flex-start;
+        }
+
+    }
     :first-child p {
         margin: 0px;
     }
@@ -34,9 +48,27 @@ $footer-copyright-background: #486592;
     }
 }
 
+
+.footer__section {
+    display: flex;
+    flex-direction: column;
+    min-height: 170px;
+    justify-content: flex-start;
+    align-items:flex-start;
+    gap: 5px;
+}
+
+
 .footer__copyright {
-    padding: 5px 0px;
+    // padding: 5px 0px;
     text-align: center;
     color: white;
     background-color: $footer-copyright-background;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    p{
+        padding: 0;
+        margin:0;
+    }
 }

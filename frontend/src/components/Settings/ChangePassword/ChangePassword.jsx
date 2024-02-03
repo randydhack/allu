@@ -69,10 +69,11 @@ function ChangePassword() {
             type="password"
             id="oldPassword"
             name="oldPassword"
+            aria-label="old password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+            />
           {errors && <p className="email_form__error">{errors.password}</p>}
         </div>
         <div className="form_group">
@@ -81,6 +82,7 @@ function ChangePassword() {
             type="password"
             id="newPassword"
             name="newPassword"
+            aria-label="new password"
             required
             value={newPassword.new}
             onChange={(e) =>
@@ -89,7 +91,7 @@ function ChangePassword() {
                 confirm: newPassword.confirm,
               })
             }
-          />
+            />
           {errors && <p className="email_form__error">{errors.match}</p>}
         </div>
         <div className="form_group">
@@ -98,6 +100,7 @@ function ChangePassword() {
             type="password"
             id="confirmNewPassword"
             name="confirmNewPassword"
+            aria-label="confirm password"
             required
             value={newPassword.confirm}
             onChange={(e) =>
@@ -114,7 +117,7 @@ function ChangePassword() {
             </p>
           </div>
           <div className="change_pw_btn">
-            <button type="submit">Update Password</button>
+            <button type="submit" aria-label="submit password">Update Password</button>
           </div>
         </div>
       </form>

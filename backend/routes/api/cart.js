@@ -31,16 +31,14 @@ router.get("/", requireAuth, async (req, res) => {
           ],
         },
       ],
-      raw: true
+      raw: true,
     });
 
     if (!cart) {
       return res.status(500).json({ error: "Cart not found bad request" });
     }
 
-    return res.json({
-      cart,
-    });
+    return res.json(cart);
   }
 });
 

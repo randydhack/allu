@@ -36,8 +36,8 @@ import "./components/Settings/Settings.scss";
 
 // Settings Wrapper
 const SettingsWrapper = ({ children }) => (
-  <div className="container">
-    <div className="setting__container">
+  <div className="setting__container">
+    <div className="setting__wrapper">
       <SideNavigation />
       {children}
     </div>
@@ -69,16 +69,16 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/designs" element={<OurDesigns />} />
-            <Route exact path="/design/:id/product" element={<Product />} />
-            <Route exact path="/about-us" element={<AboutUs/>}/>
-            <Route exact path="/contact-us" element={<ContactUs/>}/>
-            <Route path="*" element={<PageNotFound/>}/>
+            <Route exact path="/design/:designId/product" element={<Product />} />
+            <Route exact path="/about-us" element={<AboutUs />} />
+            <Route exact path="/contact-us" element={<ContactUs />} />
+            <Route path="*" element={<PageNotFound />} />
 
             {/* USER MUST BE LOGGED IN TO VIEW THESE ROUTES */}
             {user && (
               <>
                 <Route path="/shipping-information" element={<PickupAndDelivery />} />
-                <Route path="/order-submitted"element={<SuccessPage />} />
+                <Route path="/order-submitted" element={<SuccessPage />} />
                 <Route
                   path="/account-details"
                   element={

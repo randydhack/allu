@@ -1,23 +1,23 @@
 import { csrfFetch } from "../store/csrf";
 import { createSlice } from "@reduxjs/toolkit";
-
+import { getOrders } from './order'
 export const batchSlice = createSlice({
   name: "batches",
   initialState: {
     isLoaded: false,
-    allBatches: null,
+    cart: [],
     singleBatch: null,
   },
   reducers: {
-    loadBatches: (state, action) => {
+    loadCart: (state, action) => {
       state.isLoaded = true;
-      state.allBatches = action.payload;
+      state.cart = action.payload;
     },
     loadSingleBatch: (state, action) => {
       state.singleBatch = action.payload;
     },
     editBatch: (state, action) => {
-      state.allBatches = state.allBatches.map((batch) =>
+      state.cart = state.cart.map((batch) =>
         batch.id === action.payload.id ? action.payload : batch
       );
       if (state.singleBatch?.id === action.payload.id) {
@@ -25,23 +25,25 @@ export const batchSlice = createSlice({
       }
     },
     deleteBatch: (state, action) => {
-      state.allBatches = state.allBatches.filter(
-        (batch) => batch.id !== action.payload
-      );
+      state.cart = state.cart.filter((batch) => batch.id !== action.payload);
 
       if (state.singleBatch?.id === action.payload) {
         state.singleBatch = null;
       }
     },
+    createNewBatch: (state, action) => {
+      state.cart.push(action.payload)
+    }
   },
 });
 
-export const getAllBatches = () => async (dispatch) => {
-  const response = await csrfFetch("/api/batch");
+export const getCart = () => async (dispatch) => {
+  const response = await csrfFetch("/api/cart");
 
   if (response.ok) {
-    const batches = await response.json();
-    dispatch(loadBatches(batches));
+    const cart = await response.json();
+    dispatch(loadCart(cart));
+    return cart
   }
 };
 
@@ -64,8 +66,39 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   if (response.ok) {
     const updatedBatch = await response.json();
     dispatch(loadSingleBatch(updatedBatch));
+    dispatch(getCart());
   }
 };
+
+export const createBatch = (productId, size, designId, color, total_price, product_url, note) => async (dispatch) => {
+  const res = await csrfFetch(`/api/batch`, {
+    method: "POST",
+    body: JSON.stringify({
+      designId,
+      productId,
+      xs: size["XS"],
+      s: size["S"],
+      m: size["M"],
+      l: size["L"],
+      xl: size['XL'],
+      xxl: size["2XL"],
+      xxxl: size["3XL"],
+      xxxxl: size["4XL"],
+      xxxxxl: size["5XL"],
+      color,
+      total_price,
+      product_url,
+      note
+    })
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(createNewBatch(data))
+    return data
+  }
+
+}
 
 export const deleteBatch = (batchId) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`, {
@@ -75,9 +108,22 @@ export const deleteBatch = (batchId) => async (dispatch) => {
   if (response.ok) {
     dispatch(batchSlice.actions.deleteBatch(batchId));
 
-    dispatch(getAllBatches());
+    dispatch(getCart());
   }
 };
-export const { loadBatches, loadSingleBatch } = batchSlice.actions;
+
+export const deleteBatchOrder = (batchId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/batch/${batchId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    dispatch(batchSlice.actions.deleteBatch(batchId));
+
+    dispatch(getOrders());
+  }
+};
+
+export const { loadCart, loadSingleBatch, createNewBatch } = batchSlice.actions;
 
 export default batchSlice.reducer;

@@ -68,6 +68,7 @@ function LoginModal() {
               id="email"
               name="email"
               className="inputField"
+              aria-label="email"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
             />
@@ -81,6 +82,7 @@ function LoginModal() {
               id="password"
               name="password"
               className="inputField"
+              aria-label="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -92,11 +94,11 @@ function LoginModal() {
 
         {/* Login Button */}
         <div>
-          <button type="submit" className="login-button">
+          <button aria-label="login" type="submit" className="login-button">
             Sign In
           </button>
         </div>
-        <div className="create-account-link" onClick={toggleSignUp}>
+        <div className="create-account-link" aria-label="sign up" onClick={toggleSignUp}>
           Don't have an account?
         </div>
       </form>

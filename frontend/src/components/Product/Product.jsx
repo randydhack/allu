@@ -1,171 +1,306 @@
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useContext } from "react";
-import ProductModal from "../Modals/ProductModal";
+// Libaries
+import React, { useState, useContext, useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// Redux
+import { getAllProducts } from "../../store/ProductReducer";
+
+// Icons
+import { IoIosCheckmarkCircle } from "react-icons/io";
+
+// Context
 import { ModalContext } from "../../context/modalContext";
+
 // CSS
 import "./Product.scss";
+import { designDetails } from "../../store/designReducer";
+import { createBatch } from "../../store/BatchReducer";
+import { getCart } from "../../store/BatchReducer";
 
 function Product() {
+  const dispatch = useDispatch();
+  const { designId } = useParams();
   const { setIsModalOpen, setType } = useContext(ModalContext);
-  const [selectedImageId, setSelectedImageId] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const colors = {
-    red: "#ff0000",
-    blue: "#0000ff",
-    green: "#00ff00",
-    white: "#FFFFFF",
+
+  const { allProducts, isLoaded, productColors, productSizes } = useSelector(
+    (state) => state.products
+  );
+
+  const { singleDesign } = useSelector((state) => state.designs);
+
+  const [currentProduct, setCurrentProduct] = useState({
+    id: 1,
+    type: "Heavyweight Ring Spun Tee",
+    price: 12.99,
+  });
+  const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
+  const [note, setNote] = useState("");
+
+  const [sizes, setSizes] = useState({
+    XS: 0,
+    S: 0,
+    M: 0,
+    L: 0,
+    XL: 0,
+    "2XL": 0,
+    "3XL": 0,
+    "4XL": 0,
+    "5XL": 0,
+  });
+
+  const [productImage, setProductImage] = useState(
+    `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`
+  );
+
+  const [addNotification, setAddNotification] = useState("");
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(designDetails(designId));
+  }, [dispatch, setSizes]);
+
+  const handleProductSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      sizes["XS"] ||
+      sizes["S"] ||
+      sizes["M"] ||
+      sizes["L"] ||
+      sizes["XL"] ||
+      sizes["2XL"] ||
+      sizes["3XL"] ||
+      sizes["4XL"] ||
+      sizes["5XL"]
+    ) {
+      const data = await dispatch(
+        createBatch(
+          currentProduct.id,
+          sizes,
+          designId,
+          color.name,
+          currentProduct.price + singleDesign.design_price,
+          productImage,
+          note
+        )
+      );
+      // console.log(data)
+      if (data) {
+        setAddNotification("Added to Cart");
+        setSizes({
+          XS: 0,
+          S: 0,
+          M: 0,
+          L: 0,
+          XL: 0,
+          "2XL": 0,
+          "3XL": 0,
+          "4XL": 0,
+          "5XL": 0,
+        });
+
+        const field = document.getElementsByClassName("size_input");
+        Array.from(field).forEach((el) => (el.value = ""));
+
+        setTimeout(() => {
+          setAddNotification("");
+        }, 5000);
+
+        // updates the cart bubble
+        dispatch(getCart())
+      }
+    }
   };
 
-  const handleZoomOutClick = () => {
-    setIsModalOpen(true);
-    setType("productZoom");
-  };
-
-  function selectImage(imageId) {
-    document.querySelectorAll("#imageSelection img").forEach((img) => {
-      img.classList.remove("selected");
-    });
-
-    document
-      .querySelector(`#imageSelection img:nth-child(${imageId})`)
-      .classList.add("selected");
-  }
-
-  function selectColor(color) {
-    document.querySelectorAll("#colorSelection div").forEach((div) => {
-      div.classList.remove("selected");
-    });
-
-    document
-      .querySelector(`#colorSelection div[onclick="selectColor('${color}')"]`)
-      .classList.add("selected");
-  }
 
   return (
-    <div className="container">
-      <div className="product__directory_history">
-        <span>
-          <NavLink to="/">Home</NavLink> /
-          <NavLink to="/our-designs">Our Designs</NavLink> /
-          <NavLink>DESIGN NAME</NavLink>
-        </span>
-      </div>
+    isLoaded && (
+      <div className="container">
+        <div className="main_panel">
+          <div className="left_panel">
+            <div className="product-images">
+              <div className="mini-images-container">
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  {/* <img
+                    className="side_img design_img"
+                    src={singleDesign?.design_url}
+                    alt={`Design ${designId}`}
+                  /> */}
+                  <img
+                    className="side_img"
+                    src={
+                      allProducts[currentProduct.id - 1].ProductImages[
+                        color.id || 0
+                      ]?.img_url
+                    }
+                    alt={`Product Image of ${color.name}`}
+                  />
+                </div>
+              </div>
 
-      <div className="main_panel">
-        <div className="top_panel">
-          <div className="top_left">
-            <div className="design_preview">
-              <button
-                className="zoom_out"
-                onClick={handleZoomOutClick}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <FontAwesomeIcon icon={faSearchMinus} />
-              </button>
               <img
-                className="modal_img"
-                src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-                alt="Modal Image"
+                className="model_img"
+                src={
+                  allProducts[currentProduct.id - 1]?.ProductImages[
+                    color.id || 0
+                  ]?.img_url
+                } //selects first image of that product with selected id
+                alt={`Model Image wearing ${currentProduct.type}`}
               />
             </div>
+            <div>
+              <h3>Description</h3>
+              <div>{allProducts[currentProduct.id - 1].description}</div>
+            </div>
           </div>
-          <div className="top_mid">
-            <img
-              src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
-              alt="t-shirt"
-            />
-            <p>Description:</p>
-          </div>
-          <div className="top_right">
-            <p className="product_name">Product Name</p>
-            <p>Choose An Option:</p>
-            <form id="product_form">
-              <div id="imageSelection">
-                {[1, 2, 3].map((id) => (
+
+          {/* FORM FOR PRODUCT / COLOR / SIZES */}
+          <form
+            className="product_form"
+            onSubmit={(e) => handleProductSubmit(e)}
+          >
+            <h1>{currentProduct.type}</h1>
+
+            <div>
+              <h3 style={{ marginBottom: "5px" }}>Chosen Design:</h3>
+              <img
+                className="side_img design_img"
+                src={singleDesign?.design_url}
+                alt={`Design with id of${designId}`}
+              />
+            </div>
+
+            <div>
+              <h3>Choose an option:</h3>
+              <div className="product-option-main">
+                {allProducts.map((product, id, colors) => (
                   <img
-                    key={id}
-                    src="https://assets.hermes.com/is/image/hermesproduct/h-embroidered-t-shirt--072025HA01-worn-1-0-0-800-800_g.jpg"
+                    key={product.name + id}
+                    src={allProducts[product.id - 1]?.ProductImages[0]?.img_url} //selects first image of that product with selected id
                     width={50}
                     height={50}
-                    onClick={() => setSelectedImageId(id)}
-                    className={selectedImageId === id ? "selected" : ""}
+                    className="product-option-img"
+                    aria-label="product type"
+                    style={{
+                      border: `${currentProduct.id === product.id
+                          ? "1px solid gray"
+                          : ""
+                        }`,
+                      borderRadius: '3px'
+                    }}
+                    onClick={() => {
+                      setCurrentProduct({
+                        id: product.id,
+                        type: product.name,
+                        price: product.price,
+                      });
+                      setColor({
+                        id: 0,
+                        name: colors[product.id - 1]?.colors[0].name,
+                        product_url:
+                          allProducts[currentProduct.id - 1]?.ProductImages[
+                            color.id || 0
+                          ]?.img_url,
+                      }); //sets color of main image back to first color with name
+                    }}
                   />
                 ))}
               </div>
+            </div>
 
-              <div id="colorSelection">
-                <div className="color_name">
-                  Colors -
-                  {selectedColor
-                    ? selectedColor.charAt(0).toUpperCase() +
-                      selectedColor.slice(1)
-                    : "Select a color"}
-                </div>
-                {Object.entries(colors).map(([colorName, colorValue]) => (
-                  <div
-                    key={colorName}
-                    className="color-circle"
-                    style={{ backgroundColor: colorValue }}
-                    onClick={() => setSelectedColor(colorName)}
-                  ></div>
-                ))}
+            <div>
+              <h3>Select Color: {color.name}</h3>
+              <div className="colors_carousel">
+                {currentProduct.id &&
+                  productColors[currentProduct.id].map((color, i) => {
+                    return (
+                      <div
+                        key={color.name + i}
+                        aria-label="product color"
+                        style={{
+                          backgroundColor: `${color.hex}`,
+                        }}
+                        onClick={() => {
+                          setColor({ id: i, name: color.name });
+                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`)
+                        }}
+                      ></div>
+                    );
+                  })}
               </div>
+            </div>
 
-              <div id="size_quantity">
-                <p>Select A Size And Quantity</p>
-                <div className="size_chart">
-                  <div>
-                    <label>XS</label>
-                    <input type="number" name="size_XS" />
-                  </div>
-                  <div>
-                    <label>S</label>
-                    <input type="number" name="size_S" />
-                  </div>
-                  <div>
-                    <label>M</label>
-                    <input type="number" name="size_M" />
-                  </div>
-                  <div>
-                    <label>L</label>
-                    <input type="number" name="size_L" />
-                  </div>
-                  <div>
-                    <label>XL</label>
-                    <input type="number" name="size_XL" />
-                  </div>
-                  <div>
-                    <label>2XL</label>
-                    <input type="number" name="size_2XL" />
-                  </div>
-                  <div>
-                    <label>3XL</label>
-                    <input type="number" name="size_3XL" />
-                  </div>
-                  <div>
-                    <label>4XL</label>
-                    <input type="number" name="size_4XL" />
-                  </div>
-                  <div>
-                    <label>5XL</label>
-                    <input type="number" name="size_5XL" />
-                  </div>
-                </div>
+            <div>
+              <h3>Select Sizes</h3>
+              <div className="size_panel">
+                {currentProduct.id &&
+                  productSizes[currentProduct.id].map((size, i) => {
+                    return (
+                      <div key={size + i} className="size_input_container">
+                        <span style={{ width: "100%", textAlign: "right" }}>
+                          {size}
+                        </span>{" "}
+                        <input
+                          type="number"
+                          onChange={(e) => {
+                            sizes[size] = Number(e.target.value);
+                            setSizes(sizes);
+                          }}
+                          id="size_input"
+                          className="size_input"
+                          aria_label="product sizes"
+                        ></input>
+                      </div>
+                    );
+                  })}
               </div>
+            </div>
 
-              <button className="confirm_button" type="submit">
-                FINALIZE SELECTION
+            <div>
+              <h4>Add a personalized note:</h4>
+              <input
+                onChange={(e) => {
+                  setNote(e.target.value)
+                }}
+                id="note_input"
+                className="note_input"
+                aria_label="note"
+              ></input>
+            </div>
+
+            <div className="finalize">
+              <button type="submit" disabled={!sizes["XS"] &&
+                !sizes["S"] &&
+                !sizes["M"] &&
+                !sizes["L"] &&
+                !sizes["XL"] &&
+                !sizes["2XL"] &&
+                !sizes["3XL"] &&
+                !sizes["4XL"] &&
+                !sizes["5XL"]} style={{
+                  backgroundColor: `${sizes["XS"] ||
+                    sizes["S"] ||
+                    sizes["M"] ||
+                    sizes["L"] ||
+                    sizes["XL"] ||
+                    sizes["2XL"] ||
+                    sizes["3XL"] ||
+                    sizes["4XL"] ||
+                    sizes["5XL"] ? "black" : "#E4E4E4" }`
+                }} aria-label="submit product">
+                <span>Add to cart</span>
               </button>
-            </form>
-            <p className="place_holder">LOREM IPSUM</p>
-          </div>
+            </div>
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
+          </form>
         </div>
       </div>
-    </div>
+    )
   );
 }
 

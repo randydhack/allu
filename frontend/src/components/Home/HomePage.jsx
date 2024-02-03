@@ -3,6 +3,7 @@ import "./Home.scss";
 import "../utils/DefaultStyles.scss";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import printingPress from '../../images/screen-printing.gif'
 import model from '../../images/model-with-books.png'
 import padPrinting from '../../images/pad-printing.gif'
@@ -11,28 +12,60 @@ import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from '../../images/allu-high-res.png'
-
 function Home() {
-  const { toggleSignUp } = useContext(ModalContext);
-  const navigate = useNavigate()
-  const images=[
-    {url:printingPress, alt:"screenprinting press in operation"},
+const images=[
+    {url: printingPress, alt:"screenprinting press in operation"},
     {url: model, alt: "model wearing screenprinted shirt"},
     {url: padPrinting, alt: "pad printing machine in operation"},
     {url: manualPress, alt:"manual screen printing press"}
   ]
-  const [currentImgIdx, setCurrentImg] = useState(Math.floor(Math.random(images.length)))
+const [currentImgIdx, setCurrentImg] = useState(Math.floor(Math.random(images.length)))
+const[homeStyle, setHomeStyle] = useState(newHomeStyle())
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+function newHomeStyle(){
+  return (getWindowDimensions().width<1150?
+  {backgroundImage:`url(${images[currentImgIdx].url})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize:"cover",
+  backgroundPosition:'center center'}:{})
+}
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+      setHomeStyle(newHomeStyle())
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+useWindowDimensions()
+  const currUser = useSelector((state) => state.session.user);
+  const { toggleSignUp } = useContext(ModalContext);
+  const navigate = useNavigate()
+
   useEffect(()=>{
     const intervalId = setInterval(()=>{
-      setCurrentImg(currentImgIdx==images.length-1?0:currentImgIdx+1)      
+      setCurrentImg(currentImgIdx==images.length-1?0:currentImgIdx+1)
+      setHomeStyle(newHomeStyle())      
     }, 15000)
     return ()=>{clearInterval(intervalId)}
   }, [currentImgIdx])
   
 
-  console.log(currentImgIdx)
   return (
-    <div className="home-container">
+    <div className="home-container"style={homeStyle}>
       {/* Left Section */}
       <div className="home-left-container">
         <div className="home-left-heading">
@@ -43,16 +76,17 @@ function Home() {
 
         <div className="home-left-contents">
           <div className="home-left-infos">
-            <div className="subcolumn">
+            <div className={currUser?"solocolumn":"subcolumn"}>
               <p>Order shirts or hoodies with one of our pre-built designs!</p>
-              <button onClick={()=>{navigate('/designs')}} className="home-left-buttons">
-                Browse pre-made designs
+              <button aria-label="designs" onClick={()=>{navigate('/designs')}} className="home-left-buttons">
+                Browse designs
               </button>
             </div>
+            {!currUser&&
             <div className="subcolumn">
               <p>Sign up to track your orders and save custom designs</p>
-              <button onClick={toggleSignUp} className="home-left-buttons">Sign Up!</button>
-            </div>
+              <button aria-label="sign up" onClick={toggleSignUp} className="home-left-buttons">Sign Up!</button>
+            </div>}
           </div>
 
           {/* <span className="divider">

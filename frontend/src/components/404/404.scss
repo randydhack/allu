@@ -3,17 +3,27 @@
     flex-direction: column;
     align-items: center;
     font-size: 40px;
+    margin: 30px;
 }
 
 .nfp-404 {
     font-size: 45px;
+    margin: 0;
+    text-align: center;
 }
 
 .nfp-home {
     font-size: 30px;
-    color: blue;
+    color: purple;
+    margin: 0;
+    text-align: center;
 }
 
 .nfp-home:hover {
     text-decoration: underline;
+}
+
+.nfp-logo {
+    width: 20%;
+    height: 20%;
 }

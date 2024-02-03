@@ -31,6 +31,7 @@ module.exports = {
           quote: 1.5,
           workforce_race: false,
           processed: true,
+          delivery: true
         },
         {
           id: 2,
@@ -43,6 +44,7 @@ module.exports = {
           quote: 400.5,
           workforce_race: false,
           processed: false,
+          delivery: false
         },
         {
           id: 3,
@@ -56,6 +58,21 @@ module.exports = {
           special_request: "Make this order snappy",
           workforce_race: true,
           processed: false,
+          delivery: true
+        },
+        {
+          id: 4,
+          userId: 1,
+          firstName: "John",
+          lastName: "Doe",
+          email: "johndoe@email.com",
+          phone: 1234567890,
+          address: "789 Ground Street",
+          quote: 505.5,
+          special_request: "Make this order snappy",
+          workforce_race: false,
+          processed: false,
+          delivery: false
         },
       ],
       {}
@@ -69,7 +86,7 @@ module.exports = {
       options,
       {
         id: {
-          [Op.in]: [1, 2, 3],
+          [Op.in]: [1, 2, 3, 4],
         },
       },
       {}

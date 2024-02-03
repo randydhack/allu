@@ -1,10 +1,54 @@
 .about-us{
-    height:calc(100vh - 80px);
     display:flex;
-    flex-direction:column;
     justify-content: center;
     align-items: center;
-    p{
-        width:70%
+    margin: 100px auto;
+
+    header {
+        text-align: center;
+
+        h1 {
+            margin: 0px;
+            font-size: 64px;
+        }
     }
+
+    p {
+        line-height: 30px;
+    }
+
+    img {
+        border-radius: 50%;
+        object-fit: cover;
+        margin: auto;
+    }
+
+    button {
+        padding: 25px 100px;
+        border: 1px black solid;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    :last-child {
+        text-align: center;
+    }
+}
+
+.about-main {
+    display: flex;
+    max-width: 1200px;
+    gap: 100px;
+    flex-direction: column;
+}
+
+.about-section-1 {
+    display: flex;
+    gap: 50px;
+}
+
+.right-about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
