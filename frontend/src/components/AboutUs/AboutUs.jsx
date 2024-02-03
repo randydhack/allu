@@ -1,9 +1,11 @@
 import "./AboutUs.scss";
+import { useNavigate } from "react-router-dom";
 
 import portrait from "../../images/jim_boring.jpg";
 import rockin from "../../images/jim-rockin.jpg";
 
 function AboutUs() {
+    const navigate = useNavigate()
   {
     /* <img src={portrait} alt="Founder of All U Portait" width={500}/> */
   }
@@ -11,6 +13,7 @@ function AboutUs() {
     <main className="about-us">
       <div className="about-main">
         <section className="about-section-1">
+            <div>
           <header>
             <h1>All - U</h1>
             <h2>Making Someone's Favorite Shirt since 1986!</h2>
@@ -34,18 +37,10 @@ function AboutUs() {
             comprehensive and personalized experience. Welcome to the ALL U
             family, where your satisfaction is our top priority.
           </p>
-          {/* <p>
-            My name is Jim Holodak, and we are ALL U, Inc. We are a family owned
-            and operated company with nearly 40 years of experience in the
-            screen printing and embroidery business. I got into the shirt
-            business while still attending Siena College in upstate New York.
-            Our initial niche was to service the groups and events on college
-            campuses across the northeast -hence the name ALL U (All
-            Universities). ALL U also means -All You! All you want, all you
-            need...ALL U.
-          </p> */}
+            </div>
+        {/* <img src={rockin} alt="Founder Singing Photo" width={500} height={500} className="about-img"/> */}
+        <img src={portrait} alt="Founder Singing Photo" width={400} height={400} className="about-img"/>
         </section>
-        <img src={rockin} alt="Founder Singing Photo" width={500} />
         <section className="about-section-2">
           <h2>Our Business</h2>
           <p>
@@ -68,6 +63,10 @@ function AboutUs() {
             need an order of a dozen shirts or thousands, we would love to make
             your shirt one of your favorites.
           </p>
+        </section>
+
+        <section>
+            <button onClick={() => navigate('/contact-us')}>Contact Us</button>
         </section>
       </div>
     </main>
