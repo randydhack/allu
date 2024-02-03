@@ -19,8 +19,7 @@
     margin-bottom: 15px;
   }
 
-
-  .edit-button{
+  .edit-button {
     padding: 5px 30px;
     border-radius: 5px;
 
@@ -28,7 +27,6 @@
       background-color: #dbdbdb;
       transition: all 0.1s;
     }
-
   }
 
   .remove-icon {
@@ -37,23 +35,10 @@
 
     &:hover {
       cursor: pointer;
-      text-shadow: #DBDBDB;
+      text-shadow: #dbdbdb;
       transition: all 0.1s;
     }
   }
-
-  // button {
-  //   border: none;
-  //   border-radius: 5px;
-  //   padding: 5px;
-  //   transform: 0.3s;
-  //   background-color: white;
-  //   border: 1px black solid;
-
-  //   &:active {
-  //     background-color: cadetblue;
-  //   }
-  // }
 
   .checkout_main_body {
     margin-left: auto;
@@ -61,7 +46,7 @@
   }
 
   .checkout_header {
-    border-bottom: 2px solid #DBDBDB;
+    border-bottom: 2px solid #dbdbdb;
     display: flex;
     align-items: flex-end;
     font-weight: 500;
@@ -117,7 +102,6 @@
     .home-item-image {
       height: 100px;
       object-fit: contain;
-
     }
 
     .home-item-info-container {
@@ -164,34 +148,48 @@
   }
 }
 
-
 .modalContent {
   display: flex;
   justify-content: center;
   align-items: center;
   .edit-batch-modal {
-    background-color: rgb(122, 196, 233);
-    padding: 20px;
-    width: 50%;
+    background: white;
+    width: 30rem;
+    padding: 10px 10px;
+    border-radius: 10px;
+
+    .edit-batch-title {
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
 
     .edit_form_container {
+      justify-content: center;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       // width: 50%;
+      // gap: 15px;
+      margin-top: 25px;
     }
     .edit_column {
       display: flex;
       flex-direction: row;
+      justify-content: space-evenly;
       margin-bottom: 5%;
       min-width: 80px;
       max-width: 120px;
       .edit_label {
         width: 50px;
         text-align: center;
+        font-weight: 500;
       }
       input {
+        align-items: flex-end;
         width: 40%;
+        height: 25px;
+        padding: 0px 5px;
       }
     }
     form {
@@ -207,18 +205,14 @@
     }
     button {
       border: none;
-      background-color: #d9d9d9;
       border-radius: 5px;
       padding: 5px;
       transform: 0.3s;
     }
 
     button:hover {
-      background-color: gray;
-    }
-
-    button:active {
-      background-color: cadetblue;
+      background-color: #dbdbdb;
+      transition: all 0.1s;
     }
   }
 }

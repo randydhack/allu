@@ -64,7 +64,7 @@ const EditBatchModal = () => {
 
   return (
     <div className="edit-batch-modal">
-      <span>Edit Quantity:</span>
+      <p className="edit-batch-title">EDIT QUANTITY</p>
       <form onSubmit={handleSubmit}>
         <div className="edit_form_container">
           {Object.keys(sizes).map((size) => (
