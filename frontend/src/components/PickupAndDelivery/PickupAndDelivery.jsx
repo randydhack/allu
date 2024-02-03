@@ -23,7 +23,7 @@ function PickupAndDelivery() {
 
     let order;
     if (isDelivery) {
-      let address = `${formInfo["address1"]} ${formInfo["address2"]} ${formInfo["city"]} ${formInfo["state"]} ${formInfo["zip"]}`;
+      let address = `${formInfo["address1"]} ${formInfo["address2"]} ${formInfo["city"]}, ${formInfo["state"]} ${formInfo["zip"]}`;
       order = {
         userId: currUser.id,
         address: address,
@@ -32,19 +32,22 @@ function PickupAndDelivery() {
         phone: formInfo["phone"],
         email: formInfo["email"],
         special_request: formInfo["special-request"],
-        workforce: false,
+        workforce_race: false,
+        processed: false
       };
     }
     //send all or some fields to backend (depending on pickup or delivery)
     else {
       order = {
         userId: currUser.id,
+        address: '9 Interstate Ave Albany, NY 12205',
         firstName: formInfo["firstName"],
         lastName: formInfo["lastName"],
         phone: formInfo["phone"],
         email: formInfo["email"],
-        special_request: formInfo["special-request"],
-        workforce: false,
+        special_request: formInfo["special-request"] || "",
+        workforce_race: false,
+        processed: false
       };
     }
 
@@ -90,7 +93,7 @@ function PickupAndDelivery() {
               name="pickup-or-delivery"
               onChange={() => setIsDelivery(false)}
             />
-            <p>Pick up at 9 Interstate Ave, Albany NY</p>
+            <p>Pick up at 9 Interstate Ave Albany, NY 12205</p>
           </div>
         </div>
       </div>
