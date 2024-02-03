@@ -95,14 +95,14 @@ function OrderHistory() {
                       </p>
                       <p>Color: {el["Batches.color"]}</p>
                       <p>
-                        Process: {el.processed ? "Complete" : "In Progress"}
+                        Processed: {el.processed ? "Complete" : "In Progress"}
                       </p>
                       <p>Order date: {moment(el.createdAt).format("l")}</p>
                     </div>
                   </div>
                   <div className="order-details_right">
                     <div className="order-shipping-info">
-                      <h3>Ship To: {`${el.firstName} ${el.lastName}`}</h3>
+                      <h3>{el.delivery ? "Ship to: " : "Pick Up: "}{`${el.firstName} ${el.lastName}`}</h3>
                       <h3>Address: {el.address}</h3>
                     </div>
                     <div className="order-buttons">
