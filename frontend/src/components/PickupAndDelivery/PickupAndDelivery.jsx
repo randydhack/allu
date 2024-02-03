@@ -72,7 +72,6 @@ function PickupAndDelivery() {
     <div className="pickup-delivery-page">
       <header>
         <h1>FINALIZE YOUR ORDER</h1>
-        <div className="divider"></div>
       </header>
 
       <div className="checkout_options">
