@@ -21,22 +21,26 @@ import { getCart } from "../../store/BatchReducer";
 function Product() {
   const dispatch = useDispatch();
   const { designId } = useParams();
-  const { setIsModalOpen, setType } = useContext(ModalContext);
 
+  // useSelectors
   const { allProducts, isLoaded, productColors, productSizes } = useSelector(
     (state) => state.products
   );
-
   const { singleDesign } = useSelector((state) => state.designs);
 
+
+  // useStates
   const [currentProduct, setCurrentProduct] = useState({
     id: 1,
     type: "Heavyweight Ring Spun Tee",
     price: 12.99,
   });
-  const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
+  const [color, setColor] = useState({
+    id: 0,
+    name: "banana",
+    product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`,
+  });
   const [note, setNote] = useState("");
-
   const [sizes, setSizes] = useState({
     XS: 0,
     S: 0,
@@ -49,25 +53,43 @@ function Product() {
     "5XL": 0,
   });
 
+  const [confirmButton, setConfirmButtonState] = useState(true);
   const [productImage, setProductImage] = useState(
     `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`
   );
-
   const [addNotification, setAddNotification] = useState("");
 
-  function resetSelect(e){
-    let currentSelection = document.querySelector("div.selected")
-    currentSelection.classList.remove("selected")
-    e.target.classList.add("selected")
-  }
 
+
+
+  // useEffects for fetching
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(designDetails(designId));
-  }, [dispatch, setSizes]);
+  }, [dispatch]);
+
+  // useEffect for disabling button and css styling
+  useEffect(() => {
+    const checkSizes = Object.values(sizes).every((el) => el === 0);
+
+    if (!checkSizes) {
+      setConfirmButtonState(checkSizes);
+    } else {
+      setConfirmButtonState(checkSizes);
+    }
+
+  }, [sizes, setSizes, setConfirmButtonState, confirmButton]);
+
+  // Functions
+  function resetSelect(e) {
+    let currentSelection = document.querySelector("div.selected");
+    currentSelection.classList.remove("selected");
+    e.target.classList.add("selected");
+  }
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
+
     if (
       sizes["XS"] ||
       sizes["S"] ||
@@ -80,17 +102,17 @@ function Product() {
       sizes["5XL"]
     ) {
       const data = await dispatch(
-        createBatch(
-          {productId:currentProduct.id,
-          size:sizes,
-          designId:designId,
-          color:color.name,
-          total_price:currentProduct.price + singleDesign.design_price,
+        createBatch({
+          productId: currentProduct.id,
+          size: sizes,
+          designId: designId,
+          color: color.name,
+          total_price: currentProduct.price + singleDesign.design_price,
           product_url: productImage,
-          note:note}
-        )
+          note: note,
+        })
       );
-      // console.log(data)
+
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -107,17 +129,16 @@ function Product() {
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
-        setNote("")
+        setNote("");
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
 
         // updates the cart bubble
-        dispatch(getCart())
+        dispatch(getCart());
       }
     }
   };
-
 
   return (
     isLoaded && (
@@ -188,11 +209,10 @@ function Product() {
                     className="product-option-img"
                     aria-label="product type"
                     style={{
-                      border: `${currentProduct.id === product.id
-                          ? "1px solid gray"
-                          : ""
-                        }`,
-                      borderRadius: '3px'
+                      border: `${
+                        currentProduct.id === product.id ? "1px solid gray" : ""
+                      }`,
+                      borderRadius: "3px",
                     }}
                     onClick={() => {
                       setCurrentProduct({
@@ -226,11 +246,16 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        className={i==0?"selected":""}
+                        className={i == 0 ? "selected" : ""}
                         onClick={(e) => {
                           resetSelect(e);
-                          setColor({ id: i, name: color.name.split("_").join(" ") });
-                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`)
+                          setColor({
+                            id: i,
+                            name: color.name.split("_").join(" "),
+                          });
+                          setProductImage(
+                            `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`
+                          );
                         }}
                       ></div>
                     );
@@ -251,12 +276,18 @@ function Product() {
                         <input
                           type="number"
                           onChange={(e) => {
+                            //sizes["XL"] = e
                             sizes[size] = Number(e.target.value);
-                            setSizes(sizes);
+                            setSizes(() => {
+                              return {
+                                ...sizes,
+                              };
+                            });
                           }}
                           id="size_input"
                           className="size_input"
                           aria_label="product sizes"
+                          min={0}
                         ></input>
                       </div>
                     );
@@ -265,10 +296,12 @@ function Product() {
             </div>
 
             <div className="textinput-div">
-              <label htmlFor="note_input">Add custom text to your design:</label>
+              <label htmlFor="note_input">
+                Add custom text to your design:
+              </label>
               <textarea
                 onChange={(e) => {
-                  setNote(e.target.value)
+                  setNote(e.target.value);
                 }}
                 id="note_input"
                 className="note-input"
@@ -283,25 +316,25 @@ function Product() {
               </p>
             )}
             <div className="finalize">
-              <button type="submit" disabled={!sizes["XS"] &&
-                !sizes["S"] &&
-                !sizes["M"] &&
-                !sizes["L"] &&
-                !sizes["XL"] &&
-                !sizes["2XL"] &&
-                !sizes["3XL"] &&
-                !sizes["4XL"] &&
-                !sizes["5XL"]} style={{
-                  backgroundColor: `${sizes["XS"] ||
-                    sizes["S"] ||
-                    sizes["M"] ||
-                    sizes["L"] ||
-                    sizes["XL"] ||
-                    sizes["2XL"] ||
-                    sizes["3XL"] ||
-                    sizes["4XL"] ||
-                    sizes["5XL"] ? "black" : "#E4E4E4" }`
-                }} aria-label="submit product">
+              <button
+                type="submit"
+                disabled={
+                  confirmButton
+                }
+                style={{
+                  backgroundColor: `${
+                    !confirmButton
+                      ? "black"
+                      : "#E4E4E4"
+                  }`,
+                  cursor: `${
+                   !confirmButton
+                      ? "pointer"
+                      : "default"
+                  }`,
+                }}
+                aria-label="submit product"
+              >
                 <span>Add to cart</span>
               </button>
             </div>
