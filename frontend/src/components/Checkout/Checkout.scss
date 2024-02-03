@@ -1,49 +1,67 @@
 .checkout_page {
-  width: 75%;
-
-  margin-left: 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   word-wrap: break-word;
-  button {
-    border: none;
-    background-color: #d9d9d9;
+  margin: 50px auto;
+  max-width: 80%;
+
+  h1 {
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0px;
+    margin-bottom: 15px;
+  }
+
+
+  .edit-button{
+    padding: 5px 30px;
     border-radius: 5px;
-    padding: 5px;
-    transform: 0.3s;
+
+    &:hover {
+      background-color: #dbdbdb;
+      transition: all 0.1s;
+    }
+
   }
 
-  button:hover {
-    background-color: gray;
+  .remove-icon {
+    color: red;
+    font-size: 32px;
+
+    &:hover {
+      cursor: pointer;
+      text-shadow: #DBDBDB;
+      transition: all 0.1s;
+    }
   }
 
-  button:active {
-    background-color: cadetblue;
-  }
+  // button {
+  //   border: none;
+  //   border-radius: 5px;
+  //   padding: 5px;
+  //   transform: 0.3s;
+  //   background-color: white;
+  //   border: 1px black solid;
+
+  //   &:active {
+  //     background-color: cadetblue;
+  //   }
+  // }
 
   .checkout_main_body {
-    width: 80%;
     margin-left: auto;
     margin-right: auto;
   }
 
   .checkout_header {
-    height: 70px;
-    width: 100%;
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid #DBDBDB;
     display: flex;
     align-items: flex-end;
-    margin-bottom: 30px;
-    font-size: 24px;
-    font-weight: 600;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-      sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0px;
+    margin-bottom: 15px;
   }
 
   .home-items-container {
-    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -51,14 +69,16 @@
   .home-item-row {
     display: flex;
     align-items: center;
+    gap: 5px;
 
-    border-bottom: 1px solid #ccc;
     padding: 10px;
     > div {
       flex-grow: 1;
       text-align: center;
       padding: 10px;
+      width: fit-content;
     }
+
     .home-item-size {
       min-width: 20%;
       max-width: 20%;
@@ -76,16 +96,21 @@
       max-width: 10%;
     }
     .home-item-image-container {
-      min-width: 20%;
-      max-width: 20%;
+      display: flex;
+      justify-content: center;
     }
     .removal {
       min-width: 10%;
       max-width: 10%;
+      display: flex;
+      justify-content: center;
     }
     .home-item-image {
-      max-width: 100px;
-      min-width: 100px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      object-fit: contain;
+      justify-content: center;
     }
 
     .home-item-info-container {
@@ -96,11 +121,10 @@
       justify-content: center;
 
       .home-item-title {
-        min-width: 100%;
-        max-width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-weight: 500;
       }
     }
 
@@ -113,15 +137,22 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    margin-left: auto;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 24px;
-    margin-bottom: 15%;
+  }
+
+  span {
+    font-weight: 400;
   }
 }
 
 .navigate-shipping {
-  min-height: 50px;
-  width: 100%;
-  font-size: 16px;
+  padding: 5px 30px;
+  background-color: black;
+
+  p {
+    color: white;
+    font-size: medium;
+  }
+
 }

@@ -1,12 +1,23 @@
+// Libaries
 import { useState, useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCart, deleteBatch } from "../../store/BatchReducer";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// Redux Store
+import { getCart, deleteBatch } from "../../store/BatchReducer";
+
+// Components
+import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
+
+// Context
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 
+// CSS
 import "./Checkout.scss";
-import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
+
+// Icons
+import { CiSquareRemove } from "react-icons/ci";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -33,11 +44,11 @@ function Checkout() {
 
   // Format Batch sizes
   const formatBatchSizes = (batch) => {
-    const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
+    const sizes = ["xs", "s", "m", "l", "xl", "2l", "3xl", "4xl", "5xl"];
     const sizeDescriptions = sizes
       .map((size) =>
         batch[`Batches.${size}`]
-          ? `${batch[`Batches.${size}`]}${size.toUpperCase()}`
+          ? ` ${batch[`Batches.${size}`]} ${size.toUpperCase()}`
           : ""
       )
       .filter((desc) => desc !== "")
@@ -58,7 +69,6 @@ function Checkout() {
       const itemPrice = item["Batches.total_price"];
       return total + itemPrice * totalQuantity;
     }, 0);
-
   };
 
   // Handle Modal
@@ -70,38 +80,46 @@ function Checkout() {
     toggleEditBatchModal();
   };
 
-  function goToShip(){
-    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  function goToShip() {
+    navigate("/shipping-information", {
+      state: { quote: calculateSubtotal(cart).toFixed(2) },
+    });
   }
-
 
   return (
     <div className="checkout_page">
-      <header className="checkout_header">CURRENT ORDER</header>
       <div className="checkout_main_body">
+        <header className="checkout_header">
+          <h1>CURRENT ORDER</h1>
+        </header>
         {isLoaded && (!cart || cart.length === 0) ? (
           <div className="empty-cart-message">Your cart is empty.</div>
         ) : (
           <div className="home-items-container">
             <div className="home-item-row header-row">
-              <div className="home-item-image-container">Image Preview</div>
+              <div className="home-item-image-container">Item Preview</div>
               <div className="home-item-info-container">Color</div>
               <div className="home-item-size">Size</div>
               <div className="home-item-quantity">Quantity</div>
-              <div className="home-item-change">Change Quantity</div>
               <div className="home-item-price">Unit Price</div>
+              <div className="removal">Edit</div>
               <div className="removal">Remove</div>
             </div>
-            {cart.map((item) => {
+            {cart.map((item, idx) => {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
               return (
-                <div key={item["Batches.id"]} className="home-item-row">
-                  <div className="home-item-image-container">
+                <div key={item["Batches.id"] + idx} className="home-item-row">
+                  <div className="home-item-image-container border_bottom">
                     <img
                       className="home-item-image"
                       src={item["Batches.Design.design_url"]}
                       alt={item.name}
+                    />
+                    <img
+                      className="home-item-image"
+                      src={item["Batches.product_url"]}
+                      alt={"design image"}
                     />
                   </div>
                   <div className="home-item-info-container">
@@ -109,37 +127,41 @@ function Checkout() {
                   </div>
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
-                  <div className="home-item-change">
+                  <div className="home-item-price">
+                    ${item["Batches.total_price"]}
+                  </div>
+                  <div className="removal">
                     <button
-                      aria-label="edit sizes "
+                      className="edit-button"
+                      aria-label="edit batch"
                       onClick={() => {
                         handleOpenEditModal(item);
                       }}
                     >
-                      Edit Sizes
+                      Edit
                     </button>
                   </div>
-                  <div className="home-item-price">
-                    ${item["Batches.total_price"]}
+                  <div className="removal">
+                    <CiSquareRemove
+                      className="remove-button remove-icon"
+                      onClick={() => handleRemoveFromCart(item["Batches.id"])}
+                    />
                   </div>
-                  <button
-                    className="removal"
-                    aria-label="delete batch"
-                    onClick={() => handleRemoveFromCart(item["Batches.id"])}
-                  >
-                    Remove from Cart
-                  </button>
                 </div>
               );
             })}
             <div className="subtotal">
-              Subtotal: ${calculateSubtotal(cart).toFixed(2)}
+              <p>
+                Subtotal: <span>${calculateSubtotal(cart).toFixed(2)}</span>
+              </p>
               <button
                 className="navigate-shipping"
                 aria-label="checkout"
                 onClick={() => goToShip()}
+                style={{backgroundColor: `${cart.length ? "#E4E4E4": "black"}`}}
               >
-                Proceed to Shipping Information
+
+                <p style={{color: `${cart.length ? "#707070": "white"}`}}>Continue to shipping</p>
               </button>
             </div>
             {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}

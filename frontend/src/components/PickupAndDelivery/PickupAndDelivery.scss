@@ -2,9 +2,15 @@
     margin: 50px auto;
     max-width: 1200px;
     height: 100%;
-    h1 {
-        margin-bottom: 10px;
-        font-weight: 500;
+
+    header {
+        h1 {
+            font-weight: 500;
+        }
+        border-bottom: 2px solid #DBDBDB;
+        margin: 0px;
+        margin-bottom: 15px;
+
     }
 
     p {
