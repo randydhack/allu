@@ -65,6 +65,7 @@ function SignUpModal() {
               id="email"
               name="email"
               className="inputField"
+              aria-label="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -80,6 +81,7 @@ function SignUpModal() {
               id="first_name"
               name="first_name"
               className="inputField"
+              aria-label="first name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -94,6 +96,7 @@ function SignUpModal() {
               id="last_name"
               name="last_name"
               className="inputField"
+              aria-label="last name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -108,6 +111,7 @@ function SignUpModal() {
               id="password"
               name="password"
               className="inputField"
+              aria-label="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -119,10 +123,10 @@ function SignUpModal() {
 
         {/* Signup Bottom */}
         <div>
-          <button type='submit' className="signup-button">Sign Up</button>
+          <button aria-label="submit" type='submit' className="signup-button">Sign Up</button>
         </div>
 
-        <div className="login-link" onClick={() => toggleLogin()}>Already have an account?</div>
+        <div className="login-link" aria-label="login" onClick={() => toggleLogin()}>Already have an account?</div>
       </form>
     </div>
   );

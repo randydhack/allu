@@ -29,18 +29,18 @@ function Footer() {
         </div>
         <div className='footer__section'>
           <h4 className="footer-header">Business</h4>
-          <NavLink to='/about-us'>About Us</NavLink>
-          <NavLink to='/contact-us'>Contact Us</NavLink>
-          <NavLink to='/designs'>Designs</NavLink>
+          <NavLink to='/about-us' aria-label="about">About Us</NavLink>
+          <NavLink to='/contact-us' aria-label="contact">Contact Us</NavLink>
+          <NavLink to='/designs' aria-label="designs">Designs</NavLink>
           <div>
           </div>
         </div>
 
         <div className='footer__section'>
           <h4 className="footer-header">Account</h4>
-          <NavLink >Order History</NavLink>
-          <NavLink>Account</NavLink>
-          <NavLink>Logout</NavLink>
+          <NavLink aria-label="order history">Order History</NavLink>
+          <NavLink aria-label="account">Account</NavLink>
+          <NavLink aria-label="logout">Logout</NavLink>
         </div>
       </div>
       <div className="footer__copyright">

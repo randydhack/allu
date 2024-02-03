@@ -78,14 +78,14 @@ useWindowDimensions()
           <div className="home-left-infos">
             <div className={currUser?"solocolumn":"subcolumn"}>
               <p>Order shirts or hoodies with one of our pre-built designs!</p>
-              <button onClick={()=>{navigate('/designs')}} className="home-left-buttons">
+              <button aria-label="designs" onClick={()=>{navigate('/designs')}} className="home-left-buttons">
                 Browse designs
               </button>
             </div>
             {!currUser&&
             <div className="subcolumn">
               <p>Sign up to track your orders and save custom designs</p>
-              <button onClick={toggleSignUp} className="home-left-buttons">Sign Up!</button>
+              <button aria-label="sign up" onClick={toggleSignUp} className="home-left-buttons">Sign Up!</button>
             </div>}
           </div>
 

@@ -65,6 +65,7 @@ function ChangeEmail() {
                 type="email"
                 id="newEmail"
                 name="newEmail"
+                aria-label="new email"
                 required
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
@@ -77,6 +78,7 @@ function ChangeEmail() {
                 type="password"
                 id="confirmNewPassword"
                 name="confirmNewPassword"
+                aria-label="current password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,7 +95,7 @@ function ChangeEmail() {
                 </p>
               </div>
               <div className="change_email_btn">
-                <button type="submit">Confirm Changes</button>
+                <button type="submit" aria-label="confirm button">Confirm Changes</button>
               </div>
             </div>
           </form>

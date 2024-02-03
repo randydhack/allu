@@ -39,11 +39,11 @@ function SideNavigation() {
       <div className="setting__contents">
         <h2 className="setting-nav-header">Settings</h2>
         <div className="side-navigation__contents">
-          <NavLink to='/account-details' className="side-navigation-links" aria-current="Account Details Page"><MdOutlineManageAccounts /> Account Details</NavLink>
-          <NavLink to='/order-history' className="side-navigation-links"><TbTruckDelivery /> Order History</NavLink>
-          <NavLink to='/change-email' className="side-navigation-links"><HiOutlineMail aria-hidden="true"/> Change Email</NavLink>
-          <NavLink to='/change-password'className="side-navigation-links"><IoKeyOutline /> Change Password</NavLink>
-          <NavLink to="/" className="side-navigation-links" onClick={e => handleUserLogout(e)}><IoLogOutOutline/> Log out</NavLink>
+          <NavLink to='/account-details' className="side-navigation-links" aria-label="account details" aria-current="Account Details Page"><MdOutlineManageAccounts /> Account Details</NavLink>
+          <NavLink to='/order-history' className="side-navigation-links" aria-label="order history" ><TbTruckDelivery /> Order History</NavLink>
+          <NavLink to='/change-email' className="side-navigation-links" aria-label="change email" ><HiOutlineMail aria-hidden="true"/> Change Email</NavLink>
+          <NavLink to='/change-password'className="side-navigation-links" aria-label="change password" ><IoKeyOutline /> Change Password</NavLink>
+          <NavLink to="/" className="side-navigation-links" aria-label="logout" onClick={e => handleUserLogout(e)}><IoLogOutOutline/> Log out</NavLink>
         </div>
       </div>
     </div>

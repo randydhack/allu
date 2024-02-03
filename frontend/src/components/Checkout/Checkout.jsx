@@ -110,6 +110,7 @@ function Checkout() {
                   <div className="home-item-quantity">{totalQuantity}</div>
                   <div className="home-item-change">
                     <button
+                      aria-label="edit sizes "
                       onClick={() => {
                         handleOpenEditModal(item);
                       }}
@@ -122,6 +123,7 @@ function Checkout() {
                   </div>
                   <button
                     className="removal"
+                    aria-label="delete batch"
                     onClick={() => handleRemoveFromCart(item["Batches.id"])}
                   >
                     Remove from Cart
@@ -133,6 +135,7 @@ function Checkout() {
               Subtotal: ${calculateSubtotal(cart).toFixed(2)}
               <button
                 className="navigate-shipping"
+                aria-label="checkout"
                 onClick={() => goToShip()}
               >
                 Proceed to Shipping Information

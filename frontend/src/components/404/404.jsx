@@ -11,7 +11,7 @@ function PageNotFound() {
                 404 Page not found
             </p>
             <p className='nfp-home'>
-                <NavLink to='/'>Go Home</NavLink>
+                <NavLink aria-label="home" to='/'>Go Home</NavLink>
             </p>
         </div>
     )

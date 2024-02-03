@@ -77,7 +77,7 @@ function Product() {
           product_url,
         )
       );
-          console.log(data)
+          // console.log(data)
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -101,6 +101,7 @@ function Product() {
       }
     }
   };
+ 
   return (
     isLoaded && (
       <div className="container">
@@ -121,7 +122,7 @@ function Product() {
                         color.id || 0
                       ]?.img_url
                     }
-                    alt={`Product Image - ${color.name}`}
+                    alt={`Product Image of ${color.name}`}
                   />
                 </div>
                 {/* {allProducts[product.id - 1].ProductImages.map(
@@ -152,7 +153,7 @@ function Product() {
                     color.id || 0
                   ]?.img_url
                 } //selects first image of that product with selected id
-                alt="Model Image"
+                alt={`Model Image wearing ${currentProduct.type}`}
               />
             </div>
             <div>
@@ -173,7 +174,7 @@ function Product() {
             <img
                     className="side_img design_img"
                     src={singleDesign?.design_url}
-                    alt={`Design ${designId}`}
+                    alt={`Design with id of${designId}`}
                   />
             </div>
 
@@ -187,6 +188,7 @@ function Product() {
                     width={50}
                     height={50}
                     className="product-option-img"
+                    aria-label="product type"
                     style={{
                       border: `${
                         currentProduct.id === product.id
@@ -222,6 +224,7 @@ function Product() {
                     return (
                       <div
                         key={color.name + i}
+                        aria-label="product color"
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
@@ -252,6 +255,7 @@ function Product() {
                           }}
                           id="size_input"
                           className="size_input"
+                          aria_label="product sizes"
                         ></input>
                       </div>
                     );
@@ -260,7 +264,7 @@ function Product() {
             </div>
 
             <div className="finalize">
-              <button type="submit">
+              <button type="submit" aria-label="submit product">
                 <span>Add to cart</span>
               </button>
             </div>

@@ -68,27 +68,27 @@ function Navbar() {
         <div className="left-nav">
               {screenSmall&&
               <>
-                <input id="toggle1" type="checkbox" />
+                <input id="toggle1" type="checkbox" aria-label="hamburger"/>
                 <label className="hamburger1" htmlFor="toggle1">
                   <div className="top"></div>
                   <div className="middle"></div>
                   <div className="bottom"></div>
                 </label>
                 <nav class="menu1">
-                <NavLink to="/designs" alt="designs" className="link1">
+                <NavLink to="/designs" alt="designs" className="link1" aria-label="design">
                   Designs
                 </NavLink>
-                <NavLink to="/contact-us" alt="Contact Us" className="link1">
+                <NavLink to="/contact-us" alt="Contact Us" className="link1" aria-label="contact">
                   Contact Us
                 </NavLink>
-                <NavLink to="/about-us" alt="About Us" className="link1">
+                <NavLink to="/about-us" alt="About Us" className="link1" aria-label="about">
                   About us
                 </NavLink>
                 </nav>
               </>
               }
           <div className="nav_logo__container">
-            <NavLink to="/">
+            <NavLink to="/" aria-label="home">
               <img
                 className="nav_logo"
                 src={Logo}
@@ -99,13 +99,13 @@ function Navbar() {
 
           {!screenSmall&&
           <div className="nav__middle__section">
-            <NavLink to="/designs" alt="designs">
+            <NavLink to="/designs" alt="designs" aria-label="design">
               Designs
             </NavLink>
-            <NavLink to="/contact-us" alt="Contact Us">
+            <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
               Contact Us
             </NavLink>
-            <NavLink to="/about-us" alt="About Us">
+            <NavLink to="/about-us" alt="About Us" aria-label="about">
               About us
             </NavLink>
           </div>}
@@ -118,10 +118,10 @@ function Navbar() {
 
         {user || currUser ? (
           <div className="nav__profile__cart">
-            <NavLink to="/account-details">
+            <NavLink to="/account-details" aria-label="account">
               <PiUserCircle className="user-icon" />
             </NavLink>
-            <NavLink to="/checkout">
+            <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
                 {cart?.length ? (
@@ -134,8 +134,8 @@ function Navbar() {
           </div>
         ) : (
           <div className="nav__right__section">
-            <button onClick={() => toggleLogin()}>Sign in</button>
-            <button onClick={() => toggleSignUp()}>Register</button>
+            <button aria-label="sign in" onClick={() => toggleLogin()}>Sign in</button>
+            <button aria-label="sign up" onClick={() => toggleSignUp()}>Register</button>
           </div>
         )}
       </div>

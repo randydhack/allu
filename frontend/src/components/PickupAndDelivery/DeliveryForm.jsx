@@ -16,23 +16,23 @@ function DeliveryForm({ setFormInfo, formInfo }) {
           <div className="form-left-panel">
             <div className="form-field">
               <label htmlFor="firstName">First Name</label>
-              <input required type="text" name="firstName" id="firstName" onChange={formChange} value={formInfo["firstName"] ? formInfo["firstName"] : ""}/>
+              <input required type="text" name="firstName" id="firstName"aria-label="first name"  onChange={formChange} value={formInfo["firstName"] ? formInfo["firstName"] : ""}/>
             </div>
             <div className="form-field">
               <label htmlFor="address1">Address 1</label>
-              <input required type="text" name="address1" id="address1" onChange={formChange} value={formInfo["address1"] || ""}/>
+              <input required type="text" name="address1" id="address1" aria-label="address1" onChange={formChange} value={formInfo["address1"] || ""}/>
             </div>
             <div className="form-field">
               <label htmlFor="city">City</label>
-              <input required type="text" name="city" id="city" onChange={formChange} value={formInfo["city"] || ''}/>
+              <input required type="text" name="city" id="city" aria-label="city" onChange={formChange} value={formInfo["city"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="phone">Phone</label>
-              <input required type="number" name="phone" id="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
+              <input required type="number" name="phone" id="phone" aria-label="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>
-              <input required type="email" name="email" id="email" onChange={formChange} value={formInfo["email"] || ''} />
+              <input required type="email" name="email" id="email" aria-label="email" onChange={formChange} value={formInfo["email"] || ''} />
             </div>
           </div>
 
@@ -40,13 +40,13 @@ function DeliveryForm({ setFormInfo, formInfo }) {
           <div>
             <div className="form-field-right">
               <label htmlFor="lastName">Last Name</label>
-              <input required type="text" name="lastName" id="lastName" onChange={formChange} value={formInfo["lastName"] || ''}/>
+              <input required type="text" name="lastName" id="lastName" aria-label="last name" onChange={formChange} value={formInfo["lastName"] || ''}/>
             </div>
             <div className="form-field-right">
               <label htmlFor="address2" className="address2">
                 Address 2
               </label>
-              <input type="text" name="address2" id="address2" onChange={formChange} value={formInfo["address2"] || ''}/>
+              <input type="text" name="address2" id="address2" aria-label="address2" onChange={formChange} value={formInfo["address2"] || ''}/>
             </div>
             <div className="state-zip">
               <div>
@@ -55,6 +55,7 @@ function DeliveryForm({ setFormInfo, formInfo }) {
                   required
                   name="state"
                   id="state-selector"
+                  aria-label="state"
                   onChange={formChange}
                   defaultValue=""
                   value={formInfo["state"]}
@@ -69,7 +70,7 @@ function DeliveryForm({ setFormInfo, formInfo }) {
               </div>
               <div>
                 <label htmlFor="zipCode">Zip Code</label>
-                <input required type="tel" className="zip" name="zipCode" id="zipCode" onChange={formChange} value={formInfo["zipCode"] || ''}/>
+                <input required type="tel" className="zip" name="zipCode" id="zipCode" aria-label="zip code"onChange={formChange} value={formInfo["zipCode"] || ''}/>
               </div>
             </div>
           </div>

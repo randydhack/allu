@@ -75,6 +75,7 @@ function PickupAndDelivery() {
             <input
               type="radio"
               id="delivery"
+              aria-label="delivery"
               defaultChecked
               name="pickup-or-delivery"
               onChange={() => setIsDelivery(true)}
@@ -86,6 +87,7 @@ function PickupAndDelivery() {
             <input
               type="radio"
               id="delivery"
+              aria-label="delivery"
               value={false}
               name="pickup-or-delivery"
               onChange={() => setIsDelivery(false)}
@@ -109,6 +111,7 @@ function PickupAndDelivery() {
             id="special-request"
             cols="30"
             rows="10"
+            aria-label="special request"
             placeholder="Any additional information about the order or special request."
             onChange={formChange}
             value={formInfo["special-request"] || ""}
@@ -120,7 +123,7 @@ function PickupAndDelivery() {
             Submitting this will finalize your order and be reviewed before
             shipping.
           </p>
-          <button type="submit">Submit Order</button>
+          <button type="submit" aria-label="submit">Submit Order</button>
         </div>
       </form>
     </div>

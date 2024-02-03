@@ -72,15 +72,17 @@ const EditBatchModal = () => {
               type="number"
               id={size}
               name={size}
+              aria-label="size"
               value={sizes[size] ?? ""}
               onChange={handleChange}
               min="0"
             />
           </div>
         ))}
-        <button type="submit">Update Sizes</button>
+        <button aria-label="update size" type="submit">Update Sizes</button>
       </form>
       <button
+        aria-label="modal"
         onClick={() => {
           setIsModalOpen(false);
           setType(null);

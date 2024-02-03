@@ -61,6 +61,7 @@ function OrderHistory() {
                     <img
                       src={el["Batches.Design.design_url"]}
                       className="order_design_image"
+                      alt={`Premade design with id ${el["Batches.Design.id"]}`}
                     />
                     <div className="order_details">
                       <h3>{el["Batches.Product.name"]}</h3>
@@ -105,12 +106,12 @@ function OrderHistory() {
                       <h3>Address: {el.address}</h3>
                     </div>
                     <div className="order-buttons">
-                      <button onClick={() => {
+                      <button aria-label="batch notes" onClick={() => {
                         setIsFormVisible({id: el["Batches.id"], toggle: true})
                         handleSpecialRequest(el["Batches.id"])}}>
                         NOTES
                       </button>
-                      <button onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
+                      <button aria-label="delete batch" onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
                     </div>
                   </div>
                 </div>

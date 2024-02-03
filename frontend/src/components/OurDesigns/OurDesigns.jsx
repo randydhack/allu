@@ -43,7 +43,7 @@ function OurDesigns() {
             return (
               <div key={`design${i}`} className='design-link-container'>
                 <img src={el.design_url} alt={`design-${el.id}`} className="design_image" />
-                <NavLink to={`/design/${el.id}/product`} className='link-design'>
+                <NavLink to={`/design/${el.id}/product`} className='link-design' aria-label="product link">
                 </NavLink>
               </div>
             );
