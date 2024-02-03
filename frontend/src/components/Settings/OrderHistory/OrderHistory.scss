@@ -68,29 +68,77 @@
   }
 }
 
-.special-request-form {
+.note-description {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+  
+  p {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+  h4 {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+}
 
+.note-edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+  
+  h4 {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+  p {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 50%;
+    resize: none;
+    // padding: 5px;
+    // height:70px;
+    // line-height: 1.5rem;
+  }
+  
+  button {
+    // margin-left: auto;
+    margin-top: 5px;
+    border: 1px black solid;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px 15px;
+  }
+}
+
+.note-pre-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+  
+  h4 {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+  
   p {
     margin: 0px;
     margin-bottom: 5px;
   }
 
-  textarea {
-    width: 100%;
-    resize: none;
-    padding: 5px;
-    height: 100px;
-    line-height: 1.5rem;
+  button {
+    // margin-left: auto;
+    margin-top: 5px;
+    border: 1px black solid;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px 15px;
   }
-
-  // button {
-  //   margin-left: auto;
-  //   margin-top: 5px;
-  //   border: 1px black solid;
-  //   background-color: white;
-  //   cursor: pointer;
-  //   padding: 5px 15px;
-  // }
 }

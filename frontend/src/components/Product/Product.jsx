@@ -55,27 +55,23 @@ function Product() {
 
   const [addNotification, setAddNotification] = useState("");
 
-  console.log("COLOR", color);
-
-  console.log("current", currentProduct);
-
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(designDetails(designId));
-  }, [dispatch]);
+  }, [dispatch, setSizes]);
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
     if (
-      !sizes["XS"] ||
-      !sizes["S"] ||
-      !sizes["M"] ||
-      !sizes["L"] ||
-      !sizes["XL"] ||
-      !sizes["2XL"] ||
-      !sizes["3XL"] ||
-      !sizes["4XL"] ||
-      !sizes["5XL"]
+      sizes["XS"] ||
+      sizes["S"] ||
+      sizes["M"] ||
+      sizes["L"] ||
+      sizes["XL"] ||
+      sizes["2XL"] ||
+      sizes["3XL"] ||
+      sizes["4XL"] ||
+      sizes["5XL"]
     ) {
       const data = await dispatch(
         createBatch(
@@ -88,7 +84,7 @@ function Product() {
           note
         )
       );
-          // console.log(data)
+      // console.log(data)
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -115,6 +111,7 @@ function Product() {
       }
     }
   };
+
 
   return (
     isLoaded && (
@@ -165,12 +162,12 @@ function Product() {
             <h1>{currentProduct.type}</h1>
 
             <div>
-              <h3 style={{marginBottom: "5px"}}>Chosen Design:</h3>
-            <img
-                    className="side_img design_img"
-                    src={singleDesign?.design_url}
-                    alt={`Design with id of${designId}`}
-                  />
+              <h3 style={{ marginBottom: "5px" }}>Chosen Design:</h3>
+              <img
+                className="side_img design_img"
+                src={singleDesign?.design_url}
+                alt={`Design with id of${designId}`}
+              />
             </div>
 
             <div>
@@ -185,11 +182,10 @@ function Product() {
                     className="product-option-img"
                     aria-label="product type"
                     style={{
-                      border: `${
-                        currentProduct.id === product.id
+                      border: `${currentProduct.id === product.id
                           ? "1px solid gray"
                           : ""
-                      }`,
+                        }`,
                       borderRadius: '3px'
                     }}
                     onClick={() => {
@@ -226,7 +222,7 @@ function Product() {
                         }}
                         onClick={() => {
                           setColor({ id: i, name: color.name });
-                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg` )
+                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`)
                         }}
                       ></div>
                     );
@@ -273,7 +269,25 @@ function Product() {
             </div>
 
             <div className="finalize">
-              <button type="submit" aria-label="submit product">
+              <button type="submit" disabled={!sizes["XS"] &&
+                !sizes["S"] &&
+                !sizes["M"] &&
+                !sizes["L"] &&
+                !sizes["XL"] &&
+                !sizes["2XL"] &&
+                !sizes["3XL"] &&
+                !sizes["4XL"] &&
+                !sizes["5XL"]} style={{
+                  backgroundColor: `${sizes["XS"] ||
+                    sizes["S"] ||
+                    sizes["M"] ||
+                    sizes["L"] ||
+                    sizes["XL"] ||
+                    sizes["2XL"] ||
+                    sizes["3XL"] ||
+                    sizes["4XL"] ||
+                    sizes["5XL"] ? "black" : "#E4E4E4" }`
+                }} aria-label="submit product">
                 <span>Add to cart</span>
               </button>
             </div>
