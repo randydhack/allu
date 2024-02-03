@@ -39,7 +39,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       address: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       special_request: {
@@ -53,6 +52,10 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       processed: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
+      delivery: {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
