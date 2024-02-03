@@ -16,6 +16,7 @@ import { ModalContext } from "../../context/modalContext";
 import "./Product.scss";
 import { designDetails } from "../../store/designReducer";
 import { createBatch } from "../../store/BatchReducer";
+import { getCart } from "../../store/BatchReducer";
 
 function Product() {
   const dispatch = useDispatch();
@@ -80,7 +81,6 @@ function Product() {
         )
       );
 
-      // console.log(data)
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -101,6 +101,9 @@ function Product() {
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
+        
+        // updates the cart bubble
+        dispatch(getCart())
       }
     }
   };
@@ -196,8 +199,8 @@ function Product() {
                     aria-label="product type"
                     style={{
                       border: `${currentProduct.id === product.id
-                          ? "1px solid gray"
-                          : ""
+                        ? "1px solid gray"
+                        : ""
                         }`,
                       borderRadius: '3px'
                     }}

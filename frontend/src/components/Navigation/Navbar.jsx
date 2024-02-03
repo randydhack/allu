@@ -30,6 +30,7 @@ function Navbar() {
 
   const currUser = useSelector((state) => state.session.user);
   const cart = useSelector((state) => state.batches.cart);
+  const cartNull = cart.filter(el => el["Batches.id"] != null)
   const [screenSmall, setScreenSmall]=useState(getWindowDimensions().width<700)
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function Navbar() {
     return windowDimensions;
   }
   useWindowDimensions()
+
 
   return (
     <div className="nav__container">
@@ -124,7 +126,7 @@ function Navbar() {
             <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
-                {cart?.length ? (
+                {cart?.length &&  cartNull.length ? (
                   <div className="cart_total_items">{cart?.length}</div>
                 ) : (
                   ""
