@@ -58,6 +58,7 @@ function Checkout() {
       const itemPrice = item["Batches.total_price"];
       return total + itemPrice * totalQuantity;
     }, 0);
+
   };
 
   // Handle Modal

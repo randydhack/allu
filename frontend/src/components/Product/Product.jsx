@@ -33,8 +33,7 @@ function Product() {
     type: "Heavyweight Ring Spun Tee",
     price: 12.99,
   });
-  const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
-  const product_url = color.product_url
+  const [color, setColor] = useState({ id: 0, name: "banana" });
 
   const [sizes, setSizes] = useState({
     XS: 0,
@@ -47,7 +46,16 @@ function Product() {
     "4XL": 0,
     "5XL": 0,
   });
+
+  const [productImage, setProductImage] = useState(
+    `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg`
+  );
+
   const [addNotification, setAddNotification] = useState("");
+
+  console.log("COLOR", color);
+
+  console.log("current", currentProduct);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -74,10 +82,11 @@ function Product() {
           designId,
           color.name,
           currentProduct.price + singleDesign.design_price,
-          product_url,
+          productImage
         )
       );
-          // console.log(data)
+
+      // console.log(data)
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -92,8 +101,8 @@ function Product() {
           "5XL": 0,
         });
 
-        const field = document.getElementsByClassName('size_input');
-        Array.from(field).forEach(el => el.value = "");
+        const field = document.getElementsByClassName("size_input");
+        Array.from(field).forEach((el) => (el.value = ""));
 
         setTimeout(() => {
           setAddNotification("");
@@ -101,7 +110,9 @@ function Product() {
       }
     }
   };
- 
+
+  console.log(productImage)
+
   return (
     isLoaded && (
       <div className="container">
@@ -125,25 +136,6 @@ function Product() {
                     alt={`Product Image of ${color.name}`}
                   />
                 </div>
-                {/* {allProducts[product.id - 1].ProductImages.map(
-                  (productImage, idx) => {
-                    return (
-                      <>
-                        {productImage.id !==
-                          allProducts[product.id - 1].ProductImages[
-                            color.id || 0
-                          ] && <img
-                          className="side_img_map side_img"
-                          src={
-                            productImage
-                              ?.img_url
-                          }
-                          alt={`Product Image - ${color.name}`}
-                          />}
-                      </>
-                    );
-                  }
-                )} */}
               </div>
 
               <img
@@ -170,12 +162,12 @@ function Product() {
             <h1>{currentProduct.type}</h1>
 
             <div>
-              <h3 style={{marginBottom: "5px"}}>Chosen Design:</h3>
-            <img
-                    className="side_img design_img"
-                    src={singleDesign?.design_url}
-                    alt={`Design with id of${designId}`}
-                  />
+              <h3 style={{ marginBottom: "5px" }}>Chosen Design:</h3>
+              <img
+                className="side_img design_img"
+                src={singleDesign?.design_url}
+                alt={`Design with id of${designId}`}
+              />
             </div>
 
             <div>
@@ -191,11 +183,9 @@ function Product() {
                     aria-label="product type"
                     style={{
                       border: `${
-                        currentProduct.id === product.id
-                          ? "1px solid gray"
-                          : ""
+                        currentProduct.id === product.id ? "1px solid gray" : ""
                       }`,
-                      borderRadius: '3px'
+                      borderRadius: "3px",
                     }}
                     onClick={() => {
                       setCurrentProduct({
@@ -206,9 +196,10 @@ function Product() {
                       setColor({
                         id: 0,
                         name: colors[product.id - 1]?.colors[0].name,
-                        product_url: allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url
+                        product_url:
+                          allProducts[currentProduct.id - 1]?.ProductImages[
+                            color.id || 0
+                          ]?.img_url,
                       }); //sets color of main image back to first color with name
                     }}
                   />
@@ -228,9 +219,10 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => setColor({ id: i, name: color.name, product_url: allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url })}
+                        onClick={() => {
+                          setColor({ id: i, name: color.name });
+                          setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg` )
+                        }}
                       ></div>
                     );
                   })}
