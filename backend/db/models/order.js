@@ -38,7 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     address: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
     special_request: DataTypes.STRING,
@@ -53,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
     processed: {
       allowNull: false,
       type: DataTypes.BOOLEAN,
+    },
+    delivery: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN
     }
   }, {
     sequelize,

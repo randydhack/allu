@@ -16,6 +16,7 @@ import { ModalContext } from "../../context/modalContext";
 import "./Product.scss";
 import { designDetails } from "../../store/designReducer";
 import { createBatch } from "../../store/BatchReducer";
+import { getCart } from "../../store/BatchReducer";
 
 function Product() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function Product() {
   });
   const [color, setColor] = useState({ id: 0, name: "banana", product_url: `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_banana.jpg` });
   const product_url = color.product_url
+  const [note, setNote] = useState("");
 
   const [sizes, setSizes] = useState({
     XS: 0,
@@ -75,9 +77,10 @@ function Product() {
           color.name,
           currentProduct.price + singleDesign.design_price,
           product_url,
+          note
         )
       );
-          // console.log(data)
+
       if (data) {
         setAddNotification("Added to Cart");
         setSizes({
@@ -98,10 +101,15 @@ function Product() {
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
+        
+        // updates the cart bubble
+        dispatch(getCart())
       }
     }
   };
- 
+
+  // console.log(designId)
+
   return (
     isLoaded && (
       <div className="container">
@@ -170,12 +178,12 @@ function Product() {
             <h1>{currentProduct.type}</h1>
 
             <div>
-              <h3 style={{marginBottom: "5px"}}>Chosen Design:</h3>
-            <img
-                    className="side_img design_img"
-                    src={singleDesign?.design_url}
-                    alt={`Design with id of${designId}`}
-                  />
+              <h3 style={{ marginBottom: "5px" }}>Chosen Design:</h3>
+              <img
+                className="side_img design_img"
+                src={singleDesign?.design_url}
+                alt={`Design with id of${designId}`}
+              />
             </div>
 
             <div>
@@ -190,11 +198,10 @@ function Product() {
                     className="product-option-img"
                     aria-label="product type"
                     style={{
-                      border: `${
-                        currentProduct.id === product.id
-                          ? "1px solid gray"
-                          : ""
-                      }`,
+                      border: `${currentProduct.id === product.id
+                        ? "1px solid gray"
+                        : ""
+                        }`,
                       borderRadius: '3px'
                     }}
                     onClick={() => {
@@ -228,9 +235,11 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => setColor({ id: i, name: color.name, product_url: allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url })}
+                        onClick={() => setColor({
+                          id: i, name: color.name, product_url: allProducts[currentProduct.id - 1]?.ProductImages[
+                            color.id || 0
+                          ]?.img_url
+                        })}
                       ></div>
                     );
                   })}
@@ -261,6 +270,18 @@ function Product() {
                     );
                   })}
               </div>
+            </div>
+
+            <div>
+              <h4>Add a personalize note:</h4>
+              <input
+                onChange={(e) => {
+                  setNote(e.target.value)
+                }}
+                id="note_input"
+                className="note_input"
+                aria_label="note"
+              ></input>
             </div>
 
             <div className="finalize">
