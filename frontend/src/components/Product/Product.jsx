@@ -257,7 +257,7 @@ function Product() {
             </div>
 
             <div>
-              <h4>Add a personalize note:</h4>
+              <h4>Add a personalized note:</h4>
               <input
                 onChange={(e) => {
                   setNote(e.target.value)
