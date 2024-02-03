@@ -66,8 +66,11 @@ const EditBatchModal = () => {
     <div className="edit-batch-modal">
       <form onSubmit={handleSubmit}>
         {Object.keys(sizes).map((size) => (
-          <div key={size}>
-            <label htmlFor={size}>{size.toUpperCase()}</label>
+          <div className="edit_column" key={size}>
+            <div className="edit_label">
+              <label htmlFor={size}>{size.toUpperCase()}</label>
+            </div>
+
             <input
               type="number"
               id={size}
@@ -79,7 +82,9 @@ const EditBatchModal = () => {
             />
           </div>
         ))}
-        <button aria-label="update size" type="submit">Update Sizes</button>
+        <button aria-label="update size" type="submit">
+          Update Sizes
+        </button>
       </form>
       <button
         aria-label="modal"
