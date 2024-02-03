@@ -41,6 +41,7 @@ router.get("/user", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user) {
+    console.log("what is happening HERE")
     const orders = await Order.findAll({
       where: { userId: user.id },
       include: [

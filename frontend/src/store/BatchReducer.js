@@ -70,7 +70,7 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   }
 };
 
-export const createBatch = (productId, size, designId, color, total_price, product_url, note) => async (dispatch) => {
+export const createBatch = ({productId, size, designId, color, total_price, product_url, note}) => async (dispatch) => {
   const res = await csrfFetch(`/api/batch`, {
     method: "POST",
     body: JSON.stringify({

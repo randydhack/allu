@@ -55,6 +55,12 @@ function Product() {
 
   const [addNotification, setAddNotification] = useState("");
 
+  function resetSelect(e){
+    let currentSelection = document.querySelector("div.selected")
+    currentSelection.classList.remove("selected")
+    e.target.classList.add("selected")
+  }
+
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(designDetails(designId));
@@ -75,13 +81,13 @@ function Product() {
     ) {
       const data = await dispatch(
         createBatch(
-          currentProduct.id,
-          sizes,
-          designId,
-          color.name,
-          currentProduct.price + singleDesign.design_price,
-          productImage,
-          note
+          {productId:currentProduct.id,
+          size:sizes,
+          designId:designId,
+          color:color.name,
+          total_price:currentProduct.price + singleDesign.design_price,
+          product_url: productImage,
+          note:note}
         )
       );
       // console.log(data)
@@ -101,7 +107,7 @@ function Product() {
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
-
+        setNote("")
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
@@ -220,8 +226,10 @@ function Product() {
                         style={{
                           backgroundColor: `${color.hex}`,
                         }}
-                        onClick={() => {
-                          setColor({ id: i, name: color.name });
+                        className={i==0?"selected":""}
+                        onClick={(e) => {
+                          resetSelect(e);
+                          setColor({ id: i, name: color.name.split("_").join(" ") });
                           setProductImage(`https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`)
                         }}
                       ></div>
@@ -256,18 +264,24 @@ function Product() {
               </div>
             </div>
 
-            <div>
-              <h4>Add a personalized note:</h4>
-              <input
+            <div className="textinput-div">
+              <label htmlFor="note_input">Add custom text to your design:</label>
+              <textarea
                 onChange={(e) => {
                   setNote(e.target.value)
                 }}
                 id="note_input"
-                className="note_input"
+                className="note-input"
                 aria_label="note"
-              ></input>
+                value={note}
+              ></textarea>
             </div>
-
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
             <div className="finalize">
               <button type="submit" disabled={!sizes["XS"] &&
                 !sizes["S"] &&
@@ -291,12 +305,6 @@ function Product() {
                 <span>Add to cart</span>
               </button>
             </div>
-            {addNotification && (
-              <p className="cart-added-msg">
-                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
-                {addNotification}
-              </p>
-            )}
           </form>
         </div>
       </div>
