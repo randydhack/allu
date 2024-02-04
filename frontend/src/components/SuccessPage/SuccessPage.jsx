@@ -1,8 +1,17 @@
 import './SuccessPage.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import Logo from '../../images/allu-high-res.png'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 function SuccessPage(){
+
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const { user } = useSelector(state => state.session)
+
+    console.log(user, id)
+
 
     return(
         <main className="success-page">

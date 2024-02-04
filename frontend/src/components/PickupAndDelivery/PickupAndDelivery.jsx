@@ -1,6 +1,6 @@
 import PickupForm from "./PickupForm";
 import DeliveryForm from "./DeliveryForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createOrder } from "../../store/order";
 import { useDispatch } from "react-redux";
 // import { useContext } from "react"
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 import "./PickupAndDelivery.scss";
 import { useNavigate } from "react-router-dom";
+import { getCart } from "../../store/BatchReducer";
 
 function PickupAndDelivery() {
   const navigate = useNavigate();
@@ -17,6 +18,24 @@ function PickupAndDelivery() {
 
   const [isDelivery, setIsDelivery] = useState(true);
   const [formInfo, setFormInfo] = useState({});
+  const [isLoaded, setLoaded] = useState(false)
+
+
+  useEffect(() => {
+    (async () => {
+      const cart = await dispatch(getCart())
+
+      const filterCart = cart.filter(el => el["Batches.id"] !== null)
+
+      if (!filterCart.length) {
+        return navigate('/checkout')
+      } else {
+        setLoaded(true)
+      }
+    })()
+
+  }, [dispatch])
+
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -60,7 +79,7 @@ function PickupAndDelivery() {
     let orderCreated = dispatch(createOrder(order));
 
     if (orderCreated) {
-      return navigate("/order-submitted");
+      return navigate(`/order-submitted/${orderCreated.id}`);
     }
   }
 
@@ -70,7 +89,7 @@ function PickupAndDelivery() {
     setFormInfo(currentFormInfo);
   }
 
-  return (
+  return isLoaded && (
     <div className="pickup-delivery-page">
       <div style={{height: "100%"}}>
         <header>
