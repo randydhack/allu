@@ -108,8 +108,10 @@ function Checkout() {
             {cart.map((item, idx) => {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
+                console.log(item["Batches.id"])
               return (
-                <div key={item["Batches.id"] + idx} className="home-item-row">
+                <div key={item["Batches.id"]} className="home-item-row">
+
                   <div className="home-item-image-container border_bottom">
                     <img
                       className="home-item-image"

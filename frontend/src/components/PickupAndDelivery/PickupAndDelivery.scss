@@ -1,15 +1,14 @@
 .pickup-delivery-page {
-    margin: 50px auto;
-    max-width: 1200px;
-    height: 100%;
+    // margin: 50px auto;
+    // height: 100%;
 
     header {
         h1 {
             font-weight: 500;
         }
         border-bottom: 2px solid #DBDBDB;
-        margin: 0px;
-        margin-bottom: 15px;
+        width: 80%;
+        margin: 0px auto 15px auto;
 
     }
 
@@ -147,6 +146,8 @@
 
 .special-request-form {
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .submit-order-main {
