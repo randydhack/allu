@@ -94,6 +94,32 @@
 .cart-container {
   display: flex;
   position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+    p {
+      font-weight: 300;
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      width: fit-content;
+      text-decoration: none;
+      margin: 0px;
+      padding: 2px 0px;
+
+      /* Set up the hover */
+      /* If you aren't using autoprefix, remember to prefix the gradient for other browsers */
+      background-image: linear-gradient(black, black);
+      background-size: 0 1px, auto;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      transition: all .2s ease-out;
+    }
+
+    p:hover {
+      background-size: 100% 1px, auto;
+      color: black;
+  }
 }
 .hamburger1 {
   height: 45px;
@@ -212,7 +238,7 @@
     background-size: 0 1px, auto;
     background-repeat: no-repeat;
     background-position: left bottom;
-    transition: all .2s ease-out;
+    transition: all .4s ease-out;
   }
 
   p:hover {
@@ -227,9 +253,9 @@
 
 .account {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 
   p {
     font-weight: 300;
@@ -239,6 +265,7 @@
     width: fit-content;
     text-decoration: none;
     margin: 0px;
+    padding: 2px 0px;
 
     /* Set up the hover */
     /* If you aren't using autoprefix, remember to prefix the gradient for other browsers */
@@ -246,7 +273,7 @@
     background-size: 0 1px, auto;
     background-repeat: no-repeat;
     background-position: center bottom;
-    transition: all .2s ease-out;
+    transition: all .4s ease-out;
   }
 
   p:hover {
