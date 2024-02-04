@@ -155,7 +155,7 @@ function Checkout() {
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
                   <div className="home-item-price">
-                    ${item["Batches.total_price"]}
+                    ${parseFloat(item["Batches.total_price"]).toFixed(2)}
                   </div>
                   <div className="removal">
                     <button
