@@ -23,7 +23,9 @@ function PickupAndDelivery() {
 
     let order;
     if (isDelivery) {
-      let address = `${formInfo["address1"]} ${formInfo["address2"] || ""} ${formInfo["city"]}, ${formInfo["state"]} ${formInfo["zipCode"]}`; 
+      let address = `${formInfo["address1"]} ${formInfo["address2"] || ""} ${
+        formInfo["city"]
+      }, ${formInfo["state"]} ${formInfo["zipCode"]}`;
       order = {
         userId: currUser.id,
         address: address,
@@ -35,14 +37,14 @@ function PickupAndDelivery() {
         quote: 0,
         workforce_race: false,
         processed: false,
-        delivery: true
+        delivery: true,
       };
     }
     //send all or some fields to backend (depending on pickup or delivery)
     else {
       order = {
         userId: currUser.id,
-        address: '9 Interstate Ave Albany, NY 12205',
+        address: "9 Interstate Ave Albany, NY 12205",
         firstName: formInfo["firstName"],
         lastName: formInfo["lastName"],
         phone: formInfo["phone"],
@@ -51,7 +53,7 @@ function PickupAndDelivery() {
         quote: 0,
         workforce_race: false,
         processed: false,
-        delivery: false
+        delivery: false,
       };
     }
 
@@ -70,70 +72,82 @@ function PickupAndDelivery() {
 
   return (
     <div className="pickup-delivery-page">
-      <header>
-        <h1>FINALIZE YOUR ORDER</h1>
-      </header>
+      <div style={{height: "100%"}}>
+        <header>
+          <h1>FINALIZE YOUR ORDER</h1>
+        </header>
 
-      <div className="checkout_options">
-        <p style={{ marginRight: "25px" }}>Checkout Options:</p>
-        <div className="radio-button-container">
-          <div className="radio-option" style={{ width: "fit-content" }}>
-            <input
-              type="radio"
-              id="delivery"
-              aria-label="delivery"
-              defaultChecked
-              name="pickup-or-delivery"
-              onChange={() => setIsDelivery(true)}
-            />
-            <p>Delivery</p>
-          </div>
-          <span>or</span>
-          <div className="radio-option">
-            <input
-              type="radio"
-              id="delivery"
-              aria-label="delivery"
-              value={false}
-              name="pickup-or-delivery"
-              onChange={() => setIsDelivery(false)}
-            />
-            <p>Pick up at 9 Interstate Ave Albany, NY 12205</p>
+        <div className="checkout_options">
+          <p style={{ marginRight: "25px" }}>Checkout Options:</p>
+          <div className="radio-button-container">
+            <div className="radio-option" style={{ width: "fit-content" }}>
+              <input
+                type="radio"
+                id="delivery"
+                aria-label="delivery"
+                defaultChecked
+                name="pickup-or-delivery"
+                onChange={() => setIsDelivery(true)}
+              />
+              <p>Delivery</p>
+            </div>
+            <span>or</span>
+            <div className="radio-option">
+              <input
+                type="radio"
+                id="delivery"
+                aria-label="delivery"
+                value={false}
+                name="pickup-or-delivery"
+                onChange={() => setIsDelivery(false)}
+              />
+              <p>Pick up at 9 Interstate Ave Albany, NY 12205</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <form onSubmit={handleFormSubmit} className="checkout-form-main">
-        {isDelivery ? (
-          <DeliveryForm setFormInfo={setFormInfo} formInfo={formInfo} formChange={formChange}/>
-        ) : (
-          <PickupForm setFormInfo={setFormInfo} formInfo={formInfo} formChange={formChange}/>
-        )}
+        <form onSubmit={handleFormSubmit} className="checkout-form-main">
+          {isDelivery ? (
+            <DeliveryForm
+              setFormInfo={setFormInfo}
+              formInfo={formInfo}
+              formChange={formChange}
+            />
+          ) : (
+            <PickupForm
+              setFormInfo={setFormInfo}
+              formInfo={formInfo}
+              formChange={formChange}
+            />
+          )}
 
-        <div className="special-request-form">
+          <div className="special-request-form">
             <label htmlFor="special-request">Additional Information</label>
-          <textarea
-            name="special-request"
-            id="special-request"
-            cols="30"
-            rows="10"
-            aria-label="special request"
-            placeholder="Any additional information about the order or special request."
-            onChange={formChange}
-            value={formInfo["special-request"] || ""}
-          ></textarea>
-        </div>
+            <textarea
+              name="special-request"
+              id="special-request"
+              cols="30"
+              rows="10"
+              aria-label="special request"
+              placeholder="Any additional information about the order or special request."
+              onChange={formChange}
+              value={formInfo["special-request"] || ""}
+            ></textarea>
+          </div>
 
-        <div className="submit-order-main">
-          <p>
-            Submitting this will finalize your order and be reviewed before
-            shipping.
-          </p>
-          <button type="submit" aria-label="submit">Submit Order</button>
-        </div>
-      </form>
+          <div className="submit-order-main">
+            <p>
+              Submitting this will finalize your order and be reviewed before
+              shipping.
+            </p>
+            <button type="submit" aria-label="submit">
+              Submit Order
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
 
-export default PickupAndDelivery
+export default PickupAndDelivery;
