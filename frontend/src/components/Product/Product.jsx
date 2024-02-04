@@ -62,6 +62,9 @@ function Product() {
   );
   const [addNotification, setAddNotification] = useState("");
 
+
+  // const [colorObj, setColorObj] = useState(null)
+
   // useEffects for fetching
   useEffect(() => {
     dispatch(getAllProducts());
@@ -72,12 +75,30 @@ function Product() {
   useEffect(() => {
     const checkSizes = Object.values(sizes).every((el) => el <= 0);
 
-    if (!checkSizes) {
-      setConfirmButtonState(checkSizes);
-    } else {
-      setConfirmButtonState(checkSizes);
-    }
+    console.log("sizes", sizes)
+      setConfirmButtonState(checkSizes)
+
   }, [sizes, setSizes, setConfirmButtonState, confirmButton]);
+
+
+  useEffect(() => {
+
+    if (currentProduct.id === 1) {
+      setProductImage(
+        `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`
+        );
+      } else if (currentProduct.id === 2) {
+        setProductImage(
+          `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_${color.name}.jpg`
+          );
+        } else if (currentProduct.id === 3) {
+          setProductImage(
+            `https://allutestbucket.s3.amazonaws.com/lighttshirt/District_Tee_${color.name}.jpg`
+            );
+          }
+
+  }, [setProductImage, color, setColor, productImage])
+
 
   // Functions
   function resetSelect(e) {
@@ -88,6 +109,8 @@ function Product() {
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("HANDLE SUBMIT", sizes)
 
     if (
       sizes["XS"] ||
@@ -114,6 +137,7 @@ function Product() {
 
       if (data) {
         setAddNotification("Added to Cart");
+        console.log("bfore",sizes)
         setSizes({
           XS: 0,
           S: 0,
@@ -125,6 +149,7 @@ function Product() {
           "4XL": 0,
           "5XL": 0,
         });
+        console.log("after", sizes)
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
@@ -132,12 +157,10 @@ function Product() {
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
-
-        // updates the cart bubble
-        dispatch(getCart());
       }
     }
   };
+
 
   return (
     isLoaded && (
@@ -146,11 +169,7 @@ function Product() {
           <div className="product-images">
             <div className="mini-images-container">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                {/* <img
-                    className="side_img design_img"
-                    src={singleDesign?.design_url}
-                    alt={`Design ${designId}`}
-                  /> */}
+
                 <img
                   className="side_img"
                   src={
@@ -214,6 +233,7 @@ function Product() {
                       type: product.name,
                       price: product.price,
                     });
+
                     setColor({
                       id: 0,
                       name: colors[product.id - 1]?.colors[0].name,
@@ -222,6 +242,13 @@ function Product() {
                           color.id || 0
                         ]?.img_url,
                     }); //sets color of main image back to first color with name
+                    setProductImage(allProducts[currentProduct.id - 1]?.ProductImages[
+                      color.id || 0
+                    ]?.img_url)
+
+                    console.log("all products", allProducts[currentProduct.id - 1]?.ProductImages[
+                      color.id || 0
+                    ]?.img_url)
                   }}
                 />
               ))}
@@ -232,34 +259,24 @@ function Product() {
             <h3>Select Color: {color.name}</h3>
             <div className="colors_carousel">
               {currentProduct.id &&
-                productColors[currentProduct.id].map((color, i) => {
+                productColors[currentProduct.id].map((colorElement, i) => {
                   return (
                     <div
-                      key={color.name + i}
+                      key={colorElement.name + i}
                       aria-label="product color"
                       style={{
-                        backgroundColor: `${color.hex}`,
+                        backgroundColor: `${colorElement.hex}`,
                       }}
                       className={i == 0 ? "selected" : ""}
                       onClick={(e) => {
-                        resetSelect(e);
-                        setColor({
+                        setColor(() => { return {
                           id: i,
-                          name: color.name.split("_").join(" "),
-                        });
-                        if (currentProduct.id === 1) {
-                          setProductImage(
-                            `https://allutestbucket.s3.amazonaws.com/tshirt/comfort_colors_${color.name}.jpg`
-                          );
-                        } else if (currentProduct === 2) {
-                          setProductImage(
-                            `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_${color.name}.jpg`
-                          );
-                        } else if (currentProduct === 3) {
-                          setProductImage(
-                            `https://allutestbucket.s3.amazonaws.com/hoodie/Gildan_Sweatshirt_${color.name}.jpg`
-                          );
-                        }
+                          name: colorElement.name,
+                        }});
+
+
+                              resetSelect(e);
+
                       }}
                     ></div>
                   );
