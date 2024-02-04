@@ -18,14 +18,14 @@ function OrderHistory() {
   const [editNote, setEditNote] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      await dispatch(getOrders());
-    })();
+
+       dispatch(getOrders());
+
   }, [dispatch]);
 
   const handleDeleteBatch = async (e, batchId) => {
     e.preventDefault()
-    dispatch(deleteBatchOrder(batchId))
+    await dispatch(deleteBatchOrder(batchId))
   }
 
   const handleSpecialRequest = (id) => {
