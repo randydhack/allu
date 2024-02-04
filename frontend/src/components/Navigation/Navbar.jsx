@@ -31,11 +31,12 @@ function Navbar() {
   const currUser = useSelector((state) => state.session.user);
   const cart = useSelector((state) => state.batches.cart);
   const cartNull = cart.filter(el => el["Batches.id"] != null)
-  const [screenSmall, setScreenSmall]=useState(getWindowDimensions().width<700)
+  const [screenSmall, setScreenSmall] = useState(getWindowDimensions().width < 700)
 
   useEffect(() => {
-    if (currUser){
-      dispatch(getCart())
+    if (currUser) {
+      dispatch(getCart());
+
     }
   }, [dispatch, currUser])
 
@@ -48,17 +49,17 @@ function Navbar() {
   }
   function useWindowDimensions() {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  
+
     useEffect(() => {
       function handleResize() {
         setWindowDimensions(getWindowDimensions());
-        setScreenSmall(getWindowDimensions().width<700)
+        setScreenSmall(getWindowDimensions().width < 700)
       }
-  
+
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []);
-  
+
     return windowDimensions;
   }
   useWindowDimensions()
@@ -68,15 +69,15 @@ function Navbar() {
     <div className="nav__container">
       <div className="nav_inner_container">
         <div className="left-nav">
-              {screenSmall&&
-              <>
-                <input id="toggle1" type="checkbox" aria-label="hamburger"/>
-                <label className="hamburger1" htmlFor="toggle1">
-                  <div className="top"></div>
-                  <div className="middle"></div>
-                  <div className="bottom"></div>
-                </label>
-                <nav class="menu1">
+          {screenSmall &&
+            <>
+              <input id="toggle1" type="checkbox" aria-label="hamburger" />
+              <label className="hamburger1" htmlFor="toggle1">
+                <div className="top"></div>
+                <div className="middle"></div>
+                <div className="bottom"></div>
+              </label>
+              <nav class="menu1">
                 <NavLink to="/designs" alt="designs" className="link1" aria-label="design">
                   Designs
                 </NavLink>
@@ -86,9 +87,9 @@ function Navbar() {
                 <NavLink to="/about-us" alt="About Us" className="link1" aria-label="about">
                   About us
                 </NavLink>
-                </nav>
-              </>
-              }
+              </nav>
+            </>
+          }
           <div className="nav_logo__container">
             <NavLink to="/" aria-label="home">
               <img
@@ -99,22 +100,22 @@ function Navbar() {
             </NavLink>
           </div>
 
-          {!screenSmall&&
-          <div className="nav__middle__section">
-            <NavLink to="/designs" alt="designs" aria-label="design">
-              Designs
-            </NavLink>
-            <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
-              Contact Us
-            </NavLink>
-            <NavLink to="/about-us" alt="About Us" aria-label="about">
-              About us
-            </NavLink>
-          </div>}
-          {screenSmall&&
-          <>
+          {!screenSmall &&
+            <div className="nav__middle__section">
+              <NavLink to="/designs" alt="designs" aria-label="design">
+                Designs
+              </NavLink>
+              <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
+                Contact Us
+              </NavLink>
+              <NavLink to="/about-us" alt="About Us" aria-label="about">
+                About us
+              </NavLink>
+            </div>}
+          {screenSmall &&
+            <>
 
-          </>
+            </>
           }
         </div>
 
@@ -126,7 +127,7 @@ function Navbar() {
             <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <IoCartOutline className="cart-icon" />
-                {cart?.length &&  cartNull.length ? (
+                {cart?.length && cartNull.length ? (
                   <div className="cart_total_items">{cart?.length}</div>
                 ) : (
                   ""

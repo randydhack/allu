@@ -39,9 +39,9 @@ function Checkout() {
   };
 
   useEffect(() => {
-    (async () => {
-      await dispatch(getCart());
-    })();
+
+    dispatch(getCart());
+
   }, [dispatch]);
 
   // Format Batch sizes
