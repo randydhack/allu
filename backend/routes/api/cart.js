@@ -34,6 +34,8 @@ router.get("/", requireAuth, async (req, res) => {
       raw: true,
     });
 
+    console.log(cart)
+
     if (!cart) {
       return res.status(500).json({ error: "Cart not found bad request" });
     }
