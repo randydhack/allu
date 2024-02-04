@@ -151,7 +151,7 @@ function PickupAndDelivery() {
               placeholder="Any additional information about the order or special request."
               onChange={formChange}
               value={formInfo["special-request"] || ""}
-            ></textarea>
+            />
           </div>
 
           <div className="submit-order-main">

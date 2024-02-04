@@ -237,7 +237,7 @@
     background-image: linear-gradient(black, black);
     background-size: 0 1px, auto;
     background-repeat: no-repeat;
-    background-position: left bottom;
+    background-position: center bottom;
     transition: all .4s ease-out;
   }
 
@@ -249,6 +249,14 @@
 
 .register {
   font-weight: 300;
+  background-color: black;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 3px;
+
+  p {
+    margin: 0px;
+  }
 }
 
 .account {
