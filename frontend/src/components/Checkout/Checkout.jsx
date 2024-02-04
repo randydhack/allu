@@ -42,17 +42,39 @@ function Checkout() {
     dispatch(getCart());
   }, [dispatch]);
 
+
+
+
   // Format Batch sizes
+
+  const formatBatchSizes2 = (sizesObject) => {
+    return Object.keys(sizesObject).map((sizeKey) => {
+      // Extract the numeric part of the size key (e.g., "2" from "xxl")
+      const numericPart = sizeKey.match(/\d+/);
+
+      // If a numeric part is found, format the size, otherwise, keep the original key
+      const formattedSize = numericPart ? `${numericPart[0]}xl` : sizeKey;
+
+      // Return an object with the formatted size and its corresponding value
+      return { size: formattedSize, value: sizesObject[sizeKey] };
+    });
+  };
+
+
+
   const formatBatchSizes = (batch) => {
-    const sizes = ["xs", "s", "m", "l", "xl", "2l", "3xl", "4xl", "5xl"];
+    const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
     const sizeDescriptions = sizes
-      .map((size) =>
-        batch[`Batches.${size}`]
-          ? ` ${batch[`Batches.${size}`]} ${size.toUpperCase()}`
-          : ""
-      )
-      .filter((desc) => desc !== "")
-      .join(",");
+      .map((size) => {
+        const numericPart = size.replace(/[^\d]/g, ''); // Extract numeric part
+        const formattedSize =
+          numericPart > 1 ? `${numericPart}xl` : size.replace(/x+/g, 'x');
+        return batch[`Batches.${size}`]
+          ? ` ${batch[`Batches.${size}`]} ${formattedSize.toUpperCase()}`
+          : '';
+      })
+      .filter((desc) => desc !== '')
+      .join(',');
 
     const totalQuantity = sizes.reduce(
       (sum, size) => sum + (batch[`Batches.${size}`] || 0),
@@ -61,6 +83,10 @@ function Checkout() {
 
     return { sizeDescriptions, totalQuantity };
   };
+
+
+
+
 
   // Calculate Cart Total
   const calculateSubtotal = (cart) => {

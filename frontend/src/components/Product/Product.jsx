@@ -137,6 +137,7 @@ function Product() {
 
       if (data) {
         setAddNotification("Added to Cart");
+        console.log("bfore",sizes)
         setSizes({
           XS: 0,
           S: 0,
@@ -148,6 +149,7 @@ function Product() {
           "4XL": 0,
           "5XL": 0,
         });
+        console.log("after", sizes)
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
@@ -155,9 +157,6 @@ function Product() {
         setTimeout(() => {
           setAddNotification("");
         }, 5000);
-
-        // updates the cart bubble
-        dispatch(getCart());
       }
     }
   };

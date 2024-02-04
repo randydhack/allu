@@ -94,13 +94,13 @@ export const createBatch = ({productId, size, designId, color, total_price, prod
       note
     })
   })
-  
   if (res.ok) {
     const data = await res.json()
+
     dispatch(createNewBatch(data))
+    await dispatch(getCart());
     return data
   }
-  
 }
 
 export const deleteBatch = (batchId) => async (dispatch) => {
