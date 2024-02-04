@@ -110,9 +110,12 @@ function Home() {
                 alt="all-u logo, click to return to home page"
                 />
                 </div>
-            <h3>
-              Your one stop shop for custom screenprinting, embroidery and more!
-            </h3>
+                <br></br>
+                <br></br>
+                <br></br>
+            <h2>
+              Custom screenprinting, embroidery and more!
+            </h2>
           </div>
       <br></br>
       <br></br>
@@ -128,9 +131,6 @@ function Home() {
                 >
                   Catalogue
                 </button>
-                <p>
-                  Create a T-shirt or hoodie with custom prints!
-                </p>
               </div>
               {!currUser && (
                 <div className="subcolumn">
@@ -139,12 +139,15 @@ function Home() {
                     aria-label="sign up"
                     onClick={toggleSignUp}
                     className="home-left-buttons"
-                  >
+                    >
                     Sign Up!
                   </button>
                 </div>
               )}
             </div>
+                    <h2>
+                    Welcome to ALL U – where style meets self-expression! Explore our curated collection of custom-printed T-shirts and hoodies, designed to showcase your unique personality. Elevate your wardrobe with quality, comfort, and a touch of individuality. Discover the joy of personalized fashion at ALL U today!
+                    </h2>
           </div>
 
           {/* <span className="divider">

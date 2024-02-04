@@ -31,7 +31,25 @@ $lg: 1150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
+}
+
+.home-left-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.home-left-contents h2{
+    color: white;
+    text-shadow: 1 1 1 black;
+    text-size-adjust: 100%;
+    // background-color: red;
+    display: flex;
+    width: 80%;
 }
 
 .home-left-container {
@@ -62,9 +80,13 @@ $lg: 1150px;
     display: flex;
     justify-content: center;
     align-items: center;
+    // background-color: red;
+    width: 100%;
 }
 .header_logo img{
-    width: 25%;
+    width: 50%;
+    min-height: 12.5rem;
+    min-width: 12.5rem;
 }
 
 .home-left-heading {
@@ -74,15 +96,16 @@ $lg: 1150px;
     justify-content: center;
     align-content: center;
     color: white;
-    text-shadow: 0 0 20 black
+    text-shadow: 0 0 20 black;
     h1 {
-        font-size: 10vh;
+        // font-size: 10vh;
+        font-size: larger;
         margin: 0px;
-        line-height: 70px
+        // line-height: 70px
     };
     h3 {
         margin: 0px;
-        font-size: 3vh;
+        // font-size: 3vh;
     }
     z-index: 1;
 }
@@ -90,7 +113,7 @@ $lg: 1150px;
 .home-left-infos {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     z-index: 1;
 }
 .subcolumn, .solocolumn{
@@ -104,17 +127,29 @@ $lg: 1150px;
     button{
         min-height: 80px;
         margin-bottom: 20px;
-        max-width: 25%;
+        max-width: 55%;
         min-width: 120px;
     }
     p{
         color: white;
         text-shadow: 1 1 1 black;
+        text-size-adjust: 100%;
+        // background-color: red;
+        justify-content: center;
+        align-items: center;
     }
     align-items: center;
 }
 .solocolumn{
     width: 100%
+    p{
+        color: white;
+        text-shadow: 1 1 1 black;
+        text-size-adjust: 100%;
+        // background-color: red;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .bottom{
