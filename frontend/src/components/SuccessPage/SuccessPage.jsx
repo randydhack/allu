@@ -14,7 +14,10 @@ function SuccessPage(){
     console.log(user, id)
 
     useEffect(() => {
-        if (user.id !== Number(id)) navigate("/")
+        console.log(user.id)
+        console.log(Number(id))
+        // if (user.id != Number(id)) navigate("/notAllowed")
+        if (!user.id) navigate("/notAllowed")
         else setIsLoaded(true)
     }, [])
 

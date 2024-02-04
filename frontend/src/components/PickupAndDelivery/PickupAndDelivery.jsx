@@ -24,9 +24,7 @@ function PickupAndDelivery() {
   useEffect(() => {
     (async () => {
       const cart = await dispatch(getCart())
-
       const filterCart = cart.filter(el => el["Batches.id"] !== null)
-
       if (!filterCart.length) {
         return navigate('/checkout')
       } else {
@@ -37,7 +35,7 @@ function PickupAndDelivery() {
   }, [dispatch])
 
 
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
 
     let order;
@@ -75,11 +73,14 @@ function PickupAndDelivery() {
         delivery: false,
       };
     }
-
-    let orderCreated = dispatch(createOrder(order));
-
-    if (orderCreated) {
-      return navigate(`/order-submitted/${orderCreated.id}`);
+    try{
+      let orderCreated = await dispatch(createOrder(order));
+      // console.log("ORDER HERE", orderCreated)
+      if (orderCreated) {
+        return navigate(`/order-submitted/${orderCreated.id}`);
+      }
+    } catch (error) {
+      console.error("Error creating order: ", error)
     }
   }
 
