@@ -12,6 +12,7 @@ import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../images/allu-high-res.png";
+
 function Home() {
   const images = [
     { url: printingPress, alt: "screenprinting press in operation" },
@@ -20,44 +21,58 @@ function Home() {
     { url: manualPress, alt: "manual screen printing press" },
   ];
   const [currentImgIdx, setCurrentImg] = useState(
-    Math.floor(Math.random(images.length))
+    // Math.floor(Math.random(images.length))
+    0
   );
-  const [homeStyle, setHomeStyle] = useState(newHomeStyle());
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height,
-    };
-  }
-  function newHomeStyle() {
-    return getWindowDimensions().width < 1150
-      ? {
-          backgroundImage: `url(${images[currentImgIdx].url})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-        }
-      : {};
-  }
-  function useWindowDimensions() {
-    const [windowDimensions, setWindowDimensions] = useState(
-      getWindowDimensions()
-    );
+  // function getWindowDimensions() {
+  //   const { innerWidth: width, innerHeight: height } = window;
+  //   return {
+  //     width,
+  //     height,
+  //   };
+  // }
+  // const newHomeStyle = () => {
+    // return getWindowDimensions().width < 1150
+    //   ?
 
-    useEffect(() => {
-      function handleResize() {
-        setWindowDimensions(getWindowDimensions());
-        setHomeStyle(newHomeStyle());
-      }
+    // const backgroundStyle =
+    // {
+    //   backgroundImage: `url(${images[currentImgIdx].url})`,
+    //   backgroundRepeat: "no-repeat",
+    //   backgroundSize: "cover",
+    //   backgroundPosition: "center center",
+    // };
 
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    // return backgroundStyle
 
-    return windowDimensions;
-  }
-  useWindowDimensions();
+    // : {};
+  // }
+  const [homeStyle, setHomeStyle] = useState({
+    backgroundImage: `url(${images[currentImgIdx].url})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+  });
+
+
+  // function useWindowDimensions() {
+  //   const [windowDimensions, setWindowDimensions] = useState(
+  //     getWindowDimensions()
+  //   );
+
+    // useEffect(() => {
+    //   function handleResize() {
+    //     setWindowDimensions(getWindowDimensions());
+    //     setHomeStyle(newHomeStyle());
+    //   }
+
+    //   window.addEventListener("resize", handleResize);
+    //   return () => window.removeEventListener("resize", handleResize);
+    // }, []);
+
+    // return windowDimensions;
+  // }
+  // useWindowDimensions();
   const currUser = useSelector((state) => state.session.user);
   const { toggleSignUp } = useContext(ModalContext);
   const navigate = useNavigate();
@@ -65,7 +80,12 @@ function Home() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImg(currentImgIdx == images.length - 1 ? 0 : currentImgIdx + 1);
-      setHomeStyle(newHomeStyle());
+      // setHomeStyle({
+      //   backgroundImage: `url(${images[currentImgIdx].url})`,
+      //   backgroundRepeat: "no-repeat",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center center",
+      // });
     }, 15000);
     return () => {
       clearInterval(intervalId);
@@ -84,18 +104,21 @@ function Home() {
         <div className="main_home_content">
           <div className="home-left-heading">
             {/* <img src={Logo} alt="All-U logo" width={500}/> */}
-            <h1>CUSTOM APPAREL</h1>
+            <div className="header_logo">
+            <img
+                src={Logo}
+                alt="all-u logo, click to return to home page"
+                />
+                </div>
             <h3>
               Your one stop shop for custom screenprinting, embroidery and more!
             </h3>
           </div>
-
+      <br></br>
+      <br></br>
           <div className="home-left-contents">
             <div className="home-left-infos">
               <div className={currUser ? "solocolumn" : "subcolumn"}>
-                <p>
-                  Order shirts or hoodies with one of our pre-built designs!
-                </p>
                 <button
                   aria-label="designs"
                   onClick={() => {
@@ -103,12 +126,15 @@ function Home() {
                   }}
                   className="home-left-buttons"
                 >
-                  Browse designs
+                  Catalogue
                 </button>
+                <p>
+                  Create a T-shirt or hoodie with custom prints!
+                </p>
               </div>
               {!currUser && (
                 <div className="subcolumn">
-                  <p>Sign up to track your orders and save custom designs</p>
+                  {/* <p>Sign up to track your orders and save custom designs</p> */}
                   <button
                     aria-label="sign up"
                     onClick={toggleSignUp}

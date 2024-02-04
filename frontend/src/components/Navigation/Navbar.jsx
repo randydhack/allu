@@ -108,12 +108,13 @@ function Navbar() {
             </>
           )}
           <div className="nav_logo__container">
-            <NavLink to="/" aria-label="home">
-              <img
+            <NavLink to="/" aria-label="home" className="nav_logo">
+              {/* <img
                 className="nav_logo"
                 src={Logo}
                 alt="all-u logo, click to return to home page"
-              />
+              /> */}
+              ALL U
             </NavLink>
           </div>
 
