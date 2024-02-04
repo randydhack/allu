@@ -113,9 +113,9 @@ function Home() {
                 <br></br>
                 <br></br>
                 <br></br>
-            <h2>
+            <h1>
               Custom screenprinting, embroidery and more!
-            </h2>
+            </h1>
           </div>
       <br></br>
       <br></br>

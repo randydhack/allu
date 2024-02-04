@@ -1,5 +1,9 @@
 $md: 768px;
 $lg: 1150px;
+.h1 .h2 .h3 {
+    text-shadow: 1 1 1 black;
+    // font-weight: bolder;
+}
 
 .home-container {
     display: flex;
@@ -101,10 +105,12 @@ $lg: 1150px;
         // font-size: 10vh;
         font-size: larger;
         margin: 0px;
+        text-shadow: 1 1 1 black;
         // line-height: 70px
     };
-    h3 {
+    h2 {
         margin: 0px;
+        text-shadow: 1 1 1 black;
         // font-size: 3vh;
     }
     z-index: 1;
