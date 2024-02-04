@@ -53,6 +53,31 @@
 
   display: flex;
   justify-content: center;
+
+  a {
+    font-weight: 300;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    /*   border-radius: 5px; */
+    text-decoration: none;
+    padding: 3px 0;
+
+    /* Set up the hover */
+    /* If you aren't using autoprefix, remember to prefix the gradient for other browsers */
+    background-image: linear-gradient(black, black);
+    background-size: 0 1px, auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    transition: all .4s ease-out;
+  }
+
+  a:hover {
+    background-size: 100% 1px, auto;
+    color: black;
+  }
+
+
 }
 
 .nav__profile__cart {
@@ -113,7 +138,7 @@
       background-size: 0 1px, auto;
       background-repeat: no-repeat;
       background-position: center bottom;
-      transition: all .2s ease-out;
+      transition: all .4s ease-out;
     }
 
     p:hover {
