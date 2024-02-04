@@ -83,7 +83,7 @@ function Navbar() {
                 <NavLink
                   to="/designs"
                   alt="designs"
-                  className="underline-animation"
+
                   aria-label="design"
                 >
                   DESIGNS
@@ -91,7 +91,7 @@ function Navbar() {
                 <NavLink
                   to="/about-us"
                   alt="About Us"
-                  className="underline-animation"
+
                   aria-label="about"
                 >
                   ABOUT US
@@ -99,7 +99,7 @@ function Navbar() {
                 <NavLink
                   to="/contact-us"
                   alt="Contact Us"
-                  className="underline-animation"
+
                   aria-label="contact"
                 >
                   CONTACT US
@@ -123,7 +123,6 @@ function Navbar() {
                 to="/designs"
                 alt="designs"
                 aria-label="design"
-                className="underline-animation"
               >
                 DESIGNS
               </NavLink>
@@ -131,7 +130,6 @@ function Navbar() {
                 to="/about-us"
                 alt="About Us"
                 aria-label="about"
-                className="underline-animation"
               >
                 ABOUT US
               </NavLink>
@@ -139,7 +137,6 @@ function Navbar() {
                 to="/contact-us"
                 alt="Contact Us"
                 aria-label="contact"
-                className="underline-animation"
               >
                 CONTACT US
               </NavLink>
@@ -170,8 +167,10 @@ function Navbar() {
             <NavLink
               aria-label="sign in"
               onClick={() => toggleLogin()}
+              className="sign-in"
             >
-              Sign In
+              <PiUserCircleThin className="user-icon" />
+              <p>Sign In</p>
             </NavLink>
             <button
               className="register"
