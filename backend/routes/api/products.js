@@ -4,8 +4,6 @@ const { requireAuth } = require("../../utils/auth");
 const { Product, ProductImage } = require('../../db/models')
 const { Op } = require("sequelize");
 
-//CREATE and EDIT product routes not needed at the moment but can create
-
 //get all products
 router.get(
     '/',
