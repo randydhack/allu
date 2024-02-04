@@ -70,7 +70,7 @@ function Product() {
 
   // useEffect for disabling button and css styling
   useEffect(() => {
-    const checkSizes = Object.values(sizes).every((el) => el === 0);
+    const checkSizes = Object.values(sizes).every((el) => el <= 0);
 
     if (!checkSizes) {
       setConfirmButtonState(checkSizes);
@@ -142,7 +142,6 @@ function Product() {
 
   return (
     isLoaded && (
-      <div className="container">
         <div className="main_panel">
           <div className="left_panel">
             <div className="product-images">
@@ -340,7 +339,6 @@ function Product() {
             </div>
           </form>
         </div>
-      </div>
     )
   );
 }

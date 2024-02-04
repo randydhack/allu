@@ -8,12 +8,11 @@ input::-webkit-inner-spin-button {
 .main_panel {
   margin: 50px auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  min-height: 100vh;
 
   h3 {
     font-weight: 500;

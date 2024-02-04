@@ -7,7 +7,6 @@ $lg: 1150px;
     gap: 4%;
     justify-content: center;
     flex-wrap: wrap;
-    min-height: calc(100vh - 80px);
     width: 100%;
 }
 .splash-img{
@@ -24,7 +23,6 @@ $lg: 1150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-height: calc(100vh - 80px);
     background-color: rgba(255, 255, 255, 0.6);
     height: fit-content;
     padding: 20px;
@@ -42,7 +40,7 @@ $lg: 1150px;
           display: none;
       }
 
-} 
+}
 
 .home-left-heading {
     display: flex;

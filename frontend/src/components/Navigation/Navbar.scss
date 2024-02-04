@@ -6,8 +6,6 @@
     filter: drop-shadow(0 0.5px 3px rgb(206, 206, 206));
     display: flex;
     align-items: center;
-    position: relative;
-    z-index:2;
 }
 
 
@@ -135,28 +133,28 @@
         transition: all 0.2s ease-in-out;
       }
   }
-  
+
   #toggle1 {
     display: none;
   }
-  
+
   #toggle1:checked + .hamburger1 .top {
     -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
     margin-top: 22.5px;
   }
-  
+
   #toggle1:checked + .hamburger1 .middle {
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
     margin-top: -5px;
   }
-  
+
   #toggle1:checked + .hamburger1 .bottom {
     -webkit-transform: scale(0);
             transform: scale(0);
   }
-  
+
   #toggle1:checked ~ .menu1 {
     height: fit-content;
   }
@@ -184,15 +182,15 @@
     border-bottom-left-radius: 2%;
     border-bottom-right-radius: 2%;
   }
-  
+
   .menu1 a:first-child {
     margin-top: 40px;
   }
-  
+
 //   .menu1 a:last-child {
 //     margin-bottom: 40px;
 //   }
-  
+
   .link1 {
     width: 100%;
     padding: 10px 30px;
@@ -201,7 +199,7 @@
     font-weight: 600;
     font-size: 20px;
   }
-  
+
   .link1:hover {
     background-color: #fff;
     color: black;
