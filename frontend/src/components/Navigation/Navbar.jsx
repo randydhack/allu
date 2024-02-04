@@ -131,11 +131,14 @@ function Navbar() {
             <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <PiShoppingCartSimpleThin className="cart-icon" />
-                {cart?.length && cartNull.length ? (
+                <p>
+                Cart ({cart?.length && cartNull.length ? cart.length : 0})
+                </p>
+                {/* {cart?.length && cartNull.length ? (
                   <div className="cart_total_items">{cart?.length}</div>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
             </NavLink>
           </div>

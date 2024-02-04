@@ -1,10 +1,25 @@
 import './SuccessPage.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import Logo from '../../images/allu-high-res.png'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 function SuccessPage(){
 
-    return(
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const { user } = useSelector(state => state.session)
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    console.log(user, id)
+
+    useEffect(() => {
+        if (user.id !== Number(id)) navigate("/")
+        else setIsLoaded(true)
+    }, [])
+
+
+    return isLoaded && (
         <main className="success-page">
             <section className="text-section">
                 <h1>Thank you for submitting your order to <img className="text-logo" src={Logo} alt="all-u logo"/>!</h1>
