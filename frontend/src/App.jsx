@@ -64,8 +64,8 @@ function App() {
     <>
       {isLoaded && (
         <div className="container">
-          <Modal />
           <Navbar />
+          <Modal />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/designs" element={<OurDesigns />} />
