@@ -183,8 +183,8 @@ function Checkout() {
               <button
                 className="navigate-shipping"
                 aria-label="shipping"
-                onClick={() => goToShip()}
-                
+                onClick={() => {goToShip(); window.scrollTo(0,0)}}
+
               >
                 <p >
                   Finalize Order

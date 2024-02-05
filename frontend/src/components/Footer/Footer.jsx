@@ -38,7 +38,7 @@ function Footer() {
     }, []);
 
     return windowDimensions;
-    
+
   }
   useWindowDimensions()
   const handleUserLogout = async (e) => {
@@ -73,9 +73,9 @@ function Footer() {
         </div>
         <div className='footer__section'>
           <h4 className="footer-header">Business</h4>
-          <NavLink to='/about-us' aria-label="about">About Us</NavLink>
-          <NavLink to='/contact-us' aria-label="contact">Contact Us</NavLink>
-          <NavLink to='/designs' aria-label="designs">Designs</NavLink>
+          <NavLink to='/about-us' aria-label="about" onClick={() => {window.scrollTo(0,0)}}>About Us</NavLink>
+          <NavLink to='/contact-us' aria-label="contact" onClick={() => {window.scrollTo(0,0)}}>Contact Us</NavLink>
+          <NavLink to='/designs' aria-label="designs" onClick={() => {window.scrollTo(0,0)}}>Designs</NavLink>
           <div>
           </div>
         </div>
@@ -84,9 +84,9 @@ function Footer() {
           <h4 className="footer-header">Account</h4>
           {currUser&&
           <>
-            <NavLink to="/order-history"aria-label="order history">Order History</NavLink>
-            <NavLink to="/account-details"aria-label="account">Account</NavLink>
-            <NavLink to="/" aria-label="logout" onClick={e => handleUserLogout(e)}>Logout</NavLink>
+            <NavLink to="/order-history"aria-label="order history" onClick={() => {window.scrollTo(0,0)}}>Order History</NavLink>
+            <NavLink to="/account-details"aria-label="account" onClick={() => {window.scrollTo(0,0)}}>Account</NavLink>
+            <NavLink to="/" aria-label="logout" onClick={e => {handleUserLogout(e); window.scrollTo(0,0)}}>Logout</NavLink>
           </>}
           {!currUser&&
           <>
