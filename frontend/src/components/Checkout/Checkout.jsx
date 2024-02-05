@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "../utils/DefaultStyles.scss"
+import "../utils/DefaultStyles.scss";
 
 // Redux Store
 import { getCart, deleteBatch } from "../../store/BatchReducer";
@@ -195,9 +195,7 @@ function Checkout() {
                 onClick={() => {goToShip(); window.scrollTo(0,0)}}
 
               >
-                <p >
-                  Finalize Order
-                </p>
+                <p>Finalize Order</p>
               </button>
             </div>
           </div>

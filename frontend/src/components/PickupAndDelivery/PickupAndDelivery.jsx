@@ -88,11 +88,11 @@ function PickupAndDelivery() {
         emailData,
         process.env.REACT_APP_EMAILJS_USER_ID
       );
-      console.log(
-        "Email successfully sent!",
-        emailResponse.status,
-        emailResponse.text
-      );
+      // console.log(
+      //   "Email successfully sent!",
+      //   emailResponse.status,
+      //   emailResponse.text
+      // );
 
       let orderCreated = await dispatch(createOrder(order));
       if (orderCreated) {

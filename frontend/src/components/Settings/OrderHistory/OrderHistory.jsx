@@ -7,43 +7,58 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../../store/order";
 import { deleteBatchOrder, editNote } from "../../../store/BatchReducer";
 import moment from "moment";
+import ConfirmationModal from "../../Modals/ConfirmationModal";
 
 function OrderHistory() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.allOrders);
-
-  const [isFormVisible, setIsFormVisible] = useState({ id: null, toggle: false });
-  const [noteContent, setNoteContent] = useState("")
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [batchIdToCancel, setBatchIdToCancel] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState({
+    id: null,
+    toggle: false,
+  });
+  const [noteContent, setNoteContent] = useState("");
   const [updateNote, setUpdateNote] = useState(false);
-  const note = { note: noteContent }
+  const note = { note: noteContent };
 
   useEffect(() => {
-
     dispatch(getOrders());
-
   }, [dispatch]);
 
-
-  const handleDeleteBatch = async (e, batchId) => {
-    e.preventDefault()
-    await dispatch(deleteBatchOrder(batchId))
-  }
-
-  const handleEditNote = async (batchId) => {
-    await dispatch(editNote(batchId, note))
-  }
-
-  const handleSpecialRequest = (id) => {
-
-    if (id !== isFormVisible.id) {
-      setIsFormVisible({ id: null, toggle: false })
-      setIsFormVisible({ id: id, toggle: true })
-    } else {
-      setIsFormVisible({ id: null, toggle: false })
+  // const handleDeleteBatch = async (e, batchId) => {
+  //   e.preventDefault();
+  //   await dispatch(deleteBatchOrder(batchId));
+  // };
+  const handleConfirmCancellation = async () => {
+    if (batchIdToCancel) {
+      // Perform the delete action
+      await dispatch(deleteBatchOrder(batchIdToCancel));
+      // Close the modal and reset the state
+      setShowConfirmationModal(false);
+      setBatchIdToCancel(null);
     }
   };
 
-  const items = orders?.filter(el => el["Batches.id"] !== null)
+  const handleCloseModal = () => {
+    // Simply close the modal and reset related states without taking any action
+    setShowConfirmationModal(false);
+    setBatchIdToCancel(null);
+  };
+  const handleEditNote = async (batchId) => {
+    await dispatch(editNote(batchId, note));
+  };
+
+  const handleSpecialRequest = (id) => {
+    if (id !== isFormVisible.id) {
+      setIsFormVisible({ id: null, toggle: false });
+      setIsFormVisible({ id: id, toggle: true });
+    } else {
+      setIsFormVisible({ id: null, toggle: false });
+    }
+  };
+
+  const items = orders?.filter((el) => el["Batches.id"] !== null);
 
   return (
     items && (
@@ -52,7 +67,12 @@ function OrderHistory() {
         <div className="setting__header__mb">
           <h1 className="setting__header">Order History</h1>
         </div>
-
+        <ConfirmationModal
+          isOpen={showConfirmationModal}
+          onCancel={handleCloseModal}
+          onConfirm={handleConfirmCancellation}
+          message="Are you sure you want to cancel this selection in your order?"
+        />
         <p>{items.length} order(s)</p>
 
         {items.map((el) => {
@@ -106,66 +126,90 @@ function OrderHistory() {
                   </div>
                   <div className="order-details_right">
                     <div className="order-shipping-info">
-                      <h3>{el.delivery ? "Ship to: " : "Pick Up: "}{`${el.firstName} ${el.lastName}`}</h3>
+                      <h3>
+                        {el.delivery ? "Ship to: " : "Pick Up: "}
+                        {`${el.firstName} ${el.lastName}`}
+                      </h3>
                       <h3>Address: {el.address}</h3>
                     </div>
                     <div className="order-buttons">
-                      <button aria-label="batch notes" onClick={() => {
-                        setIsFormVisible({ id: el["Batches.id"], toggle: true })
-                        handleSpecialRequest(el["Batches.id"])
-                        setNoteContent(el["Batches.note"])
-                        setUpdateNote(false)
-                      }}>
+                      <button
+                        aria-label="batch notes"
+                        onClick={() => {
+                          setIsFormVisible({
+                            id: el["Batches.id"],
+                            toggle: true,
+                          });
+                          handleSpecialRequest(el["Batches.id"]);
+                          setNoteContent(el["Batches.note"]);
+                          setUpdateNote(false);
+                        }}
+                      >
                         CUSTOM TEXT
                       </button>
-                      <button aria-label="delete batch" onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
+                      <button
+                        aria-label="delete batch"
+                        onClick={() => {
+                          setShowConfirmationModal(true);
+                          setBatchIdToCancel(el["Batches.id"]);
+                        }}
+                      >
+                        CANCEL
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                {isFormVisible.toggle && isFormVisible.id === el["Batches.id"] && (
+                {isFormVisible.toggle &&
+                  isFormVisible.id === el["Batches.id"] &&
                   // checking if processed is true/false
-                  el.processed ?
+                  (el.processed ? (
                     <div className="note-description">
                       <h4>Notes:</h4>
                       <p>{el["Batches.note"]}</p>
                     </div>
-                    :
-                    // If edit button is clicked the editNote will turn true and into a form/input
-                    updateNote ?
-                      <div>
-                        <h4 className="note-edit-form">Custom Text:</h4>
-                        <form className="note-edit-form" onSubmit={(e) => {
-                          e.preventDefault()
-                          handleEditNote(el["Batches.id"])
-                          setUpdateNote(false)
-                        }}>
-                          <textarea
-                            id="edit-custom-text"
-                            type="text"
-                            value={noteContent}
-                            onChange={(e) => {
-                              setNoteContent(e.target.value)
-                            }}
-                          ></textarea>
-                          <button type="submit">Submit</button>
-                        </form>
-                      </div>
-                      :
-                      // if editNote is false the edit button will be available
-                      <div className="note-pre-edit">
-                        <h4>Custom Text:</h4>
-                        <p>{el["Batches.note"]}</p>
-                        <button onClick={() => {
-                          setUpdateNote(true)
-                        }}>Edit</button>
-                      </div>
-                )}
+                  ) : // If edit button is clicked the editNote will turn true and into a form/input
+                  updateNote ? (
+                    <div>
+                      <h4 className="note-edit-form">Custom Text:</h4>
+                      <form
+                        className="note-edit-form"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          handleEditNote(el["Batches.id"]);
+                          setUpdateNote(false);
+                        }}
+                      >
+                        <textarea
+                          id="edit-custom-text"
+                          type="text"
+                          value={noteContent}
+                          onChange={(e) => {
+                            setNoteContent(e.target.value);
+                          }}
+                        ></textarea>
+                        <button type="submit">Submit</button>
+                      </form>
+                    </div>
+                  ) : (
+                    // if editNote is false the edit button will be available
+                    <div className="note-pre-edit">
+                      <h4>Custom Text:</h4>
+                      <p>{el["Batches.note"]}</p>
+                      <button
+                        onClick={() => {
+                          setUpdateNote(true);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
           );
         })}
-      </div >
+      </div>
     )
   );
 }
