@@ -41,6 +41,7 @@ function LoginModal() {
       setErrors(null);
       handleContent()
       setUser(data.user)
+      window.scrollTo(0,0)
       return navigate("/");
     }
   };

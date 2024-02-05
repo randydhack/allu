@@ -16,6 +16,7 @@ import "./Checkout.scss";
 
 // Icons
 import { CiSquareRemove } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Checkout() {
   // Context
   const { toggleEditBatchModal } = useContext(ModalContext);
   const { setBatchDetails } = useContext(InfoContext);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   // States
   const { cart: rawCart, isLoaded } = useSelector((state) => state.batches);
@@ -30,16 +32,24 @@ function Checkout() {
   const cart = rawCart?.filter((batch) => batch["Batches.id"] !== null);
 
   // Remove Cart handle
-  const handleRemoveFromCart = (itemId) => {
-    dispatch(deleteBatch(itemId));
+  const handleRemoveFromCart = async (itemId) => {
+    if (isRemoving) return; // Early return if a removal is already in progress
+
+    setIsRemoving(true); // Indicate that a removal operation is in progress
+
+    try {
+      await dispatch(deleteBatch(itemId));
+      // Perform any additional actions needed after successful removal
+    } catch (error) {
+      console.error("Failed to remove batch:", error);
+    } finally {
+      setIsRemoving(false); // Reset the removal availability
+    }
   };
 
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
-
-
-
 
   // Format Batch sizes
 
@@ -56,21 +66,19 @@ function Checkout() {
     });
   };
 
-
-
   const formatBatchSizes = (batch) => {
     const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
     const sizeDescriptions = sizes
       .map((size) => {
-        const numericPart = size.replace(/[^\d]/g, ''); // Extract numeric part
+        const numericPart = size.replace(/[^\d]/g, ""); // Extract numeric part
         const formattedSize =
-          numericPart > 1 ? `${numericPart}xl` : size.replace(/x+/g, 'x');
+          numericPart > 1 ? `${numericPart}xl` : size.replace(/x+/g, "x");
         return batch[`Batches.${size}`]
           ? ` ${batch[`Batches.${size}`]} ${formattedSize.toUpperCase()}`
-          : '';
+          : "";
       })
-      .filter((desc) => desc !== '')
-      .join(',');
+      .filter((desc) => desc !== "")
+      .join(",");
 
     const totalQuantity = sizes.reduce(
       (sum, size) => sum + (batch[`Batches.${size}`] || 0),
@@ -79,10 +87,6 @@ function Checkout() {
 
     return { sizeDescriptions, totalQuantity };
   };
-
-
-
-
 
   // Calculate Cart Total
   const calculateSubtotal = (cart) => {
@@ -165,10 +169,18 @@ function Checkout() {
                     </button>
                   </div>
                   <div className="removal">
+                    <button className="delete-button">
                     <CiSquareRemove
-                      className="remove-button remove-icon"
-                      onClick={() => handleRemoveFromCart(item["Batches.id"])}
+                      className={`remove-button remove-icon ${
+                        isRemoving ? "disabled" : ""
+                      }`}
+                      onClick={
+                        !isRemoving
+                          ? () => handleRemoveFromCart(item["Batches.id"])
+                          : undefined
+                      }
                     />
+                    </button>
                   </div>
                 </div>
               );
@@ -180,12 +192,10 @@ function Checkout() {
               <button
                 className="navigate-shipping"
                 aria-label="shipping"
-                onClick={() => goToShip()}
-                style={{
-                  backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`,
-                }}
+                onClick={() => {goToShip(); window.scrollTo(0,0)}}
+
               >
-                <p style={{ color: `${cart.length ? "white" : "#707070"}` }}>
+                <p >
                   Finalize Order
                 </p>
               </button>

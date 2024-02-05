@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import "./PickupAndDelivery.scss";
 import { useNavigate } from "react-router-dom";
 import { getCart } from "../../store/BatchReducer";
+import emailjs from "emailjs-com";
 
 function PickupAndDelivery() {
   const navigate = useNavigate();
@@ -17,25 +18,23 @@ function PickupAndDelivery() {
 
   const [isDelivery, setIsDelivery] = useState(true);
   const [formInfo, setFormInfo] = useState({});
-  const [isLoaded, setLoaded] = useState(false)
-
+  const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const cart = await dispatch(getCart())
-      const filterCart = cart.filter(el => el["Batches.id"] !== null)
+      const cart = await dispatch(getCart());
+      const filterCart = cart.filter((el) => el["Batches.id"] !== null);
       if (!filterCart.length) {
-        return navigate('/checkout')
+        return navigate("/checkout");
       } else {
-        setLoaded(true)
+        setLoaded(true);
       }
-    })()
-
-  }, [dispatch])
-
+    })();
+  }, [dispatch]);
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+    window.scrollTo(0,0);
 
     let order;
     if (isDelivery) {
@@ -55,9 +54,7 @@ function PickupAndDelivery() {
         processed: false,
         delivery: true,
       };
-    }
-    //send all or some fields to backend (depending on pickup or delivery)
-    else {
+    } else {
       order = {
         userId: currUser.id,
         address: "9 Interstate Ave Albany, NY 12205",
@@ -72,13 +69,37 @@ function PickupAndDelivery() {
         delivery: false,
       };
     }
-    try{
+    const emailData = {
+      from_name: formInfo["firstName"] + " " + formInfo["lastName"],
+      message: formInfo["special-request"],
+      reply_to: formInfo["email"],
+      address: isDelivery
+        ? `${formInfo["address1"]} ${formInfo["address2"] || ""} ${
+            formInfo["city"]
+          }, ${formInfo["state"]} ${formInfo["zipCode"]}`
+        : "9 Interstate Ave Albany, NY 12205",
+      phone: formInfo["phone"],
+    };
+
+    try {
+      const emailResponse = await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        emailData,
+        process.env.REACT_APP_EMAILJS_USER_ID
+      );
+      console.log(
+        "Email successfully sent!",
+        emailResponse.status,
+        emailResponse.text
+      );
+
       let orderCreated = await dispatch(createOrder(order));
       if (orderCreated) {
         return navigate(`/order-submitted`);
       }
     } catch (error) {
-      console.error("Error creating order: ", error)
+      console.error("Failed to send email:", error);
     }
   }
 
@@ -88,83 +109,85 @@ function PickupAndDelivery() {
     setFormInfo(currentFormInfo);
   }
 
-  return isLoaded && (
-    <div className="pickup-delivery-page">
-      <div style={{height: "100%"}}>
-        <header>
-          <h1>FINALIZE YOUR ORDER</h1>
-        </header>
+  return (
+    isLoaded && (
+      <div className="pickup-delivery-page">
+        <div style={{ height: "100%" }}>
+          <header>
+            <h1>FINALIZE YOUR ORDER</h1>
+          </header>
 
-        <div className="checkout_options">
-          <p style={{ marginRight: "25px" }}>Checkout Options:</p>
-          <div className="radio-button-container">
-            <div className="radio-option" style={{ width: "fit-content" }}>
-              <input
-                type="radio"
-                id="delivery"
-                aria-label="delivery"
-                defaultChecked
-                name="pickup-or-delivery"
-                onChange={() => setIsDelivery(true)}
-              />
-              <p>Delivery</p>
-            </div>
-            <span>or</span>
-            <div className="radio-option">
-              <input
-                type="radio"
-                id="delivery"
-                aria-label="delivery"
-                value={false}
-                name="pickup-or-delivery"
-                onChange={() => setIsDelivery(false)}
-              />
-              <p>Pick up at 9 Interstate Ave Albany, NY 12205</p>
+          <div className="checkout_options">
+            <p style={{ marginRight: "25px" }}>Checkout Options:</p>
+            <div className="radio-button-container">
+              <div className="radio-option" style={{ width: "fit-content" }}>
+                <input
+                  type="radio"
+                  id="delivery"
+                  aria-label="delivery"
+                  defaultChecked
+                  name="pickup-or-delivery"
+                  onChange={() => setIsDelivery(true)}
+                />
+                <p>Delivery</p>
+              </div>
+              <span>or</span>
+              <div className="radio-option">
+                <input
+                  type="radio"
+                  id="delivery"
+                  aria-label="delivery"
+                  value={false}
+                  name="pickup-or-delivery"
+                  onChange={() => setIsDelivery(false)}
+                />
+                <p>Pick up at 9 Interstate Ave Albany, NY 12205</p>
+              </div>
             </div>
           </div>
+
+          <form onSubmit={handleFormSubmit} className="checkout-form-main">
+            {isDelivery ? (
+              <DeliveryForm
+                setFormInfo={setFormInfo}
+                formInfo={formInfo}
+                formChange={formChange}
+              />
+            ) : (
+              <PickupForm
+                setFormInfo={setFormInfo}
+                formInfo={formInfo}
+                formChange={formChange}
+              />
+            )}
+
+            <div className="special-request-form">
+              <label htmlFor="special-request">Additional Information</label>
+              <textarea
+                name="special-request"
+                id="special-request"
+                cols="30"
+                rows="10"
+                aria-label="special request"
+                placeholder="Any additional information about the order or special request."
+                onChange={formChange}
+                value={formInfo["special-request"] || ""}
+              />
+            </div>
+
+            <div className="submit-order-main">
+              <p>
+                Submitting this will finalize your order and be reviewed before
+                shipping.
+              </p>
+              <button type="submit" aria-label="submit">
+                Submit Order
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleFormSubmit} className="checkout-form-main">
-          {isDelivery ? (
-            <DeliveryForm
-              setFormInfo={setFormInfo}
-              formInfo={formInfo}
-              formChange={formChange}
-            />
-          ) : (
-            <PickupForm
-              setFormInfo={setFormInfo}
-              formInfo={formInfo}
-              formChange={formChange}
-            />
-          )}
-
-          <div className="special-request-form">
-            <label htmlFor="special-request">Additional Information</label>
-            <textarea
-              name="special-request"
-              id="special-request"
-              cols="30"
-              rows="10"
-              aria-label="special request"
-              placeholder="Any additional information about the order or special request."
-              onChange={formChange}
-              value={formInfo["special-request"] || ""}
-            />
-          </div>
-
-          <div className="submit-order-main">
-            <p>
-              Submitting this will finalize your order and be reviewed before
-              shipping.
-            </p>
-            <button type="submit" aria-label="submit">
-              Submit Order
-            </button>
-          </div>
-        </form>
       </div>
-    </div>
+    )
   );
 }
 
