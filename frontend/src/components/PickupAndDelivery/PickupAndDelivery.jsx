@@ -3,7 +3,6 @@ import DeliveryForm from "./DeliveryForm";
 import { useEffect, useState } from "react";
 import { createOrder } from "../../store/order";
 import { useDispatch } from "react-redux";
-// import { useContext } from "react"
 import { useSelector } from "react-redux";
 
 import "./PickupAndDelivery.scss";
@@ -75,9 +74,8 @@ function PickupAndDelivery() {
     }
     try{
       let orderCreated = await dispatch(createOrder(order));
-      // console.log("ORDER HERE", orderCreated)
       if (orderCreated) {
-        return navigate(`/order-submitted/${orderCreated.id}`);
+        return navigate(`/order-submitted`);
       }
     } catch (error) {
       console.error("Error creating order: ", error)

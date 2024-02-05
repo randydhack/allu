@@ -11,12 +11,7 @@ function SuccessPage(){
     const { user } = useSelector(state => state.session)
     const [isLoaded, setIsLoaded] = useState(false)
 
-    console.log(user, id)
-
     useEffect(() => {
-        console.log(user.id)
-        console.log(Number(id))
-        // if (user.id != Number(id)) navigate("/notAllowed")
         if (!user.id) navigate("/notAllowed")
         else setIsLoaded(true)
     }, [])

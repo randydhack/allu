@@ -40,7 +40,6 @@ function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the formData to your server or an email service
-    console.log("Form data submitted:", formData);
     setAddNotification("Form Submitted");
     // Clear form fields after submission
     setFormData({
