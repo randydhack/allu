@@ -110,8 +110,6 @@ function Product() {
   const handleProductSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("HANDLE SUBMIT", sizes)
-
     if (
       sizes["XS"] ||
       sizes["S"] ||
@@ -137,7 +135,6 @@ function Product() {
 
       if (data) {
         setAddNotification("Added to Cart");
-        console.log("bfore",sizes)
         setSizes({
           XS: 0,
           S: 0,

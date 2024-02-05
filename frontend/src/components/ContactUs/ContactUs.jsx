@@ -1,8 +1,10 @@
 import Logo from "../../images/t_shirt_logo.png";
 import "./ContactUs.scss";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 import React, { useState } from "react";
 
 function ContactUs() {
+  const [addNotification, setAddNotification] = useState("");
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -39,6 +41,7 @@ function ContactUs() {
     e.preventDefault();
     // Here you would typically send the formData to your server or an email service
     console.log("Form data submitted:", formData);
+    setAddNotification("Form Submitted");
     // Clear form fields after submission
     setFormData({
       firstname: "",
@@ -114,7 +117,7 @@ function ContactUs() {
             <div className="form-group">
               <label htmlFor="phone">Phone number</label>
               <input
-                type="text"
+                type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
@@ -145,6 +148,12 @@ function ContactUs() {
                 Send Message
               </button>
             </div>
+              {addNotification && (
+            <p className="cart-added-msg">
+              <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+              {addNotification}
+            </p>
+          )}
           </div>
         </form>
       </div>
