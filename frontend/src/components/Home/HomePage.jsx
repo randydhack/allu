@@ -112,9 +112,9 @@ function Home() {
                 <br></br>
                 <br></br>
                 <br></br>
-            <h1>
+            {/* <h1>
               Custom screenprinting, embroidery and more!
-            </h1>
+            </h1> */}
           </div>
           <br></br>
           <br></br>
@@ -147,6 +147,9 @@ function Home() {
                     <h2>
                     Welcome to ALL U – where style meets self-expression! Explore our curated collection of custom-printed T-shirts and hoodies, designed to showcase your unique personality. Elevate your wardrobe with quality, comfort, and a touch of individuality. Discover the joy of personalized fashion at ALL U today!
                     </h2>
+                    <h1>
+              Custom screenprinting, embroidery and more!
+            </h1>
           </div>
 
           {/* <span className="divider">
