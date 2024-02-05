@@ -11,6 +11,8 @@ import american_apparel from "../../images/American_Apparel.png";
 import champion from "../../images/champion.png";
 import sport_tek from "../../images/Sport_Tek_Logo.png";
 import hanes from "../../images/hanes.png";
+import nike from "../../images/nike.png";
+import corner_stone from "../../images/corner-stone.webp";
 
 // Libaries
 import { useContext } from "react";
@@ -28,6 +30,8 @@ const images = [
   { url: american_apparel, alt: "american apparel logo" },
   { url: gildan, alt: "gildan logo" },
   { url: champion, alt: "champion logo" },
+  { url: nike, alt: "nike logo" },
+  { url: corner_stone, alt: "corner stone logo" },
 ];
 
 function Home() {
@@ -146,6 +150,7 @@ function Home() {
       </section>
 
       <section className="section-2">
+        <h2>Our Partners</h2>
         <div className="slider">
           <div className="slide-track">
             {images.map((el, i) => {
@@ -157,7 +162,6 @@ function Home() {
             })}
           </div>
         </div>
-          <h2>header</h2>
       </section>
     </main>
   );
