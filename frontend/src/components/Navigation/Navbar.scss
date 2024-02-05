@@ -39,6 +39,21 @@
 }
 
 
+  .nav_login {
+    background-color: inherit;
+  }
+
+
+.nav__right__section__mobile {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+  .nav_login {
+    background-color: inherit;
+  }
+}
+
 
 .nav__middle__section, .nav__right__section{
   display: flex;
@@ -277,3 +292,8 @@
     gap: 10px;
   }
 }
+
+// .sign-in {
+//   display: flex;
+//   justify-content: cem;
+// }

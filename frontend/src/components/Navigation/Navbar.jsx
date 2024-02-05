@@ -60,7 +60,7 @@ function Navbar() {
         setMobile(getWindowDimensions().width <= 425);
 
         if (screenSmall === false && mobile === false) {
-          setToggleBurger(false)
+          setToggleBurger(false);
         }
       }
 
@@ -107,10 +107,11 @@ function Navbar() {
 
           {screenSmall ? (
             toggleBurger ? (
-
-              <div className="dropdown-menu" style={{height: `${mobile && "100vh"}`}}>
+              <div
+                className="dropdown-menu"
+                style={{ height: `${mobile && "100vh"}` }}
+              >
                 <div className="drop-down-inner">
-
                   <NavLink to="/designs" alt="designs" aria-label="design">
                     DESIGNS
                   </NavLink>
@@ -124,7 +125,7 @@ function Navbar() {
                   >
                     CONTACT US
                   </NavLink>
-                  {mobile && (user || currUser)&& (
+                  {mobile && (user || currUser) ? (
                     <div className="mobile-acc_cart">
                       <NavLink
                         to="/account-details"
@@ -143,6 +144,24 @@ function Navbar() {
                           </p>
                         </div>
                       </NavLink>
+                    </div>
+                  ) : (
+                    mobile && <div className="nav__right__section__mobile">
+                      <NavLink
+                        aria-label="sign in"
+                        onClick={() => toggleLogin()}
+                        className="sign-in account"
+                      >
+                        <PiUserCircleThin className="user-icon" />
+                        <p>Sign In</p>
+                      </NavLink>
+                      <button
+                        className="register"
+                        aria-label="sign up"
+                        onClick={() => toggleSignUp()}
+                      >
+                        <p className="register">Register</p>
+                      </button>
                     </div>
                   )}
                 </div>
@@ -165,48 +184,46 @@ function Navbar() {
           )}
         </div>
 
-        {user || currUser ? (
-
-            !mobile &&
-
-            <div className="nav__profile__cart">
-            <NavLink
-            to="/account-details"
-            aria-label="account"
-            className="account"
-            >
-            <PiUserCircleThin className="user-icon" />
-            <p>Account</p>
-            </NavLink>
-            <NavLink to="/checkout" aria-label="cart">
-            <div className="cart-container">
-            <PiShoppingCartSimpleThin className="cart-icon" />
-            <p>
-            Cart ({cart?.length && cartNull.length ? cart.length : 0})
-            </p>
-            </div>
-            </NavLink>
-            </div>
-
-        ) : (
-          <div className="nav__right__section">
-            <NavLink
-              aria-label="sign in"
-              onClick={() => toggleLogin()}
-              className="sign-in"
-            >
-              <PiUserCircleThin className="user-icon" />
-              <p>Sign In</p>
-            </NavLink>
-            <button
-              className="register"
-              aria-label="sign up"
-              onClick={() => toggleSignUp()}
-            >
-              <p className="register">Register</p>
-            </button>
-          </div>
-        )}
+        {user || currUser
+          ? !mobile && (
+              <div className="nav__profile__cart">
+                <NavLink
+                  to="/account-details"
+                  aria-label="account"
+                  className="account"
+                >
+                  <PiUserCircleThin className="user-icon" />
+                  <p>Account</p>
+                </NavLink>
+                <NavLink to="/checkout" aria-label="cart">
+                  <div className="cart-container">
+                    <PiShoppingCartSimpleThin className="cart-icon" />
+                    <p>
+                      Cart ({cart?.length && cartNull.length ? cart.length : 0})
+                    </p>
+                  </div>
+                </NavLink>
+              </div>
+            )
+          : !mobile  && (
+              <div className="nav__right__section">
+                <NavLink
+                  aria-label="sign in"
+                  onClick={() => toggleLogin()}
+                  className="sign-in account"
+                >
+                  <PiUserCircleThin className="user-icon" />
+                  <p>Sign In</p>
+                </NavLink>
+                <button
+                  className="register"
+                  aria-label="sign up"
+                  onClick={() => toggleSignUp()}
+                >
+                  <p className="register">Register</p>
+                </button>
+              </div>
+            )}
       </div>
     </div>
   );
