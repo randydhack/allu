@@ -86,14 +86,14 @@ function Home() {
       //   backgroundSize: "cover",
       //   backgroundPosition: "center center",
       // });
-    }, 15000);
+    }, 10000);
     return () => {
       clearInterval(intervalId);
     };
   }, [currentImgIdx]);
 
   return (
-    <div className="home-container" style={homeStyle}>
+    <div className="home-container">
       {/* Left Section */}
       <div className="home-left-container">
         <img

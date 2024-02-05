@@ -13,9 +13,13 @@ $lg: 1150px;
     width: 100%;
     height: 95vh;
     background-color: #fafafa;
+    background-size: cover;
+    overflow: hidden;
     // position: relative;
-
 }
+
+
+
 .splash-img{
     // height: calc(100%);
     height: 100%;
@@ -60,10 +64,19 @@ $lg: 1150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    // background-color: rgba(255, 255, 255, 0.6);
     width: 80%;
-    border-radius: 2%;
+    // height: 80%;
+    // border-radius: 2%;
     position: relative;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.home-left-container img {
+    width: 100%;
+    height: 100%;
+    // border-radius: 2%;
 }
 
 // .home-right-container {
@@ -82,10 +95,12 @@ $lg: 1150px;
 
 .header_logo {
     display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
+    height: auto;
     // background-color: red;
-    width: 100%;
+    max-width: 100%;
 }
 .header_logo img{
     width: 50%;
