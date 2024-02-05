@@ -75,7 +75,6 @@ function Product() {
   useEffect(() => {
     const checkSizes = Object.values(sizes).every((el) => el <= 0);
 
-    console.log("sizes", sizes)
       setConfirmButtonState(checkSizes)
 
   }, [sizes, setSizes, setConfirmButtonState, confirmButton]);
@@ -146,7 +145,6 @@ function Product() {
           "4XL": 0,
           "5XL": 0,
         });
-        console.log("after", sizes)
 
         const field = document.getElementsByClassName("size_input");
         Array.from(field).forEach((el) => (el.value = ""));
