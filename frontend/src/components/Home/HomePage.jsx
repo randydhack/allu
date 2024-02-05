@@ -1,174 +1,102 @@
 // CSS
 import "./Home.scss";
 import "../utils/DefaultStyles.scss";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+
+// Images
 import printingPress from "../../images/screen-printing.gif";
-import model from "../../images/model-with-books.png";
-import padPrinting from "../../images/pad-printing.gif";
-import manualPress from "../../images/manual-press.jpg";
-import { ModalContext } from "../../context/modalContext";
+import gildan from "../../images/gildan.png";
+import northface from "../../images/northface.png";
+import carhartt from "../../images/logo-carhartt.png";
+import american_apparel from "../../images/American_Apparel.png";
+import champion from "../../images/champion.png";
+import sport_tek from "../../images/Sport_Tek_Logo.png";
+import hanes from "../../images/hanes.png";
+import nike from "../../images/nike.png";
+import corner_stone from "../../images/corner-stone.webp";
+
+// Libaries
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../images/allu-high-res.png";
+
+// Icons
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+
+// DATA
+const images = [
+  { url: sport_tek, alt: "sport tek logo" },
+  { url: northface, alt: "north face logo" },
+  { url: hanes, alt: "hanes logo" },
+  { url: carhartt, alt: "carhartt logo" },
+  { url: american_apparel, alt: "american apparel logo" },
+  { url: gildan, alt: "gildan logo" },
+  { url: champion, alt: "champion logo" },
+  { url: nike, alt: "nike logo" },
+  { url: corner_stone, alt: "corner stone logo" },
+];
 
 function Home() {
-  const images = [
-    { url: printingPress, alt: "screenprinting press in operation" },
-    { url: model, alt: "model wearing screenprinted shirt" },
-    { url: padPrinting, alt: "pad printing machine in operation" },
-    { url: manualPress, alt: "manual screen printing press" },
-  ];
-  const [currentImgIdx, setCurrentImg] = useState(
-    // Math.floor(Math.random(images.length))
-    0
-  );
-  // function getWindowDimensions() {
-  //   const { innerWidth: width, innerHeight: height } = window;
-  //   return {
-  //     width,
-  //     height,
-  //   };
-  // }
-  // const newHomeStyle = () => {
-  // return getWindowDimensions().width < 1150
-  //   ?
-
-  // const backgroundStyle =
-  // {
-  //   backgroundImage: `url(${images[currentImgIdx].url})`,
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center center",
-  // };
-
-  // return backgroundStyle
-
-  // : {};
-  // }
-  const [homeStyle, setHomeStyle] = useState({
-    backgroundImage: `url(${images[currentImgIdx].url})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-  });
-
-  // function useWindowDimensions() {
-  //   const [windowDimensions, setWindowDimensions] = useState(
-  //     getWindowDimensions()
-  //   );
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimensions(getWindowDimensions());
-  //     setHomeStyle(newHomeStyle());
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  // return windowDimensions;
-  // }
-  // useWindowDimensions();
-  const currUser = useSelector((state) => state.session.user);
-  const { toggleSignUp } = useContext(ModalContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentImg(currentImgIdx == images.length - 1 ? 0 : currentImgIdx + 1);
-      // setHomeStyle({
-      //   backgroundImage: `url(${images[currentImgIdx].url})`,
-      //   backgroundRepeat: "no-repeat",
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "center center",
-      // });
-    }, 10000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [currentImgIdx]);
-
   return (
-    <div className="home-container">
+    <main className="home-container">
       {/* Left Section */}
-      <div className="home-left-container">
-        <img
-          className="splash-img"
-          src={images[currentImgIdx].url}
-          alt={images[currentImgIdx].alt}
-        />
+      <section className="home-left-container">
         <div className="main_home_content">
           <div className="home-left-heading">
-            {/* <img src={Logo} alt="All-U logo" width={500}/> */}
-            <div className="header_logo">
-            <img
-                src={Logo}
-                alt="all-u logo, click to return to home page"
-                />
-                </div>
-                <br></br>
-                <br></br>
-                <br></br>
+            <h1>
+              EXPERIENCE
+              <br />
+              WITH OUR DESIGNS
+            </h1>
+            <h2>
+              Elevate your wardrobe with quality, comfort, and discover the joy
+              of personalized fashion at ALL U
+            </h2>
+          </div>
+          <div className="home-left-contents">
+            <div className="home-btn-main">
+              <button
+                aria-label="designs"
+                onClick={() => {
+                  navigate("/designs");
+                }}
+                className="home-design-btn"
+              >
+                <span>Our Designs</span>
+                <MdOutlineKeyboardArrowRight className="design-btn-arrow" />
+              </button>
+            </div>
             {/* <h1>
               Custom screenprinting, embroidery and more!
             </h1> */}
           </div>
-          <br></br>
-          <br></br>
-          <div className="home-left-contents">
-            <div className="home-left-infos">
-              <div className={currUser ? "solocolumn" : "subcolumn"}>
-                <button
-                  aria-label="designs"
-                  onClick={() => {
-                    navigate("/designs");
-                  }}
-                  className="home-left-buttons"
-                >
-                  Catalogue
-                </button>
-              </div>
-              {!currUser && (
-                <div className="subcolumn">
-                  {/* <p>Sign up to track your orders and save custom designs</p> */}
-                  <button
-                    aria-label="sign up"
-                    onClick={toggleSignUp}
-                    className="home-left-buttons"
-                    >
-                    Sign Up!
-                  </button>
-                </div>
-              )}
-            </div>
-                    <h2>
-                    Welcome to ALL U – where style meets self-expression! Explore our curated collection of custom-printed T-shirts and hoodies, designed to showcase your unique personality. Elevate your wardrobe with quality, comfort, and a touch of individuality. Discover the joy of personalized fashion at ALL U today!
-                    </h2>
-                    <h1>
-              Custom screenprinting, embroidery and more!
-            </h1>
-          </div>
-
-          {/* <span className="divider">
-            <span className="border-t-[1px] border-solid border-white flex-auto min-w-[1px] pt-[8px] mt-[8px]"></span>
-            <span className="px-[10px]">or</span>
-            <span className="border-t-[1px] border-solid border-white flex-auto min-w-[1px] pt-[8px] mt-[8px]"></span>
-          </span>
-          <div className="subcolumn bottom">
-            <button className="home-left-buttons bottom-button">
-                  Upload Your Own Design
-            </button>
-          </div> */}
         </div>
-      </div>
+        <div
+          className="gif-home"
+          style={{
+            backgroundImage: `url(${printingPress})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+          }}
+        ></div>
+      </section>
 
-      {/* Right Section
-      <div className="home-right-container">
-      </div> */}
-    </div>
+      <section className="section-2">
+        <h2>Our Partners</h2>
+        <div className="slider">
+          <div className="slide-track">
+            {images.map((el, i) => {
+              return (
+                <div class="slide">
+                  <img key={i} src={el.url} alt={el.alt} width={150} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 

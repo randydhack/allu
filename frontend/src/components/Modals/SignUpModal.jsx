@@ -19,10 +19,8 @@ function SignUpModal() {
   // Set the type to null when clicking the close icon and closes the modal
   const { toggleLogin, handleContent } = useContext(ModalContext);
   const { setUser } = useContext(InfoContext);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
