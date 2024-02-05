@@ -2,6 +2,7 @@ import Logo from "../../images/t_shirt_logo.png";
 import "./ContactUs.scss";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
 function ContactUs() {
   const [addNotification, setAddNotification] = useState("");
@@ -39,9 +40,31 @@ function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the formData to your server or an email service
-    setAddNotification("Form Submitted");
-    // Clear form fields after submission
+    console.log(process.env.REACT_APP_EMAILJS_USER_ID);
+    emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID);
+    emailjs
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          alert("Message sent successfully!");
+        },
+        (err) => {
+          console.log("FAILED...", err);
+          alert("Failed to send the message, please try again.");
+        }
+      );
+
     setFormData({
       firstname: "",
       lastname: "",
@@ -49,7 +72,13 @@ function ContactUs() {
       phone: "",
       message: "",
     });
-    // Optionally reset touched state as well
+    setTouched({
+      firstname: false,
+      lastname: false,
+      email: false,
+      phone: false,
+      message: false,
+    });
   };
 
   const shouldShowError = (field) => {
@@ -147,12 +176,12 @@ function ContactUs() {
                 Send Message
               </button>
             </div>
-              {addNotification && (
-            <p className="cart-added-msg">
-              <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
-              {addNotification}
-            </p>
-          )}
+            {addNotification && (
+              <p className="cart-added-msg">
+                <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+                {addNotification}
+              </p>
+            )}
           </div>
         </form>
       </div>

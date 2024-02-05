@@ -3,11 +3,10 @@ import "./OrderHistory.scss";
 
 // Libaries
 import React, { useEffect, useState } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../../store/order";
 import { deleteBatchOrder, editNote } from "../../../store/BatchReducer";
 import moment from "moment";
-import { v4 as uuidv4 } from 'uuid';
 
 function OrderHistory() {
   const dispatch = useDispatch();
