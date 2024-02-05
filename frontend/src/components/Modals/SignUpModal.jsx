@@ -2,6 +2,7 @@
 import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import  validator from "validator";
 
 // Context
 import { ModalContext } from "../../context/modalContext";
@@ -30,22 +31,29 @@ function SignUpModal() {
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(
-      registerUser(email, firstName, lastName, password)
-    ).catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) {
-        setErrors(data.errors);
-      }
-    });
+    setErrors({})
+    let emailCheck = validator.isEmail(email)
+    if(password.length >= 6 && emailCheck) {
 
-    if (data) {
-      setErrors({});
-      handleContent();
-      setUser(data.user);
-      window.scrollTo(0,0)
-      return navigate("/");
-    }
+      const data = await dispatch(
+        registerUser(email, firstName, lastName, password)
+        ).catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setErrors(data.errors);
+          }
+        });
+
+        if (data) {
+          setErrors({});
+          handleContent();
+          setUser(data.user);
+          window.scrollTo(0,0)
+          return navigate("/");
+        }
+      }
+
+      if (!emailCheck) setErrors({email: "Email is invalid"})
   };
 
   return (
@@ -67,6 +75,7 @@ function SignUpModal() {
               className="inputField"
               aria-label="email"
               value={email}
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && (
@@ -85,8 +94,16 @@ function SignUpModal() {
               className="inputField"
               aria-label="first name"
               value={firstName}
+              min={1}
+              required
+              title="First Name Required"
               onChange={(e) => setFirstName(e.target.value)}
             />
+            {/* {firstName && firstName.length < 2 && (
+              <div className="signup__error_msg">
+                First name must be
+              </div>
+            )} */}
           </div>
 
           <div className="field">
@@ -99,9 +116,17 @@ function SignUpModal() {
               name="last_name"
               className="inputField"
               aria-label="last name"
+              min={1}
+              required
+              title="Last Name Required"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
+            {/* {lastName && lastName.length < 2 && (
+              <div className="signup__error_msg">
+                Password length must be 6 characters or more
+              </div>
+            )} */}
           </div>
 
           <div className="field">
@@ -114,6 +139,8 @@ function SignUpModal() {
               name="password"
               className="inputField"
               aria-label="password"
+              min={6}
+              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
