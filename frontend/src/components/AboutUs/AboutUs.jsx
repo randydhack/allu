@@ -12,15 +12,15 @@ function AboutUs() {
   return (
     <main className="about-us">
       <div className="about-main">
-        <header>
+        <header aria-label="Main header">
           <h1>All - U</h1>
           <h2>Making Someone's Favorite Shirt since 1986!</h2>
         </header>
-        <section className="about-section-1">
+        <section className="about-section-1" aria-label="Founder and CEO">
           <div>
-        <header>
-          <h2>Founder and CEO</h2>
-        </header>
+            <header>
+              <h2>Founder and CEO</h2>
+            </header>
             <p>
               I'm Jim Holodak, the proud founder of ALL U, Inc. A family-owned
               and operated venture, we bring nearly four decades of expertise to
@@ -47,9 +47,10 @@ function AboutUs() {
             width={400}
             height={400}
             className="about-img"
+            aria-label="Founder Jim Holodak's Portrait"
           />
         </section>
-        <section className="about-section-2">
+        <section className="about-section-2" aria-label="Our Business">
           <h2>Our Business</h2>
           <p>
             As our business grew over the years, we have been very fortunate to
@@ -73,7 +74,7 @@ function AboutUs() {
           </p>
         </section>
 
-        <section>
+        <section aria-label="Contact Us">
           <button onClick={() => navigate("/contact-us")}>Contact Us</button>
         </section>
       </div>

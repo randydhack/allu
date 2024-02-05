@@ -27,9 +27,8 @@ router.post(
   validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
-    // console.log('in login route', credential, password)
     const user = await User.login({ credential, password });
-    // console.log('this is user', user)
+
     if (!user) {
       const err = new Error('Login failed');
       err.status = 401;
@@ -39,17 +38,7 @@ router.post(
       err.statusCode = 401
       return next(err);
     }
-    //just remove code below bc redundant with line 33
-    // if(!credential || !password || credential === "" || password === "") {
-    //   return res.json({
-    //     message: "Validation error",
-    //     statusCode: 400,
-    //     errors: {
-    //       credential: "Email is required",
-    //       password: "Password is required"
-    //     }
-    //   })
-    // }
+
     let token = await setTokenCookie(res, user);
     return res.json({
       user: {

@@ -42,7 +42,6 @@ router.get("/user", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user) {
-    console.log("what is happening HERE")
     const orders = await Order.findAll({
       where: { userId: user.id },
       include: [
@@ -83,9 +82,6 @@ router.post("/", requireAuth, async (req, res, next) => {
     const { address, special_request, quote, workforce_race, processed, firstName, lastName, phone, email, delivery } =
     req.body;
 
-    console.log("ASDFASDFASDFASDFASDFASDFASDFASSDFASDFASDFASDFASDFAS")
-      console.log(address, special_request, quote, workforce_race, processed, phone, firstName, lastName, email, delivery)
-
       if (quote == null || workforce_race == null || processed == null) {
         const err = new Error("Creating order failed");
         err.status = 403;
@@ -122,7 +118,6 @@ router.post("/", requireAuth, async (req, res, next) => {
 
     for (let i = 0; i < cart.Batches.length; i++) {
       const curr = cart.Batches[i];
-      console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK")
 
       curr.orderId = newOrder.id;
       curr.cartId = null;

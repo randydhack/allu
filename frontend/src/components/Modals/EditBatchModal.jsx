@@ -10,17 +10,16 @@ const EditBatchModal = () => {
   console.log(batchDetails);
   const dispatch = useDispatch();
   const [sizes, setSizes] = useState({
-    xs: batchDetails?.xs || 0,
-    s: batchDetails?.s || 0,
-    m: batchDetails?.m || 0,
-    l: batchDetails?.l || 0,
-    xl: batchDetails?.xl || 0,
-    xxl: batchDetails?.xxl || 0,
-    xxxl: batchDetails?.xxxl || 0,
-    xxxxl: batchDetails?.xxxxl || 0,
-    xxxxxl: batchDetails?.xxxxxl || 0,
+    xs: batchDetails?.["Batches.xs"] || 0,
+    s: batchDetails?.["Batches.s"] || 0,
+    m: batchDetails?.["Batches.m"] || 0,
+    l: batchDetails?.["Batches.l"] || 0,
+    xl: batchDetails?.["Batches.xl"] || 0,
+    xxl: batchDetails?.["Batches.xxl"] || 0,
+    xxxl: batchDetails?.["Batches.xxxl"] || 0,
+    xxxxl: batchDetails?.["Batches.xxxxl"] || 0,
+    xxxxxl: batchDetails?.["Batches.xxxxxl"] || 0,
   });
-
   const handleChange = (e) => {
     setSizes({
       ...sizes,
@@ -30,12 +29,6 @@ const EditBatchModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      ["Batches.productId"]: productId,
-      ["Batches.color"]: color,
-      ["Batches.total_price"]: total_price,
-      ["Batches.product_url"]: product_url,
-    } = batchDetails;
     const allSizesAreZero = Object.values(sizes).every(
       (size) => size === 0 || size === null
     );
@@ -46,10 +39,6 @@ const EditBatchModal = () => {
     }
 
     const payload = {
-      productId,
-      color,
-      total_price,
-      product_url,
       ...Object.fromEntries(
         Object.entries(sizes).filter(
           ([key, value]) => value !== batchDetails[`Batches.${key}`]
@@ -57,7 +46,7 @@ const EditBatchModal = () => {
       ),
     };
 
-    await dispatch(editBatch(batchDetails.id, payload));
+    await dispatch(editBatch(batchDetails["Batches.id"], payload));
     setIsModalOpen(false);
     setType(null);
   };

@@ -79,6 +79,7 @@ function ContactUs() {
                 value={formData.firstname}
                 onChange={handleChange}
                 required
+                aria-label="First Name"
               />
             </div>
             <div className="form-group">
@@ -90,12 +91,15 @@ function ContactUs() {
                 value={formData.lastname}
                 onChange={handleChange}
                 required
+                aria-label="Last Name"
               />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="email">Email<span style={{color: "red"}}>*</span></label>
+              <label htmlFor="email">
+                Email<span style={{ color: "red" }}>*</span>
+              </label>
               <input
                 type="email"
                 id="email"
@@ -104,6 +108,7 @@ function ContactUs() {
                 onChange={handleChange}
                 aria-describedby="email-error"
                 required
+                aria-label="Email"
               />
             </div>
             <div className="form-group">
@@ -114,11 +119,16 @@ function ContactUs() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
+                onBlur={handleBlur}
+                required
+                aria-label="Phone number"
               />
             </div>
           </div>
           <div className="form-group message-group">
-            <label htmlFor="message">Message<span style={{color: "red"}}>*</span></label>
+            <label htmlFor="message">
+              Message<span style={{ color: "red" }}>*</span>
+            </label>
             <textarea
               id="message"
               name="message"
@@ -126,11 +136,14 @@ function ContactUs() {
               value={formData.message}
               onChange={handleChange}
               required
+              aria-label="Message"
             ></textarea>
           </div>
           <div className="form-group">
             <div className="submit_contact">
-              <button type="submit">Send Message</button>
+              <button type="submit" aria-label="Send message">
+                Send Message
+              </button>
             </div>
           </div>
         </form>

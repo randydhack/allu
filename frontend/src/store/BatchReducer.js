@@ -16,7 +16,7 @@ export const batchSlice = createSlice({
     loadSingleBatch: (state, action) => {
       state.singleBatch = action.payload;
     },
-    editBatch: (state, action) => {
+    updateBatch: (state, action) => {
       state.cart = state.cart.map((batch) =>
         batch.id === action.payload.id ? action.payload : batch
       );
@@ -37,6 +37,7 @@ export const batchSlice = createSlice({
   },
 });
 
+// get all carts but only admin can use this
 export const getCart = () => async (dispatch) => {
   const response = await csrfFetch("/api/cart");
 
@@ -47,6 +48,7 @@ export const getCart = () => async (dispatch) => {
   }
 };
 
+// get a single batch
 export const getBatch = (batchId) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`);
 
@@ -56,6 +58,7 @@ export const getBatch = (batchId) => async (dispatch) => {
   }
 };
 
+// edit batch for sizes
 export const editBatch = (batchId, batchData) => async (dispatch) => {
   const response = await csrfFetch(`/api/batch/${batchId}`, {
     method: "PUT",
@@ -64,8 +67,8 @@ export const editBatch = (batchId, batchData) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const updatedBatch = await response.json();
-    dispatch(loadSingleBatch(updatedBatch));
+    const data = await response.json();
+    dispatch(updateBatch(data));
     dispatch(getCart());
   }
 };
@@ -91,13 +94,13 @@ export const createBatch = ({productId, size, designId, color, total_price, prod
       note
     })
   })
-
   if (res.ok) {
     const data = await res.json()
+
     dispatch(createNewBatch(data))
+    await dispatch(getCart());
     return data
   }
-
 }
 
 export const deleteBatch = (batchId) => async (dispatch) => {
@@ -109,6 +112,22 @@ export const deleteBatch = (batchId) => async (dispatch) => {
     dispatch(batchSlice.actions.deleteBatch(batchId));
 
     dispatch(getCart());
+  }
+};
+
+/*THESE THUNKS ARE BEING CALLED WHEN THE BATCH BELONGS TO ORDERS*/
+
+export const editNote = (batchId, batchData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/batch/note/${batchId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(batchData),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(updateBatch(data));
+    dispatch(getOrders());
   }
 };
 
@@ -124,6 +143,6 @@ export const deleteBatchOrder = (batchId) => async (dispatch) => {
   }
 };
 
-export const { loadCart, loadSingleBatch, createNewBatch } = batchSlice.actions;
+export const { loadCart, loadSingleBatch, updateBatch, createNewBatch } = batchSlice.actions;
 
 export default batchSlice.reducer;

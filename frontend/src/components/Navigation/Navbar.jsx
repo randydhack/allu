@@ -21,7 +21,6 @@ import { getCart } from "../../store/BatchReducer";
 import { PiUserCircleThin } from "react-icons/pi";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
 
-
 function Navbar() {
   const dispatch = useDispatch();
 
@@ -79,29 +78,14 @@ function Navbar() {
                 <div className="middle"></div>
                 <div className="bottom"></div>
               </label>
-              <nav class="menu1">
-                <NavLink
-                  to="/designs"
-                  alt="designs"
-
-                  aria-label="design"
-                >
+              <nav className="menu1">
+                <NavLink to="/designs" alt="designs" aria-label="design">
                   DESIGNS
                 </NavLink>
-                <NavLink
-                  to="/about-us"
-                  alt="About Us"
-
-                  aria-label="about"
-                >
+                <NavLink to="/about-us" alt="About Us" aria-label="about">
                   ABOUT US
                 </NavLink>
-                <NavLink
-                  to="/contact-us"
-                  alt="Contact Us"
-
-                  aria-label="contact"
-                >
+                <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
                   CONTACT US
                 </NavLink>
               </nav>
@@ -120,25 +104,13 @@ function Navbar() {
 
           {!screenSmall && (
             <div className="nav__middle__section">
-              <NavLink
-                to="/designs"
-                alt="designs"
-                aria-label="design"
-              >
+              <NavLink to="/designs" alt="designs" aria-label="design">
                 DESIGNS
               </NavLink>
-              <NavLink
-                to="/about-us"
-                alt="About Us"
-                aria-label="about"
-              >
+              <NavLink to="/about-us" alt="About Us" aria-label="about">
                 ABOUT US
               </NavLink>
-              <NavLink
-                to="/contact-us"
-                alt="Contact Us"
-                aria-label="contact"
-              >
+              <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
                 CONTACT US
               </NavLink>
             </div>
@@ -148,18 +120,25 @@ function Navbar() {
 
         {user || currUser ? (
           <div className="nav__profile__cart">
-            <NavLink to="/account-details" aria-label="account" className="account">
+            <NavLink
+              to="/account-details"
+              aria-label="account"
+              className="account"
+            >
               <PiUserCircleThin className="user-icon" />
               <p>Account</p>
             </NavLink>
             <NavLink to="/checkout" aria-label="cart">
               <div className="cart-container">
                 <PiShoppingCartSimpleThin className="cart-icon" />
-                {cart?.length && cartNull.length ? (
+                <p>
+                Cart ({cart?.length && cartNull.length ? cart.length : 0})
+                </p>
+                {/* {cart?.length && cartNull.length ? (
                   <div className="cart_total_items">{cart?.length}</div>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
             </NavLink>
           </div>
