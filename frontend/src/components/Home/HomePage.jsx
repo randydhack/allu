@@ -13,6 +13,7 @@ import sport_tek from "../../images/Sport_Tek_Logo.png";
 import hanes from "../../images/hanes.png";
 import nike from "../../images/nike.png";
 import corner_stone from "../../images/corner-stone.webp";
+import Logo from "../../images/allu-high-res.png"
 
 // Libaries
 import { useContext } from "react";
@@ -43,9 +44,10 @@ function Home() {
       <section className="home-left-container">
         <div className="main_home_content">
           <div className="home-left-heading">
-            <h1 className="business-name">
+            <img className="home-logo" src={Logo} alt="All U compay logo" />
+            {/* <h1 className="business-name">
               All U inc.  
-            </h1>
+            </h1> */}
             {/* <h2>
               Elevate your wardrobe with quality, comfort, and discover the joy
               of personalized fashion at ALL U
@@ -62,11 +64,10 @@ function Home() {
                 }}
                 className="home-design-btn"
                 >
-                <span>Explore designs</span>
+                <span>Explore customizable designs</span>
                 <MdOutlineKeyboardArrowRight className="design-btn-arrow" />
               </button>
             </div>
-                <p>Explore our collection of customizable designs</p>
             {/* <h1>
               Custom screenprinting, embroidery and more!
             </h1> */}
