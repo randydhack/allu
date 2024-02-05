@@ -75,7 +75,7 @@ function PickupAndDelivery() {
     try{
       let orderCreated = await dispatch(createOrder(order));
       if (orderCreated) {
-        return navigate(`/order-submitted/${orderCreated.id}`);
+        return navigate(`/order-submitted`);
       }
     } catch (error) {
       console.error("Error creating order: ", error)

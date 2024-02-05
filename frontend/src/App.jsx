@@ -86,7 +86,7 @@ function App() {
                     path="/shipping-information"
                     element={<PickupAndDelivery />}
                   />
-                  <Route path="/order-submitted/:id" element={<SuccessPage />} />
+                  <Route path="/order-submitted" element={<SuccessPage />} />
                   <Route
                     path="/account-details"
                     element={

@@ -56,9 +56,8 @@ function OrderHistory() {
 
         <p>{items.length} order(s)</p>
 
-        {items.map((el, i) => {
+        {items.map((el) => {
           return (
-            // <React.Fragment key={`order${el.id}+${uuidv4()}`}>
             <div>
               <div className="setting__divider"></div>
               <div className="main__panel">
