@@ -57,7 +57,6 @@ function OrderHistory() {
         <p>{items.length} order(s)</p>
 
         {items.map((el, i) => {
-          console.log(el)
           return (
             // <React.Fragment key={`order${el.id}+${uuidv4()}`}>
             <div>
