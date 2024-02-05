@@ -94,12 +94,12 @@ function Navbar() {
                     <HiOutlineMenu />
                   </button>
                 )}
-                <NavLink to="/" aria-label="home" className="nav_logo-small">
+                <NavLink to="/" aria-label="home" className="nav_logo-small" onClick={() => setToggleBurger(false)}>
                   ALL U
                 </NavLink>
               </div>
             ) : (
-              <NavLink to="/" aria-label="home" className="nav_logo">
+              <NavLink to="/" aria-label="home" className="nav_logo" onClick={() => setToggleBurger(false)}>
                 ALL U
               </NavLink>
             )}
@@ -112,16 +112,18 @@ function Navbar() {
                 style={{ height: `${mobile && "100vh"}` }}
               >
                 <div className="drop-down-inner">
-                  <NavLink to="/designs" alt="designs" aria-label="design">
+                  <NavLink to="/designs" alt="designs" aria-label="design" className="underline_a" onClick={() => setToggleBurger(false)}>
                     DESIGNS
                   </NavLink>
-                  <NavLink to="/about-us" alt="About Us" aria-label="about">
+                  <NavLink to="/about-us" alt="About Us" aria-label="about" className="underline_a" onClick={() => setToggleBurger(false)}>
                     ABOUT US
                   </NavLink>
                   <NavLink
                     to="/contact-us"
                     alt="Contact Us"
                     aria-label="contact"
+                    className="underline_a"
+                    onClick={() => setToggleBurger(false)}
                   >
                     CONTACT US
                   </NavLink>
@@ -131,11 +133,14 @@ function Navbar() {
                         to="/account-details"
                         aria-label="account"
                         className="mobile-account"
+                        onClick={() => setToggleBurger(false)}
                       >
                         <PiUserCircleThin className="user-icon" />
                         <p className="mobile-icons">Account</p>
                       </NavLink>
-                      <NavLink to="/checkout" aria-label="cart">
+                      <NavLink to="/checkout" aria-label="cart"
+                      onClick={() => setToggleBurger(false)}
+                      >
                         <div className="mobile-cart">
                           <PiShoppingCartSimpleThin className="cart-icon" />
                           <p>
@@ -149,7 +154,7 @@ function Navbar() {
                     mobile && <div className="nav__right__section__mobile">
                       <NavLink
                         aria-label="sign in"
-                        onClick={() => toggleLogin()}
+                        onClick={() => {toggleLogin(); setToggleBurger(false)}}
                         className="sign in"
                       >
                         <PiUserCircleThin className="user-icon" />
@@ -158,9 +163,10 @@ function Navbar() {
                       <button
                         className="register"
                         aria-label="sign up"
-                        onClick={() => toggleSignUp()}
+                        onClick={() => {toggleSignUp(); setToggleBurger(false)}}
+
                       >
-                        <p className="register">Register</p>
+                        <span className="">Register</span>
                       </button>
                     </div>
                   )}
@@ -171,13 +177,13 @@ function Navbar() {
             )
           ) : (
             <div className="nav__middle__section">
-              <NavLink to="/designs" alt="designs" aria-label="design">
+              <NavLink to="/designs" alt="designs" aria-label="design" onClick={() => setToggleBurger(false)}>
                 DESIGNS
               </NavLink>
-              <NavLink to="/about-us" alt="About Us" aria-label="about">
+              <NavLink to="/about-us" alt="About Us" aria-label="about" onClick={() => setToggleBurger(false)}>
                 ABOUT US
               </NavLink>
-              <NavLink to="/contact-us" alt="Contact Us" aria-label="contact">
+              <NavLink to="/contact-us" alt="Contact Us" aria-label="contact" onClick={() => setToggleBurger(false)}>
                 CONTACT US
               </NavLink>
             </div>
@@ -191,11 +197,12 @@ function Navbar() {
                   to="/account-details"
                   aria-label="account"
                   className="account"
+                  onClick={() => setToggleBurger(false)}
                 >
                   <PiUserCircleThin className="user-icon" />
                   <p>Account</p>
                 </NavLink>
-                <NavLink to="/checkout" aria-label="cart">
+                <NavLink to="/checkout" aria-label="cart" onClick={() => setToggleBurger(false)}>
                   <div className="cart-container">
                     <PiShoppingCartSimpleThin className="cart-icon" />
                     <p>
