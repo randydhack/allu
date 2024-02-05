@@ -27,9 +27,6 @@ function OurDesigns() {
 
     }, [dispatch])
 
-    // console.log(designs.Designs)
-
-
   return isLoaded && (
       <div className="design_main">
       <div className="design_image_container">

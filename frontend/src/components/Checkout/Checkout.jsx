@@ -2,12 +2,10 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "../utils/DefaultStyles.scss"
 
 // Redux Store
 import { getCart, deleteBatch } from "../../store/BatchReducer";
-
-// Components
-import PickupAndDelivery from "../PickupAndDelivery/PickupAndDelivery";
 
 // Context
 import { InfoContext } from "../../context/infoContext";
@@ -27,8 +25,6 @@ function Checkout() {
   const { setBatchDetails } = useContext(InfoContext);
 
   // States
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [currentEditingBatchId, setCurrentEditingBatchId] = useState(null);
   const { cart: rawCart, isLoaded } = useSelector((state) => state.batches);
   // Filter out any batches with a null id
   const cart = rawCart?.filter((batch) => batch["Batches.id"] !== null);
@@ -122,7 +118,7 @@ function Checkout() {
           <div className="empty_cart_message">Your cart is empty.</div>
         ) : (
           <div className="home-items-container">
-            <div className="home-item-row header-row">
+            <div className="home-item-row header-row font-semibold">
               <div className="home-item-image-container">Item Preview</div>
               <div className="home-item-info-container">Color</div>
               <div className="home-item-size">Size</div>
@@ -131,7 +127,7 @@ function Checkout() {
               <div className="removal">Edit</div>
               <div className="removal">Remove</div>
             </div>
-            {cart.map((item, idx) => {
+            {cart.map((item) => {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
 
@@ -183,27 +179,17 @@ function Checkout() {
               </p>
               <button
                 className="navigate-shipping"
-                aria-label="checkout"
+                aria-label="shipping"
                 onClick={() => goToShip()}
                 style={{
                   backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`,
                 }}
               >
                 <p style={{ color: `${cart.length ? "white" : "#707070"}` }}>
-                  Continue to shipping
+                  Finalize Order
                 </p>
               </button>
             </div>
-            {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}
-            {/* {isEditModalOpen && (
-              <EditBatchModal
-                batchId={currentEditingBatchId}
-                batchDetails={cart.find(
-                  (b) => b["Batches.id"] === currentEditingBatchId
-                )}
-                closeModal={() => setIsEditModalOpen(false)}
-              />
-            )} */}
           </div>
         )}
       </div>
