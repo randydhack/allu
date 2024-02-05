@@ -3,11 +3,11 @@ import "./OrderHistory.scss";
 
 // Libaries
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../../store/order";
-import { deleteBatchOrder } from "../../../store/BatchReducer";
-import { editBatch } from "../../../store/BatchReducer";
+import { deleteBatchOrder, editNote } from "../../../store/BatchReducer";
 import moment from "moment";
+import { v4 as uuidv4 } from 'uuid';
 
 function OrderHistory() {
   const dispatch = useDispatch();
@@ -15,17 +15,23 @@ function OrderHistory() {
 
   const [isFormVisible, setIsFormVisible] = useState({ id: null, toggle: false });
   const [noteContent, setNoteContent] = useState("")
-  const [editNote, setEditNote] = useState(false);
+  const [updateNote, setUpdateNote] = useState(false);
+  const note = { note: noteContent }
 
   useEffect(() => {
 
-       dispatch(getOrders());
+    dispatch(getOrders());
 
   }, [dispatch]);
+
 
   const handleDeleteBatch = async (e, batchId) => {
     e.preventDefault()
     await dispatch(deleteBatchOrder(batchId))
+  }
+
+  const handleEditNote = async (batchId) => {
+    await dispatch(editNote(batchId, note))
   }
 
   const handleSpecialRequest = (id) => {
@@ -52,9 +58,10 @@ function OrderHistory() {
 
         {items.map((el, i) => {
           return (
-            <>
+            // <React.Fragment key={`order${el.id}+${uuidv4()}`}>
+            <div>
               <div className="setting__divider"></div>
-              <div className="main__panel" key={`order${el.id}`}>
+              <div className="main__panel">
                 <div className="order">
                   <div className="order_detail_main">
                     <img
@@ -108,8 +115,10 @@ function OrderHistory() {
                       <button aria-label="batch notes" onClick={() => {
                         setIsFormVisible({ id: el["Batches.id"], toggle: true })
                         handleSpecialRequest(el["Batches.id"])
+                        setNoteContent(el["Batches.note"])
+                        setUpdateNote(false)
                       }}>
-                        NOTES
+                        CUSTOM TEXT
                       </button>
                       <button aria-label="delete batch" onClick={(e) => handleDeleteBatch(e, el["Batches.id"])} >CANCEL</button>
                     </div>
@@ -125,34 +134,40 @@ function OrderHistory() {
                     </div>
                     :
                     // If edit button is clicked the editNote will turn true and into a form/input
-                    editNote ?
-                      <div className="note-edit-form">
-                        <h4>Notes:</h4>
-                        <input
-                          type="text"
-                          value={noteContent}
-                          onChange={(e) => setNoteContent(e.target.value)}
-                        />
-                        <button onClick={() => {
-                          setEditNote(false)
-                        }}>Submit</button>
+                    updateNote ?
+                      <div>
+                        <h4 className="note-edit-form">Custom Text:</h4>
+                        <form className="note-edit-form" onSubmit={(e) => {
+                          e.preventDefault()
+                          handleEditNote(el["Batches.id"])
+                          setUpdateNote(false)
+                        }}>
+                          <textarea
+                            id="edit-custom-text"
+                            type="text"
+                            value={noteContent}
+                            onChange={(e) => {
+                              setNoteContent(e.target.value)
+                            }}
+                          ></textarea>
+                          <button type="submit">Submit</button>
+                        </form>
                       </div>
                       :
                       // if editNote is false the edit button will be available
                       <div className="note-pre-edit">
-                        <h4>Notes:</h4>
+                        <h4>Custom Text:</h4>
                         <p>{el["Batches.note"]}</p>
                         <button onClick={() => {
-                          setEditNote(true)
-                          setNoteContent(el["Batches.note"])
+                          setUpdateNote(true)
                         }}>Edit</button>
                       </div>
                 )}
               </div>
-            </>
+            </div>
           );
         })}
-      </div>
+      </div >
     )
   );
 }

@@ -1,6 +1,6 @@
 // Libraries
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // Context
@@ -8,7 +8,7 @@ import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
 // Redux Store
-import { registerUser } from '../../store/session'
+import { registerUser } from "../../store/session";
 
 // CSS / ICONS
 import "./FormStyles.scss";
@@ -16,34 +16,33 @@ import { RxCross1 } from "react-icons/rx";
 
 function SignUpModal() {
   // Set the type to null when clicking the close icon and closes the modal
-  const { toggleLogin, handleContent} = useContext(ModalContext);
-  const {setUser} = useContext(InfoContext)
+  const { toggleLogin, handleContent } = useContext(ModalContext);
+  const { setUser } = useContext(InfoContext);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const [email, setEmail] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({})
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(registerUser(email, firstName, lastName, password)).catch(
-      async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
-        }
+    const data = await dispatch(
+      registerUser(email, firstName, lastName, password)
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
       }
-    );
+    });
 
     if (data) {
       setErrors({});
-      handleContent()
-      setUser(data.user)
+      handleContent();
+      setUser(data.user);
       return navigate("/");
     }
   };
@@ -51,7 +50,7 @@ function SignUpModal() {
   return (
     <div className="signup-container">
       <RxCross1 className="close" onClick={handleContent} />
-      <form onSubmit={e => handleSignupSubmit(e)} className="form">
+      <form onSubmit={(e) => handleSignupSubmit(e)} className="form">
         <h2 className="header">Create an Account</h2>
 
         {/* FORM FIELDS */}
@@ -69,7 +68,9 @@ function SignUpModal() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <div className="signup__error_msg">{errors.email}</div>}
+            {errors.email && (
+              <div className="signup__error_msg">{errors.email}</div>
+            )}
           </div>
 
           <div className="field">
@@ -115,7 +116,11 @@ function SignUpModal() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {password && password.length < 6 && <div className="signup__error_msg">Password length must be 6 characters or more</div>}
+            {password && password.length < 6 && (
+              <div className="signup__error_msg">
+                Password length must be 6 characters or more
+              </div>
+            )}
           </div>
         </div>
 
@@ -123,10 +128,18 @@ function SignUpModal() {
 
         {/* Signup Bottom */}
         <div>
-          <button aria-label="submit" type='submit' className="signup-button">Sign Up</button>
+          <button aria-label="submit" type="submit" className="signup-button">
+            Sign Up
+          </button>
         </div>
 
-        <div className="login-link" aria-label="login" onClick={() => toggleLogin()}>Already have an account?</div>
+        <NavLink
+          className="login-link"
+          aria-label="login"
+          onClick={() => toggleLogin()}
+        >
+          <span>Already have an account?</span>
+        </NavLink>
       </form>
     </div>
   );

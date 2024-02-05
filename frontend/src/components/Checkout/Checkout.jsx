@@ -39,22 +39,42 @@ function Checkout() {
   };
 
   useEffect(() => {
-
     dispatch(getCart());
-
   }, [dispatch]);
 
+
+
+
   // Format Batch sizes
+
+  const formatBatchSizes2 = (sizesObject) => {
+    return Object.keys(sizesObject).map((sizeKey) => {
+      // Extract the numeric part of the size key (e.g., "2" from "xxl")
+      const numericPart = sizeKey.match(/\d+/);
+
+      // If a numeric part is found, format the size, otherwise, keep the original key
+      const formattedSize = numericPart ? `${numericPart[0]}xl` : sizeKey;
+
+      // Return an object with the formatted size and its corresponding value
+      return { size: formattedSize, value: sizesObject[sizeKey] };
+    });
+  };
+
+
+
   const formatBatchSizes = (batch) => {
-    const sizes = ["xs", "s", "m", "l", "xl", "2l", "3xl", "4xl", "5xl"];
+    const sizes = ["xs", "s", "m", "l", "xl", "xxl", "xxxl", "xxxxl", "xxxxxl"];
     const sizeDescriptions = sizes
-      .map((size) =>
-        batch[`Batches.${size}`]
-          ? ` ${batch[`Batches.${size}`]} ${size.toUpperCase()}`
-          : ""
-      )
-      .filter((desc) => desc !== "")
-      .join(",");
+      .map((size) => {
+        const numericPart = size.replace(/[^\d]/g, ''); // Extract numeric part
+        const formattedSize =
+          numericPart > 1 ? `${numericPart}xl` : size.replace(/x+/g, 'x');
+        return batch[`Batches.${size}`]
+          ? ` ${batch[`Batches.${size}`]} ${formattedSize.toUpperCase()}`
+          : '';
+      })
+      .filter((desc) => desc !== '')
+      .join(',');
 
     const totalQuantity = sizes.reduce(
       (sum, size) => sum + (batch[`Batches.${size}`] || 0),
@@ -63,6 +83,10 @@ function Checkout() {
 
     return { sizeDescriptions, totalQuantity };
   };
+
+
+
+
 
   // Calculate Cart Total
   const calculateSubtotal = (cart) => {
@@ -82,8 +106,10 @@ function Checkout() {
     toggleEditBatchModal();
   };
 
-  function goToShip(){
-    navigate('/shipping-information', {state:{quote:calculateSubtotal(cart).toFixed(2)}});
+  function goToShip() {
+    navigate("/shipping-information", {
+      state: { quote: calculateSubtotal(cart).toFixed(2) },
+    });
   }
 
   return (
@@ -108,20 +134,19 @@ function Checkout() {
             {cart.map((item, idx) => {
               const { sizeDescriptions, totalQuantity } =
                 formatBatchSizes(item);
-                console.log(item["Batches.id"])
+
               return (
                 <div key={item["Batches.id"]} className="home-item-row">
-
                   <div className="home-item-image-container border_bottom">
                     <img
                       className="home-item-image"
                       src={item["Batches.Design.design_url"]}
-                      alt={item.name}
+                      alt={"Design Image"}
                     />
                     <img
                       className="home-item-image"
                       src={item["Batches.product_url"]}
-                      alt={"design image"}
+                      alt={"Product Image"}
                     />
                   </div>
                   <div className="home-item-info-container">
@@ -130,7 +155,7 @@ function Checkout() {
                   <div className="home-item-size">{sizeDescriptions}</div>
                   <div className="home-item-quantity">{totalQuantity}</div>
                   <div className="home-item-price">
-                    ${item["Batches.total_price"]}
+                    ${parseFloat(item["Batches.total_price"]).toFixed(2)}
                   </div>
                   <div className="removal">
                     <button
@@ -160,9 +185,13 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="checkout"
                 onClick={() => goToShip()}
-                style={{backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`}}
+                style={{
+                  backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`,
+                }}
               >
-                <p style={{color: `${cart.length ? "white":"#707070"}`}}>Continue to shipping</p>
+                <p style={{ color: `${cart.length ? "white" : "#707070"}` }}>
+                  Continue to shipping
+                </p>
               </button>
             </div>
             {/* <button className="continue-button" onClick={goToShip}>Continue</button> */}

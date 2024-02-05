@@ -6,6 +6,9 @@ import logo from './computer.png'
 function PageNotFound() {
     return (
         <div className='nfp-parent'>
+            <br></br>
+            <br></br>
+            <br></br>
             <img className='nfp-logo' src={logo}></img>
             <p className='nfp-404'>
                 404 Page not found

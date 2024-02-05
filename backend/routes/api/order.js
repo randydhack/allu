@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
       ],
       raw: true,
     });
+
     if (!orders) {
       return res.status(500).json({ error: "Orders not found bad request" });
     }
@@ -41,7 +42,6 @@ router.get("/user", requireAuth, async (req, res) => {
   const { user } = req;
 
   if (user) {
-    console.log("what is happening HERE")
     const orders = await Order.findAll({
       where: { userId: user.id },
       include: [
@@ -81,19 +81,16 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (user) {
     const { address, special_request, quote, workforce_race, processed, firstName, lastName, phone, email, delivery } =
     req.body;
-    
-    console.log("ASDFASDFASDFASDFASDFASDFASDFASSDFASDFASDFASDFASDFAS")
-      console.log(address, special_request, quote, workforce_race, processed, phone, firstName, lastName, email, delivery)
 
       if (quote == null || workforce_race == null || processed == null) {
         const err = new Error("Creating order failed");
         err.status = 403;
         err.title = "Creating order failed";
-        err.errors = { 
-          quote: "quote does not exist", 
-          workforce_race: "quote does not exist", 
-          processed: "processed does not exist", 
-          delivery: "delivery does not exist", 
+        err.errors = {
+          quote: "quote does not exist",
+          workforce_race: "quote does not exist",
+          processed: "processed does not exist",
+          delivery: "delivery does not exist",
         };
         err.message = "Invalid field";
         err.statusCode = 403;
@@ -121,7 +118,6 @@ router.post("/", requireAuth, async (req, res, next) => {
 
     for (let i = 0; i < cart.Batches.length; i++) {
       const curr = cart.Batches[i];
-      console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK")
 
       curr.orderId = newOrder.id;
       curr.cartId = null;

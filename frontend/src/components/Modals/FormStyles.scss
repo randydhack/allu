@@ -79,20 +79,28 @@
 .create-account-link {
   color: #005db5;
   cursor: pointer;
-  width: 100%;
+  width: fit-content;
   &:hover {
     text-decoration: underline;
   }
 }
 
 .login-link {
-  color: #005db5;
   cursor: pointer;
   width: 100%;
+  display: flex;
+  justify-content: center;
   text-align: center;
-  &:hover {
-    text-decoration: underline;
+
+  span {
+    color: #005db5;
   }
+
+  span:hover {
+    text-decoration: underline;
+
+  }
+
 }
 
 .signup-button {
@@ -117,7 +125,7 @@
   background-color: #181818;
   color: white;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin: 20px 0px 15px;
   &:hover {
         background-color: #4a4a4a;
   }

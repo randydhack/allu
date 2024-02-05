@@ -1,8 +1,10 @@
 import Logo from "../../images/t_shirt_logo.png";
 import "./ContactUs.scss";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 import React, { useState } from "react";
 
 function ContactUs() {
+  const [addNotification, setAddNotification] = useState("");
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -39,6 +41,7 @@ function ContactUs() {
     e.preventDefault();
     // Here you would typically send the formData to your server or an email service
     console.log("Form data submitted:", formData);
+    setAddNotification("Form Submitted");
     // Clear form fields after submission
     setFormData({
       firstname: "",
@@ -67,8 +70,8 @@ function ContactUs() {
         </a>
       </p>
       <div className="contact_form_container">
-        <span className="contact_form_title">Get In Touch</span>
-        <form onSubmit={handleSubmit} noValidate>
+        <h2 className="contact_form_title">Get In Touch</h2>
+        <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="firstname">First name</label>
@@ -78,14 +81,9 @@ function ContactUs() {
                 name="firstname"
                 value={formData.firstname}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 required
+                aria-label="First Name"
               />
-              {shouldShowError("firstname") && (
-                <span className="error">
-                  Please complete this required field.
-                </span>
-              )}
             </div>
             <div className="form-group">
               <label htmlFor="lastname">Last name</label>
@@ -95,19 +93,16 @@ function ContactUs() {
                 name="lastname"
                 value={formData.lastname}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 required
+                aria-label="Last Name"
               />
-              {shouldShowError("lastname") && (
-                <span className="error">
-                  Please complete this required field.
-                </span>
-              )}
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="email">Email*</label>
+              <label htmlFor="email">
+                Email<span style={{ color: "red" }}>*</span>
+              </label>
               <input
                 type="email"
                 id="email"
@@ -115,35 +110,28 @@ function ContactUs() {
                 value={formData.email}
                 onChange={handleChange}
                 aria-describedby="email-error"
-                onBlur={handleBlur}
                 required
+                aria-label="Email"
               />
-              {shouldShowError("email") && (
-                <span className="error">
-                  Please complete this required field.
-                </span>
-              )}
             </div>
             <div className="form-group">
               <label htmlFor="phone">Phone number</label>
               <input
-                type="text"
+                type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
+                aria-label="Phone number"
               />
-              {shouldShowError("phone") && (
-                <span className="error">
-                  Please complete this required field.
-                </span>
-              )}
             </div>
           </div>
           <div className="form-group message-group">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">
+              Message<span style={{ color: "red" }}>*</span>
+            </label>
             <textarea
               id="message"
               name="message"
@@ -151,17 +139,21 @@ function ContactUs() {
               value={formData.message}
               onChange={handleChange}
               required
+              aria-label="Message"
             ></textarea>
-            {shouldShowError("email") && (
-              <span className="error">
-                Please complete this required field.
-              </span>
-            )}
           </div>
           <div className="form-group">
             <div className="submit_contact">
-              <button type="submit">Send Message</button>
+              <button type="submit" aria-label="Send message">
+                Send Message
+              </button>
             </div>
+              {addNotification && (
+            <p className="cart-added-msg">
+              <IoIosCheckmarkCircle style={{ color: "green" }} />{" "}
+              {addNotification}
+            </p>
+          )}
           </div>
         </form>
       </div>

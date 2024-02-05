@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Batch, UserDesign, Design, Cart, Product } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-
-const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
 //Get all batches
@@ -96,7 +93,6 @@ router.post("/", requireAuth, async (req, res) => {
       total_price,
       product_url,
     } = req.body;
-    console.log(product_url)
 
     if (!productId || !cart) {
       return res.json({
@@ -138,14 +134,13 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
-// Update a batch
+// Update notes
 // checked
-router.put("/:batchId", requireAuth, async (req, res) => {
+router.put('/note/:batchId', requireAuth, async(req, res) => {
   const { user } = req;
 
   let batch = await Batch.findOne({
     where: { id: req.params.batchId },
-    include: Cart,
   });
 
   if (!batch) {
@@ -155,12 +150,41 @@ router.put("/:batchId", requireAuth, async (req, res) => {
       statusCode: 404,
     });
   }
+  if(user) {
+    const { note } = req.body
+    batch.note = note;
+    await batch.save()
 
+    res.status = 200;
+    res.json(batch);
+  } else {
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
+})
+
+// Update batch sizes
+// checked
+router.put("/:batchId", requireAuth, async (req, res) => {
+  const { user } = req;
+  
+  let batch = await Batch.findOne({
+    where: { id: req.params.batchId },
+    include: Cart,
+  });
+  
+  if (!batch) {
+    res.status(404);
+    return res.json({
+      message: "Batch couldn't be found",
+      statusCode: 404,
+    });
+  }
+  
   if (user.id == batch.Cart.userId) {
     const {
-      productId,
-      orderId,
-      cartId,
       xs,
       s,
       m,
@@ -170,27 +194,8 @@ router.put("/:batchId", requireAuth, async (req, res) => {
       xxxl,
       xxxxl,
       xxxxxl,
-      designId,
-      userDesignId,
-      note,
-      color,
-      total_price,
-      product_url,
     } = req.body;
-
-    if (!productId) {
-      return res.json({
-        message: "Validation Error",
-        statusCode: 400,
-        errors: {
-          productId: "Product id is required",
-        },
-      });
-    }
-
-    batch.productId = productId;
-    batch.orderId = orderId;
-    batch.cartId = cartId;
+    
     batch.xs = xs;
     batch.s = s;
     batch.m = m;
@@ -200,15 +205,9 @@ router.put("/:batchId", requireAuth, async (req, res) => {
     batch.xxxl = xxxl;
     batch.xxxxl = xxxxl;
     batch.xxxxxl = xxxxxl;
-    batch.designId = designId;
-    batch.userDesignId = userDesignId;
-    batch.note = note;
-    batch.color = color;
-    batch.total_price = total_price;
-    batch.product_url = product_url;
-
+    
     await batch.save();
-
+    
     res.status = 200;
     res.json(batch);
   } else {
