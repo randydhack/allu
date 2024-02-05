@@ -13,12 +13,12 @@ const validateSignup = [
     .withMessage("Invalid email."),
   check("firstName")
     .exists({ checkFalsy: true })
-    .isLength({ min: 2 })
-    .withMessage("Invalid First Name, must include 2 letters"),
+    .isLength({ min: 1 })
+    .withMessage("Invalid First Name, must include 1 letters"),
   check("lastName")
     .exists({ checkFalsy: true })
-    .isLength({ min: 2 })
-    .withMessage("Innvalid Last Name, must include 2 letters"),
+    .isLength({ min: 1 })
+    .withMessage("Innvalid Last Name, must include 1 letters"),
   check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
@@ -41,6 +41,7 @@ router.post("/", validateSignup, async (req, res, next) => {
     err.errors = { email: "User with that email already exists" };
     err.message = "Invalid field";
     err.statusCode = 403;
+    console.log(err)
     return next(err);
   }
 
