@@ -233,13 +233,35 @@ function Product() {
                       id: 0,
                       name: colors[product.id - 1]?.colors[0].name,
                       product_url:
-                        allProducts[currentProduct.id - 1]?.ProductImages[
-                          color.id || 0
-                        ]?.img_url,
-                    }); //sets color of main image back to first color with name
-                    setProductImage(allProducts[currentProduct.id - 1]?.ProductImages[
-                      color.id || 0
-                    ]?.img_url)
+                        allProducts[currentProduct.id - 1]?.ProductImages[color.id || 0]
+                          ?.img_url,
+                    });
+                    setProductImage(
+                      allProducts[currentProduct.id - 1]?.ProductImages[color.id || 0]
+                        ?.img_url
+                    );
+                  }}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      setCurrentProduct({
+                        id: product.id,
+                        type: product.name,
+                        price: product.price,
+                      });
+
+                      setColor({
+                        id: 0,
+                        name: colors[product.id - 1]?.colors[0].name,
+                        product_url:
+                          allProducts[currentProduct.id - 1]?.ProductImages[color.id || 0]
+                            ?.img_url,
+                      });
+                      setProductImage(
+                        allProducts[currentProduct.id - 1]?.ProductImages[color.id || 0]
+                          ?.img_url
+                      );
+                    }
                   }}
                 />
               ))}
@@ -253,23 +275,30 @@ function Product() {
                 productColors[currentProduct.id].map((colorElement, i) => {
                   return (
                     <div
-                      key={colorElement.name + i}
-                      aria-label="product color"
-                      style={{
-                        backgroundColor: `${colorElement.hex}`,
-                      }}
-                      className={i == 0 ? "selected" : ""}
-                      onClick={(e) => {
-                        setColor(() => { return {
-                          id: i,
-                          name: colorElement.name,
-                        }});
-
-
-                              resetSelect(e);
-
-                      }}
-                    ></div>
+    key={colorElement.name + i}
+    aria-label="product color"
+    style={{
+      backgroundColor: `${colorElement.hex}`,
+    }}
+    className={i === color.id ? "selected" : ""}
+    onClick={(e) => {
+      setColor({
+        id: i,
+        name: colorElement.name,
+      });
+      resetSelect(e);
+    }}
+    tabIndex={0}
+    onKeyDown={(e) => {
+      if (e.key === "Enter") {
+        setColor({
+          id: i,
+          name: colorElement.name,
+        });
+        resetSelect(e);
+      }
+    }}
+  ></div>
                   );
                 })}
             </div>
