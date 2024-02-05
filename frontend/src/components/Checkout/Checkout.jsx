@@ -16,6 +16,7 @@ import "./Checkout.scss";
 
 // Icons
 import { CiSquareRemove } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -165,10 +166,12 @@ function Checkout() {
                     </button>
                   </div>
                   <div className="removal">
+                    <button className="delete-button">
                     <CiSquareRemove
                       className="remove-button remove-icon"
                       onClick={() => handleRemoveFromCart(item["Batches.id"])}
-                    />
+                      />
+                      </button>
                   </div>
                 </div>
               );
@@ -181,11 +184,9 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="shipping"
                 onClick={() => goToShip()}
-                style={{
-                  backgroundColor: `${cart.length ? "black" : "#E4E4E4"}`,
-                }}
+                
               >
-                <p style={{ color: `${cart.length ? "white" : "#707070"}` }}>
+                <p >
                   Finalize Order
                 </p>
               </button>
