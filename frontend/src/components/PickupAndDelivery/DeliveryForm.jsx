@@ -29,9 +29,9 @@ function DeliveryForm({ setFormInfo, formInfo }) {
             <div className="form-field">
               <label htmlFor="phone">Phone
                 <br/>
-                <small>Format: 123-456-7890</small>
+                <small>Format: 1234567890</small>
               </label>
-              <input type="tel" id="phone" name="phone" title="10 digit phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required onChange={formChange} value={formInfo["phone"] || ''}/>
+              <input type="tel" id="phone" name="phone" title="10 digit phone number" pattern="[0-9]{10}" required onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>
