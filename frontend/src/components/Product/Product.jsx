@@ -364,7 +364,7 @@ function Product() {
                 aria-label="sign up to create product"
                 onClick={toggleLogin}
               >
-                <span>Sign Up to Continue</span>
+                <span>Sign In to Continue</span>
               </button>
             </div>
           ) : (
