@@ -150,7 +150,7 @@ function Navbar() {
                       <NavLink
                         aria-label="sign in"
                         onClick={() => toggleLogin()}
-                        className="sign-in account"
+                        className="sign-in"
                       >
                         <PiUserCircleThin className="user-icon" />
                         <p>Sign In</p>

@@ -35,74 +35,7 @@ const images = [
 ];
 
 function Home() {
-  // const [currentImgIdx, setCurrentImg] = useState(
-  //   // Math.floor(Math.random(images.length))
-  //   0
-  // );
-  // function getWindowDimensions() {
-  //   const { innerWidth: width, innerHeight: height } = window;
-  //   return {
-  //     width,
-  //     height,
-  //   };
-  // }
-  // const newHomeStyle = () => {
-  // return getWindowDimensions().width < 1150
-  //   ?
-
-  // const backgroundStyle =
-  // {
-  //   backgroundImage: `url(${images[currentImgIdx].url})`,
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center center",
-  // };
-
-  // return backgroundStyle
-
-  // : {};
-  // }
-  // const [homeStyle, setHomeStyle] = useState({
-  //   backgroundImage: `url(${images[currentImgIdx].url})`,
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center center",
-  // });
-
-  // function useWindowDimensions() {
-  //   const [windowDimensions, setWindowDimensions] = useState(
-  //     getWindowDimensions()
-  //   );
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimensions(getWindowDimensions());
-  //     setHomeStyle(newHomeStyle());
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  // return windowDimensions;
-  // }
-  // useWindowDimensions();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setCurrentImg(currentImgIdx == images.length - 1 ? 0 : currentImgIdx + 1);
-  //     // setHomeStyle({
-  //     //   backgroundImage: `url(${images[currentImgIdx].url})`,
-  //     //   backgroundRepeat: "no-repeat",
-  //     //   backgroundSize: "cover",
-  //     //   backgroundPosition: "center center",
-  //     // });
-  //   }, 10000);
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [currentImgIdx]);
 
   return (
     <main className="home-container">
