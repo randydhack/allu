@@ -70,7 +70,16 @@ function DeliveryForm({ setFormInfo, formInfo }) {
               </div>
               <div>
                 <label htmlFor="zipCode">Zip Code</label>
-                <input required type="tel" className="zip" name="zipCode" id="zipCode" aria-label="zip code"onChange={formChange} value={formInfo["zipCode"] || ''}/>
+                <input
+                required
+                pattern="[0-9]*"
+                title="No Symbols or special characters"
+                type="Number"
+                className="zip"
+                name="zipCode"
+                id="zipCode"
+                aria-label="zip code"onChange={formChange}
+                value={formInfo["zipCode"] || ''}/>
               </div>
             </div>
           </div>
