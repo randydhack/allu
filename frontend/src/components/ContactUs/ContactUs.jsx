@@ -40,7 +40,7 @@ function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_EMAILJS_USER_ID);
+    // console.log(process.env.REACT_APP_EMAILJS_USER_ID);
     emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID);
     emailjs
       .send(
@@ -56,11 +56,11 @@ function ContactUs() {
       )
       .then(
         (response) => {
-          console.log("SUCCESS!", response.status, response.text);
+          // console.log("SUCCESS!", response.status, response.text);
           alert("Message sent successfully!");
         },
         (err) => {
-          console.log("FAILED...", err);
+          // console.log("FAILED...", err);
           alert("Failed to send the message, please try again.");
         }
       );

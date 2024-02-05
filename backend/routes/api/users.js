@@ -83,7 +83,7 @@ router.put("/update-password", requireAuth, async (req, res, next) => {
     errors.message["password"] = "Invalid Password";
   }
 
-  console.log(errors)
+  // console.log(errors)
   if (Object.values(errors.message).length) {
     const err = new Error(JSON.stringify(errors.message));
     err.status = 404;
