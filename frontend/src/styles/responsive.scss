@@ -4,6 +4,14 @@ $lg: 1024px;
 $xl: 1280px;
 $xxl: 1440px;
 
+$nav-md: 880px;
+
+
+@mixin nav-md {
+  @media screen and (max-width: ($nav-md)){
+    @content;
+  }
+}
 
 @mixin sm {
   @media screen and (max-width: ($sm)) {
