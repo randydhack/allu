@@ -27,8 +27,11 @@ function DeliveryForm({ setFormInfo, formInfo }) {
               <input required type="text" name="city" id="city" aria-label="city" onChange={formChange} value={formInfo["city"] || ''}/>
             </div>
             <div className="form-field">
-              <label htmlFor="phone">Phone</label>
-              <input required type="number" name="phone" id="phone" aria-label="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
+              <label htmlFor="phone">Phone
+                <br/>
+                <small>Format: 123-456-7890</small>
+              </label>
+              <input type="tel" id="phone" name="phone" title="10 digit phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>
@@ -72,9 +75,9 @@ function DeliveryForm({ setFormInfo, formInfo }) {
                 <label htmlFor="zipCode">Zip Code</label>
                 <input
                 required
-                pattern="[0-9]*"
-                title="No Symbols or special characters"
-                type="Number"
+                type="text"
+                pattern="[0-9]{5}"
+                title="Five digit zip code, no symbols or special chars"
                 className="zip"
                 name="zipCode"
                 id="zipCode"

@@ -12,8 +12,11 @@ function PickupForm({ formInfo, formChange }) {
               <input required type="text" name="firstName" id="firstName" aria-label="first name" onChange={formChange} value={formInfo["firstName"] || ""}/>
             </div>
             <div className="form-field">
-              <label htmlFor="phone-number">Phone</label>
-              <input required type="number" name="phone" id="phone" aria-label="phone" onChange={formChange} value={formInfo["phone"] || ''}/>
+              <label htmlFor="phone-number">Phone
+              <br/>
+                <small>Format: 123-456-7890</small>
+              </label>
+              <input type="tel" id="phone" name="phone" title="10 digit phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required onChange={formChange} value={formInfo["phone"] || ''}/>
             </div>
             <div className="form-field">
               <label htmlFor="email">Email</label>

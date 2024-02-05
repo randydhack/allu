@@ -37,7 +37,6 @@ const images = [
 
 function Home() {
   const navigate = useNavigate();
-  console.log("reloaded")
   return (
     <main className="home-container">
       {/* Left Section */}
@@ -45,13 +44,6 @@ function Home() {
         <div className="main_home_content">
           <div className="home-left-heading">
             <img className="home-logo" src={Logo} alt="All U compay logo" />
-            {/* <h1 className="business-name">
-              All U inc.  
-            </h1> */}
-            {/* <h2>
-              Elevate your wardrobe with quality, comfort, and discover the joy
-              of personalized fashion at ALL U
-            </h2> */}
             <h2 className="home-h2">Custom screenprinting, embroidery and more</h2>
             <h3 className="home-h3">"Making someone's favorite shirt" since 1986!</h3>
           </div>
