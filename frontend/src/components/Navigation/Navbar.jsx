@@ -124,7 +124,7 @@ function Navbar() {
                   >
                     CONTACT US
                   </NavLink>
-                  {mobile && (
+                  {mobile && (user || currUser)&& (
                     <div className="mobile-acc_cart">
                       <NavLink
                         to="/account-details"

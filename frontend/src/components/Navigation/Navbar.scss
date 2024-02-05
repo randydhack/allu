@@ -38,18 +38,9 @@
   // position: relative;
 }
 
-.nav__right__section {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 20px;
 
-  .nav_login {
-    background-color: inherit;
-  }
-}
 
-.nav__middle__section {
+.nav__middle__section, .nav__right__section{
   display: flex;
   justify-content: center;
   gap: 50px;
@@ -74,6 +65,24 @@
   a:hover {
     background-size: 100% 1px, auto;
     color: black;
+  }
+}
+.nav__right__section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0
+  }
+
+  .nav_login {
+    background-color: inherit;
+  }
+  .register:hover{
+    background-color: rgb(53, 53, 53);
   }
 }
 
