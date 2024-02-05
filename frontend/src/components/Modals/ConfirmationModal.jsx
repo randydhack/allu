@@ -5,8 +5,14 @@ function ConfirmationModal({ isOpen, onConfirm, onCancel, message }) {
     <div className="modal-backdrop">
       <div className="modal">
         <p>{message}</p>
-        <button onClick={onConfirm}>Confirm</button>
-        <button onClick={onCancel}>Cancel</button>
+        <div className="confirm_cancel_button">
+          <button aria-label="confirm" onClick={onConfirm}>
+            I am sure!
+          </button>
+          <button aria-label="cancel" onClick={onCancel}>
+            Let me think!
+          </button>
+        </div>
       </div>
     </div>
   );
