@@ -29,17 +29,20 @@
       background-color: #dbdbdb;
       transition: all 0.1s;
     }
+    // &:focus {
+    //   outline: none;
+    //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.3); /* Custom focus effect */
+    // }
   }
 
   .remove-icon {
     color: red;
     font-size: 32px;
 
-    &:hover {
-      cursor: pointer;
-      text-shadow: #dbdbdb;
-      transition: all 0.1s;
-    }
+    // &:hover {
+    //   background-color: #dbdbdb;
+    //   transition: all 0.1s;
+    // }
   }
 
   .checkout_main_body {
@@ -101,6 +104,20 @@
       display: flex;
       justify-content: center;
     }
+
+    .delete-button{
+      background-color: white;
+    }
+    .delete-button:hover{
+      background-color: #dbdbdb;
+      transition: all 0.1s;
+    }
+    .delete-button:focus{
+      // background-color: #dbdbdb;
+      transition: all 0.1s;
+      // outline: none;
+      // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.3);
+    }
     .home-item-image {
       height: 100px;
       object-fit: contain;
@@ -147,6 +164,10 @@
   p {
     color: white;
     font-size: medium;
+  }
+  &:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.5); /* Custom focus effect */
   }
 }
 
