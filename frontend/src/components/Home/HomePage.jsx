@@ -36,22 +36,22 @@ const images = [
 
 function Home() {
   const navigate = useNavigate();
-
+  console.log("reloaded")
   return (
     <main className="home-container">
       {/* Left Section */}
       <section className="home-left-container">
         <div className="main_home_content">
           <div className="home-left-heading">
-            <h1>
-              EXPERIENCE
-              <br />
-              WITH OUR DESIGNS
+            <h1 className="business-name">
+              All U inc.  
             </h1>
-            <h2>
+            {/* <h2>
               Elevate your wardrobe with quality, comfort, and discover the joy
               of personalized fashion at ALL U
-            </h2>
+            </h2> */}
+            <h2 className="home-h2">Custom screenprinting, embroidery and more</h2>
+            <h3 className="home-h3">"Making someone's favorite shirt" since 1986!</h3>
           </div>
           <div className="home-left-contents">
             <div className="home-btn-main">
@@ -61,11 +61,12 @@ function Home() {
                   navigate("/designs");
                 }}
                 className="home-design-btn"
-              >
-                <span>Our Designs</span>
+                >
+                <span>Explore designs</span>
                 <MdOutlineKeyboardArrowRight className="design-btn-arrow" />
               </button>
             </div>
+                <p>Explore our collection of customizable designs</p>
             {/* <h1>
               Custom screenprinting, embroidery and more!
             </h1> */}
@@ -88,8 +89,8 @@ function Home() {
           <div className="slide-track">
             {images.map((el, i) => {
               return (
-                <div class="slide">
-                  <img key={i} src={el.url} alt={el.alt} width={150} />
+                <div className="slide" key={i}>
+                  <img src={el.url} alt={el.alt} width={150} />
                 </div>
               );
             })}
