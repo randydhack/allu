@@ -180,6 +180,7 @@ function Checkout() {
                           : undefined
                       }
                     />
+                    </button>
                   </div>
                 </div>
               );
@@ -192,7 +193,7 @@ function Checkout() {
                 className="navigate-shipping"
                 aria-label="shipping"
                 onClick={() => goToShip()}
-                
+
               >
                 <p >
                   Finalize Order
