@@ -88,8 +88,8 @@ function Home() {
           <div className="slide-track">
             {images.map((el, i) => {
               return (
-                <div class="slide">
-                  <img key={i} src={el.url} alt={el.alt} width={150} />
+                <div key={i} className="slide">
+                  <img src={el.url} alt={el.alt} width={150} />
                 </div>
               );
             })}
